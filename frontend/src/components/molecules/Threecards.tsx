@@ -1,5 +1,5 @@
 import { FC, useEffect, useReducer } from 'react';
-import { Card, Segment } from 'semantic-ui-react';
+import { Card, Segment, Loader, Dimmer } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import Fetchproductindex from 'apis/product';
@@ -8,6 +8,7 @@ import {
   initialState,
   productsActionTypes,
 } from 'reducers/Product';
+import REQUEST_STATE from 'constants';
 
 const rankings = {
   id: 1,
@@ -41,15 +42,21 @@ const Threecards: FC<Props> = ({ isindex = false, className }) => {
 
   return (
     <Segment>
-      <Card.Group itemPerRow={3} stackable className={className}>
-        {isindex ? (
-          <>
-            <Indexcards products={state.productsList} />
-          </>
-        ) : (
-          <Ranking rankings={[rankings]} />
-        )}
-      </Card.Group>
+      {state.fetchState === 'LOADING' ? (
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+      ) : (
+        <Card.Group itemPerRow={3} stackable className={className}>
+          {isindex ? (
+            <>
+              <Indexcards products={state.productsList} />
+            </>
+          ) : (
+            <Ranking rankings={[rankings]} />
+          )}
+        </Card.Group>
+      )}
     </Segment>
   );
 };

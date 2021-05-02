@@ -18,7 +18,7 @@ const Indexcards: FC<{ products: Product[] }> = ({ products }) => (
           header={product.name}
           meta={product.shopname}
           extra={extra}
-        />{' '}
+        />
       </Link>
     ))}
   </>
