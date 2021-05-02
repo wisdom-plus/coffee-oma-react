@@ -1,15 +1,10 @@
-import REQUEST_STATE from '../constants';
+import { Product } from 'model/index';
+import REQUEST_STATE, { ProductsActionTypes } from '../constants';
 
 export const initialState = {
   fetchState: REQUEST_STATE.INITIAL,
   productsList: [],
 };
-
-export const productsActionTypes = {
-  FETCHING: 'FRTCHING',
-  FETCH_SUCCESS: 'FETCH_SUCCESS',
-  ERROR: 'ERROR',
-} as const;
 
 export type State = {
   fetchState: string;
@@ -17,33 +12,24 @@ export type State = {
 };
 export type ValueOf<T> = T[keyof T];
 export type Action = {
-  type: ValueOf<typeof productsActionTypes>;
+  type: ValueOf<typeof ProductsActionTypes>;
   payload?: { products: Product[] };
-};
-export type Product = {
-  id: number;
-  name: string;
-  price: number;
-  caption: string;
-  url: string;
-  shopname: string;
-  image: string;
 };
 
 export const productindexReducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case productsActionTypes.FETCHING:
+    case ProductsActionTypes.FETCHING:
       return {
         ...state,
         fetchState: REQUEST_STATE.LOADING,
       };
-    case productsActionTypes.FETCH_SUCCESS:
+    case ProductsActionTypes.FETCH_SUCCESS:
       return {
         fetchState: REQUEST_STATE.OK,
         productsList:
           action.payload !== undefined ? action.payload.products : [],
       };
-    case productsActionTypes.ERROR:
+    case ProductsActionTypes.ERROR:
       return {
         ...state,
         fetchState: REQUEST_STATE.ERROR,

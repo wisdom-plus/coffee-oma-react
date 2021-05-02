@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Product } from 'reducers/Product';
+import { Product } from 'model/index';
 
 type Price = {
   price: number;

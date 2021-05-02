@@ -9,15 +9,16 @@ type Props = {
   isindex?: boolean;
   isshow?: boolean;
   isnew?: boolean;
+  productId: number;
 };
 
-const Product: FC<Props> = ({ isindex, isshow, isnew }) => (
+const Product: FC<Props> = ({ isindex, isshow, isnew, productId }) => (
   <>
     <Helmet title="Product" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
       <Grid.Column>
         {isindex && <Productindex />}
-        {isshow && <Productshow />}
+        {isshow && <Productshow productId={productId} />}
         {isnew && <Productnew />}
       </Grid.Column>
     </Grid>

@@ -3,11 +3,8 @@ import { Card, Segment } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import Fetchproductindex from 'apis/product';
-import {
-  productindexReducer,
-  initialState,
-  productsActionTypes,
-} from 'reducers/Product';
+import { productindexReducer, initialState } from 'reducers/Product';
+import { ProductsActionTypes } from '../../constants';
 
 const rankings = {
   id: 1,
@@ -18,45 +15,48 @@ const rankings = {
   shopname: 's',
   likescount: 1,
 };
-
 type Props = {
   isindex?: boolean;
   className?: string;
 };
 
-const Threecards: FC<Props> = ({ isindex = false, className }) => {
+export const Threecards: FC<Props> = ({ isindex = false, className }) => {
   const [state, dispatch] = useReducer(productindexReducer, initialState);
 
   useEffect(() => {
-    dispatch({ type: productsActionTypes.FETCHING });
+    dispatch({ type: ProductsActionTypes.FETCHING });
     Fetchproductindex()
       .then((data) =>
         dispatch({
-          type: productsActionTypes.FETCH_SUCCESS,
+          type: ProductsActionTypes.FETCH_SUCCESS,
           payload: data,
         }),
       )
-      .catch(() => dispatch({ type: productsActionTypes.ERROR }));
+      .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
   }, []);
 
   return (
-    <Segment loading={state.fetchState === 'LOADING'}>
-      <Card.Group
-        itemPerRow={3}
-        stackable
-        className={className}
-        centered
-        style={{ minHeight: '800px' }}
-      >
-        {isindex ? (
-          <>
+    <>
+      {isindex ? (
+        <Segment loading={state.fetchState === 'LOADING'}>
+          <Card.Group
+            itemPerRow={3}
+            stackable
+            className={className}
+            centered
+            style={{ minHeight: '700px' }}
+          >
             <Indexcards products={state.productsList} />
-          </>
-        ) : (
-          <Ranking rankings={[rankings]} />
-        )}
-      </Card.Group>
-    </Segment>
+          </Card.Group>
+        </Segment>
+      ) : (
+        <Segment loading={state.fetchState === 'LOADING'}>
+          <Card.Group itemPerRow={3} stackable className={className} centered>
+            <Ranking rankings={[rankings]} />
+          </Card.Group>
+        </Segment>
+      )}
+    </>
   );
 };
 
