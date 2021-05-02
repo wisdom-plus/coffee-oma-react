@@ -3,7 +3,7 @@ const REQUEST_STATE = {
   LOADING: 'LOADING',
   OK: 'OK',
   ERROR: 'ERROR',
-};
+} as const;
 
 export const HTTP_STATUS_CODE = {
   NOT_ACCEPTABLE: 406,
