@@ -8,15 +8,17 @@ export const initialState = {
 export const productsActionTypes = {
   FETCHING: 'FRTCHING',
   FETCH_SUCCESS: 'FETCH_SUCCESS',
-};
+  ERROR: 'ERROR',
+} as const;
 
-export type Fetch = {
+export type State = {
   fetchState: string;
   productsList: Product[];
 };
+export type ValueOf<T> = T[keyof T];
 export type Action = {
-  type: string;
-  payload: { products: Product[] };
+  type: ValueOf<typeof productsActionTypes>;
+  payload?: { products: Product[] };
 };
 export type Product = {
   id: number;
@@ -28,10 +30,7 @@ export type Product = {
   image: string;
 };
 
-export const productindexReduces = (
-  state: Fetch,
-  action: Action,
-): Fetch | Error => {
+export const productindexReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case productsActionTypes.FETCHING:
       return {
@@ -41,9 +40,18 @@ export const productindexReduces = (
     case productsActionTypes.FETCH_SUCCESS:
       return {
         fetchState: REQUEST_STATE.OK,
-        productsList: action.payload.products,
+        productsList:
+          action.payload !== undefined ? action.payload.products : [],
       };
-    default:
-      throw new Error();
+    case productsActionTypes.ERROR:
+      return {
+        ...state,
+        fetchState: REQUEST_STATE.ERROR,
+      };
+    default: {
+      const _: never = action.type;
+
+      return state;
+    }
   }
 };

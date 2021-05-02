@@ -1,8 +1,13 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useReducer } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import Fetchproductindex from 'apis/product';
+import {
+  productindexReducer,
+  initialState,
+  productsActionTypes,
+} from 'reducers/Product';
 
 const rankings = {
   id: 1,
@@ -14,25 +19,24 @@ const rankings = {
   likescount: 1,
 };
 
-const products = {
-  id: 1,
-  imageurl: 's',
-  itemname: 's',
-  meta: 's',
-  shopname: 's',
-  itemcaptions: 's',
-  itemprice: 2,
-};
 type Props = {
   isindex?: boolean;
   className?: string;
 };
 
 const Threecards: FC<Props> = ({ isindex = false, className }) => {
+  const [state, dispatch] = useReducer(productindexReducer, initialState);
+
   useEffect(() => {
+    dispatch({ type: productsActionTypes.FETCHING });
     Fetchproductindex()
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
+      .then((data) =>
+        dispatch({
+          type: productsActionTypes.FETCH_SUCCESS,
+          payload: data,
+        }),
+      )
+      .catch(() => dispatch({ type: productsActionTypes.ERROR }));
   }, []);
 
   return (
@@ -40,7 +44,7 @@ const Threecards: FC<Props> = ({ isindex = false, className }) => {
       <Card.Group itemPerRow={3} stackable className={className}>
         {isindex ? (
           <>
-            <Indexcards products={[products]} />
+            <Indexcards products={state.productsList} />
           </>
         ) : (
           <Ranking rankings={[rankings]} />

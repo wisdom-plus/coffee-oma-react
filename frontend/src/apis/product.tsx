@@ -2,10 +2,10 @@ import axios from 'axios';
 import { Product } from 'reducers/Product';
 import { productindexURL } from '../urls/index';
 
-const Fetchproductindex = (): Promise<Product[] | Error> =>
+const Fetchproductindex = (): Promise<{ products: Product[] } | undefined> =>
   axios
-    .get<Product[]>(productindexURL)
-    .then<Product[]>((results) => results.data)
-    .catch<Error>((error: Error) => error);
+    .get<{ products: Product[] }>(productindexURL)
+    .then<{ products: Product[] }>((results) => results.data)
+    .catch((error: undefined) => error);
 
 export default Fetchproductindex;
