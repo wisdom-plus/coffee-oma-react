@@ -4,15 +4,15 @@ import { Product } from 'model/index';
 
 const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
   <Grid.Column width={10}>
-    <Table celled definition textAlign="center">
+    <Table celled textAlign="center">
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell width={3}>fldas</Table.HeaderCell>
+          <Table.HeaderCell colSpan="3">{product.name}</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
         <Table.Row>
-          <Table.Cell>価格</Table.Cell>
+          <Table.Cell width={4}>価格</Table.Cell>
           <Table.Cell>{product.price}</Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -28,7 +28,7 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
           <Table.Cell>b</Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell colSpan="3">
             <a href={product.url} className="ui red button">
               商品を詳しく見る
             </a>

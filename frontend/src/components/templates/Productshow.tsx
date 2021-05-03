@@ -1,16 +1,33 @@
 import { FC, useReducer, useEffect } from 'react';
-import { Header, Segment } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import ShowTop from 'components/organisms/ShowTop';
 import { Fetchproductshow } from 'apis/product';
-import { productindexReducer, initialState } from 'reducers/Product';
-import { ProductsActionTypes } from '../../constants';
+import { productshowReducer } from 'reducers/Product';
+import { useParams } from 'react-router-dom';
+import REQUEST_STATE, { ProductsActionTypes } from '../../constants';
 
-const Productshow: FC<{ productId: number }> = ({ productId }) => {
-  const [state, dispatch] = useReducer(productindexReducer, initialState);
+const Product = {
+  id: 1,
+  name: 'name',
+  price: 0,
+  caption: 'caption',
+  url: 'url',
+  shopname: 'shopname',
+  image: 'image',
+};
+
+export const initialState = {
+  fetchState: REQUEST_STATE.INITIAL,
+  productsList: Product,
+};
+
+const Productshow: FC = () => {
+  const [state, dispatch] = useReducer(productshowReducer, initialState);
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     dispatch({ type: ProductsActionTypes.FETCHING });
-    Fetchproductshow(productId)
+    Fetchproductshow(id)
       .then((data) =>
         dispatch({
           type: ProductsActionTypes.FETCH_SUCCESS,
@@ -18,7 +35,7 @@ const Productshow: FC<{ productId: number }> = ({ productId }) => {
         }),
       )
       .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -28,9 +45,7 @@ const Productshow: FC<{ productId: number }> = ({ productId }) => {
         textAlign="center"
         style={{ marginBottom: '1rem' }}
       />
-      <Segment>
-        <ShowTop product={state.productsList} />
-      </Segment>
+      <ShowTop product={state.productsList} />
     </>
   );
 };

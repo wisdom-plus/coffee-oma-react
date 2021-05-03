@@ -16,6 +16,15 @@ export type Action = {
   payload?: { products: Product[] };
 };
 
+export type ShowAction = {
+  type: ValueOf<typeof ProductsActionTypes>;
+  payload?: { product: Product };
+};
+export type ShowState = {
+  fetchState: string;
+  productsList: Product;
+};
+
 export const productindexReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ProductsActionTypes.FETCHING:
@@ -28,6 +37,37 @@ export const productindexReducer = (state: State, action: Action): State => {
         fetchState: REQUEST_STATE.OK,
         productsList:
           action.payload !== undefined ? action.payload.products : [],
+      };
+    case ProductsActionTypes.ERROR:
+      return {
+        ...state,
+        fetchState: REQUEST_STATE.ERROR,
+      };
+    default: {
+      const _: never = action.type;
+
+      return state;
+    }
+  }
+};
+
+export const productshowReducer = (
+  state: ShowState,
+  action: ShowAction,
+): ShowState => {
+  switch (action.type) {
+    case ProductsActionTypes.FETCHING:
+      return {
+        ...state,
+        fetchState: REQUEST_STATE.LOADING,
+      };
+    case ProductsActionTypes.FETCH_SUCCESS:
+      return {
+        fetchState: REQUEST_STATE.OK,
+        productsList:
+          action.payload !== undefined
+            ? action.payload.product
+            : state.productsList,
       };
     case ProductsActionTypes.ERROR:
       return {

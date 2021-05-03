@@ -9,11 +9,11 @@ const Fetchproductindex = (): Promise<{ products: Product[] } | undefined> =>
     .catch((error: undefined) => error);
 
 export const Fetchproductshow = (
-  productId: number,
-): Promise<{ products: Product } | undefined> =>
+  productId: string,
+): Promise<{ product: Product } | undefined> =>
   axios
-    .get<{ products: Product }>(productshowURL(productId))
-    .then<{ products: Product }>((results) => results.data)
+    .get<{ product: Product }>(productshowURL(productId))
+    .then<{ product: Product }>((results) => results.data)
     .catch((error: undefined) => error);
 
 export default Fetchproductindex;

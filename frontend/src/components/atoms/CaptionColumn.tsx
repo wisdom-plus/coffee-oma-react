@@ -3,7 +3,7 @@ import { Table, Grid } from 'semantic-ui-react';
 
 const CaptionColumn: FC<{ caption: string }> = ({ caption }) => (
   <Grid.Column>
-    <Table celled definition>
+    <Table celled>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>商品の説明文</Table.HeaderCell>
