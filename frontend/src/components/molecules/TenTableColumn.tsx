@@ -29,7 +29,7 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
         </Table.Row>
         <Table.Row>
           <Table.Cell colSpan="3">
-            <a href={product.url} className="ui red button">
+            <a href={product.url} className="ui red circular button">
               商品を詳しく見る
             </a>
           </Table.Cell>
