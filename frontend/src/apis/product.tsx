@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { Product } from 'model/index';
+import { Product, ProductInput, PostOutput } from 'model/index';
 import { productindexURL, productshowURL } from '../urls/index';
 
-const Fetchproductindex = (): Promise<{ products: Product[] } | undefined> =>
+export const Fetchproductindex = (): Promise<
+  { products: Product[] } | undefined
+> =>
   axios
     .get<{ products: Product[] }>(productindexURL)
     .then<{ products: Product[] }>((results) => results.data)
@@ -14,6 +16,14 @@ export const Fetchproductshow = (
   axios
     .get<{ product: Product }>(productshowURL(productId))
     .then<{ product: Product }>((results) => results.data)
+    .catch((error: undefined) => error);
+
+export const Fetchproductnew = (
+  product: ProductInput,
+): Promise<PostOutput | undefined> =>
+  axios
+    .post<PostOutput>(productindexURL, { product })
+    .then<PostOutput>((results) => results.data)
     .catch((error: undefined) => error);
 
 export default Fetchproductindex;

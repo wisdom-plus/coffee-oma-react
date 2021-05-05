@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
+import Newform from 'components/organisms/Newform';
 
 const Productnew: FC = () => (
   <>
@@ -9,6 +10,7 @@ const Productnew: FC = () => (
       textAlign="center"
       style={{ marginBottom: '1rem' }}
     />
+    <Newform />
   </>
 );
 

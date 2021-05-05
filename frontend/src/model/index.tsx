@@ -8,4 +8,15 @@ export type Product = {
   image: string;
 };
 
+export type ProductInput = {
+  name: string;
+  price: number;
+  caption: string;
+  url: string;
+  shopname: string;
+};
+
+export type PostOutput = {
+  status: 'OK' | 'Failure';
+};
 export default Product;
