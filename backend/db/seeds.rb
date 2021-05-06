@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+<<<<<<< HEAD
+=======
+12.times do |i|
+  Product.create!(
+    name: i,
+    price: i,
+    caption: "之はテストでう",
+    url: "http://example.com",
+    shopname: "ここ",
+    image: 'imege'
+  )
+end
+>>>>>>> product

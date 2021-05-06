@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { Header } from 'semantic-ui-react';
-import Primarybutton from 'components/atoms/Primarybutton';
+import { Header, Icon, Button } from 'semantic-ui-react';
 
 const Textcontainer: FC = () => (
   <div className="ui text container">
@@ -10,7 +9,10 @@ const Textcontainer: FC = () => (
       style={{ minHeight: '1em', fontSize: '5em' }}
     />
     <h3>コーヒー関するすべてを</h3>
-    <Primarybutton />
+    <Button size="huge" primary>
+      coffee-omaを始める
+      <Icon name="arrow right" />
+    </Button>
   </div>
 );
 
