@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Segment } from 'semantic-ui-react';
 
 const Policycontent: FC = () => (
