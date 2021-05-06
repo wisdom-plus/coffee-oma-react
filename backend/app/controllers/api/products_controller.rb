@@ -13,5 +13,22 @@ module Api
         product: product
       }, status: :ok
     end
+
+    def create
+      @product = Product.new(product_params)
+      if @product.save
+        render json: { status: "OK"}, status: :created
+      else
+        binding.pry
+        render json: {status: 'Failure'}, status: :internal_server_error
+      end
+
+    end
+
+    private
+
+    def product_params
+      params.require(:product).permit(:name, :price, :url,:shopname, :caption)
+    end
   end
 end
