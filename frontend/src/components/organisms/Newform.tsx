@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Form, Card, Table, Grid } from 'semantic-ui-react';
+import { Form, Card, Table, Grid, Label } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import Product from 'components/pages/Product';
 import { Fetchproductnew } from 'apis/product';
@@ -21,7 +21,12 @@ type State = {
 
 const Newform: FC = () => {
   const [state, setState] = useState<State>({ created: 'Failure' });
-  const { register, handleSubmit, reset } = useForm<Product>();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<Product>({ criteriaMode: 'all' });
 
   const onSubmit = (data: Product) => {
     Fetchproductnew(data)
@@ -51,11 +56,23 @@ const Newform: FC = () => {
               <Card.Header>
                 <label htmlFor="name">
                   商品名
+                  {errors.name && (
+                    <Label
+                      pointing="below"
+                      color="red"
+                      basic
+                      style={{ marginLeft: '1em' }}
+                    >
+                      {errors.name?.message}
+                    </Label>
+                  )}
                   <input
                     type="text"
                     placeholder="item-name"
                     id="name"
-                    {...register('name')}
+                    {...register('name', {
+                      required: '商品名が入力されていません。',
+                    })}
                   />
                 </label>
               </Card.Header>
@@ -74,11 +91,28 @@ const Newform: FC = () => {
             <Card.Content extra>
               <label htmlFor="price">
                 商品価格
+                {errors.price && (
+                  <Label
+                    pointing="below"
+                    color="red"
+                    basic
+                    style={{ marginLeft: '1em' }}
+                  >
+                    {errors.price?.message}
+                  </Label>
+                )}
                 <input
                   type="number"
                   placeholder="item-price"
                   id="price"
-                  {...register('price')}
+                  min="0"
+                  {...register('price', {
+                    required: '商品価格が入力されていません。',
+                    validate: {
+                      message: (v) =>
+                        v < 0 && '商品価格は0以上で入力してください.',
+                    },
+                  })}
                 />
               </label>
             </Card.Content>
@@ -94,11 +128,23 @@ const Newform: FC = () => {
               </label>
             </Card.Content>
           </Card>
-          <Table caelled>
+          <Table celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>
-                  <Form.Field label="商品の説明" />
+                  <label htmlFor="caption">
+                    商品の説明
+                    {errors.caption && (
+                      <Label
+                        pointing="below"
+                        color="red"
+                        basic
+                        style={{ marginLeft: '1em' }}
+                      >
+                        {errors.caption?.message}
+                      </Label>
+                    )}
+                  </label>
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -108,13 +154,14 @@ const Newform: FC = () => {
                   <textarea
                     placeholder="item-caption"
                     id="caption"
-                    {...register('caption')}
+                    {...register('caption', {
+                      required: '商品の説明が入力されていません。',
+                    })}
                   />
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>
-
           <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
             <Form.Button color="teal" content="submit" />
           </Form.Field>
