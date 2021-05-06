@@ -2,7 +2,7 @@ import { FC, useEffect, useReducer } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
-import Fetchproductindex from 'apis/product';
+import { Fetchproductindex } from 'apis/product';
 import { productindexReducer, initialState } from 'reducers/Product';
 import { ProductsActionTypes } from '../../constants';
 
