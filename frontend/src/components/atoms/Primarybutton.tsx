@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 
 const Primarybutton: FC = () => (
