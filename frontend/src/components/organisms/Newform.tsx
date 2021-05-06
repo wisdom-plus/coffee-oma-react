@@ -35,7 +35,14 @@ const Newform: FC = () => {
 
   return (
     <Form size="small" onSubmit={handleSubmit(onSubmit)}>
-      {state.created === 'OK' && <Redirect to="/products" />}
+      {state.created === 'OK' && (
+        <Redirect
+          to={{
+            pathname: '/products',
+            state: { message: '登録が完了しました' },
+          }}
+        />
+      )}
       <Grid columns={3} centered>
         <Grid.Column width={3} />
         <Grid.Column width={10}>

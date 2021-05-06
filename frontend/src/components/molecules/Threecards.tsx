@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { FC } from 'react';
-import { Card, Segment } from 'semantic-ui-react';
-import Ranking from 'components/atoms/Ranking';
-import Indexcards from 'components/atoms/Indexcards';
-import Railtotop from 'components/atoms/Railtotop';
-=======
 import { FC, useEffect, useReducer } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
@@ -12,7 +5,6 @@ import Indexcards from 'components/atoms/Indexcards';
 import { Fetchproductindex } from 'apis/product';
 import { productindexReducer, initialState } from 'reducers/Product';
 import { ProductsActionTypes } from '../../constants';
->>>>>>> product
 
 const rankings = {
   id: 1,
@@ -28,22 +20,6 @@ type Props = {
   className?: string;
 };
 
-<<<<<<< HEAD
-const Threecards: FC<Props> = ({ isindex = false, className }) => (
-  <Segment>
-    <Card.Group itemPerRow={3} stackable className={className}>
-      {isindex ? (
-        <>
-          <Railtotop />
-          <Indexcards products={[products]} />
-        </>
-      ) : (
-        <Ranking rankings={[rankings]} />
-      )}
-    </Card.Group>
-  </Segment>
-);
-=======
 export const Threecards: FC<Props> = ({ isindex = false, className }) => {
   const [state, dispatch] = useReducer(productindexReducer, initialState);
 
@@ -83,6 +59,5 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
     </>
   );
 };
->>>>>>> product
 
 export default Threecards;

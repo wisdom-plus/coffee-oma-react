@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import Threecards from 'components/molecules/Threecards';
+import { Threecards } from 'components/molecules/Threecards';
 import styled from 'styled-components';
 
 const Rankinggrid = styled.div`
