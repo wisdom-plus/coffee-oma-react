@@ -108,10 +108,6 @@ const Newform: FC = () => {
                   min="0"
                   {...register('price', {
                     required: '商品価格が入力されていません。',
-                    validate: {
-                      message: (v) =>
-                        v < 0 && '商品価格は0以上で入力してください.',
-                    },
                   })}
                 />
               </label>
