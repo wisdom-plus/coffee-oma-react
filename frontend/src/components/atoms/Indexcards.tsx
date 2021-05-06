@@ -8,7 +8,7 @@ type Price = {
 };
 
 const Extra: FC<Price> = ({ price = 100 }) => (
-  <Icon name="yen sign">{price}</Icon>
+  <Icon name="yen sign">{price.toLocaleString()}</Icon>
 );
 
 const Indexcards: FC<{ products: Product[] }> = ({ products }) => (
