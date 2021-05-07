@@ -7,22 +7,18 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV["LOCAL_URL"]
-
-
+    origins ENV['LOCAL_URL']
 
     resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+             headers: :any,
+             methods: %i[get post put patch delete options head]
   end
 
   allow do
-    origins ENV["PRODUCTION_URL"]
-
-
+    origins ENV['PRODUCTION_URL']
 
     resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+             headers: :any,
+             methods: %i[get post put patch delete options head]
   end
 end
