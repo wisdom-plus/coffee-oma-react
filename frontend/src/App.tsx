@@ -6,6 +6,7 @@ import Home from 'components/pages/Home';
 import Product from 'components/pages/Product';
 import Footer from 'components/organisms/Footer';
 import Policy from 'components/templates/Policy';
+import Registration from 'components/pages/Registration';
 import './App.css';
 
 const App: VFC = () => {
@@ -26,13 +27,22 @@ const App: VFC = () => {
           <Route exact path="/">
             <Home />
           </Route>
+          <Route exact path="/sing_up">
+            <Registration isnew />
+          </Route>
+          <Route exact path="/registation/edit">
+            <Registration isedit />
+          </Route>
+          <Route exact path="/registation/:id(\d+)">
+            <Registration isshow />
+          </Route>
           <Route exact path="/products">
             <Product isindex />
           </Route>
           <Route exact path="/product/new">
             <Product isnew />
           </Route>
-          <Route path="/product/:id">
+          <Route path="/product/:id(\d+)">
             <Product isshow />
           </Route>
           <Route path="/private_policy">
