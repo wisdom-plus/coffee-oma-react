@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
+import SignUpForm from 'components/organisms/SignUpForm';
 
 const RegistrationNew: FC = () => (
   <>
@@ -9,6 +10,7 @@ const RegistrationNew: FC = () => (
       textAlign="center"
       stryle={{ marginBottom: '3rem' }}
     />
+    <SignUpForm />
   </>
 );
 

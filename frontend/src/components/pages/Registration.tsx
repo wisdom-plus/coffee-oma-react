@@ -15,9 +15,11 @@ const Registration: FC<Props> = ({ isnew, isedit, isshow }) => (
   <>
     <Helmet title="Registration" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
-      {isnew && <RegistrationNew />}
-      {isedit && <RegistrationEdit />}
-      {isshow && <RegistrationShow />}
+      <Grid.Column>
+        {isnew && <RegistrationNew />}
+        {isedit && <RegistrationEdit />}
+        {isshow && <RegistrationShow />}
+      </Grid.Column>
     </Grid>
   </>
 );

@@ -1,19 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Form, Card, Table, Grid, Label } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
-import Product from 'components/pages/Product';
-import { Fetchproductnew } from 'apis/product';
+import { Fetchproductnew } from 'apis/Product';
 import { Redirect } from 'react-router-dom';
-
+import { ProductForm } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
-
-export type Product = {
-  name: string;
-  price: number;
-  caption: string;
-  url: string;
-  shopname: string;
-};
 
 type State = {
   created: 'OK' | 'Failure';
@@ -26,9 +17,9 @@ const Newform: FC = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<Product>({ criteriaMode: 'all' });
+  } = useForm<ProductForm>({ criteriaMode: 'all' });
 
-  const onSubmit = (data: Product) => {
+  const onSubmit = (data: ProductForm) => {
     Fetchproductnew(data)
       .then((result) =>
         result !== undefined && result.status === 'OK'
