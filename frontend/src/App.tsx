@@ -7,6 +7,7 @@ import Product from 'components/pages/Product';
 import Footer from 'components/organisms/Footer';
 import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
+import NoRender from 'components/pages/NoRender';
 
 const App: VFC = () => {
   const { hash, pathname } = useLocation();
@@ -49,6 +50,12 @@ const App: VFC = () => {
           </Route>
           <Route path="/policy">
             <Policy />
+          </Route>
+          <Route exact path="/send_mail">
+            <NoRender issendmail />
+          </Route>
+          <Route>
+            <NoRender />
           </Route>
         </Switch>
       </Container>
