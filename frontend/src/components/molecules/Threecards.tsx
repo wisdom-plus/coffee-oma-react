@@ -38,14 +38,11 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
   return (
     <>
       {isindex ? (
-        <Segment loading={state.fetchState === 'LOADING'}>
-          <Card.Group
-            itemPerRow={3}
-            stackable
-            className={className}
-            centered
-            style={{ minHeight: '700px' }}
-          >
+        <Segment
+          loading={state.fetchState === 'LOADING'}
+          style={{ margin: '4em', padding: '3em' }}
+        >
+          <Card.Group itemPerRow={3} stackable className={className} centered>
             <Indexcards products={state.productsList} />
           </Card.Group>
         </Segment>

@@ -19,8 +19,8 @@ const Newform: FC = () => {
     reset,
   } = useForm<ProductForm>({ criteriaMode: 'all' });
 
-  const onSubmit = (data: ProductForm) => {
-    Fetchproductnew(data)
+  const onSubmit = async (data: ProductForm) => {
+    await Fetchproductnew(data)
       .then((result) =>
         result !== undefined && result.status === 'OK'
           ? setState({ created: result.status })

@@ -1,13 +1,21 @@
 import axios from 'axios';
-import { PostOutput, UserForm } from 'model/index';
+import { UserForm } from 'model/index';
 import { registrationnewURL } from '../urls/index';
 
 export const Fetchregistrationnew = (
   user: UserForm,
-): Promise<PostOutput | undefined> =>
-  axios
-    .post<PostOutput>(registrationnewURL, { user })
-    .then<PostOutput>((result) => result.data)
+): Promise<number | undefined> =>
+  axios({
+    method: 'post',
+    url: registrationnewURL,
+    data: {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      password_confirmation: user.passwordconfirmation,
+    },
+  })
+    .then((result) => result.status)
     .catch((error: undefined) => error);
 
 export default Fetchregistrationnew;

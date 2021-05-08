@@ -1,11 +1,17 @@
-import { FC, useRef } from 'react';
-import { Form, Grid, Input } from 'semantic-ui-react';
+import { FC, useRef, useState } from 'react';
+import { Form, Grid, Input, Segment } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 import { UserForm } from 'model/index';
 import { Fetchregistrationnew } from 'apis/User';
 /* eslint-disable react/jsx-props-no-spreading */
 
+type State = {
+  created: 'OK' | 'Failure';
+};
+
 const SignUpForm: FC = () => {
+  const [state, setState] = useState<State>({ created: 'Failure' });
   const {
     register,
     formState: { errors },
@@ -17,21 +23,29 @@ const SignUpForm: FC = () => {
   });
   const password = useRef({});
   password.current = watch('password', '');
-  const onSubmit = (data: UserForm) => {
-    Fetchregistrationnew(data)
+
+  const onSubmit = async (data: UserForm) => {
+    await Fetchregistrationnew(data)
       .then((result) =>
-        result !== undefined && result.status === 'OK'
-          ? console.log('OK')
-          : reset(),
+        result !== undefined && result === 200
+          ? setState({ created: 'OK' })
+          : reset(data),
       )
-      .catch(() => reset());
+      .catch(() => reset(data));
   };
 
   return (
     <Form size="small" onSubmit={handleSubmit(onSubmit)}>
-      <Grid columns={3} cemterd>
+      {state.created === 'OK' && (
+        <Redirect
+          to={{
+            pathname: '/',
+          }}
+        />
+      )}
+      <Grid columns={3} cemterd style={{ margin: '4em' }}>
         <Grid.Column width={3} />
-        <Grid.Column width={10}>
+        <Grid.Column width={10} as={Segment}>
           <Form.Field
             error={
               errors.name && {
@@ -112,6 +126,7 @@ const SignUpForm: FC = () => {
                 value === password.current || 'パスワードが一致しません',
             })}
           />
+
           <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
             <Form.Button color="teal" content="submit" />
           </Form.Field>
