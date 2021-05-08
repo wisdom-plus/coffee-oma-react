@@ -42,11 +42,11 @@ DeviseTokenAuth.setup do |config|
   # config.default_callbacks = true
 
   # Makes it possible to change the headers names
-  config.headers_names = {:'access-token' => 'access-token',
-                         :'client' => 'client',
-                         :'expiry' => 'expiry',
-                         :'uid' => 'uid',
-                         :'token-type' => 'token-type' }
+  config.headers_names = { 'access-token': 'access-token',
+                           client: 'client',
+                           expiry: 'expiry',
+                           uid: 'uid',
+                           'token-type': 'token-type' }
 
   # By default, only Bearer Token authentication is implemented out of the box.
   # If, however, you wish to integrate with legacy Devise authentication, you can
@@ -57,4 +57,5 @@ DeviseTokenAuth.setup do |config|
   # devise confirmable module. If you want to use devise confirmable module and
   # send email, set it to true. (This is a setting for compatibility)
   # config.send_confirmation_email = true
+  config.default_confirm_success_url = 'http://localhost:3002'
 end

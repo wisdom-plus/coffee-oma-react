@@ -31,7 +31,7 @@ module Backend
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.i18n.default_locale =:ja
+    config.i18n.default_locale = :ja
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
@@ -45,9 +45,9 @@ module Backend
       allow do
         origins '*'
         resource '*',
-                 :headers => :any,
-                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 :methods => [:get, :post, :options, :delete, :put]
+                 headers: :any,
+                 expose: %w[access-token expiry token-type uid client],
+                 methods: %i[get post options delete put]
       end
     end
   end
