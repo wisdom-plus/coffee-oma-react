@@ -39,7 +39,7 @@ const SignUpForm: FC = () => {
       {state.created === 'OK' && (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: '/send_mail',
           }}
         />
       )}

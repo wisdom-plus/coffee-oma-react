@@ -42,13 +42,13 @@ const App: VFC = () => {
           <Route exact path="/product/new">
             <Product isnew />
           </Route>
-          <Route path="/product/:id(\d+)">
+          <Route exact path="/product/:id(\d+)">
             <Product isshow />
           </Route>
-          <Route path="/private_policy">
+          <Route exact path="/private_policy">
             <Policy isprivate />
           </Route>
-          <Route path="/policy">
+          <Route exact path="/policy">
             <Policy />
           </Route>
           <Route exact path="/send_mail">
