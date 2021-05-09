@@ -8,6 +8,7 @@ import Footer from 'components/organisms/Footer';
 import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
+import Session from 'components/pages/Session';
 
 const App: VFC = () => {
   const { hash, pathname } = useLocation();
@@ -29,6 +30,9 @@ const App: VFC = () => {
           </Route>
           <Route exact path="/sign_up">
             <Registration isnew />
+          </Route>
+          <Route exact path="/sign_in">
+            <Session />
           </Route>
           <Route exact path="/registation/edit">
             <Registration isedit />

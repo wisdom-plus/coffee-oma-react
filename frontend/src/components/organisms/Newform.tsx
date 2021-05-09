@@ -22,8 +22,8 @@ const Newform: FC = () => {
   const onSubmit = async (data: ProductForm) => {
     await Fetchproductnew(data)
       .then((result) =>
-        result !== undefined && result.status === 'OK'
-          ? setState({ created: result.status })
+        result !== undefined && result === 200
+          ? setState({ created: 'OK' })
           : reset(),
       )
       .catch(() => reset());

@@ -2,7 +2,7 @@ import { FC, useRef, useState } from 'react';
 import { Form, Grid, Input, Segment } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
-import { UserForm } from 'model/index';
+import { UserInput } from 'model/index';
 import { Fetchregistrationnew } from 'apis/User';
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -18,13 +18,13 @@ const SignUpForm: FC = () => {
     handleSubmit,
     watch,
     reset,
-  } = useForm<UserForm>({
+  } = useForm<UserInput>({
     criteriaMode: 'all',
   });
   const password = useRef({});
   password.current = watch('password', '');
 
-  const onSubmit = async (data: UserForm) => {
+  const onSubmit = async (data: UserInput) => {
     await Fetchregistrationnew(data)
       .then((result) =>
         result !== undefined && result === 200
@@ -43,7 +43,7 @@ const SignUpForm: FC = () => {
           }}
         />
       )}
-      <Grid columns={3} cemterd style={{ margin: '4em' }}>
+      <Grid columns={3} centered style={{ margin: '4em' }}>
         <Grid.Column width={3} />
         <Grid.Column width={10} as={Segment}>
           <Form.Field
@@ -109,8 +109,8 @@ const SignUpForm: FC = () => {
           />
           <Form.Field
             error={
-              errors.passwordconfirmation && {
-                content: errors.passwordconfirmation?.message,
+              errors.password_confirmation && {
+                content: errors.password_confirmation.message,
                 pointing: 'below',
               }
             }
@@ -121,14 +121,14 @@ const SignUpForm: FC = () => {
             iconPosition="left"
             required
             type="password"
-            {...register('passwordconfirmation', {
+            {...register('password_confirmation', {
               validate: (value) =>
                 value === password.current || 'パスワードが一致しません',
             })}
           />
 
           <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
-            <Form.Button color="teal" content="submit" />
+            <Form.Button color="teal" content="登録" />
           </Form.Field>
         </Grid.Column>
         <Grid.Column width={3} />

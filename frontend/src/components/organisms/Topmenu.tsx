@@ -14,6 +14,7 @@ const Topmenu: FC = () => (
         content="新規登録"
         position="right"
       />
+      <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
     </Container>
   </Menu>
 );

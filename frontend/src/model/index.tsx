@@ -15,7 +15,20 @@ export type User = {
   name: string;
   email: string;
   password: string;
-  passwordconfirmation: string;
+};
+
+type Userprops = 'name' | 'email' | 'password' | 'password_confirmation';
+export type UserInput = Record<Userprops, string>;
+
+export type Session = {
+  email: string;
+  password: string;
+};
+
+export type Token = {
+  'access-token': string;
+  client: string;
+  uid: string;
 };
 
 export type UserForm = Omit<User, 'id'>;

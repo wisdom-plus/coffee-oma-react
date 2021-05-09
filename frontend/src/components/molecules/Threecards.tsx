@@ -24,16 +24,18 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
   const [state, dispatch] = useReducer(productindexReducer, initialState);
 
   useEffect(() => {
-    dispatch({ type: ProductsActionTypes.FETCHING });
-    Fetchproductindex()
-      .then((data) =>
-        dispatch({
-          type: ProductsActionTypes.FETCH_SUCCESS,
-          payload: data,
-        }),
-      )
-      .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
-  }, []);
+    if (isindex) {
+      dispatch({ type: ProductsActionTypes.FETCHING });
+      Fetchproductindex()
+        .then((data) =>
+          dispatch({
+            type: ProductsActionTypes.FETCH_SUCCESS,
+            payload: data,
+          }),
+        )
+        .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
+    }
+  }, [isindex]);
 
   return (
     <>

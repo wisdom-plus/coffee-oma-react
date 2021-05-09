@@ -18,8 +18,9 @@ module Api
         end
 
         def account_update_params
-          params.permit(:name, :email)
+          params.require(:session).permit(:password, :email)
         end
     end
   end
 end
+Expected an assignment or function call and instead saw an expression.
