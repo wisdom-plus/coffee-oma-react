@@ -1,20 +1,21 @@
 import { FC } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
 import SignInForm from 'components/molecules/SignInForm';
+import SignOut from 'components/atoms/SignOut';
 
-const Session: FC = () => (
+type Props = {
+  issignin?: boolean;
+  issignout?: boolean;
+};
+
+const Session: FC<Props> = ({ issignin, issignout }) => (
   <>
     <Helmet title="Session" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
       <Grid.Column>
-        <Header
-          as="h1"
-          content="ログイン"
-          textAlign="center"
-          style={{ marginBottom: '1rem' }}
-        />
-        <SignInForm />
+        {issignin && <SignInForm />}
+        {issignout && <SignOut />}
       </Grid.Column>
     </Grid>
   </>

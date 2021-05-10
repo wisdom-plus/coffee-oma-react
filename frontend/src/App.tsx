@@ -32,7 +32,10 @@ const App: VFC = () => {
             <Registration isnew />
           </Route>
           <Route exact path="/sign_in">
-            <Session />
+            <Session issignin />
+          </Route>
+          <Route exact path="/sign_out">
+            <Session issignout />
           </Route>
           <Route exact path="/registation/edit">
             <Registration isedit />
