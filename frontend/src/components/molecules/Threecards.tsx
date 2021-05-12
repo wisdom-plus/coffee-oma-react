@@ -8,7 +8,6 @@ import { ProductsActionTypes } from '../../constants';
 
 const rankings = {
   id: 1,
-  link: 's',
   imageurl: 's',
   itemname: 's',
   meta: 's',
@@ -44,13 +43,13 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
           loading={state.fetchState === 'LOADING'}
           style={{ margin: '4em', padding: '3em' }}
         >
-          <Card.Group itemPerRow={3} stackable className={className} centered>
+          <Card.Group itemsPerRow={3} stackable className={className} centered>
             <Indexcards products={state.productsList} />
           </Card.Group>
         </Segment>
       ) : (
         <Segment loading={state.fetchState === 'LOADING'}>
-          <Card.Group itemPerRow={3} stackable className={className} centered>
+          <Card.Group itemsPerRow={3} stackable className={className} centered>
             <Ranking rankings={[rankings]} />
           </Card.Group>
         </Segment>

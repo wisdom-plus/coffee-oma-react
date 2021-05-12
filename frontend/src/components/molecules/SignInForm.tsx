@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
-import { Form, Grid, Segment, Input, Header } from 'semantic-ui-react';
+import { Form, Grid, Segment, Input, Header, Ref } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
 import { Redirect } from 'react-router-dom';
-/* eslint-disable react/jsx-props-no-spreading */
+import { useRecoilState } from 'recoil';
+import LoginState from 'atom';
 
 type State = {
   login: boolean;
@@ -17,20 +18,26 @@ const SignInForm: FC = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<Session>({});
+  } = useForm<Session>({ criteriaMode: 'all' });
+
+  const [, setUser] = useRecoilState(LoginState);
 
   const onSubmit = async (data: Session) => {
     await Fetchsessionnew(data)
       .then((result) =>
         result !== undefined
-          ? (localStorage.setItem('access-token', result['access-token']),
-            localStorage.setItem('client', result.client),
-            localStorage.setItem('uid', result.uid),
-            setState({ login: true }))
-          : reset(data),
+          ? (setState({ login: true }), setUser(() => result.data))
+          : reset(),
       )
-      .catch(() => reset(data));
+      .catch(() => reset());
   };
+
+  const emailhook = register('email', {
+    required: 'メールアドレスが入力されていません。',
+  });
+  const passhook = register('password', {
+    required: 'パスワードが入力されていません。',
+  });
 
   return (
     <>
@@ -45,40 +52,44 @@ const SignInForm: FC = () => {
         <Grid columns={3} centered style={{ margin: '4em' }}>
           <Grid.Column width={3} />
           <Grid.Column width={10} as={Segment}>
-            <Form.Field
-              error={
-                errors.email && {
-                  content: errors.email?.message,
-                  pointing: 'below',
+            <Ref innerRef={emailhook.ref}>
+              <Form.Field
+                error={
+                  errors.email && {
+                    content: errors.email?.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              label="メールアドレス"
-              icon="mail"
-              required
-              iconPosition="left"
-              placeholder="e-mail"
-              {...register('email', {
-                required: 'メールアドレスが入力されていません。',
-              })}
-            />
-            <Form.Field
-              error={
-                errors.password && {
-                  content: errors.password?.message,
-                  pointing: 'below',
+                control={Input}
+                label="メールアドレス"
+                icon="mail"
+                required
+                iconPosition="left"
+                placeholder="e-mail"
+                onChange={emailhook.onChange}
+                onBlur={emailhook.onBlur}
+                name={emailhook.name}
+              />
+            </Ref>
+            <Ref innerRef={passhook.ref}>
+              <Form.Field
+                error={
+                  errors.password && {
+                    content: errors.password?.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              label="パスワード"
-              icon="key"
-              required
-              iconPosition="left"
-              placeholder="password"
-              {...register('password', {
-                required: 'パスワードが入力されていません。',
-              })}
-            />
+                control={Input}
+                label="パスワード"
+                icon="key"
+                required
+                iconPosition="left"
+                placeholder="password"
+                onChange={passhook.onChange}
+                onBlur={passhook.onBlur}
+                name={passhook.name}
+              />
+            </Ref>
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >

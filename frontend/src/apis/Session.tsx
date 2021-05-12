@@ -1,11 +1,26 @@
 import axios from 'axios';
-import { Session, Token } from 'model/index';
+import { Session, Token, CurrentUser } from 'model/index';
 import { sessionnewURL, sessiondestroyURL } from '../urls/index';
 
-export const Fetchsessionnew = (session: Session): Promise<Token | undefined> =>
+type login = {
+  data: CurrentUser;
+  headers: Token;
+};
+
+const StorageSet = (result: Token): void => {
+  localStorage.setItem('access-token', result['access-token']);
+  localStorage.setItem('client', result.client);
+  localStorage.setItem('uid', result.uid);
+};
+
+export const Fetchsessionnew = (session: Session): Promise<login | undefined> =>
   axios
-    .post<Token>(sessionnewURL, { ...session })
-    .then<Token>((result) => result.headers as Token)
+    .post<login>(sessionnewURL, { ...session })
+    .then<login>((result) => {
+      StorageSet(result.headers);
+
+      return result.data;
+    })
     .catch((error: undefined) => error);
 
 export const Fetchsessiondestroy = (): Promise<number | undefined> =>

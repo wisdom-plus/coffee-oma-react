@@ -1,4 +1,4 @@
-import { VFC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
 import { Container } from 'semantic-ui-react';
 import TopMenu from 'components/organisms/Topmenu';
@@ -10,7 +10,7 @@ import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
 
-const App: VFC = () => {
+const App: FC = () => {
   const { hash, pathname } = useLocation();
   const { action } = useHistory();
 
