@@ -9,12 +9,16 @@ import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
+import { useRecoilState } from 'recoil';
+import LoginState from 'atom';
 
 const App: FC = () => {
   const { hash, pathname } = useLocation();
   const { action } = useHistory();
+  const [user] = useRecoilState(LoginState);
 
   useEffect(() => {
+    console.log(user);
     if (!hash || action !== 'POP') {
       window.scrollTo(0, 0);
     }
