@@ -23,4 +23,3 @@ module Api
     end
   end
 end
-Expected an assignment or function call and instead saw an expression.
