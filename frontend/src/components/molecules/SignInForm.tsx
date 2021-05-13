@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
 import { Redirect } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import LoginState from 'atom';
 
 type State = {
@@ -20,13 +20,14 @@ const SignInForm: FC = () => {
     reset,
   } = useForm<Session>({ criteriaMode: 'all' });
 
-  const [, setUser] = useRecoilState(LoginState);
+  const setUser = useSetRecoilState(LoginState);
 
   const onSubmit = async (data: Session) => {
     await Fetchsessionnew(data)
       .then((result) =>
         result !== undefined
-          ? (setState({ login: true }), setUser(() => result.data))
+          ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
+            setState({ login: true }))
           : reset(),
       )
       .catch(() => reset());

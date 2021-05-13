@@ -15,15 +15,22 @@ const SignOut: FC = () => {
   const resetUser = useResetRecoilState(LoginState);
 
   useEffect(() => {
-    Fetchsessiondestroy()
-      .then((result) =>
-        result !== undefined && result === 200
-          ? (setState({ logout: true }), resetUser)
-          : setState({ logout: false }),
-      )
-      .catch(() => setState({ logout: false }));
-    setTimeout(() => setRedirect(true), 6000);
-  }, []);
+    let isMounted = true;
+    if (isMounted) {
+      Fetchsessiondestroy()
+        .then((result) =>
+          result !== undefined && result === 200
+            ? (resetUser(), setState({ logout: true }))
+            : setState({ logout: false }),
+        )
+        .catch(() => setState({ logout: false }));
+      setTimeout(() => setRedirect(true), 6000);
+    }
+
+    return (): void => {
+      isMounted = false;
+    };
+  }, [resetUser]);
 
   return (
     <>

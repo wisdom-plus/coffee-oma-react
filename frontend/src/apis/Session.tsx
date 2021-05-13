@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { Session, Token, CurrentUser } from 'model/index';
-import { sessionnewURL, sessiondestroyURL } from '../urls/index';
+import {
+  sessionnewURL,
+  sessiondestroyURL,
+  sessionvaildateURL,
+} from '../urls/index';
 
 type login = {
   data: CurrentUser;
@@ -39,4 +43,22 @@ export const Fetchsessiondestroy = (): Promise<number | undefined> =>
       return result.status;
     })
     .catch((error: undefined) => error);
+
+export const Fetchsessionvaildate = (): Promise<
+  { data: CurrentUser } | undefined
+> =>
+  axios({
+    method: 'get',
+    url: sessionvaildateURL,
+    headers: {
+      'access-token': localStorage.getItem('access-token'),
+      client: localStorage.getItem('client'),
+      uid: localStorage.getItem('uid'),
+    },
+  })
+    .then<{ data: CurrentUser }>(
+      (result) => result.data as { data: CurrentUser },
+    )
+    .catch((error: undefined) => error);
+
 export default Fetchsessionnew;
