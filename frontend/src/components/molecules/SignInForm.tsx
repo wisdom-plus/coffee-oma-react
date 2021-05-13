@@ -1,18 +1,16 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Form, Grid, Segment, Input, Header, Ref } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
-import { Redirect } from 'react-router-dom';
+
 import { useSetRecoilState } from 'recoil';
 import LoginState from 'atom';
-
-type State = {
-  login: boolean;
-};
+import FormMessage from 'components/atoms/FormMessage';
 
 const SignInForm: FC = () => {
-  const [state, setState] = useState<State>({ login: false });
+  const history = useHistory();
   const {
     register,
     formState: { errors },
@@ -27,7 +25,7 @@ const SignInForm: FC = () => {
       .then((result) =>
         result !== undefined
           ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
-            setState({ login: true }))
+            history.push('/'))
           : reset(),
       )
       .catch(() => reset());
@@ -48,54 +46,56 @@ const SignInForm: FC = () => {
         textAlign="center"
         style={{ marginBottom: '1rem' }}
       />
-      {state.login && <Redirect to="/" />}
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Grid columns={3} centered style={{ margin: '4em' }}>
           <Grid.Column width={3} />
-          <Grid.Column width={10} as={Segment}>
-            <Ref innerRef={emailhook.ref}>
-              <Form.Field
-                error={
-                  errors.email && {
-                    content: errors.email?.message,
-                    pointing: 'below',
+          <Grid.Column width={10}>
+            <Segment>
+              <Ref innerRef={emailhook.ref}>
+                <Form.Field
+                  error={
+                    errors.email && {
+                      content: errors.email?.message,
+                      pointing: 'below',
+                    }
                   }
-                }
-                control={Input}
-                label="メールアドレス"
-                icon="mail"
-                required
-                iconPosition="left"
-                placeholder="e-mail"
-                onChange={emailhook.onChange}
-                onBlur={emailhook.onBlur}
-                name={emailhook.name}
-              />
-            </Ref>
-            <Ref innerRef={passhook.ref}>
-              <Form.Field
-                error={
-                  errors.password && {
-                    content: errors.password?.message,
-                    pointing: 'below',
+                  control={Input}
+                  label="メールアドレス"
+                  icon="mail"
+                  required
+                  iconPosition="left"
+                  placeholder="e-mail"
+                  onChange={emailhook.onChange}
+                  onBlur={emailhook.onBlur}
+                  name={emailhook.name}
+                />
+              </Ref>
+              <Ref innerRef={passhook.ref}>
+                <Form.Field
+                  error={
+                    errors.password && {
+                      content: errors.password?.message,
+                      pointing: 'below',
+                    }
                   }
-                }
-                control={Input}
-                label="パスワード"
-                icon="key"
-                required
-                iconPosition="left"
-                placeholder="password"
-                onChange={passhook.onChange}
-                onBlur={passhook.onBlur}
-                name={passhook.name}
-              />
-            </Ref>
-            <Form.Field
-              style={{ textAlign: 'center', justifyContent: 'center' }}
-            >
-              <Form.Button color="teal" content="ログイン" />
-            </Form.Field>
+                  control={Input}
+                  label="パスワード"
+                  icon="key"
+                  required
+                  iconPosition="left"
+                  placeholder="password"
+                  onChange={passhook.onChange}
+                  onBlur={passhook.onBlur}
+                  name={passhook.name}
+                />
+              </Ref>
+              <Form.Field
+                style={{ textAlign: 'center', justifyContent: 'center' }}
+              >
+                <Form.Button color="teal" content="ログイン" />
+              </Form.Field>
+            </Segment>
+            <FormMessage issignin />
           </Grid.Column>
           <Grid.Column width={3} />
         </Grid>

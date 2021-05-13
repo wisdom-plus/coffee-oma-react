@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Header, Grid, Segment } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const SendMail: FC = () => (
   <>
@@ -15,7 +16,7 @@ const SendMail: FC = () => (
         <Header as="h4" textAlign="center">
           入力されたメールアドレスにアドレス確認メールを送信しました。
           <Header.Subheader>
-            メールが受信されない場合はこちらから
+            <Link to="/confirmation">メールが受信されない場合はこちら</Link>
           </Header.Subheader>
         </Header>
       </Grid.Column>

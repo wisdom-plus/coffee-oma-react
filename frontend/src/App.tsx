@@ -38,6 +38,9 @@ const App: FC = () => {
           <Route exact path="/sign_out">
             <Session issignout />
           </Route>
+          <Route exact path="/confirmation">
+            <Session isconfirm />
+          </Route>
           <Route exact path="/registation/edit">
             <Registration isedit />
           </Route>

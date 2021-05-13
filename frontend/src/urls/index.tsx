@@ -7,5 +7,6 @@ export const registrationnewURL = `${DEFAULT_API_LOCALHOST}/auth`;
 export const sessionnewURL = `${DEFAULT_API_LOCALHOST}/auth/sign_in`;
 export const sessiondestroyURL = `${DEFAULT_API_LOCALHOST}/auth/sign_out`;
 export const sessionvaildateURL = `${DEFAULT_API_LOCALHOST}/auth/validate_token`;
+export const sessionconfirmationURL = `${DEFAULT_API_LOCALHOST}/auth/confirmation`;
 
 export default productindexURL;

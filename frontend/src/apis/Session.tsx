@@ -4,6 +4,7 @@ import {
   sessionnewURL,
   sessiondestroyURL,
   sessionvaildateURL,
+  sessionconfirmationURL,
 } from '../urls/index';
 
 type login = {
@@ -60,5 +61,13 @@ export const Fetchsessionvaildate = (): Promise<
       (result) => result.data as { data: CurrentUser },
     )
     .catch((error: undefined) => error);
+
+export const Fetchsessionconfirm = (params: {
+  email: string;
+}): Promise<number> =>
+  axios
+    .post(sessionconfirmationURL, params)
+    .then((result) => result.status)
+    .catch(() => 404);
 
 export default Fetchsessionnew;

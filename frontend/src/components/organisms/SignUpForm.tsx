@@ -1,16 +1,13 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useRef } from 'react';
 import { Form, Grid, Input, Segment, Ref } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { UserInput } from 'model/index';
 import { Fetchregistrationnew } from 'apis/User';
-
-type State = {
-  created: 'OK' | 'Failure';
-};
+import FormMessage from 'components/atoms/FormMessage';
 
 const SignUpForm: FC = () => {
-  const [state, setState] = useState<State>({ created: 'Failure' });
+  const history = useHistory();
   const {
     register,
     formState: { errors },
@@ -50,7 +47,7 @@ const SignUpForm: FC = () => {
     await Fetchregistrationnew(data)
       .then((result) =>
         result !== undefined && result === 200
-          ? setState({ created: 'OK' })
+          ? history.push('/send_mail')
           : reset(data),
       )
       .catch(() => reset(data));
@@ -58,99 +55,97 @@ const SignUpForm: FC = () => {
 
   return (
     <Form size="small" onSubmit={handleSubmit(onSubmit)}>
-      {state.created === 'OK' && (
-        <Redirect
-          to={{
-            pathname: '/send_mail',
-          }}
-        />
-      )}
       <Grid columns={3} centered style={{ margin: '4em' }}>
         <Grid.Column width={3} />
-        <Grid.Column width={10} as={Segment}>
-          <Ref innerRef={namehook.ref}>
-            <Form.Field
-              error={
-                errors.name && {
-                  content: errors.name?.message,
-                  pointing: 'below',
+        <Grid.Column width={10}>
+          <Segment>
+            <Ref innerRef={namehook.ref}>
+              <Form.Field
+                error={
+                  errors.name && {
+                    content: errors.name?.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              placeholder="account-name"
-              label="アカウント名"
-              icon="users"
-              required
-              iconPosition="left"
-              onChange={namehook.onChange}
-              onBlur={namehook.onBlur}
-              name={namehook.name}
-            />
-          </Ref>
-          <Ref innerRef={emailhook.ref}>
-            <Form.Field
-              error={
-                errors.email && {
-                  content: errors.email?.message,
-                  pointing: 'below',
+                control={Input}
+                placeholder="account-name"
+                label="アカウント名"
+                icon="users"
+                required
+                iconPosition="left"
+                onChange={namehook.onChange}
+                onBlur={namehook.onBlur}
+                name={namehook.name}
+              />
+            </Ref>
+            <Ref innerRef={emailhook.ref}>
+              <Form.Field
+                error={
+                  errors.email && {
+                    content: errors.email?.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              label="メールアドレス"
-              placeholder="e-mail"
-              icon="mail"
-              iconPosition="left"
-              type="email"
-              required
-              onChange={emailhook.onChange}
-              onBlur={emailhook.onBlur}
-              name={emailhook.name}
-            />
-          </Ref>
-          <Ref innerRef={passhook.ref}>
-            <Form.Field
-              error={
-                errors.password && {
-                  content: errors.password?.message,
-                  pointing: 'below',
+                control={Input}
+                label="メールアドレス"
+                placeholder="e-mail"
+                icon="mail"
+                iconPosition="left"
+                type="email"
+                required
+                onChange={emailhook.onChange}
+                onBlur={emailhook.onBlur}
+                name={emailhook.name}
+              />
+            </Ref>
+            <Ref innerRef={passhook.ref}>
+              <Form.Field
+                error={
+                  errors.password && {
+                    content: errors.password?.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              label="パスワード"
-              placeholder="password"
-              icon="key"
-              required
-              iconPosition="left"
-              type="password"
-              onChange={passhook.onChange}
-              onBlur={passhook.onBlur}
-              name={passhook.name}
-            />
-          </Ref>
-          <Ref innerRef={confirhook.ref}>
-            <Form.Field
-              error={
-                errors.password_confirmation && {
-                  content: errors.password_confirmation.message,
-                  pointing: 'below',
+                control={Input}
+                label="パスワード"
+                placeholder="password"
+                icon="key"
+                required
+                iconPosition="left"
+                type="password"
+                onChange={passhook.onChange}
+                onBlur={passhook.onBlur}
+                name={passhook.name}
+              />
+            </Ref>
+            <Ref innerRef={confirhook.ref}>
+              <Form.Field
+                error={
+                  errors.password_confirmation && {
+                    content: errors.password_confirmation.message,
+                    pointing: 'below',
+                  }
                 }
-              }
-              control={Input}
-              label="メールアドレス"
-              placeholder="password-confirmation"
-              icon="key"
-              iconPosition="left"
-              required
-              type="password"
-              onChange={confirhook.onChange}
-              onBlur={confirhook.onBlur}
-              name={confirhook.name}
-            />
-          </Ref>
+                control={Input}
+                label="メールアドレス"
+                placeholder="password-confirmation"
+                icon="key"
+                iconPosition="left"
+                required
+                type="password"
+                onChange={confirhook.onChange}
+                onBlur={confirhook.onBlur}
+                name={confirhook.name}
+              />
+            </Ref>
 
-          <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
-            <Form.Button color="teal" content="登録" />
-          </Form.Field>
+            <Form.Field
+              style={{ textAlign: 'center', justifyContent: 'center' }}
+            >
+              <Form.Button color="teal" content="登録" />
+            </Form.Field>
+          </Segment>
+          <FormMessage issignup />
         </Grid.Column>
         <Grid.Column width={3} />
       </Grid>
