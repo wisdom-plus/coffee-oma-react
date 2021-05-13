@@ -17,13 +17,18 @@ export type User = {
   password: string;
 };
 
-type Userprops = 'name' | 'email' | 'password' | 'password_confirmation';
-export type UserInput = Record<Userprops, string>;
-
-export type Session = {
+export type UserInput = {
+  id: number;
+  name: string;
   email: string;
   password: string;
+  ['password_confirmation']: string;
 };
+export type UserForm = Omit<User, 'id'>;
+
+export type ResetPasswordParams = Omit<UserInput, 'id' | 'name'>;
+
+export type Session = Omit<User, 'id' | 'name'>;
 
 export type Token = {
   'access-token': string;
@@ -42,9 +47,8 @@ export type CurrentUser = {
   uid: string;
 };
 
-export type UserForm = Omit<User, 'id'>;
-
 export type PostOutput = {
   status: 'OK' | 'Failure';
 };
+
 export default Product;

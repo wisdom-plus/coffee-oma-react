@@ -6,9 +6,10 @@ type Props = {
   issignin?: boolean;
   isconfirm?: boolean;
   issignup?: boolean;
+  isreset?: boolean;
 };
 
-const FormMessage: FC<Props> = ({ issignin, isconfirm, issignup }) => (
+const FormMessage: FC<Props> = ({ issignin, isconfirm, issignup, isreset }) => (
   <Message info>
     <List>
       <List.Item>
@@ -21,6 +22,9 @@ const FormMessage: FC<Props> = ({ issignin, isconfirm, issignup }) => (
       </List.Item>
       <List.Item>
         {!issignup && <Link to="/sign_up">新規登録はこちら</Link>}
+      </List.Item>
+      <List.Item>
+        {!isreset && <Link to="/password_reset">パスワードを忘れましたか</Link>}
       </List.Item>
     </List>
   </Message>

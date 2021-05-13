@@ -41,6 +41,12 @@ const App: FC = () => {
           <Route exact path="/confirmation">
             <Session isconfirm />
           </Route>
+          <Route exact path="/password_reset">
+            <Session isreset />
+          </Route>
+          <Route exact path="/password_reset/edit">
+            <Session isresetedit />
+          </Route>
           <Route exact path="/registation/edit">
             <Registration isedit />
           </Route>
