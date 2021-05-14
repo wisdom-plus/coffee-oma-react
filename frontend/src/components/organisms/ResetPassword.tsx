@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Header, Segment, Form, Ref, Input } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
-import { Fetchpasswordreset } from 'apis/User';
+import { Fetchpasswordreset } from 'apis/Session';
 import FormMessage from 'components/atoms/FormMessage';
 import { ResetPasswordParams } from 'model/index';
 

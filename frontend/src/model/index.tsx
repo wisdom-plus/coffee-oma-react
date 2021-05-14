@@ -27,6 +27,7 @@ export type UserInput = {
 export type UserForm = Omit<User, 'id'>;
 
 export type ResetPasswordParams = Omit<UserInput, 'id' | 'name'>;
+export type ResetPasswordEditdata = Omit<UserInput, 'id' | 'name' | 'email'>;
 
 export type Session = Omit<User, 'id' | 'name'>;
 

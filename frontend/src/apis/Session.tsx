@@ -1,15 +1,28 @@
 import axios from 'axios';
-import { Session, Token, CurrentUser } from 'model/index';
+import {
+  Session,
+  Token,
+  CurrentUser,
+  ResetPasswordParams,
+  ResetPasswordEditdata,
+} from 'model/index';
 import {
   sessionnewURL,
   sessiondestroyURL,
   sessionvaildateURL,
   sessionconfirmationURL,
+  passwordresetURL,
+  passwordreseteditURL,
 } from '../urls/index';
 
 type login = {
   data: CurrentUser;
   headers: Token;
+};
+
+type ResetPasswordEditParams = {
+  headers: Token;
+  data: ResetPasswordEditdata;
 };
 
 const StorageSet = (result: Token): void => {
@@ -69,5 +82,25 @@ export const Fetchsessionconfirm = (params: {
     .post(sessionconfirmationURL, params)
     .then((result) => result.status)
     .catch(() => 404);
+
+export const Fetchpasswordreset = (
+  params: ResetPasswordParams,
+): Promise<number | undefined> =>
+  axios
+    .post(passwordresetURL, params)
+    .then((result) => result.status)
+    .catch((error: undefined) => error);
+
+export const Fetchpasswordresetedit = (
+  params: ResetPasswordEditParams,
+): Promise<number | undefined> =>
+  axios({
+    method: 'put',
+    url: passwordreseteditURL,
+    headers: { ...params.headers },
+    params: { ...params.data },
+  })
+    .then((result) => result.status)
+    .catch((error: undefined) => error);
 
 export default Fetchsessionnew;

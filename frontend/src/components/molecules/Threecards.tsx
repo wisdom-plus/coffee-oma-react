@@ -1,19 +1,37 @@
 import { FC, useEffect, useReducer } from 'react';
-import { Card, Segment } from 'semantic-ui-react';
+import { Card, Segment, Button, Icon } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import { Fetchproductindex } from 'apis/Product';
 import { productindexReducer, initialState } from 'reducers/Product';
 import { ProductsActionTypes } from '../../constants';
 
-const rankings = {
-  id: 1,
-  imageurl: 's',
-  itemname: 's',
-  meta: 's',
-  shopname: 's',
-  likescount: 1,
-};
+const rankings = [
+  {
+    id: 1,
+    imageurl: 's',
+    itemname: 's',
+    meta: 's',
+    shopname: 's',
+    likescount: 1,
+  },
+  {
+    id: 2,
+    imageurl: 'a',
+    itemname: 'a',
+    meta: 'a',
+    shopname: 'a',
+    likescount: 2,
+  },
+  {
+    id: 3,
+    imageurl: 'y',
+    itemname: 'y',
+    meta: 'y',
+    shopname: 'y',
+    likescount: 3,
+  },
+];
 type Props = {
   isindex?: boolean;
   className?: string;
@@ -48,11 +66,18 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
           </Card.Group>
         </Segment>
       ) : (
-        <Segment loading={state.fetchState === 'LOADING'}>
-          <Card.Group itemsPerRow={3} stackable className={className} centered>
-            <Ranking rankings={[rankings]} />
-          </Card.Group>
-        </Segment>
+        <Card.Group
+          itemsPerRow={3}
+          stackable
+          centered
+          style={{ paddingTop: '3em' }}
+        >
+          <Ranking rankings={rankings} />
+          <Button color="teal" size="huge" style={{ marginTop: '2em' }}>
+            <Icon name="signal" />
+            ランキングを詳しく見る
+          </Button>
+        </Card.Group>
       )}
     </>
   );

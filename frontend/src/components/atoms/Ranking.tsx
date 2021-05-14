@@ -21,11 +21,11 @@ const Ranking: FC<{ rankings: Rank[] }> = ({ rankings }) => (
   <>
     {rankings.map((rank) => (
       <Link to={`/product/${rank.id}`} key={rank.id}>
-        <Card>
+        <Card style={{ margin: '0.875em 1em' }}>
           <Image src={rank.imageurl} />
           <Card.Content>
             <Card.Header>{rank.itemname}</Card.Header>
-            <Card.Meta>{rank.shopname}</Card.Meta>
+            <Card.Meta>Brand:{rank.shopname}</Card.Meta>
           </Card.Content>
           <Card.Content extra>
             <Extra count={rank.likescount} />

@@ -9,6 +9,6 @@ export const sessiondestroyURL = `${DEFAULT_API_LOCALHOST}/auth/sign_out`;
 export const sessionvaildateURL = `${DEFAULT_API_LOCALHOST}/auth/validate_token`;
 export const sessionconfirmationURL = `${DEFAULT_API_LOCALHOST}/auth/confirmation`;
 export const passwordresetURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
-export const passwordreseteditURL = `${DEFAULT_API_LOCALHOST}/auth/password/edit`;
+export const passwordreseteditURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
 
 export default productindexURL;

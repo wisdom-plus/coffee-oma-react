@@ -1,17 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Form, Card, Table, Grid, Label } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ProductForm } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
-type State = {
-  created: 'OK' | 'Failure';
-};
-
 const Newform: FC = () => {
-  const [state, setState] = useState<State>({ created: 'Failure' });
+  const history = useHistory();
   const {
     register,
     formState: { errors },
@@ -22,8 +18,11 @@ const Newform: FC = () => {
   const onSubmit = async (data: ProductForm) => {
     await Fetchproductnew(data)
       .then((result) =>
-        result !== undefined && result === 200
-          ? setState({ created: 'OK' })
+        result !== undefined && result === 201
+          ? history.push('/products', {
+              message: '登録成功しました。',
+              type: 'success',
+            })
           : reset(),
       )
       .catch(() => reset());
@@ -31,14 +30,6 @@ const Newform: FC = () => {
 
   return (
     <Form size="small" onSubmit={handleSubmit(onSubmit)}>
-      {state.created === 'OK' && (
-        <Redirect
-          to={{
-            pathname: '/products',
-            state: { message: '登録が完了しました' },
-          }}
-        />
-      )}
       <Grid columns={3} centered>
         <Grid.Column width={3} />
         <Grid.Column width={10}>
