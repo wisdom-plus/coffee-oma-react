@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Image } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 type Rank = {
   id: number;
-  link: string;
   imageurl: string;
   itemname: string;
   meta: string;
@@ -15,19 +15,23 @@ type Count = {
   count: number;
 };
 
-const extra: FC<Count> = ({ count }) => <Icon name="heart">{count}</Icon>;
+const Extra: FC<Count> = ({ count }) => <Icon name="heart">{count}</Icon>;
 
 const Ranking: FC<{ rankings: Rank[] }> = ({ rankings }) => (
   <>
     {rankings.map((rank) => (
-      <Card
-        key={rank.id}
-        href={rank.link}
-        image={rank.imageurl}
-        header={rank.itemname}
-        meta={rank.shopname}
-        extra={extra}
-      />
+      <Link to={`/product/${rank.id}`} key={rank.id}>
+        <Card style={{ margin: '0.875em 1em' }}>
+          <Image src={rank.imageurl} />
+          <Card.Content>
+            <Card.Header>{rank.itemname}</Card.Header>
+            <Card.Meta>Brand:{rank.shopname}</Card.Meta>
+          </Card.Content>
+          <Card.Content extra>
+            <Extra count={rank.likescount} />
+          </Card.Content>
+        </Card>
+      </Link>
     ))}
   </>
 );

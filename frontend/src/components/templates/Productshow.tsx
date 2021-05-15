@@ -1,7 +1,7 @@
 import { FC, useReducer, useEffect } from 'react';
 import { Header } from 'semantic-ui-react';
 import ShowTop from 'components/organisms/ShowTop';
-import { Fetchproductshow } from 'apis/product';
+import { Fetchproductshow } from 'apis/Product';
 import { productshowReducer } from 'reducers/Product';
 import { useParams } from 'react-router-dom';
 import REQUEST_STATE, { ProductsActionTypes } from '../../constants';

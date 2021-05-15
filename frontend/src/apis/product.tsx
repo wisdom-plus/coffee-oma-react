@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Product, ProductInput, PostOutput } from 'model/index';
+import { Product, ProductForm } from 'model/index';
 import { productindexURL, productshowURL } from '../urls/index';
 
 export const Fetchproductindex = (): Promise<
@@ -19,11 +19,11 @@ export const Fetchproductshow = (
     .catch((error: undefined) => error);
 
 export const Fetchproductnew = (
-  product: ProductInput,
-): Promise<PostOutput | undefined> =>
+  product: ProductForm,
+): Promise<number | undefined> =>
   axios
-    .post<PostOutput>(productindexURL, { product })
-    .then<PostOutput>((results) => results.data)
+    .post(productindexURL, { product })
+    .then((results) => results.status)
     .catch((error: undefined) => error);
 
 export default Fetchproductindex;
