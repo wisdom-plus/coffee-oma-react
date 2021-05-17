@@ -5,7 +5,7 @@ export type Product = {
   caption: string;
   url: string;
   shopname: string;
-  image: string;
+  image: { url: string };
 };
 export type Productdata = {
   id: number;

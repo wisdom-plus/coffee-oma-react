@@ -13,7 +13,7 @@ const Product = {
   caption: 'caption',
   url: 'url',
   shopname: 'shopname',
-  image: 'image',
+  image: { url: 'image' },
 };
 
 export const initialState = {
