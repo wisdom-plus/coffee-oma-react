@@ -7,8 +7,16 @@ export type Product = {
   shopname: string;
   image: string;
 };
+export type Productdata = {
+  id: number;
+  name: string;
+  price: number;
+  caption: string;
+  url: string;
+  shopname: string;
+};
 
-export type ProductForm = Omit<Product, 'id' | 'image'>;
+export type ProductForm = Omit<Productdata, 'id'>;
 
 export type User = {
   id: number;

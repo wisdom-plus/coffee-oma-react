@@ -1,12 +1,25 @@
-import React, { FC } from 'react';
-import { Form, Card, Table, Grid, Label } from 'semantic-ui-react';
+import React, { FC, useState } from 'react';
+import {
+  Form,
+  Card,
+  Table,
+  Grid,
+  Input,
+  Ref,
+  TextArea,
+} from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
 import { useHistory } from 'react-router-dom';
 import { ProductForm } from 'model/index';
-/* eslint-disable react/jsx-props-no-spreading */
+import ProductImage from 'components/atoms/ProductImage';
+
+export interface CustomFormData extends FormData {
+  append(name: string, value: string | number | Blob, fileName?: string): void;
+}
 
 const Newform: FC = () => {
+  const [file, setFile] = useState<Blob>();
   const history = useHistory();
   const {
     register,
@@ -15,8 +28,29 @@ const Newform: FC = () => {
     reset,
   } = useForm<ProductForm>({ criteriaMode: 'all' });
 
+  const namehook = register('name', {
+    required: '商品名が入力されていません。',
+  });
+  const shopnamehook = register('shopname');
+  const pricehook = register('price', {
+    required: '商品価格が入力されていません。',
+  });
+  const urlhook = register('url');
+  const captionhook = register('caption', {
+    required: '商品の説明が入力されていません。',
+  });
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    e.target.files && setFile(e.target.files[0]);
+
   const onSubmit = async (data: ProductForm) => {
-    await Fetchproductnew(data)
+    const formdata = new FormData() as CustomFormData;
+    const keys = Object.keys(data);
+    const values = Object.values(data);
+    keys.map((key, index) => formdata.append(`product[${key}]`, values[index]));
+    if (file !== undefined) {
+      formdata.append('product[image]', file);
+    }
+    await Fetchproductnew(formdata)
       .then((result) =>
         result !== undefined && result === 201
           ? history.push('/products', {
@@ -34,108 +68,111 @@ const Newform: FC = () => {
         <Grid.Column width={3} />
         <Grid.Column width={10}>
           <Card centered fluid>
+            <ProductImage file={file} onChange={onChange} />
             <Card.Content>
               <Card.Header>
-                <label htmlFor="name">
-                  商品名
-                  {errors.name && (
-                    <Label
-                      pointing="below"
-                      color="red"
-                      basic
-                      style={{ marginLeft: '1em' }}
-                    >
-                      {errors.name?.message}
-                    </Label>
-                  )}
-                  <input
-                    type="text"
-                    placeholder="item-name"
-                    id="name"
-                    {...register('name', {
-                      required: '商品名が入力されていません。',
-                    })}
+                <Ref innerRef={namehook.ref}>
+                  <Form.Field
+                    error={
+                      errors.name && {
+                        content: errors.name?.message,
+                        pointing: 'below',
+                      }
+                    }
+                    control={Input}
+                    label="商品名"
+                    icon="shopping cart"
+                    required
+                    iconPosition="left"
+                    placeholder="name"
+                    onChange={namehook.onChange}
+                    onBlur={namehook.onBlur}
+                    name={namehook.name}
                   />
-                </label>
+                </Ref>
               </Card.Header>
               <Card.Meta>
-                <label htmlFor="shopname">
-                  商品名
-                  <input
-                    type="text"
+                <Ref innerRef={shopnamehook.ref}>
+                  <Form.Field
+                    control={Input}
+                    label="メーカー名"
+                    icon="credit card alternative"
+                    iconPosition="left"
                     placeholder="shop-name"
-                    id="shopname"
-                    {...register('shopname')}
+                    onChange={shopnamehook.onChange}
+                    onBlur={shopnamehook.onBlur}
+                    name={shopnamehook.name}
                   />
-                </label>
+                </Ref>
               </Card.Meta>
             </Card.Content>
             <Card.Content extra>
-              <label htmlFor="price">
-                商品価格
-                {errors.price && (
-                  <Label
-                    pointing="below"
-                    color="red"
-                    basic
-                    style={{ marginLeft: '1em' }}
-                  >
-                    {errors.price?.message}
-                  </Label>
-                )}
-                <input
+              <Ref innerRef={pricehook.ref}>
+                <Form.Field
+                  error={
+                    errors.price && {
+                      content: errors.price?.message,
+                      pointing: 'below',
+                    }
+                  }
+                  control={Input}
+                  label="商品名"
+                  icon="yen"
+                  required
+                  iconPosition="left"
+                  placeholder="price"
                   type="number"
-                  placeholder="item-price"
-                  id="price"
                   min="0"
-                  {...register('price', {
-                    required: '商品価格が入力されていません。',
-                  })}
+                  onChange={pricehook.onChange}
+                  onBlur={pricehook.onBlur}
+                  name={pricehook.name}
                 />
-              </label>
+              </Ref>
             </Card.Content>
             <Card.Content extra>
-              <label htmlFor="url">
-                商品URL
-                <input
+              <Ref innerRef={urlhook.ref}>
+                <Form.Field
+                  control={Input}
+                  label="商品URL"
+                  icon="sitemap"
+                  iconPosition="left"
+                  placeholder="URL"
                   type="url"
-                  placeholder="item-url"
-                  id="url"
-                  {...register('url')}
+                  onChange={urlhook.onChange}
+                  onBlur={urlhook.onBlur}
+                  name={urlhook.name}
                 />
-              </label>
+              </Ref>
             </Card.Content>
           </Card>
           <Table celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>
-                  <label htmlFor="caption">
-                    商品の説明
-                    {errors.caption && (
-                      <Label
-                        pointing="below"
-                        color="red"
-                        basic
-                        style={{ marginLeft: '1em' }}
-                      >
-                        {errors.caption?.message}
-                      </Label>
-                    )}
-                  </label>
+                  <Form.Field label="商品説明文" />
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row>
                 <Table.Cell>
-                  <textarea
-                    placeholder="item-caption"
-                    id="caption"
-                    {...register('caption', {
-                      required: '商品の説明が入力されていません。',
-                    })}
-                  />
+                  <Ref innerRef={captionhook.ref}>
+                    <Form.Field
+                      control={TextArea}
+                      placeholder="item-caption"
+                      id="caption"
+                      onChange={captionhook.onChange}
+                      onBlur={captionhook.onBlur}
+                      name={captionhook.name}
+                      rows={6}
+                      error={
+                        errors.caption && {
+                          content: errors.caption?.message,
+                          pointing: 'below',
+                        }
+                      }
+                    />
+                  </Ref>
                 </Table.Cell>
               </Table.Row>
             </Table.Body>

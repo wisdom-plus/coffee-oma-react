@@ -81,6 +81,7 @@ const SignInForm: FC = () => {
                   label="パスワード"
                   icon="key"
                   required
+                  type="password"
                   iconPosition="left"
                   placeholder="password"
                   onChange={passhook.onChange}

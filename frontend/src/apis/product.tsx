@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Product, ProductForm } from 'model/index';
+import { Product } from 'model/index';
+
 import { productindexURL, productshowURL } from '../urls/index';
 
 export const Fetchproductindex = (): Promise<
@@ -19,10 +20,12 @@ export const Fetchproductshow = (
     .catch((error: undefined) => error);
 
 export const Fetchproductnew = (
-  product: ProductForm,
+  product: FormData,
 ): Promise<number | undefined> =>
   axios
-    .post(productindexURL, { product })
+    .post(productindexURL, product, {
+      headers: { 'content-type': 'multipart/form-data' },
+    })
     .then((results) => results.status)
     .catch((error: undefined) => error);
 

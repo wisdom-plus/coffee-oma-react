@@ -14041,6 +14041,11 @@ use-composed-ref@^1.0.0:
   dependencies:
     ts-essentials "^2.0.3"
 
+use-file-upload@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/use-file-upload/-/use-file-upload-1.0.9.tgz#859ab76fae6f495ec212cdfe82e35c197eb91e0b"
+  integrity sha512-coR3p57MFD0TeMszZYHNCFlppusWpAOMDbRmc9xS+ELVZQrl6u50zkJhdw3f1qtWHFDa+YJId7tzcymiqIX/3Q==
+
 use-isomorphic-layout-effect@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.1.1.tgz#7bb6589170cd2987a152042f9084f9effb75c225"
