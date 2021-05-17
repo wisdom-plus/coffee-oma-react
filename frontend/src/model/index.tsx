@@ -5,10 +5,18 @@ export type Product = {
   caption: string;
   url: string;
   shopname: string;
-  image: string;
+  image: { url: string };
+};
+export type Productdata = {
+  id: number;
+  name: string;
+  price: number;
+  caption: string;
+  url: string;
+  shopname: string;
 };
 
-export type ProductForm = Omit<Product, 'id' | 'image'>;
+export type ProductForm = Omit<Productdata, 'id'>;
 
 export type User = {
   id: number;

@@ -20,7 +20,7 @@ const Indexcards: FC<{ products: Product[] }> = ({ products }) => (
         style={{ margin: '0.875em 1em' }}
       >
         <Card>
-          <Image src={product.image} />
+          <Image src={product.image.url} />
           <Card.Content>
             <Card.Header>{product.name}</Card.Header>
             <Card.Meta>

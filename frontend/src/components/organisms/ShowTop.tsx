@@ -8,7 +8,7 @@ import CaptionColumn from 'components/atoms/CaptionColumn';
 const ShowTop: FC<{ product: Product }> = ({ product }) => (
   <Grid container stackable centered verticalAlign="middle">
     <Grid.Row>
-      <SixImagaeColumn image={product.image} />
+      <SixImagaeColumn url={product.image.url} />
       <TenTableColumn product={product} />
     </Grid.Row>
     <Grid.Row>

@@ -11,7 +11,7 @@ const CaptionColumn: FC<{ caption: string }> = ({ caption }) => (
       </Table.Header>
       <Table.Body>
         <Table.Row>
-          <Table.Cell>{caption}</Table.Cell>
+          <Table.Cell style={{ whiteSpace: 'pre-wrap' }}>{caption}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>
