@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Grid, Table } from 'semantic-ui-react';
 import { Product } from 'model/index';
+import LikeButton from 'components/atoms/LikeButton';
 
 const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
   <Grid.Column width={10}>
@@ -29,6 +30,7 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
         </Table.Row>
         <Table.Row>
           <Table.Cell colSpan="3">
+            <LikeButton />
             <a href={product.url} className="ui red circular button">
               商品を詳しく見る
             </a>
