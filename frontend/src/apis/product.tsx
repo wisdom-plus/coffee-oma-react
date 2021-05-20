@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Product } from 'model/index';
-import { productindexURL, productshowURL } from '../urls/index';
+import { productindexURL, productshowURL, LikeIndexURL } from '../urls/index';
 
 export const Fetchproductindex = (): Promise<
   { products: Product[] } | undefined
@@ -28,4 +28,9 @@ export const Fetchproductnew = (
     .then((results) => results.status)
     .catch((error: undefined) => error);
 
+export const FetchLikeIndex = (): Promise<{ likes: Product[] } | 0> =>
+  axios
+    .get<{ likes: Product[] }>(LikeIndexURL)
+    .then((result) => result.data)
+    .catch(() => 0);
 export default Fetchproductindex;

@@ -10,13 +10,16 @@ const LikedButton: FC = () => {
 
   useEffect(() => {
     FetchLikeExists(id)
-      .then((result) =>
-        result !== 0
-          ? (setState((prev) => ({ ...prev, liked: true })),
-            setLikeCount(() => result.count))
-          : setState({ liked: false }),
-      )
-
+      .then((result) => {
+        if (result !== 0 && result.status === 200) {
+          setState((prev) => ({ ...prev, liked: true }));
+          setLikeCount(() => result.data.count);
+        } else if (result !== 0) {
+          setLikeCount(() =>
+            result.data.count === undefined ? 0 : result.data.count,
+          );
+        }
+      })
       .catch(() => setState({ liked: false }));
   }, [id]);
 

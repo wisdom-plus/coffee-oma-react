@@ -11,7 +11,8 @@ export const sessionconfirmationURL = `${DEFAULT_API_LOCALHOST}/auth/confirmatio
 export const passwordresetURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
 export const passwordreseteditURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
 export const LikeCreateURL = `${DEFAULT_API_LOCALHOST}/likes`;
-export const LikeDestroyURL = (likeId: string): string =>
-  `${DEFAULT_API_LOCALHOST}/likes/${likeId}`;
+export const LikeDestroyURL = (productId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/likes/${productId}`;
 export const LikeExistsURL = `${DEFAULT_API_LOCALHOST}/likes/exists`;
+export const LikeIndexURL = `${DEFAULT_API_LOCALHOST}/likes`;
 export default productindexURL;

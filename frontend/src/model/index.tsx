@@ -57,4 +57,9 @@ export type CurrentUser = {
   uid: string;
 };
 
+export type LikedData = {
+  data: { count: number };
+  status: number;
+};
+
 export default Product;
