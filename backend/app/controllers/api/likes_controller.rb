@@ -1,9 +1,8 @@
 module Api
   class LikesController < ApplicationController
-
     def index
       likes = Product.all.order('likes_count desc').limit(9)
-      render json: {likes: likes} , status: :ok
+      render json: { likes: likes }, status: :ok
     end
 
     def create
