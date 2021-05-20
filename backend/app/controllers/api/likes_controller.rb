@@ -3,27 +3,29 @@ module Api
     def create
       like = current_api_user.likes.new(like_params)
       if like.save
-        render json: { status: 'OK' }, status: :created
+        render status: :created
       else
-        render json: { status: 'Failure' }, status: :internal_server_error
+        render status: :internal_server_error
       end
     end
 
     def destroy
-      like = current_api_user.likes.find_by(id: params[:id])
+      like = current_api_user.likes.find_by(product_id: params[:id])
       if like.destroy
-        render json: { status: 'OK' }, status: :created
+        product = like.product
+        render json: { id: product.id }, status: :created
       else
-        render json: { status: 'Failure' }, status: :internal_server_error
+        render status: :internal_server_error
       end
     end
 
     def exists
       like = current_api_user.likes.find_by(product_id: params[:product_id])
+      product = Product.find(params[:product_id])
       if like
-        render json: like.id, status: :ok
+        render json: { count: product.likes.count }, status: :ok
       else
-        render status: :no_content
+        render json: { count: product.likes.count }, status: :no_content
       end
     end
 
