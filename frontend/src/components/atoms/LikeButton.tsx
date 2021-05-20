@@ -5,45 +5,46 @@ import { useParams } from 'react-router-dom';
 
 const LikedButton: FC = () => {
   const [state, setState] = useState({ liked: false });
-  const [likeId, setLikeId] = useState<number>(0);
+  const [likecount, setLikeCount] = useState<number>(0);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     FetchLikeExists(id)
       .then((result) =>
         result !== 0
-          ? (setLikeId(() => result),
-            setState((prev) => ({ ...prev, liked: true })))
+          ? (setState((prev) => ({ ...prev, liked: true })),
+            setLikeCount(() => result.count),
+            console.log(likecount))
           : setState({ liked: false }),
       )
 
-      .catch(() => setLikeId(0));
+      .catch(() => setState({ liked: false }));
   }, [id]);
 
   const onCreate = () =>
     FetchLikeCreate(id).then(
       (result) =>
-        result === 201 &&
-        setState((prevState) => ({ ...prevState, liked: true })),
+        result !== 500 &&
+        (setState((prevState) => ({ ...prevState, liked: true })),
+        setLikeCount((c) => c + 1)),
     );
 
   const onDestroy = () =>
-    FetchLikeDestroy(likeId).then(
+    FetchLikeDestroy(id).then(
       (result) =>
-        result === 201 &&
-        setState((prevState) => ({ ...prevState, liked: false })),
+        result !== 500 &&
+        (setState((prevState) => ({ ...prevState, liked: false })),
+        setLikeCount((c) => c - 1)),
     );
 
   return state.liked ? (
-    <Button
-      content="Like"
-      icon="heart"
-      color="red"
-      circular
-      onClick={onDestroy}
-    />
+    <Button color="red" circular onClick={onDestroy}>
+      Like({likecount})
+    </Button>
   ) : (
-    <Button content="Like" icon="heart" circular onClick={onCreate} />
+    <Button circular onClick={onCreate}>
+      Like({likecount})
+    </Button>
   );
 };
 

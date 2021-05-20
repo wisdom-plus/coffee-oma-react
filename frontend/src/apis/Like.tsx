@@ -1,21 +1,32 @@
 import { SignedInAxios } from 'apis/Session';
+
 import { LikeCreateURL, LikeDestroyURL, LikeExistsURL } from '../urls/index';
 
-export const FetchLikeCreate = (ProductId: string): Promise<number> =>
-  SignedInAxios.post(LikeCreateURL, { like: { product_id: ProductId } })
-    .then((result) => result.status)
-    .catch(() => 401);
+export const FetchLikeCreate = (
+  ProductId: string,
+): Promise<{ id: number } | 500> =>
+  SignedInAxios.post<{ id: number } | 500>(LikeCreateURL, {
+    like: { product_id: ProductId },
+  })
+    .then<{ id: number } | 500>((result) =>
+      result.status === 201 ? result.data : 500,
+    )
+    .catch(() => 500);
 
-export const FetchLikeDestroy = (LikeId: number): Promise<number> =>
+export const FetchLikeDestroy = (LikeId: string): Promise<number | 500> =>
   SignedInAxios.delete(LikeDestroyURL(LikeId))
     .then((result) => result.status)
-    .catch(() => 401);
+    .catch(() => 500);
 
-export const FetchLikeExists = (ProductId: string): Promise<number> =>
-  SignedInAxios.get<number>(LikeExistsURL, {
+export const FetchLikeExists = (
+  ProductId: string,
+): Promise<{ count: number } | 0> =>
+  SignedInAxios.get<{ count: number }>(LikeExistsURL, {
     params: { product_id: ProductId },
   })
-    .then<number>((result) => (result.status === 200 ? result.data : 0))
-    .catch(() => 401);
+    .then<{ count: number } | 0>((result) =>
+      result.status === 200 ? result.data : 0,
+    )
+    .catch(() => 0);
 
 export default FetchLikeCreate;
