@@ -13,8 +13,7 @@ const LikedButton: FC = () => {
       .then((result) =>
         result !== 0
           ? (setState((prev) => ({ ...prev, liked: true })),
-            setLikeCount(() => result.count),
-            console.log(likecount))
+            setLikeCount(() => result.count))
           : setState({ liked: false }),
       )
 
