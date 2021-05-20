@@ -1,5 +1,11 @@
 module Api
   class LikesController < ApplicationController
+
+    def index
+      likes = Product.all.order('likes_count desc').limit(9)
+      render json: {likes: likes} , status: :ok
+    end
+
     def create
       like = current_api_user.likes.new(like_params)
       if like.save

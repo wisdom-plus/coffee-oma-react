@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     resources :products, only: %i[index create show]
-    resources :likes, only: %i[create destroy] do
+    resources :likes, only: %i[create destroy index] do
       collection do
         get 'exists'
       end
