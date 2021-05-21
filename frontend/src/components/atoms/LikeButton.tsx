@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams } from 'react-router-dom';
 
@@ -41,10 +41,12 @@ const LikedButton: FC = () => {
 
   return state.liked ? (
     <Button color="red" circular onClick={onDestroy}>
+      <Icon name="heart" color="red" />
       Like({likecount})
     </Button>
   ) : (
     <Button circular onClick={onCreate}>
+      <Icon name="heart" color="grey" />
       Like({likecount})
     </Button>
   );
