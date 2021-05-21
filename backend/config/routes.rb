@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :api do
     resources :products, only: %i[index create show]
     resources :likes, only: %i[create destroy index] do
@@ -7,7 +6,7 @@ Rails.application.routes.draw do
         get 'exists'
       end
     end
-    resources :relationships,only: %i[create destroy]
+    resources :relationships, only: %i[create destroy]
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations: 'api/auth/registrations',
       token_validations: 'api/auth/token_validations',
