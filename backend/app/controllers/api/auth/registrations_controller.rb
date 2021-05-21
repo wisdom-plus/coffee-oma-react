@@ -3,7 +3,6 @@ module Api
     class RegistrationsController < DeviseTokenAuth::RegistrationsController
       before_action :configure_permitted_parameters
 
-      def rename; end
 
       protected
 

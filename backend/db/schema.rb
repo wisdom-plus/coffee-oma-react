@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2021_05_21_074421) do
     t.string "nickname"
     t.string "image"
     t.string "email"
+    t.text "profile"
+    t.string "icon"
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

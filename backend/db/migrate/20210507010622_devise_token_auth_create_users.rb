@@ -1,6 +1,6 @@
 class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
   def change
-    
+
     create_table(:users) do |t|
       ## Required
       t.string :provider, :null => false, :default => "email"
@@ -33,6 +33,8 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
       t.string :nickname
       t.string :image
       t.string :email
+      t.text :profile
+      t.string :icon
 
       ## Tokens
       t.text :tokens
