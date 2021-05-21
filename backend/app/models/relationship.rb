@@ -1,10 +1,6 @@
 class Relationship < ApplicationRecord
 
-  def create
+  belongs_to :user
+  belongs_to :follow,class_name: 'User'
 
-  end
-
-  def destroy
-
-  end
 end
