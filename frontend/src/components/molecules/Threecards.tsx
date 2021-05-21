@@ -4,6 +4,7 @@ import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import { Fetchproductindex } from 'apis/Product';
 import { productindexReducer, initialState } from 'reducers/Product';
+import { Link } from 'react-router-dom';
 import { ProductsActionTypes } from '../../constants';
 
 const rankings = [
@@ -73,10 +74,12 @@ export const Threecards: FC<Props> = ({ isindex = false, className }) => {
           style={{ paddingTop: '3em' }}
         >
           <Ranking rankings={rankings} />
-          <Button color="teal" size="huge" style={{ marginTop: '2em' }}>
-            <Icon name="signal" />
-            ランキングを詳しく見る
-          </Button>
+          <Link to="/product/ranking">
+            <Button color="teal" size="huge" style={{ marginTop: '2em' }}>
+              <Icon name="signal" />
+              ランキングを詳しく見る
+            </Button>
+          </Link>
         </Card.Group>
       )}
     </>

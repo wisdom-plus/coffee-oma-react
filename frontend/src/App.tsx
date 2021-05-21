@@ -61,6 +61,9 @@ const App: FC = () => {
           <Route exact path="/product/new">
             <Product isnew />
           </Route>
+          <Route exact path="/product/ranking">
+            <Product isrank />
+          </Route>
           <Route exact path="/product/:id(\d+)">
             <Product isshow />
           </Route>

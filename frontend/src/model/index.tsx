@@ -6,6 +6,7 @@ export type Product = {
   url: string;
   shopname: string;
   image: { url: string };
+  ['likes_count']: number;
 };
 export type Productdata = {
   id: number;
@@ -56,8 +57,9 @@ export type CurrentUser = {
   uid: string;
 };
 
-export type PostOutput = {
-  status: 'OK' | 'Failure';
+export type LikedData = {
+  data: { count: number };
+  status: number;
 };
 
 export default Product;
