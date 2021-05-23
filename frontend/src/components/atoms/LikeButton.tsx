@@ -40,7 +40,7 @@ const LikedButton: FC = () => {
     );
 
   return state.liked ? (
-    <Button color="red" circular onClick={onDestroy}>
+    <Button circular onClick={onDestroy} style={{ color: 'red' }}>
       <Icon name="heart" color="red" />
       Like({likecount})
     </Button>

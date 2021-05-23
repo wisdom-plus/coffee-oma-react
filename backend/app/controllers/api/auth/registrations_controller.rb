@@ -2,7 +2,14 @@ module Api
   module Auth
     class RegistrationsController < DeviseTokenAuth::RegistrationsController
       before_action :configure_permitted_parameters
-
+      def show
+        user = User.find_by(id: params[:id])
+        if user
+          render json: {status: 'success',data: resource_data(resource_json: user.token_validation_response)}
+        else
+          render status: 401
+        end
+      end
 
       protected
 

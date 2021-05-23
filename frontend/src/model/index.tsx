@@ -47,14 +47,13 @@ export type Token = {
 };
 
 export type CurrentUser = {
-  ['allow_password_change']: boolean;
   email: string;
   id: number;
-  image: string | null;
+  icon: { url: string };
   name: string | null;
   nickname: string | null;
-  provider: string;
-  uid: string;
+  profile: string | null;
+  ['created_at']: Date;
 };
 
 export type LikedData = {

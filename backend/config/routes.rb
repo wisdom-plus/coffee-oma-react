@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :user
+
+  devise_scope :user do
+    get 'api/auth/registrations/:id' => 'api/auth/registrations#show'
+  end
   namespace :api do
     resources :products, only: %i[index create show]
     resources :likes, only: %i[create destroy index] do
@@ -12,6 +17,8 @@ Rails.application.routes.draw do
       token_validations: 'api/auth/token_validations',
       passwords: 'api/auth/passwords'
     }
+
+
   end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -8,17 +8,19 @@ import RegistrationEdit from 'components/templates/RegistrationEdit';
 type Props = {
   isnew?: boolean;
   isedit?: boolean;
+  ismypage?: boolean;
   isshow?: boolean;
 };
 
-const Registration: FC<Props> = ({ isnew, isedit, isshow }) => (
+const Registration: FC<Props> = ({ isnew, isedit, ismypage, isshow }) => (
   <>
     <Helmet title="Registration" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
       <Grid.Column>
         {isnew && <RegistrationNew />}
         {isedit && <RegistrationEdit />}
-        {isshow && <RegistrationShow />}
+        {ismypage && <RegistrationShow />}
+        {isshow && <RegistrationShow show />}
       </Grid.Column>
     </Grid>
   </>
