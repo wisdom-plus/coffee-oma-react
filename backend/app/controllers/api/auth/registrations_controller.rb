@@ -5,9 +5,9 @@ module Api
       def show
         user = User.find_by(id: params[:id])
         if user
-          render json: {status: 'success',data: resource_data(resource_json: user.token_validation_response)}
+          render json: { status: 'success', data: resource_data(resource_json: user.token_validation_response) }
         else
-          render status: 401
+          render status: :unauthorized
         end
       end
 
