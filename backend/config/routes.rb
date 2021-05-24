@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations: 'api/auth/registrations',
       token_validations: 'api/auth/token_validations',
-      passwords: 'api/auth/passwords'
+      passwords: 'api/auth/passwords',
+      sessions: 'api/auth/sessions'
     }
   end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?

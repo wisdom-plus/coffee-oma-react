@@ -21,6 +21,12 @@ const Topmenu: FC = () => {
               content="プロフィール"
               position="right"
             />
+            <Menu.Item
+              header
+              as={Link}
+              to="/registration/edit"
+              content="アカウント編集"
+            />
             <Menu.Item header as={Link} to="/sign_out" content="ログアウト" />
           </>
         ) : (
