@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { UserInput, CurrentUser } from 'model/index';
+import { SignedInAxios } from 'apis/Session';
 import { RegistrationNewURL, RegistrationShowURL } from '../urls/index';
 
 export const Fetchregistrationnew = (
@@ -21,5 +22,10 @@ export const FetchRegistrationShow = (
     .then<{ data: CurrentUser } | 401>((result) =>
       result.status === 200 ? result.data : 401,
     )
+    .catch(() => 401);
+
+export const FetchRegistrationUpdate = (User: FormData): Promise<number> =>
+  SignedInAxios.put(RegistrationNewURL, User)
+    .then((result) => result.status)
     .catch(() => 401);
 export default Fetchregistrationnew;

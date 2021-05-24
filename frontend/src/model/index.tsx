@@ -33,6 +33,15 @@ export type UserInput = {
   password: string;
   ['password_confirmation']: string;
 };
+
+export type UserEditForm = {
+  icon: File;
+  name: string;
+  email: string;
+  password: string;
+  ['password_confirmation']: string;
+  profile: string;
+};
 export type UserForm = Omit<User, 'id'>;
 
 export type ResetPasswordParams = Omit<UserInput, 'id' | 'name'>;

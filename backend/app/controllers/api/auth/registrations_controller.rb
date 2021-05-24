@@ -15,6 +15,7 @@ module Api
 
         def configure_permitted_parameters
           devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
+          devise_parameter_sanitizer.permit(:account_update,keys: %i[name icon profile])
         end
 
       private
@@ -24,7 +25,7 @@ module Api
         end
 
         def account_update_params
-          params.require(:session).permit(:password, :email)
+          params.require(:session).permit(:password, :email,:profile,:icon,:name,:password_confirmation)
         end
     end
   end
