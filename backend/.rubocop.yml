@@ -91,6 +91,12 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   CountComments: false
 
+Metrics/CyclomaticComplexity:
+  Max: 9
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
 Naming/FileName:
   Exclude:
     - "Gemfile"
