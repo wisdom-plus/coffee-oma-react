@@ -38,6 +38,7 @@ export type UserEditForm = {
   icon: File;
   name: string;
   email: string;
+  ['current_password']: string;
   password: string;
   ['password_confirmation']: string;
   profile: string;
@@ -59,9 +60,9 @@ export type CurrentUser = {
   email: string;
   id: number;
   icon: { url: string };
-  name: string | null;
-  nickname: string | null;
-  profile: string | null;
+  name: string;
+  nickname: string;
+  profile: string;
   ['created_at']: Date;
 };
 

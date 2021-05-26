@@ -24,8 +24,12 @@ export const FetchRegistrationShow = (
     )
     .catch(() => 401);
 
-export const FetchRegistrationUpdate = (User: FormData): Promise<number> =>
-  SignedInAxios.put(RegistrationNewURL, User)
-    .then((result) => result.status)
+export const FetchRegistrationUpdate = (
+  User: FormData,
+): Promise<{ data: CurrentUser } | 401> =>
+  SignedInAxios.put<{ data: CurrentUser } | 401>(RegistrationNewURL, User)
+    .then<{ data: CurrentUser } | 401>((result) =>
+      result.status === 200 ? result.data : 401,
+    )
     .catch(() => 401);
 export default Fetchregistrationnew;
