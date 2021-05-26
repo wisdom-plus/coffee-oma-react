@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Form, Grid, Segment, Input, Header, Ref } from 'semantic-ui-react';
-import { useForm } from 'react-hook-form';
+import { Form, Grid, Segment, Input, Header } from 'semantic-ui-react';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
@@ -11,7 +11,7 @@ import FormMessage from 'components/atoms/FormMessage';
 const SignInForm: FC = () => {
   const history = useHistory();
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
     reset,
@@ -24,18 +24,19 @@ const SignInForm: FC = () => {
       .then((result) =>
         result !== undefined
           ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
-            history.push('/'))
+            history.push('/', {
+              message: 'ログインに成功しました。',
+              type: 'success',
+            }))
           : reset(),
       )
-      .catch(() => reset());
+      .catch(() =>
+        history.push('/sign_in', {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        }),
+      );
   };
-
-  const emailhook = register('email', {
-    required: 'メールアドレスが入力されていません。',
-  });
-  const passhook = register('password', {
-    required: 'パスワードが入力されていません。',
-  });
 
   return (
     <>
@@ -50,45 +51,61 @@ const SignInForm: FC = () => {
           <Grid.Column width={3} />
           <Grid.Column width={10}>
             <Segment>
-              <Ref innerRef={emailhook.ref}>
-                <Form.Field
-                  error={
-                    errors.email && {
-                      content: errors.email?.message,
-                      pointing: 'below',
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: 'メールアドレスが入力されていません。',
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Field
+                    error={
+                      errors.email && {
+                        content: errors.email?.message,
+                        pointing: 'below',
+                      }
                     }
-                  }
-                  control={Input}
-                  label="メールアドレス"
-                  icon="mail"
-                  required
-                  iconPosition="left"
-                  placeholder="e-mail"
-                  onChange={emailhook.onChange}
-                  onBlur={emailhook.onBlur}
-                  name={emailhook.name}
-                />
-              </Ref>
-              <Ref innerRef={passhook.ref}>
-                <Form.Field
-                  error={
-                    errors.password && {
-                      content: errors.password?.message,
-                      pointing: 'below',
+                    control={Input}
+                    label="メールアドレス"
+                    icon="mail"
+                    required
+                    iconPosition="left"
+                    placeholder="e-mail"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
+                  />
+                )}
+              />
+              <Controller
+                name="password"
+                control={control}
+                rules={{
+                  required: 'パスワードが入力されていません。',
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Field
+                    error={
+                      errors.password && {
+                        content: errors.password?.message,
+                        pointing: 'below',
+                      }
                     }
-                  }
-                  control={Input}
-                  label="パスワード"
-                  icon="key"
-                  required
-                  type="password"
-                  iconPosition="left"
-                  placeholder="password"
-                  onChange={passhook.onChange}
-                  onBlur={passhook.onBlur}
-                  name={passhook.name}
-                />
-              </Ref>
+                    control={Input}
+                    label="パスワード"
+                    icon="key"
+                    required
+                    type="password"
+                    iconPosition="left"
+                    placeholder="password"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
+                  />
+                )}
+              />
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
               >
