@@ -65,10 +65,29 @@ const ProfileForm: FC = () => {
       .then((result) =>
         result !== 401
           ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
-            history.push('/mypage'))
-          : reset(data),
+            history.push('/mypage', {
+              message: 'アカウント情報を更新しました。',
+              type: 'success',
+            }))
+          : reset({
+              name: user.name,
+              email: user.email,
+              profile: user.profile,
+              password: '',
+              password_confirmation: '',
+              current_password: '',
+            }),
       )
-      .catch(() => reset(data));
+      .catch(() =>
+        reset({
+          name: user.name,
+          email: user.email,
+          profile: user.profile,
+          password: '',
+          password_confirmation: '',
+          current_password: '',
+        }),
+      );
   };
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
