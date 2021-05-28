@@ -1,21 +1,21 @@
 module Api
   class RelationshipsController < ApplicationController
     def create
-      user = User.find_by(id:params[:relationships][:follow_id])
+      user = User.find_by(id: params[:relationships][:follow_id])
       follow = current_api_user.follow(user)
-      unless follow.nil?
-        render status: :created
-      else
+      if follow.nil?
         render status: :internal_server_error
+      else
+        render status: :created
       end
     end
 
     def destroy
       follow = current_api_user.unfollow(params[:id])
-      unless follow.nil?
-        render status: :ok
-      else
+      if follow.nil?
         render status: :internal_server_error
+      else
+        render status: :ok
       end
     end
 

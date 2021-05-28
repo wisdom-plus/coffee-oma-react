@@ -24,7 +24,7 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   end
 
   def follow(other_user)
-    return if self === other_user || other_user.nil?
+    return if self == other_user || other_user.nil?
 
     relationships.find_or_create_by(follow_id: other_user.id)
   end
@@ -33,5 +33,4 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     relationship = relationships.find_by(follow_id: other_user_id)
     relationship.destroy
   end
-
 end
