@@ -11,7 +11,11 @@ Rails.application.routes.draw do
         get 'exists'
       end
     end
-    resources :relationships, only: %i[create destroy]
+    resources :relationships, only: %i[create destroy] do
+      collection do
+        get 'exists'
+      end
+    end
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations: 'api/auth/registrations',
       token_validations: 'api/auth/token_validations',

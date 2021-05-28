@@ -17,4 +17,8 @@ export const LikeDestroyURL = (productId: string): string =>
   `${DEFAULT_API_LOCALHOST}/likes/${productId}`;
 export const LikeExistsURL = `${DEFAULT_API_LOCALHOST}/likes/exists`;
 export const LikeIndexURL = `${DEFAULT_API_LOCALHOST}/likes`;
+export const FollowURL = `${DEFAULT_API_LOCALHOST}/relationships`;
+export const FollowDestroyURL = (UserId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/relationships/${UserId}`;
+export const FollowExistsURL = `${DEFAULT_API_LOCALHOST}/relationships/exists`;
 export default productindexURL;

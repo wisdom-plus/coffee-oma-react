@@ -18,4 +18,20 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   def token_validation_response
     as_json(except: %i[tokens updated_at provider uid allow_password_change])
   end
+
+  def following?(other_user)
+    followings.include?(other_user)
+  end
+
+  def follow(other_user)
+    return if self === other_user || other_user.nil?
+
+    relationships.find_or_create_by(follow_id: other_user.id)
+  end
+
+  def unfollow(other_user_id)
+    relationship = relationships.find_by(follow_id: other_user_id)
+    relationship.destroy
+  end
+
 end
