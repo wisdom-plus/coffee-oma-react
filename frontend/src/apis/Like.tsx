@@ -1,6 +1,6 @@
 import { SignedInAxios } from 'apis/Session';
 import { LikedData } from 'model/index';
-import { LikeCreateURL, LikeDestroyURL, LikeExistsURL } from '../urls/index';
+import { LikeCreateURL, LikeDestroyURL, LikeExistsURL } from 'urls/index';
 
 export const FetchLikeCreate = (
   ProductId: string,

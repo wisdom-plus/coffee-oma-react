@@ -33,9 +33,18 @@ export type UserInput = {
   password: string;
   ['password_confirmation']: string;
 };
+
+export type UserEditForm = {
+  icon: File;
+  name: string;
+  email: string;
+  ['current_password']: string;
+  password: string;
+  ['password_confirmation']: string;
+  profile: string;
+};
 export type UserForm = Omit<User, 'id'>;
 
-export type ResetPasswordParams = Omit<UserInput, 'id' | 'name'>;
 export type ResetPasswordEditdata = Omit<UserInput, 'id' | 'name' | 'email'>;
 
 export type Session = Omit<User, 'id' | 'name'>;
@@ -47,14 +56,13 @@ export type Token = {
 };
 
 export type CurrentUser = {
-  ['allow_password_change']: boolean;
   email: string;
   id: number;
-  image: string | null;
-  name: string | null;
-  nickname: string | null;
-  provider: string;
-  uid: string;
+  icon: { url: string };
+  name: string;
+  nickname: string;
+  profile: string;
+  ['created_at']: Date;
 };
 
 export type LikedData = {

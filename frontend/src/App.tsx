@@ -49,10 +49,13 @@ const App: FC = () => {
           <Route exact path="/password_reset/edit">
             <Session isresetedit />
           </Route>
-          <Route exact path="/registation/edit">
+          <Route exact path="/registration/edit">
             <Registration isedit />
           </Route>
-          <Route exact path="/registation/:id(\d+)">
+          <Route exact path="/mypage">
+            <Registration ismypage />
+          </Route>
+          <Route exact path="/registration/:id(\d+)">
             <Registration isshow />
           </Route>
           <Route exact path="/products">

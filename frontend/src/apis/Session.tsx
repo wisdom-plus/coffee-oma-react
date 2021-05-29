@@ -3,7 +3,6 @@ import {
   Session,
   Token,
   CurrentUser,
-  ResetPasswordParams,
   ResetPasswordEditdata,
 } from 'model/index';
 import {
@@ -83,9 +82,9 @@ export const Fetchsessionconfirm = (params: {
     .then((result) => result.status)
     .catch(() => 404);
 
-export const Fetchpasswordreset = (
-  params: ResetPasswordParams,
-): Promise<number | undefined> =>
+export const Fetchpasswordreset = (params: {
+  email: string;
+}): Promise<number | undefined> =>
   axios
     .post(passwordresetURL, params)
     .then((result) => result.status)

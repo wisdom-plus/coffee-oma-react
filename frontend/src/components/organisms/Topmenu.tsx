@@ -12,17 +12,34 @@ const Topmenu: FC = () => {
     <Menu fixed="top" inverted color="teal">
       <Container>
         <Menulogo />
-        <Menu.Item
-          header
-          as={Link}
-          to="/sign_up"
-          content="新規登録"
-          position="right"
-        />
         {user.email ? (
-          <Menu.Item header as={Link} to="/sign_out" content="ログアウト" />
+          <>
+            <Menu.Item
+              header
+              as={Link}
+              to="/mypage"
+              content="プロフィール"
+              position="right"
+            />
+            <Menu.Item
+              header
+              as={Link}
+              to="/registration/edit"
+              content="アカウント編集"
+            />
+            <Menu.Item header as={Link} to="/sign_out" content="ログアウト" />
+          </>
         ) : (
-          <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
+          <>
+            <Menu.Item
+              header
+              as={Link}
+              to="/sign_up"
+              content="新規登録"
+              position="right"
+            />
+            <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
+          </>
         )}
       </Container>
     </Menu>

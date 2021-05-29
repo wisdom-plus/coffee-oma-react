@@ -1,14 +1,6 @@
 import React, { FC, useState } from 'react';
-import {
-  Form,
-  Card,
-  Table,
-  Grid,
-  Input,
-  Ref,
-  TextArea,
-} from 'semantic-ui-react';
-import { useForm } from 'react-hook-form';
+import { Form, Card, Table, Grid, Input, TextArea } from 'semantic-ui-react';
+import { useForm, Controller } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
 import { useHistory } from 'react-router-dom';
 import { ProductForm } from 'model/index';
@@ -22,24 +14,13 @@ const Newform: FC = () => {
   const [file, setFile] = useState<Blob>();
   const history = useHistory();
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm<ProductForm>({ criteriaMode: 'all' });
 
-  const namehook = register('name', {
-    required: '商品名が入力されていません。',
-  });
-  const shopnamehook = register('shopname');
-  const pricehook = register('price', {
-    required: '商品価格が入力されていません。',
-  });
-  const urlhook = register('url');
-  const captionhook = register('caption', {
-    required: '商品の説明が入力されていません。',
-  });
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
 
   const onSubmit = async (data: ProductForm) => {
@@ -68,81 +49,107 @@ const Newform: FC = () => {
         <Grid.Column width={3} />
         <Grid.Column width={10}>
           <Card centered fluid>
-            <ProductImage file={file} onChange={onChange} />
+            <ProductImage file={file} onChange={onChangeFile} />
             <Card.Content>
               <Card.Header>
-                <Ref innerRef={namehook.ref}>
+                <Controller
+                  name="name"
+                  control={control}
+                  rules={{
+                    required: '商品名が入力されていません。',
+                  }}
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <Form.Field
+                      error={
+                        errors.name && {
+                          content: errors.name?.message,
+                          pointing: 'below',
+                        }
+                      }
+                      control={Input}
+                      label="商品名"
+                      icon="shopping cart"
+                      required
+                      iconPosition="left"
+                      placeholder="name"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      ref={ref}
+                      value={value}
+                    />
+                  )}
+                />
+              </Card.Header>
+              <Card.Meta>
+                <Controller
+                  name="shopname"
+                  control={control}
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <Form.Field
+                      control={Input}
+                      label="メーカー名"
+                      icon="credit card alternative"
+                      iconPosition="left"
+                      placeholder="shop-name"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      ref={ref}
+                      value={value}
+                    />
+                  )}
+                />
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content extra>
+              <Controller
+                name="price"
+                control={control}
+                rules={{
+                  required: '商品価格が入力されていません。',
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Field
                     error={
-                      errors.name && {
-                        content: errors.name?.message,
+                      errors.price && {
+                        content: errors.price?.message,
                         pointing: 'below',
                       }
                     }
                     control={Input}
                     label="商品名"
-                    icon="shopping cart"
+                    icon="yen"
                     required
                     iconPosition="left"
-                    placeholder="name"
-                    onChange={namehook.onChange}
-                    onBlur={namehook.onBlur}
-                    name={namehook.name}
+                    placeholder="price"
+                    type="number"
+                    min="0"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
                   />
-                </Ref>
-              </Card.Header>
-              <Card.Meta>
-                <Ref innerRef={shopnamehook.ref}>
+                )}
+              />
+            </Card.Content>
+            <Card.Content extra>
+              <Controller
+                name="url"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Field
                     control={Input}
-                    label="メーカー名"
-                    icon="credit card alternative"
+                    label="商品URL"
+                    icon="sitemap"
                     iconPosition="left"
-                    placeholder="shop-name"
-                    onChange={shopnamehook.onChange}
-                    onBlur={shopnamehook.onBlur}
-                    name={shopnamehook.name}
+                    placeholder="URL"
+                    type="url"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
                   />
-                </Ref>
-              </Card.Meta>
-            </Card.Content>
-            <Card.Content extra>
-              <Ref innerRef={pricehook.ref}>
-                <Form.Field
-                  error={
-                    errors.price && {
-                      content: errors.price?.message,
-                      pointing: 'below',
-                    }
-                  }
-                  control={Input}
-                  label="商品名"
-                  icon="yen"
-                  required
-                  iconPosition="left"
-                  placeholder="price"
-                  type="number"
-                  min="0"
-                  onChange={pricehook.onChange}
-                  onBlur={pricehook.onBlur}
-                  name={pricehook.name}
-                />
-              </Ref>
-            </Card.Content>
-            <Card.Content extra>
-              <Ref innerRef={urlhook.ref}>
-                <Form.Field
-                  control={Input}
-                  label="商品URL"
-                  icon="sitemap"
-                  iconPosition="left"
-                  placeholder="URL"
-                  type="url"
-                  onChange={urlhook.onChange}
-                  onBlur={urlhook.onBlur}
-                  name={urlhook.name}
-                />
-              </Ref>
+                )}
+              />
             </Card.Content>
           </Card>
           <Table celled>
@@ -156,23 +163,31 @@ const Newform: FC = () => {
             <Table.Body>
               <Table.Row>
                 <Table.Cell>
-                  <Ref innerRef={captionhook.ref}>
-                    <Form.Field
-                      control={TextArea}
-                      placeholder="item-caption"
-                      id="caption"
-                      onChange={captionhook.onChange}
-                      onBlur={captionhook.onBlur}
-                      name={captionhook.name}
-                      rows={6}
-                      error={
-                        errors.caption && {
-                          content: errors.caption?.message,
-                          pointing: 'below',
+                  <Controller
+                    name="caption"
+                    control={control}
+                    rules={{
+                      required: '商品の説明が入力されていません。',
+                    }}
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                      <Form.Field
+                        control={TextArea}
+                        placeholder="item-caption"
+                        id="caption"
+                        rows={6}
+                        error={
+                          errors.caption && {
+                            content: errors.caption?.message,
+                            pointing: 'below',
+                          }
                         }
-                      }
-                    />
-                  </Ref>
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        ref={ref}
+                        value={value}
+                      />
+                    )}
+                  />
                 </Table.Cell>
               </Table.Row>
             </Table.Body>

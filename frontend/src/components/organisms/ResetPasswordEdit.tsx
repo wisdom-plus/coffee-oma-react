@@ -1,7 +1,7 @@
-import { FC, useRef } from 'react';
-import { Grid, Segment, Header, Form, Input, Ref } from 'semantic-ui-react';
+import { FC } from 'react';
+import { Grid, Segment, Header, Form, Input } from 'semantic-ui-react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { Fetchpasswordresetedit } from 'apis/Session';
 import { ResetPasswordEditdata } from 'model/index';
 
@@ -9,27 +9,16 @@ const ResetPasswordEdit: FC = () => {
   const query = new URLSearchParams(useLocation().search);
   const history = useHistory();
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
-    watch,
     reset,
   } = useForm<ResetPasswordEditdata>({ criteriaMode: 'all' });
 
-  const password = useRef({});
-  password.current = watch('password', '');
-
-  const passhook = register('password', {
-    required: 'パスワードが入力されていません。',
-    minLength: {
-      value: 8,
-      message: 'パスワードは最低８文字以上必要です',
-    },
-  });
-
-  const confirhook = register('password_confirmation', {
-    validate: (value) =>
-      value === password.current || 'パスワードが一致しません',
+  const passwordconfirmation = useWatch({
+    control,
+    name: 'password_confirmation',
+    defaultValue: '',
   });
 
   const onSubmit = async (data: ResetPasswordEditdata) => {
@@ -58,46 +47,65 @@ const ResetPasswordEdit: FC = () => {
               content="パスワードをリセットします"
             />
             <Form onSubmit={handleSubmit(onSubmit)}>
-              <Ref innerRef={passhook.ref}>
-                <Form.Field
-                  error={
-                    errors.password && {
-                      content: errors.password?.message,
-                      pointing: 'below',
+              <Controller
+                name="password"
+                control={control}
+                rules={{
+                  minLength: {
+                    value: 8,
+                    message: 'パスワードは最低８文字以上必要です',
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Field
+                    error={
+                      errors.password && {
+                        content: errors.password?.message,
+                        pointing: 'below',
+                      }
                     }
-                  }
-                  control={Input}
-                  label="パスワード"
-                  placeholder="password"
-                  icon="key"
-                  required
-                  iconPosition="left"
-                  type="password"
-                  onChange={passhook.onChange}
-                  onBlur={passhook.onBlur}
-                  name={passhook.name}
-                />
-              </Ref>
-              <Ref innerRef={confirhook.ref}>
-                <Form.Field
-                  error={
-                    errors.password_confirmation && {
-                      content: errors.password_confirmation.message,
-                      pointing: 'below',
+                    control={Input}
+                    label="新しいパスワード"
+                    placeholder="password"
+                    icon="key"
+                    iconPosition="left"
+                    type="password"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
+                  />
+                )}
+              />
+              <Controller
+                name="password_confirmation"
+                control={control}
+                rules={{
+                  validate: (value) =>
+                    value === passwordconfirmation ||
+                    'パスワードが一致しません',
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Field
+                    error={
+                      errors.password_confirmation && {
+                        content: errors.password_confirmation.message,
+                        pointing: 'below',
+                      }
                     }
-                  }
-                  control={Input}
-                  label="メールアドレス"
-                  placeholder="password-confirmation"
-                  icon="key"
-                  iconPosition="left"
-                  required
-                  type="password"
-                  onChange={confirhook.onChange}
-                  onBlur={confirhook.onBlur}
-                  name={confirhook.name}
-                />
-              </Ref>
+                    control={Input}
+                    label="パスワード確認"
+                    placeholder="password-confirmation"
+                    icon="key"
+                    iconPosition="left"
+                    type="password"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                    value={value}
+                  />
+                )}
+              />
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
               >
@@ -105,7 +113,7 @@ const ResetPasswordEdit: FC = () => {
               </Form.Field>
             </Form>
           </Segment>
-        </Grid.Column>{' '}
+        </Grid.Column>
         <Grid.Column width={3} />
       </Grid>
     </>
