@@ -18,7 +18,7 @@ module Api
       like = current_api_user.likes.find_by(product_id: params[:id])
       if like.destroy
         product = like.product
-        render json: { id: product.id }, status: :created
+        render  status: :created
       else
         render status: :internal_server_error
       end
