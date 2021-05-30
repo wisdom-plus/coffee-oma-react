@@ -2,15 +2,11 @@ import { SignedInAxios } from 'apis/Session';
 import { LikedData } from 'model/index';
 import { LikeCreateURL, LikeDestroyURL, LikeExistsURL } from 'urls/index';
 
-export const FetchLikeCreate = (
-  ProductId: string,
-): Promise<{ id: number } | 500> =>
-  SignedInAxios.post<{ id: number } | 500>(LikeCreateURL, {
+export const FetchLikeCreate = (ProductId: string): Promise<number> =>
+  SignedInAxios.post<number>(LikeCreateURL, {
     like: { product_id: ProductId },
   })
-    .then<{ id: number } | 500>((result) =>
-      result.status === 201 ? result.data : 500,
-    )
+    .then<number>((result) => result.status)
     .catch(() => 500);
 
 export const FetchLikeDestroy = (LikeId: string): Promise<number | 500> =>

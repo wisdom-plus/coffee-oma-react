@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Product } from 'model/index';
-import { productindexURL, productshowURL, LikeIndexURL } from '../urls/index';
+import { productindexURL, productshowURL, LikeIndexURL } from 'urls/index';
 
 export const Fetchproductindex = (): Promise<
   { products: Product[] } | undefined

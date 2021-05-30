@@ -82,10 +82,15 @@ module.exports = {
       'error',
       {
         devDependencies: [
+          '**/setupTests.ts',
           '.storybook/**',
           'stories/**',
           '**/*/*.story.*',
           '**/*/*.stories.*',
+          '**/__specs__/**',
+          '**/*/*.spec.*',
+          '**/__tests__/**',
+          '**/*/*.test.*',
         ],
       },
     ],

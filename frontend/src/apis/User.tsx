@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { UserInput, CurrentUser } from 'model/index';
 import { SignedInAxios } from 'apis/Session';
-import { RegistrationNewURL, RegistrationShowURL } from '../urls/index';
+import { RegistrationNewURL, RegistrationShowURL } from 'urls/index';
 
 export const Fetchregistrationnew = (
   user: UserInput,
