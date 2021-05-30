@@ -8,10 +8,14 @@ module Api
     end
 
     def show
-      product = Product.find(params[:id])
-      render json: {
-        product: product
-      }, status: :ok
+      product = Product.find_by(id: params[:id])
+      if product
+        render json: {
+          product: product
+        }, status: :ok
+      else
+        render status: :not_found
+      end
     end
 
     def create
