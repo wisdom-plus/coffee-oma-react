@@ -16,7 +16,7 @@ module Api
 
     def destroy
       like = current_api_user.likes.find_by(product_id: params[:id])
-      if like.destroy
+      if like && like.destroy
         product = like.product
         render  status: :created
       else
@@ -25,7 +25,7 @@ module Api
     end
 
     def exists
-      like = current_api_user.likes.find_by(product_id: params[:product_id])
+      like = current_api_user.likes.find_by(product_id: params[:product_id]) if api_user_signed_in?
       product = Product.find(params[:product_id])
       if like
         render json: { count: product.likes.count }, status: :ok
