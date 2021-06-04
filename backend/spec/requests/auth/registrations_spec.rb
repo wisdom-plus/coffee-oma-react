@@ -9,18 +9,39 @@ RSpec.describe 'Auth::Registrations', type: :request do
       get "/api/auth/registrations/#{user.id}"
       expect(response).to have_http_status(:ok)
     end
+    it 'レスポンス失敗' do
+      get "/api/auth/registrations/#{user.id + 2}"
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe 'PUT /update' do
-    sign_in(:user)
-    it 'レスポンス成功(パスワードなし)' do
-      put api_user_registration_path, params: { registration: { name: 'test20' } }
-      expect(response).to have_http_status(:ok)
+    context 'ログインしている時' do
+      sign_in(:user)
+      it 'レスポンス成功(パスワードなし)' do
+        put api_user_registration_path, params: { registration: { name: 'test20' } }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'レスポンス成功(パスワード)' do
+        put api_user_registration_path, params: { registration: { name: 'test20', current_password: 'password', password: '12345678', password_confirmation: '12345678' } }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'レスポンス失敗' do
+        put api_user_registration_path, params: { registration: { name: '' } }
+        expect(response).to have_http_status(422)
+      end
+      it 'レスポンス失敗(パスワード)' do
+        put api_user_registration_path, params: { registration: { name: 'test20', current_password: 'misspassword', password: '12345678', password_confirmation: '12345678' } }
+        expect(response).to have_http_status(422)
+      end
     end
 
-    it 'レスポンス成功(パスワード)' do
-      put api_user_registration_path, params: { registration: { name: 'test20', current_password: 'password', password: '12345678', password_confirmation: '12345678' } }
-      expect(response).to have_http_status(:ok)
+
+    it 'ログインしていない時' do
+      put api_user_registration_path, params: { registration: { name: 'test20' } }
+        expect(response).to have_http_status(:unauthorized)
     end
   end
 end

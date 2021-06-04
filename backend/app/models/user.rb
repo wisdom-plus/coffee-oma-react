@@ -15,6 +15,8 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy, inverse_of: 'user'
   has_many :followers, through: :reverse_of_relationships, source: :user
 
+  validates :name,presence: true
+
   def token_validation_response
     as_json(except: %i[tokens updated_at provider uid allow_password_change])
   end
