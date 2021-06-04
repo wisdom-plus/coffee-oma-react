@@ -1,8 +1,14 @@
 module Api
   class LikesController < ApplicationController
+    before_action :authenticate_api_user!, only: %i[create destroy]
+
     def index
-      likes = Product.all.order('likes_count desc').limit(9)
-      render json: { likes: likes }, status: :ok
+      likes = Product.ranking(9)
+      unless likes.empty?
+        render json: { likes: likes }, status: :ok
+      else
+        render status: :internal_server_error
+      end
     end
 
     def create
@@ -24,12 +30,15 @@ module Api
     end
 
     def exists
-      like = current_api_user.likes.find_by(product_id: params[:product_id]) if api_user_signed_in?
-      product = Product.find(params[:product_id])
-      if like
-        render json: { count: product.likes.count }, status: :ok
+      product = Product.find_by(id: params[:product_id])
+      if product
+        if api_user_signed_in? && product.likes.exists?(user_id: current_api_user.id)
+          render json: { count: product.likes.count }, status: :ok
+        else
+          render json: { count: product.likes.count }, status: :no_content
+        end
       else
-        render json: { count: product.likes.count }, status: :no_content
+        render status: :internal_server_error
       end
     end
 

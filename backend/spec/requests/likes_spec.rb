@@ -14,35 +14,72 @@ RSpec.describe 'Likes', type: :request do
       get api_likes_path
       expect(response).to have_http_status(:ok)
     end
+
+    it 'ボディにproductsがあるか' do
+      product1
+      like
+      get api_likes_path
+      expect(json['likes']).to eq(expect_json(Product.ranking(9)))
+    end
+
+    it 'レスポンス失敗' do
+      get api_likes_path
+      expect(response).to have_http_status(:internal_server_error)
+    end
   end
 
   describe 'POST /create' do
-    sign_in(:user)
-    it 'レスポンス成功' do
-      product
+    context 'ログインしているとき' do
+      sign_in(:user)
+      it 'レスポンス成功' do
+        post api_likes_path, params: { like: { product_id: product.id } }
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'レスポンス失敗' do
+        post api_likes_path, params: { like: { product_id: (product1.id + 2) } }
+        expect(response).to have_http_status(:internal_server_error)
+      end
+    end
+
+    it 'ログインしていない' do
       post api_likes_path, params: { like: { product_id: product.id } }
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 
   describe 'DELETE /destroy' do
-    sign_in(:user)
-    it 'レスポンス成功' do
+    context 'ログインしているとき' do
+      sign_in(:user)
+      it 'レスポンス成功' do
+        delete api_like_path(like.product_id)
+        expect(response).to have_http_status(:created)
+      end
+      it 'レスポンス失敗' do
+        delete api_like_path(like.product_id + 2)
+        expect(response).to have_http_status(:internal_server_error)
+      end
+    end
+    it 'ログインしいないとき' do
       delete api_like_path(like.product_id)
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 
   describe 'Get /exists' do
-    context 'when signed' do
+    context 'ログインしている時' do
       sign_in(:user)
       it 'レスポンス成功(ログイン時)' do
         get exists_api_likes_path, params: { product_id: like.product_id }
         expect(response).to have_http_status(:ok)
       end
+      it 'レスポンス失敗' do
+        get exists_api_likes_path, params: { product_id: (like.product_id + 2)}
+        expect(response).to have_http_status(:internal_server_error)
+      end
     end
 
-    context 'when not sign in' do
+    context 'ログインしていない時' do
       it 'レスポンス成功' do
         get exists_api_likes_path, params: { product_id: product.id }
         expect(response).to have_http_status(:no_content)
