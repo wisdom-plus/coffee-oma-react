@@ -1,5 +1,7 @@
 module Api
   class RelationshipsController < ApplicationController
+    before_action :authenticate_api_user!, only: %i[create destroy]
+
     def create
       user = User.find_by(id: params[:relationships][:follow_id])
       follow = current_api_user.follow(user)
@@ -22,7 +24,7 @@ module Api
     def exists
       user = User.find_by(id: params[:follow_id])
       if user
-        follow = current_api_user.following?(user)
+        follow = current_api_user.following?(user) if api_user_signed_in?
         if follow
           render status: :ok
         else

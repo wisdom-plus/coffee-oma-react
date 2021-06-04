@@ -31,6 +31,6 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
 
   def unfollow(other_user_id)
     relationship = relationships.find_by(follow_id: other_user_id)
-    relationship.destroy
+    relationship.destroy unless relationship.nil?
   end
 end
