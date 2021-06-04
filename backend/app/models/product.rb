@@ -1,10 +1,10 @@
 class Product < ApplicationRecord
   mount_uploader :image, ImageUploader
 
-  validates :name,:caption, presence: true
-  validates :price,numericality: {greater_then: 0},presence: true
+  validates :name, :caption,:price, presence: true
+  validates :price, numericality: { greater_than: 0}
 
   has_many :likes, dependent: :destroy
 
-  scope :ranking, ->(count) {all.order('likes_count desc').limit(count) }
+  scope :ranking, ->(count) { all.order('likes_count desc').limit(count) }
 end

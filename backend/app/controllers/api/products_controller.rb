@@ -2,12 +2,12 @@ module Api
   class ProductsController < ApplicationController
     def index
       products = Product.all
-      unless products.empty?
+      if products.empty?
+        render status: :not_found
+      else
         render json: {
           products: products
         }, status: :ok
-      else
-        render status: :not_found
       end
     end
 

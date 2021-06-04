@@ -4,10 +4,10 @@ module Api
 
     def index
       likes = Product.ranking(9)
-      unless likes.empty?
-        render json: { likes: likes }, status: :ok
-      else
+      if likes.empty?
         render status: :internal_server_error
+      else
+        render json: { likes: likes }, status: :ok
       end
     end
 
