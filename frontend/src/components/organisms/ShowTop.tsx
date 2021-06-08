@@ -1,4 +1,4 @@
-import { FC, useReducer, useEffect } from 'react';
+import React, { FC, useReducer, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import TenTableColumn from 'components/molecules/TenTableColumn';
 import SixImagaeColumn from 'components/atoms/SixImageColumn';

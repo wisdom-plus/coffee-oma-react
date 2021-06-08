@@ -11,7 +11,7 @@ import {
 import {
   sessionnewURL,
   sessiondestroyURL,
-  sessionvaildateURL,
+  sessionvalidateURL,
   sessionconfirmationURL,
   passwordresetURL,
   passwordreseteditURL,
@@ -69,7 +69,7 @@ describe('User', () => {
   });
   describe('vaildate', () => {
     it('should succeed', async () => {
-      mock.onGet(sessionvaildateURL).reply(200, { data: currentuser });
+      mock.onGet(sessionvalidateURL).reply(200, { data: currentuser });
       const sessionvaildate = await Fetchsessionvaildate();
       expect(sessionvaildate).toEqual({ data: currentuser });
     });

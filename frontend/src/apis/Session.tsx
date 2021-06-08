@@ -8,7 +8,7 @@ import {
 import {
   sessionnewURL,
   sessiondestroyURL,
-  sessionvaildateURL,
+  sessionvalidateURL,
   sessionconfirmationURL,
   passwordresetURL,
   passwordreseteditURL,
@@ -62,7 +62,7 @@ export const Fetchsessionvaildate = (): Promise<
 > =>
   axios({
     method: 'get',
-    url: sessionvaildateURL,
+    url: sessionvalidateURL,
     headers: {
       'access-token': localStorage.getItem('access-token'),
       client: localStorage.getItem('client'),

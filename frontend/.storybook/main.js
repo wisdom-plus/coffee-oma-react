@@ -10,15 +10,10 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-knobs',
     '@storybook/addon-essentials',
-    '@storybook/addon-controls',
     '@storybook/addon-a11y/register',
     '@storybook/preset-create-react-app',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-      },
-    },
+    '@storybook/addon-docs',
+    '@storybook/addon-controls',
   ],
   webpackFinal: async (config) => {
     config.resolve.modules = [

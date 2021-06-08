@@ -14,7 +14,7 @@ const Extra: FC<{ price: number }> = ({ price }) => (
 
 const Indexcards: FC<Props> = ({ products, isrank = false }) => (
   <>
-    {products.map((product, index) => (
+    {products?.map((product, index) => (
       <Link
         key={product.id}
         to={`/product/${product.id}`}
@@ -27,7 +27,7 @@ const Indexcards: FC<Props> = ({ products, isrank = false }) => (
               {index + 1}
             </Label>
           )}
-          <Image src={product.image.url} />
+          <Image src={product.image?.url} />
           <Card.Content>
             <Card.Header>{product.name}</Card.Header>
             <Card.Meta>

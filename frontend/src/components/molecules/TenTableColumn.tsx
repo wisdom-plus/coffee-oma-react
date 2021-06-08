@@ -19,7 +19,7 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => {
         <Table.Body>
           <Table.Row>
             <Table.Cell width={4}>価格</Table.Cell>
-            <Table.Cell>{product.price.toLocaleString()}</Table.Cell>
+            <Table.Cell>¥{product.price.toLocaleString()}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>ブランド</Table.Cell>

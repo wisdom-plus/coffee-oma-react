@@ -3,9 +3,10 @@ import { Card, Segment, Button, Icon } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import Indexcards from 'components/atoms/Indexcards';
 import { Fetchproductindex } from 'apis/Product';
-import { productindexReducer, initialState } from 'reducers/Product';
+import { productindexReducer } from 'reducers/Product';
 import { Link } from 'react-router-dom';
-import { ProductsActionTypes } from '../../constants';
+import { products } from 'mock/product';
+import REQUEST_STATE, { ProductsActionTypes } from '../../constants';
 
 const rankings = [
   {
@@ -36,6 +37,11 @@ const rankings = [
 type Props = {
   isindex?: boolean;
   className?: string;
+};
+
+const initialState = {
+  fetchState: REQUEST_STATE.INITIAL,
+  productsList: products,
 };
 
 export const Threecards: FC<Props> = ({ isindex = false, className }) => {
