@@ -14,10 +14,14 @@ import { useParams } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { FetchRegistrationShow } from 'apis/User';
 import FollowButton from 'components/atoms/FollowButton';
+import { useRecoilValue } from 'recoil';
+import LoginState from 'atom';
 
 const UserProfile: FC = () => {
   const [user, setUser] = useState<CurrentUser>({} as CurrentUser);
   const { id } = useParams<{ id: string }>();
+  const currentuser = useRecoilValue(LoginState);
+
   useEffect(() => {
     FetchRegistrationShow(id)
       .then((result) =>
@@ -34,9 +38,7 @@ const UserProfile: FC = () => {
         <Image src={user?.icon?.url} circular size="small" centered />
         <Header content={user.name} textAlign="center" />
         <Segment basic>
-          <Segment basic>
-            <FollowButton />
-          </Segment>
+          <Segment basic>{currentuser.email && <FollowButton />}</Segment>
           <Label>
             <Icon name="calendar alternate outline" />
             {dayjs(user.created_at).format('YYYY年MM月')}から利用中
