@@ -1,7 +1,8 @@
 import 'semantic-ui-css/semantic.min.css';
 import '../src/index.css';
-import { addDecorator } from '@storybook/react';
+import { addDecorator, configure } from '@storybook/react';
 import StoryRouter from 'storybook-react-router';
+import requireContext from 'require-context.macro';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,3 +15,6 @@ export const parameters = {
   layout: 'centered',
 };
 addDecorator(StoryRouter());
+
+const req = requireContext('../src/stories', true, /.(story|stories).tsx$/);
+configure(req, module);
