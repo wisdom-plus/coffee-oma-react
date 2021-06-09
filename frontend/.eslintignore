@@ -6,5 +6,5 @@ public/
 *.config.js
 .*lintrc.js
 .eslintrc.js
-**/cypress/plugins/
-**/cypress/integration/examples
+cypress/plugins/
+cypress/integration/
