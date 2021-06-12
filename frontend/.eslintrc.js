@@ -35,6 +35,7 @@ module.exports = {
     'prefer-arrow',
     'react',
     'react-hooks',
+    'cypress',
   ],
   root: true,
   rules: {

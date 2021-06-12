@@ -1,21 +1,18 @@
 import { FC, useEffect, useReducer } from 'react';
-import { Card, Segment } from 'semantic-ui-react';
-import Indexcards from 'components/atoms/Indexcards';
+import { Card, Button, Icon } from 'semantic-ui-react';
+import Ranking from 'components/atoms/Ranking';
 import { Fetchproductindex } from 'apis/Product';
 import { productindexReducer } from 'reducers/Product';
+import { Link } from 'react-router-dom';
 import { products } from 'mock/product';
 import REQUEST_STATE, { ProductsActionTypes } from '../../constants';
-
-type Props = {
-  className?: string;
-};
 
 const initialState = {
   fetchState: REQUEST_STATE.INITIAL,
   productsList: products,
 };
 
-export const Threecards: FC<Props> = ({ className }) => {
+const RankThreeCards: FC = () => {
   const [state, dispatch] = useReducer(productindexReducer, initialState);
 
   useEffect(() => {
@@ -31,18 +28,21 @@ export const Threecards: FC<Props> = ({ className }) => {
   }, []);
 
   return (
-    <>
-      <Segment
-        loading={state.fetchState === 'LOADING'}
-        style={{ margin: '4em', padding: '3em' }}
-      >
-        <Card.Group itemsPerRow={3} stackable className={className} centered>
-          <Indexcards products={state.productsList} />
-        </Card.Group>
-      </Segment>
-      )
-    </>
+    <Card.Group
+      itemsPerRow={3}
+      stackable
+      centered
+      style={{ paddingTop: '3em' }}
+    >
+      <Ranking rankings={state.productsList} />
+      <Link to="/product/ranking">
+        <Button color="teal" size="huge" style={{ marginTop: '2em' }}>
+          <Icon name="signal" />
+          ランキングを詳しく見る
+        </Button>
+      </Link>
+    </Card.Group>
   );
 };
 
-export default Threecards;
+export default RankThreeCards;

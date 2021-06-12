@@ -27,7 +27,13 @@ const Topmenu: FC = () => {
               to="/registration/edit"
               content="アカウント編集"
             />
-            <Menu.Item header as={Link} to="/sign_out" content="ログアウト" />
+            <Menu.Item
+              header
+              as={Link}
+              to="/sign_out"
+              content="ログアウト"
+              data-testid="logout"
+            />
           </>
         ) : (
           <>

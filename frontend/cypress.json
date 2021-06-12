@@ -1,5 +1,7 @@
 {
   "env": {
-    "baseUrl": "http://localhost:3001"
-  }
+    "backendurl": "http://localhost:3001/"
+  },
+  "baseUrl": "http://localhost:3000",
+  "video": false
 }

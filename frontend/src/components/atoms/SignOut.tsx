@@ -18,12 +18,14 @@ const SignOut: FC = () => {
     let isMounted = true;
     if (isMounted) {
       Fetchsessiondestroy()
-        .then(
-          (result) =>
-            result !== undefined &&
-            result === 200 &&
-            (resetUser(),
-            setState((prevUser) => ({ ...prevUser, logout: true }))),
+        .then((result) =>
+          result !== undefined && result === 200
+            ? (resetUser(),
+              setState((prevUser) => ({ ...prevUser, logout: true })))
+            : history.push('/', {
+                message: 'ログアウトに失敗しました。',
+                type: 'error',
+              }),
         )
         .catch(() => setState({ logout: false }));
       setTimeout(() => history.push('/'), 6000);
@@ -39,7 +41,7 @@ const SignOut: FC = () => {
       <Grid columns={3} centered style={{ margin: '4em' }}>
         <Grid.Column width={3} />
         <Grid.Column width={10} as={Segment}>
-          <Header as="h4" textAlign="center">
+          <Header as="h4" textAlign="center" data-testid="logout-message">
             {state.logout
               ? 'ログアウトが正常に行われました'
               : 'ログアウトができせんでした。'}
