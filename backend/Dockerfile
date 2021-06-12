@@ -2,6 +2,8 @@ FROM ruby:2.7.2-alpine
 
 WORKDIR /coffee-oma
 
+ENV PORT 3001
+
 COPY Gemfile Gemfile.lock  ./
 
 RUN apk  --no-cache add linux-headers\
