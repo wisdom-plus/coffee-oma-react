@@ -27,7 +27,6 @@ describe('The Home Page', () => {
       },
     );
     cy.visit('/');
-    cy.wait('@Products').then(console.log);
     cy.fixture('products').then((Products) => {
       cy.get(
         `[data-rankid= ${Products.products[0].id}] > .card >.content >.header`,

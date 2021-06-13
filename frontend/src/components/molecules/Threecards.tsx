@@ -1,43 +1,41 @@
-import { FC, useEffect, useReducer } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Indexcards from 'components/atoms/Indexcards';
 import { Fetchproductindex } from 'apis/Product';
-import { productindexReducer } from 'reducers/Product';
-import { products } from 'mock/product';
-import REQUEST_STATE, { ProductsActionTypes } from '../../constants';
+import { Product } from 'model/index';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   className?: string;
 };
 
-const initialState = {
-  fetchState: REQUEST_STATE.INITIAL,
-  productsList: products,
-};
-
 export const Threecards: FC<Props> = ({ className }) => {
-  const [state, dispatch] = useReducer(productindexReducer, initialState);
+  const [state, setState] = useState<Product[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: ProductsActionTypes.FETCHING });
     Fetchproductindex()
-      .then((data) =>
-        dispatch({
-          type: ProductsActionTypes.FETCH_SUCCESS,
-          payload: data,
-        }),
+      .then((result) =>
+        result !== undefined && result.products !== undefined
+          ? setState(() => result.products)
+          : history.push('/products', {
+              message: 'エラーが発生しました。',
+              type: 'error',
+            }),
       )
-      .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
-  }, []);
+      .catch(() =>
+        history.push('/products', {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        }),
+      );
+  }, [history]);
 
   return (
     <>
-      <Segment
-        loading={state.fetchState === 'LOADING'}
-        style={{ margin: '4em', padding: '3em' }}
-      >
+      <Segment style={{ margin: '4em', padding: '3em' }}>
         <Card.Group itemsPerRow={3} stackable className={className} centered>
-          <Indexcards products={state.productsList} />
+          <Indexcards products={state} />
         </Card.Group>
       </Segment>
       )

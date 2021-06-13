@@ -18,9 +18,6 @@ describe('Logout', () => {
       'ログアウトが正常に行われました５秒後にトップページに移動します。Topへ',
     );
   });
-});
-
-describe('Logout', () => {
   it('failed', () => {
     localStorage.setItem('access-token', 'access-token');
     localStorage.setItem('client', 'client');

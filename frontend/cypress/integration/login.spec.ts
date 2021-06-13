@@ -22,8 +22,6 @@ describe('Login', () => {
       'ログインに成功しました。',
     );
   });
-});
-describe('Login', () => {
   it('failed', () => {
     cy.intercept('POST', sessionnewURL, {
       statusCode: 401,

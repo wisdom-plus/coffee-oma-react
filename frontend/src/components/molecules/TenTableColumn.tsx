@@ -13,7 +13,9 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => {
       <Table celled textAlign="center">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell colSpan="3">{product.name}</Table.HeaderCell>
+            <Table.HeaderCell colSpan="3" data-testid="name">
+              {product.name}
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

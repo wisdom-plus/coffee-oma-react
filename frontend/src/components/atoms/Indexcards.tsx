@@ -19,6 +19,7 @@ const Indexcards: FC<Props> = ({ products, isrank = false }) => (
         key={product.id}
         to={`/product/${product.id}`}
         style={{ margin: '0.875em 1em' }}
+        data-testid={product.id}
       >
         <Card>
           {isrank && (

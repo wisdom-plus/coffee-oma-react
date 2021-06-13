@@ -12,7 +12,6 @@ const SignUpForm: FC = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<UserInput>({
     criteriaMode: 'all',
   });
@@ -27,7 +26,10 @@ const SignUpForm: FC = () => {
       .then((result) =>
         result !== undefined && result === 200
           ? history.push('/send_mail')
-          : reset(),
+          : history.push('/sign_up', {
+              message: '無効な入力があります。',
+              type: 'error',
+            }),
       )
       .catch(() =>
         history.push('/sign_up', {
@@ -61,6 +63,7 @@ const SignUpForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="name"
                   control={Input}
                   placeholder="account-name"
                   label="アカウント名"
@@ -87,6 +90,7 @@ const SignUpForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="email"
                   control={Input}
                   label="メールアドレス"
                   placeholder="e-mail"
@@ -119,6 +123,7 @@ const SignUpForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="password"
                   control={Input}
                   label="パスワード"
                   placeholder="password"
@@ -149,6 +154,7 @@ const SignUpForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="password_confirmation"
                   control={Input}
                   label="パスワード確認"
                   placeholder="password-confirmation"
@@ -166,7 +172,7 @@ const SignUpForm: FC = () => {
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
-              <Form.Button color="teal" content="登録" />
+              <Form.Button color="teal" content="登録" data-testid="submit" />
             </Form.Field>
           </Segment>
           <FormMessage issignup />
