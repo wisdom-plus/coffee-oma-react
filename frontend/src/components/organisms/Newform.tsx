@@ -61,7 +61,7 @@ const Newform: FC = () => {
                   rules={{
                     required: '商品名が入力されていません。',
                   }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       error={
                         errors.name && {
@@ -78,7 +78,6 @@ const Newform: FC = () => {
                       placeholder="name"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -88,7 +87,7 @@ const Newform: FC = () => {
                 <Controller
                   name="shopname"
                   control={control}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       data-testid="shopname"
                       control={Input}
@@ -98,7 +97,6 @@ const Newform: FC = () => {
                       placeholder="shop-name"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -112,7 +110,7 @@ const Newform: FC = () => {
                 rules={{
                   required: '商品価格が入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.price && {
@@ -131,7 +129,6 @@ const Newform: FC = () => {
                     min="0"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -141,7 +138,7 @@ const Newform: FC = () => {
               <Controller
                 name="url"
                 control={control}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     data-testid="url"
                     control={Input}
@@ -152,7 +149,6 @@ const Newform: FC = () => {
                     type="url"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -176,7 +172,7 @@ const Newform: FC = () => {
                     rules={{
                       required: '商品の説明が入力されていません。',
                     }}
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                    render={({ field: { onChange, onBlur, value } }) => (
                       <Form.Field
                         error={
                           errors.caption && {
@@ -191,7 +187,6 @@ const Newform: FC = () => {
                         rows={6}
                         onChange={onChange}
                         onBlur={onBlur}
-                        ref={ref}
                         value={value}
                       />
                     )}

@@ -38,7 +38,7 @@ const ResetPassword: FC = () => {
                 rules={{
                   required: 'メールアドレスが入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.email && {
@@ -54,7 +54,6 @@ const ResetPassword: FC = () => {
                     placeholder="e-mail"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}

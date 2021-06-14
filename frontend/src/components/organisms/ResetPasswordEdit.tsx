@@ -56,7 +56,7 @@ const ResetPasswordEdit: FC = () => {
                     message: 'パスワードは最低８文字以上必要です',
                   },
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.password && {
@@ -72,7 +72,6 @@ const ResetPasswordEdit: FC = () => {
                     type="password"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -85,7 +84,7 @@ const ResetPasswordEdit: FC = () => {
                     value === passwordconfirmation ||
                     'パスワードが一致しません',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.password_confirmation && {
@@ -101,7 +100,6 @@ const ResetPasswordEdit: FC = () => {
                     type="password"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}

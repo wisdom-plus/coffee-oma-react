@@ -20,7 +20,7 @@ const Registration: FC<Props> = ({ isnew, isedit, ismypage, isshow }) => (
         {isnew && <RegistrationNew />}
         {isedit && <RegistrationEdit />}
         {ismypage && <RegistrationShow />}
-        {isshow && <RegistrationShow show />}
+        {isshow && <RegistrationShow />}
       </Grid.Column>
     </Grid>
   </>

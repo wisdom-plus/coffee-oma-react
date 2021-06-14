@@ -59,7 +59,7 @@ const SignInForm: FC = () => {
                 rules={{
                   required: 'メールアドレスが入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.email && {
@@ -76,7 +76,6 @@ const SignInForm: FC = () => {
                     placeholder="e-mail"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -87,7 +86,7 @@ const SignInForm: FC = () => {
                 rules={{
                   required: 'パスワードが入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.password && {
@@ -105,7 +104,6 @@ const SignInForm: FC = () => {
                     placeholder="password"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}

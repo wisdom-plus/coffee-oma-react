@@ -55,7 +55,7 @@ const SignUpForm: FC = () => {
                   message: 'アカウント名は最低2文字以上必要です',
                 },
               }}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.name && {
@@ -71,7 +71,6 @@ const SignUpForm: FC = () => {
                   iconPosition="left"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
@@ -82,7 +81,7 @@ const SignUpForm: FC = () => {
               rules={{
                 required: 'メールアドレスが入力されていません',
               }}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.email && {
@@ -99,7 +98,6 @@ const SignUpForm: FC = () => {
                   type="email"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
@@ -115,7 +113,7 @@ const SignUpForm: FC = () => {
                 },
               }}
               defaultValue=""
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.password && {
@@ -133,7 +131,6 @@ const SignUpForm: FC = () => {
                   type="password"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
@@ -146,7 +143,7 @@ const SignUpForm: FC = () => {
                   value === passwordconfirmation || 'パスワードが一致しません',
               }}
               defaultValue=""
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.password_confirmation && {
@@ -164,7 +161,6 @@ const SignUpForm: FC = () => {
                   type="password"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}

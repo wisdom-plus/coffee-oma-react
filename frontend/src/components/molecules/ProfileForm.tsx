@@ -29,7 +29,6 @@ const ProfileForm: FC = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
     setValue,
   } = useForm<UserEditForm>({
     criteriaMode: 'all',
@@ -69,23 +68,15 @@ const ProfileForm: FC = () => {
               message: 'アカウント情報を更新しました。',
               type: 'success',
             }))
-          : reset({
-              name: user.name,
-              email: user.email,
-              profile: user.profile,
-              password: '',
-              password_confirmation: '',
-              current_password: '',
+          : history.push('/registration/edit', {
+              message: '入力が正しくありません。',
+              type: 'error',
             }),
       )
       .catch(() =>
-        reset({
-          name: user.name,
-          email: user.email,
-          profile: user.profile,
-          password: '',
-          password_confirmation: '',
-          current_password: '',
+        history.push('/mypage', {
+          message: 'エラーが発生しました。',
+          type: 'error',
         }),
       );
   };
@@ -112,7 +103,7 @@ const ProfileForm: FC = () => {
                   message: 'アカウント名は２文字以上必要です',
                 },
               }}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.name && {
@@ -120,6 +111,7 @@ const ProfileForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="name"
                   control={Input}
                   placeholder="account-name"
                   label="アカウント名"
@@ -127,7 +119,6 @@ const ProfileForm: FC = () => {
                   iconPosition="left"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
@@ -135,7 +126,7 @@ const ProfileForm: FC = () => {
             <Controller
               name="email"
               control={control}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
                   error={
                     errors.email && {
@@ -143,6 +134,7 @@ const ProfileForm: FC = () => {
                       pointing: 'below',
                     }
                   }
+                  data-testid="email"
                   control={Input}
                   defaultValue={user.email}
                   label="メールアドレス"
@@ -152,13 +144,15 @@ const ProfileForm: FC = () => {
                   type="email"
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
             />
             <Accordion>
-              <Accordion.Title onClick={() => setActive((prev) => !prev)}>
+              <Accordion.Title
+                onClick={() => setActive((prev) => !prev)}
+                data-testid="accodion"
+              >
                 <Icon name="dropdown" />
                 パスワードを変更する
               </Accordion.Title>
@@ -172,7 +166,7 @@ const ProfileForm: FC = () => {
                       message: 'パスワードは最低８文字以上必要です',
                     },
                   }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       error={
                         errors.current_password && {
@@ -180,6 +174,7 @@ const ProfileForm: FC = () => {
                           pointing: 'below',
                         }
                       }
+                      data-testid="current_password"
                       control={Input}
                       label="現在のパスワード"
                       placeholder="password"
@@ -188,7 +183,6 @@ const ProfileForm: FC = () => {
                       type="password"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -202,7 +196,7 @@ const ProfileForm: FC = () => {
                       message: 'パスワードは最低８文字以上必要です',
                     },
                   }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       error={
                         errors.password && {
@@ -210,6 +204,7 @@ const ProfileForm: FC = () => {
                           pointing: 'below',
                         }
                       }
+                      data-testid="password"
                       control={Input}
                       label="新しいパスワード"
                       placeholder="new-password"
@@ -218,7 +213,6 @@ const ProfileForm: FC = () => {
                       type="password"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -231,7 +225,7 @@ const ProfileForm: FC = () => {
                       value === passwordconfirmation ||
                       'パスワードが一致しません',
                   }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       error={
                         errors.password_confirmation && {
@@ -239,6 +233,7 @@ const ProfileForm: FC = () => {
                           pointing: 'below',
                         }
                       }
+                      data-testid="password_confirmation"
                       control={Input}
                       label="パスワード確認"
                       placeholder="new-password-confirmation"
@@ -247,7 +242,6 @@ const ProfileForm: FC = () => {
                       type="password"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -257,8 +251,9 @@ const ProfileForm: FC = () => {
             <Controller
               name="profile"
               control={control}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <Form.Field
+                  data-testid="profile"
                   control={TextArea}
                   placeholder="item-caption"
                   id="caption"
@@ -273,7 +268,6 @@ const ProfileForm: FC = () => {
                   }
                   onChange={onChange}
                   onBlur={onBlur}
-                  ref={ref}
                   value={value}
                 />
               )}
@@ -282,7 +276,7 @@ const ProfileForm: FC = () => {
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
-              <Form.Button color="teal" content="登録" />
+              <Form.Button color="teal" content="登録" data-testid="submit" />
             </Form.Field>
           </Segment>
         </Grid.Column>
