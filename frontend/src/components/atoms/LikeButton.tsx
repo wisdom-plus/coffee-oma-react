@@ -32,7 +32,7 @@ const LikedButton: FC = () => {
 
   const onCreate = () =>
     FetchLikeCreate(id).then((result) =>
-      result !== 500
+      result === 201
         ? setState((prevState) => ({
             ...prevState,
             liked: true,
@@ -46,7 +46,7 @@ const LikedButton: FC = () => {
 
   const onDestroy = () =>
     FetchLikeDestroy(id).then((result) =>
-      result !== 500
+      result === 201
         ? setState((prevState) => ({
             ...prevState,
             liked: false,

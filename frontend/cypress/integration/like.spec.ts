@@ -27,7 +27,7 @@ describe('Create', () => {
       statusCode: 200,
       body: { count: 1, liked: false },
     });
-    cy.intercept('POST', LikeCreateURL, { statusCode: 200 });
+    cy.intercept('POST', LikeCreateURL, { statusCode: 201 });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = create]').click();
     cy.get('[data-testid = destroy]').should('have.text', 'Like(2)');
@@ -73,7 +73,7 @@ describe('Destroy', () => {
       body: like,
     });
     cy.intercept('DELETE', LikeDestroyURL(`${products[0].id}`), {
-      statusCode: 200,
+      statusCode: 201,
     });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid=destroy]').click();
