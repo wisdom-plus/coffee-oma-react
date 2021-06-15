@@ -1,53 +1,77 @@
 import { FC, useState, useEffect } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const LikedButton: FC = () => {
-  const [state, setState] = useState({ liked: false });
-  const [likecount, setLikeCount] = useState<number>(0);
+  const [state, setState] = useState({ liked: false, count: 0 });
   const { id } = useParams<{ id: string }>();
+  const history = useHistory();
 
   useEffect(() => {
     FetchLikeExists(id)
       .then((result) => {
-        if (result !== 0 && result.status === 200) {
-          setState((prev) => ({ ...prev, liked: true }));
-          setLikeCount(() => result.data.count);
-        } else if (result !== 0) {
-          setLikeCount(() =>
-            result.data.count === undefined ? 0 : result.data.count,
-          );
+        if (result !== 0 && result.liked) {
+          setState((prev) => ({ ...prev, ...result }));
+        } else if (result !== 0 && !result.liked) {
+          setState((prev) => ({ ...prev, ...result }));
+        } else {
+          history.push(`/product/${id}`, {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          });
         }
       })
-      .catch(() => setState({ liked: false }));
-  }, [id]);
+      .catch(() =>
+        history.push(`/`, {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        }),
+      );
+  }, [id, history]);
 
   const onCreate = () =>
-    FetchLikeCreate(id).then(
-      (result) =>
-        result !== 500 &&
-        (setState((prevState) => ({ ...prevState, liked: true })),
-        setLikeCount((c) => c + 1)),
+    FetchLikeCreate(id).then((result) =>
+      result !== 500
+        ? setState((prevState) => ({
+            ...prevState,
+            liked: true,
+            count: prevState.count + 1,
+          }))
+        : history.push(`/product/${id}`, {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          }),
     );
 
   const onDestroy = () =>
-    FetchLikeDestroy(id).then(
-      (result) =>
-        result !== 500 &&
-        (setState((prevState) => ({ ...prevState, liked: false })),
-        setLikeCount((c) => c - 1)),
+    FetchLikeDestroy(id).then((result) =>
+      result !== 500
+        ? setState((prevState) => ({
+            ...prevState,
+            liked: false,
+            count: prevState.count - 1,
+          }))
+        : history.push(`/product/${id}`, {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          }),
     );
 
   return state.liked ? (
-    <Button circular onClick={onDestroy} style={{ color: 'red' }}>
+    <Button
+      circular
+      onClick={onDestroy}
+      style={{ color: 'red' }}
+      data-testid="destroy"
+    >
       <Icon name="heart" color="red" />
-      Like({likecount})
+      Like({state.count})
     </Button>
   ) : (
-    <Button circular onClick={onCreate}>
+    <Button circular onClick={onCreate} data-testid="create">
       <Icon name="heart" color="grey" />
-      Like({likecount})
+      Like({state.count})
     </Button>
   );
 };

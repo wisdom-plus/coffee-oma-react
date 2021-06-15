@@ -63,9 +63,5 @@ export type CurrentUser = {
   ['created_at']: Date;
 };
 
-export type LikedData = {
-  data: { count: number };
-  status: number;
-};
-
+export type LikedData = { count: number; liked: boolean };
 export default Product;

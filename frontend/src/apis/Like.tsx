@@ -15,13 +15,10 @@ export const FetchLikeDestroy = (LikeId: string): Promise<number | 500> =>
     .catch(() => 500);
 
 export const FetchLikeExists = (ProductId: string): Promise<LikedData | 0> =>
-  SignedInAxios.get<{ count: number }>(LikeExistsURL, {
+  SignedInAxios.get<LikedData>(LikeExistsURL, {
     params: { product_id: ProductId },
   })
-    .then<LikedData | 0>((result) => ({
-      status: result.status,
-      data: result.data,
-    }))
+    .then<LikedData | 0>((result) => result.data)
     .catch(() => 0);
 
 export default FetchLikeCreate;
