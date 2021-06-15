@@ -1,30 +1,21 @@
-import { FC, useEffect, useReducer } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
-import { Fetchproductindex } from 'apis/Product';
-import { productindexReducer } from 'reducers/Product';
 import { Link } from 'react-router-dom';
-import { products } from 'mock/product';
-import REQUEST_STATE, { ProductsActionTypes } from '../../constants';
-
-const initialState = {
-  fetchState: REQUEST_STATE.INITIAL,
-  productsList: products,
-};
+import { Fetchproductindex } from 'apis/Product';
+import { Product } from 'model/index';
 
 const RankThreeCards: FC = () => {
-  const [state, dispatch] = useReducer(productindexReducer, initialState);
+  const [state, setState] = useState<Product[]>([]);
 
   useEffect(() => {
-    dispatch({ type: ProductsActionTypes.FETCHING });
     Fetchproductindex()
-      .then((data) =>
-        dispatch({
-          type: ProductsActionTypes.FETCH_SUCCESS,
-          payload: data,
-        }),
+      .then((result) =>
+        result !== undefined && result.products
+          ? setState(result.products)
+          : [],
       )
-      .catch(() => dispatch({ type: ProductsActionTypes.ERROR }));
+      .catch(() => setState([]));
   }, []);
 
   return (
@@ -34,7 +25,7 @@ const RankThreeCards: FC = () => {
       centered
       style={{ paddingTop: '3em' }}
     >
-      <Ranking rankings={state.productsList} />
+      <Ranking rankings={state} />
       <Link to="/product/ranking">
         <Button color="teal" size="huge" style={{ marginTop: '2em' }}>
           <Icon name="signal" />

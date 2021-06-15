@@ -20,7 +20,7 @@ const mock = (apiMock: MockAdapter) => {
 const Template: Story<ComponentProps<typeof App>> = () => (
   <RecoilRoot>
     <MemoryRouter initialEntries={['/product/1']}>
-      <AxiosMack mock={mock} logined>
+      <AxiosMack mock={mock} like logined>
         <App />
       </AxiosMack>
     </MemoryRouter>

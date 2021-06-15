@@ -38,7 +38,6 @@ export const Threecards: FC<Props> = ({ className }) => {
           <Indexcards products={state} />
         </Card.Group>
       </Segment>
-      )
     </>
   );
 };

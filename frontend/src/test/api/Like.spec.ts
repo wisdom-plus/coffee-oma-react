@@ -55,9 +55,12 @@ describe('Like', () => {
       localStorage.setItem('access-token', 'access-token');
       localStorage.setItem('client', 'client');
       localStorage.setItem('uid', 'uid');
-      Signedmock.onGet(LikeExistsURL).reply(200, { count: likecount });
+      Signedmock.onGet(LikeExistsURL).reply(201, {
+        count: likecount,
+        liked: true,
+      });
       const likeexists = await FetchLikeExists(`${productId}`);
-      expect(likeexists).toEqual({ data: { count: likecount }, status: 200 });
+      expect(likeexists).toStrictEqual({ count: 10, liked: true });
     });
   });
 });
