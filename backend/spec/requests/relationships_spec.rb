@@ -30,7 +30,7 @@ RSpec.describe 'Relationships', type: :request do
       sign_in(:user)
       it 'レスポンス成功' do
         delete api_relationship_path(follow.follow_id)
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:created)
       end
 
       it 'レスポンス失敗' do

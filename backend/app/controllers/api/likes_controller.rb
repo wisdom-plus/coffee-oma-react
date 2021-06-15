@@ -32,11 +32,8 @@ module Api
     def exists
       product = Product.find_by(id: params[:product_id])
       if product
-        if api_user_signed_in? && product.likes.exists?(user_id: current_api_user.id)
-          render json: { count: product.likes.count }, status: :ok
-        else
-          render json: { count: product.likes.count }, status: :no_content
-        end
+        liked = api_user_signed_in? && product.likes.exists?(user_id: current_api_user.id)
+          render json: {liked: liked ,count: product.likes.count }, status: :ok
       else
         render status: :internal_server_error
       end

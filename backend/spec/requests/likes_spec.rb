@@ -85,7 +85,7 @@ RSpec.describe 'Likes', type: :request do
     context 'ログインしていない時' do
       it 'レスポンス成功' do
         get exists_api_likes_path, params: { product_id: product.id }
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'レスポンス失敗' do

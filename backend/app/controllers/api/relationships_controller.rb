@@ -17,7 +17,7 @@ module Api
       if follow.nil?
         render status: :internal_server_error
       else
-        render status: :ok
+        render status: :created
       end
     end
 
