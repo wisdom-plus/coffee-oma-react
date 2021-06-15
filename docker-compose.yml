@@ -21,18 +21,6 @@ services:
     stdin_open: true
     depends_on:
       - database
-  frontend:
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/user/src/app;delegated
-    ports:
-      - '3000:3000'
-    tty: true
-    stdin_open: true
-    depends_on:
-      - database
 volumes:
   mysql-data2:
     driver: local

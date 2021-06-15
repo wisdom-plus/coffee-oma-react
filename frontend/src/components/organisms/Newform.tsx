@@ -38,7 +38,10 @@ const Newform: FC = () => {
               message: '登録成功しました。',
               type: 'success',
             })
-          : reset(),
+          : history.push('/product/new', {
+              message: '登録に失敗しました。',
+              type: 'error',
+            }),
       )
       .catch(() => reset());
   };
@@ -58,7 +61,7 @@ const Newform: FC = () => {
                   rules={{
                     required: '商品名が入力されていません。',
                   }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
                       error={
                         errors.name && {
@@ -66,6 +69,7 @@ const Newform: FC = () => {
                           pointing: 'below',
                         }
                       }
+                      data-testid="name"
                       control={Input}
                       label="商品名"
                       icon="shopping cart"
@@ -74,7 +78,6 @@ const Newform: FC = () => {
                       placeholder="name"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -84,8 +87,9 @@ const Newform: FC = () => {
                 <Controller
                   name="shopname"
                   control={control}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <Form.Field
+                      data-testid="shopname"
                       control={Input}
                       label="メーカー名"
                       icon="credit card alternative"
@@ -93,7 +97,6 @@ const Newform: FC = () => {
                       placeholder="shop-name"
                       onChange={onChange}
                       onBlur={onBlur}
-                      ref={ref}
                       value={value}
                     />
                   )}
@@ -107,7 +110,7 @@ const Newform: FC = () => {
                 rules={{
                   required: '商品価格が入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.price && {
@@ -115,6 +118,7 @@ const Newform: FC = () => {
                         pointing: 'below',
                       }
                     }
+                    data-testid="price"
                     control={Input}
                     label="商品名"
                     icon="yen"
@@ -125,7 +129,6 @@ const Newform: FC = () => {
                     min="0"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -135,8 +138,9 @@ const Newform: FC = () => {
               <Controller
                 name="url"
                 control={control}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
+                    data-testid="url"
                     control={Input}
                     label="商品URL"
                     icon="sitemap"
@@ -145,7 +149,6 @@ const Newform: FC = () => {
                     type="url"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -169,21 +172,21 @@ const Newform: FC = () => {
                     rules={{
                       required: '商品の説明が入力されていません。',
                     }}
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                    render={({ field: { onChange, onBlur, value } }) => (
                       <Form.Field
-                        control={TextArea}
-                        placeholder="item-caption"
-                        id="caption"
-                        rows={6}
                         error={
                           errors.caption && {
                             content: errors.caption?.message,
                             pointing: 'below',
                           }
                         }
+                        data-testid="caption"
+                        control={TextArea}
+                        placeholder="item-caption"
+                        id="caption"
+                        rows={6}
                         onChange={onChange}
                         onBlur={onBlur}
-                        ref={ref}
                         value={value}
                       />
                     )}
@@ -193,7 +196,7 @@ const Newform: FC = () => {
             </Table.Body>
           </Table>
           <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
-            <Form.Button color="teal" content="submit" />
+            <Form.Button color="teal" content="submit" data-testid="submit" />
           </Form.Field>
         </Grid.Column>
         <Grid.Column width={3} />

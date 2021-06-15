@@ -14,11 +14,19 @@ const FlashMessage: FC<LocationState> = ({ message, type }) => {
       {state &&
         (type === 'success' ? (
           <Message success onDismiss={() => setState(() => false)}>
-            <Message.Header className="ui center aligned" content={message} />
+            <Message.Header
+              data-testid="success"
+              className="ui center aligned"
+              content={message}
+            />
           </Message>
         ) : (
           <Message error onDismiss={() => setState(() => false)}>
-            <Message.Header className="ui center aligned" content={message} />
+            <Message.Header
+              data-testid="error"
+              className="ui center aligned"
+              content={message}
+            />
           </Message>
         ))}
     </>

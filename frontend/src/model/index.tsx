@@ -27,7 +27,6 @@ export type User = {
 };
 
 export type UserInput = {
-  id: number;
   name: string;
   email: string;
   password: string;
@@ -60,14 +59,9 @@ export type CurrentUser = {
   id: number;
   icon: { url: string };
   name: string;
-  nickname: string;
   profile: string;
   ['created_at']: Date;
 };
 
-export type LikedData = {
-  data: { count: number };
-  status: number;
-};
-
+export type LikedData = { count: number; liked: boolean };
 export default Product;

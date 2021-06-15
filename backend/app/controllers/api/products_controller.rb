@@ -2,16 +2,24 @@ module Api
   class ProductsController < ApplicationController
     def index
       products = Product.all
-      render json: {
-        products: products
-      }, status: :ok
+      if products.empty?
+        render status: :not_found
+      else
+        render json: {
+          products: products
+        }, status: :ok
+      end
     end
 
     def show
-      product = Product.find(params[:id])
-      render json: {
-        product: product
-      }, status: :ok
+      product = Product.find_by(id: params[:id])
+      if product
+        render json: {
+          product: product
+        }, status: :ok
+      else
+        render status: :not_found
+      end
     end
 
     def create

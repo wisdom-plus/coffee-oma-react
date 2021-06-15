@@ -13,13 +13,15 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => {
       <Table celled textAlign="center">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell colSpan="3">{product.name}</Table.HeaderCell>
+            <Table.HeaderCell colSpan="3" data-testid="name">
+              {product.name}
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           <Table.Row>
             <Table.Cell width={4}>価格</Table.Cell>
-            <Table.Cell>{product.price.toLocaleString()}</Table.Cell>
+            <Table.Cell>¥{product.price.toLocaleString()}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>ブランド</Table.Cell>

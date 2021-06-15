@@ -14,11 +14,12 @@ const Extra: FC<{ price: number }> = ({ price }) => (
 
 const Indexcards: FC<Props> = ({ products, isrank = false }) => (
   <>
-    {products.map((product, index) => (
+    {products?.map((product, index) => (
       <Link
         key={product.id}
         to={`/product/${product.id}`}
         style={{ margin: '0.875em 1em' }}
+        data-testid={product.id}
       >
         <Card>
           {isrank && (
@@ -27,7 +28,7 @@ const Indexcards: FC<Props> = ({ products, isrank = false }) => (
               {index + 1}
             </Label>
           )}
-          <Image src={product.image.url} />
+          <Image src={product.image?.url} />
           <Card.Content>
             <Card.Header>{product.name}</Card.Header>
             <Card.Meta>

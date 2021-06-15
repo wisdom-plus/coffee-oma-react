@@ -15,7 +15,7 @@ const Productindex: FC = () => (
       なければ
       <Link to="/product/new">こちらから登録</Link>
     </Header>
-    <Threecards isindex />
+    <Threecards />
   </>
 );
 export default Productindex;

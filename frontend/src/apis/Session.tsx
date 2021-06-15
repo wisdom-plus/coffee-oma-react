@@ -8,7 +8,7 @@ import {
 import {
   sessionnewURL,
   sessiondestroyURL,
-  sessionvaildateURL,
+  sessionvalidateURL,
   sessionconfirmationURL,
   passwordresetURL,
   passwordreseteditURL,
@@ -30,10 +30,15 @@ const StorageSet = (result: Token): void => {
   localStorage.setItem('uid', result.uid);
 };
 
-export const Fetchsessionnew = (session: Session): Promise<login | undefined> =>
+export const Fetchsessionnew = (
+  session: Session,
+): Promise<{ data: CurrentUser } | undefined> =>
   axios
     .post<login>(sessionnewURL, { ...session })
-    .then<login>((result) => {
+    .then((result) => {
+      if (result.status === 401) {
+        return undefined;
+      }
       StorageSet(result.headers);
 
       return result.data;
@@ -51,7 +56,9 @@ export const Fetchsessiondestroy = (): Promise<number | undefined> =>
     },
   })
     .then((result) => {
-      localStorage.clear();
+      if (result.status === 200) {
+        localStorage.clear();
+      }
 
       return result.status;
     })
@@ -62,7 +69,7 @@ export const Fetchsessionvaildate = (): Promise<
 > =>
   axios({
     method: 'get',
-    url: sessionvaildateURL,
+    url: sessionvalidateURL,
     headers: {
       'access-token': localStorage.getItem('access-token'),
       client: localStorage.getItem('client'),

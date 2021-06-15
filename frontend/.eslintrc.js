@@ -14,6 +14,10 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier',
   ],
+  globals: {
+    cy: 'readonly',
+    Cypress: 'readonly',
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -31,6 +35,7 @@ module.exports = {
     'prefer-arrow',
     'react',
     'react-hooks',
+    'cypress',
   ],
   root: true,
   rules: {
@@ -82,10 +87,15 @@ module.exports = {
       'error',
       {
         devDependencies: [
+          '**/setupTests.ts',
           '.storybook/**',
           'stories/**',
           '**/*/*.story.*',
           '**/*/*.stories.*',
+          '**/__specs__/**',
+          '**/*/*.spec.*',
+          '**/__tests__/**',
+          '**/*/*.test.*',
         ],
       },
     ],

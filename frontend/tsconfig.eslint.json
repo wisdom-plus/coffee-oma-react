@@ -4,7 +4,7 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
   ],
   "exclude": [
     "node_modules"

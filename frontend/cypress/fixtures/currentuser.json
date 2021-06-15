@@ -1,0 +1,12 @@
+{
+  "data": {
+    "id": 1,
+    "name": "テスト",
+    "email": "test@example.com",
+    "profile": "これはテストです1",
+    "icon": {
+      "url": "http://localhost:3001/uploads/user/icon/1/icon-1.png"
+    },
+    "created_at": "2021-05-28T11:57:20.046+09:00"
+  }
+}

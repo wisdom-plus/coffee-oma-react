@@ -36,7 +36,9 @@ export const productindexReducer = (state: State, action: Action): State => {
       return {
         fetchState: REQUEST_STATE.OK,
         productsList:
-          action.payload !== undefined ? action.payload.products : [],
+          action.payload !== undefined
+            ? action.payload.products
+            : state.productsList,
       };
     case ProductsActionTypes.ERROR:
       return {

@@ -14,7 +14,6 @@ const SignInForm: FC = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<Session>({ criteriaMode: 'all' });
 
   const setUser = useSetRecoilState(LoginState);
@@ -22,13 +21,16 @@ const SignInForm: FC = () => {
   const onSubmit = async (data: Session) => {
     await Fetchsessionnew(data)
       .then((result) =>
-        result !== undefined
+        result !== undefined && result.data
           ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
             history.push('/', {
               message: 'ログインに成功しました。',
               type: 'success',
             }))
-          : reset(),
+          : history.push('/sign_in', {
+              message: 'ログインに失敗しました。',
+              type: 'error',
+            }),
       )
       .catch(() =>
         history.push('/sign_in', {
@@ -57,7 +59,7 @@ const SignInForm: FC = () => {
                 rules={{
                   required: 'メールアドレスが入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.email && {
@@ -68,12 +70,12 @@ const SignInForm: FC = () => {
                     control={Input}
                     label="メールアドレス"
                     icon="mail"
+                    data-testid="email"
                     required
                     iconPosition="left"
                     placeholder="e-mail"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -84,7 +86,7 @@ const SignInForm: FC = () => {
                 rules={{
                   required: 'パスワードが入力されていません。',
                 }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <Form.Field
                     error={
                       errors.password && {
@@ -95,13 +97,13 @@ const SignInForm: FC = () => {
                     control={Input}
                     label="パスワード"
                     icon="key"
+                    data-testid="password"
                     required
                     type="password"
                     iconPosition="left"
                     placeholder="password"
                     onChange={onChange}
                     onBlur={onBlur}
-                    ref={ref}
                     value={value}
                   />
                 )}
@@ -109,7 +111,11 @@ const SignInForm: FC = () => {
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
               >
-                <Form.Button color="teal" content="ログイン" />
+                <Form.Button
+                  color="teal"
+                  content="ログイン"
+                  data-testid="login"
+                />
               </Form.Field>
             </Segment>
             <FormMessage issignin />

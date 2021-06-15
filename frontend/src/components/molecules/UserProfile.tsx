@@ -10,33 +10,44 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { FetchRegistrationShow } from 'apis/User';
 import FollowButton from 'components/atoms/FollowButton';
+import { useRecoilValue } from 'recoil';
+import LoginState from 'atom';
 
 const UserProfile: FC = () => {
   const [user, setUser] = useState<CurrentUser>({} as CurrentUser);
   const { id } = useParams<{ id: string }>();
+  const currentuser = useRecoilValue(LoginState);
+  const history = useHistory();
+
   useEffect(() => {
     FetchRegistrationShow(id)
       .then((result) =>
         result !== 401
           ? setUser((prevUser) => ({ ...prevUser, ...result.data }))
-          : setUser((prevUser) => prevUser),
+          : history.push('/', {
+              message: 'エラーが発生しました。',
+              type: 'error',
+            }),
       )
-      .catch(() => setUser((prevUser) => prevUser));
-  }, [id]);
+      .catch(() =>
+        history.push('/', {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        }),
+      );
+  }, [id, history]);
 
   return (
     <>
       <Container textAlign="center">
         <Image src={user?.icon?.url} circular size="small" centered />
-        <Header content={user.name} textAlign="center" />
+        <Header content={user.name} textAlign="center" data-testid="name" />
         <Segment basic>
-          <Segment basic>
-            <FollowButton />
-          </Segment>
+          <Segment basic>{currentuser.email && <FollowButton />}</Segment>
           <Label>
             <Icon name="calendar alternate outline" />
             {dayjs(user.created_at).format('YYYY年MM月')}から利用中
