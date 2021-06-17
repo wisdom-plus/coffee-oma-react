@@ -23,6 +23,9 @@ jobs:
           BIND_ADDRESS: 0.0.0.0
     steps:
       - uses: actions/chekout@v2.3.4
+        with:
+          repository: tomoron/coffee-oma-react
+          token: ${{ secrets.ACTIONS_TOKEN }}
       - name: SET up Ruby 2.7.2
         uses: ruby/setup-ruby@v1.68.0
         with:
