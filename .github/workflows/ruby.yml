@@ -31,13 +31,13 @@ jobs:
       - name: cd backend
         run: cd backend
       - name: bundle install
-          run: bundle install --jobs 4
+        run: bundle install --jobs=4
       - name: migration
         run: |
           bundle exec rails db:create
           bundle exec rails db:test:prepare
       - name: run rubocop
-          run: rubocop
+        run: rubocop
       - name: run rspec
-          run: bundle exec rspec
+        run: bundle exec rspec
 
