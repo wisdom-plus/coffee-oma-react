@@ -1,0 +1,43 @@
+name: Rails Rspec
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - Dockerfile
+      - docker-compose,yml
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DB_HOST: 127.0.0.1
+      DB_POET: 33060
+    services:
+      image: mysql:8.0
+      ports:
+        -33060:3306
+      env:
+        MYSQL_ALLOW_EMPTY_PASSWORD: yas
+        BIND_ADDRESS: 0.0.0.0
+      options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - users: actions/chekout@v2.3.4
+      - name: SET up Ruby 2.7.2
+        users: ruby/setup-ruby@v1.68.0
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+      - name: cd backend
+        run: cd backend
+      - name: bundle install
+          run: bundle install --jobs 4
+      - name: migration
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:test:prepare
+      - name: run rubocop
+          run: rubocop
+      - name: run rspec
+          run: bundle exec rspec
+
