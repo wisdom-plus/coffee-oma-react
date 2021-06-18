@@ -19,6 +19,7 @@ jobs:
         ports:
           - 3300:3306
         env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: password
           BIND_ADDRESS: 0.0.0.0
         options: --default-authentication-plugin=mysql_native_password
