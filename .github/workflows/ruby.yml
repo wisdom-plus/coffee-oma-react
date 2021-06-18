@@ -35,5 +35,5 @@ jobs:
           bundler-cache: true
           working-directory: ./backend
       - run: pwd
-        working-directory: ./bockend
+        working-directory: ./coffee-oma-react/bockend
 
