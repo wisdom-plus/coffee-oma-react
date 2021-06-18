@@ -19,10 +19,8 @@ jobs:
         ports:
           - 3300:3306
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: password
           BIND_ADDRESS: 0.0.0.0
-        options:  --health-cmd "mysqladmin ping -h 127.0.0.1" --health-interval 20s --health-timeout 10s --health-retries 10
     steps:
       - uses: actions/checkout@v2
         with:
