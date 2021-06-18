@@ -20,7 +20,7 @@ jobs:
         ports:
           - 3300:3306
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+          MYSQL_ROOT_PASSWORD: root
           BIND_ADDRESS: 0.0.0.0
         volumes:
           - mysqlconf.d:/etc/mysql/conf.d
@@ -38,6 +38,13 @@ jobs:
           working-directory: ./backend
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
+        working-directory: ./backend
+      - name: Setup Database
+        run: |
+          sudo systemctl start mysql
+          cp config/database.yml.ci config/database.yml
+          ./bin/rails db:create
+          ./bin/rails db:migrate
         working-directory: ./backend
       - name: run rubocop
         run: bundle exec rubocop
