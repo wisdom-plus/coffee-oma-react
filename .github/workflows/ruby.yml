@@ -34,6 +34,8 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
           working-directory: ./backend
-      - run: pwd
-        working-directory: ./coffee-oma-react/bockend
+      - run: |
+          cd backend
+          pwd
+
 
