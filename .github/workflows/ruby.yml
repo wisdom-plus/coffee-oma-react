@@ -39,7 +39,7 @@ jobs:
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
       - name: run rubocop
-        run: rubocop
+        run: bundle exec rubocop
         working-directory: ./backend
       - name: migration
         run: |
