@@ -31,16 +31,19 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-      - name: cd backend
-        run: cd backend
+          working-directory: ./backend
       - name: bundle install
         run: bundle install --jobs=4
+        working-directory: ./backend
       - name: migration
         run: |
           bundle exec rails db:create
           bundle exec rails db:test:prepare
+        working-directory: ./backend
       - name: run rubocop
         run: rubocop
+        working-directory: ./backend
       - name: run rspec
         run: bundle exec rspec
+        working-directory: ./backend
 
