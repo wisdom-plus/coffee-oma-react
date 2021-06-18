@@ -34,9 +34,9 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
           working-directory: ./backend
-      - run: |
-          cd backend
-          ls
-          pwd
+      - name: LS
+        run: ls
+        working-directory: ./backend
+
 
 
