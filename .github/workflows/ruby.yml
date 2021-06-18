@@ -36,6 +36,7 @@ jobs:
           working-directory: ./backend
       - run: |
           cd backend
+          ls
           pwd
 
 
