@@ -34,15 +34,4 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
           working-directory: ./backend
-      - name: migration
-        run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
-        working-directory: ./backend
-      - name: run rubocop
-        run: rubocop
-        working-directory: ./backend
-      - name: run rspec
-        run: bundle exec rspec
-        working-directory: ./backend
-
+      - run: pwd
