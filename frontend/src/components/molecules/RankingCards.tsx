@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Indexcards from 'components/atoms/Indexcards';
-import { FetchLikeIndex } from 'apis/Product';
+
 import { Product } from 'model/index';
 
 export const RankingCards: FC = () => {
