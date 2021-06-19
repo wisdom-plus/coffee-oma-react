@@ -25,4 +25,4 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: frontend
-          config: baseUrl= http://localhost:3000
+          config: baseUrl=http://localhost:3000
