@@ -19,6 +19,8 @@ jobs:
         with:
           repository: tomoron/coffee-oma-react
           token: ${{ secrets.ACTIONS_TOKEN }}
+      - name: Setup kernel for react, increase watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
         working-directory: ./frontend
