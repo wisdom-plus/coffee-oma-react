@@ -25,5 +25,5 @@ jobs:
       - name: yarn isntall
         run: |
           yarn install
-          yarn start
+          yarn start:ci
         working-directory: ./frontend
