@@ -21,11 +21,18 @@ jobs:
           token: ${{ secrets.ACTIONS_TOKEN }}
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
-        working-directory: ./frontend
+        working-directory: frontend
+      - name: Yarn install
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15.8.0'
+          check-latest: true
+      - run: |
+          yarn install
+          yarn start:ci &
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
           browser: chrome
           working-directory: frontend
           wait-on: 'http://localhost:3000'
