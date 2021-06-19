@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
-      - uses: actions/checkout@2
+      - uses: actions/checkout@v2
         with:
           repository: tomoron/coffee-oma-react
           token: ${{ secrets.ACTIONS_TOKEN }}
