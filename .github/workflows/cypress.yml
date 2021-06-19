@@ -22,11 +22,7 @@ jobs:
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
         working-directory: ./frontend
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn start:ci
-          browser: chrome
-          working-directory: frontend
-          wait-on: 'http://localhost:3000'
-          command: yarn cypress:run
+      - name: yarn isntall
+        run: |
+          yarn install
+          yarn start
