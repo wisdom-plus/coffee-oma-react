@@ -11,12 +11,17 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-latest
+    env:
+      ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
     container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - uses: actions/checkout@v2
         with:
           repository: tomoron/coffee-oma-react
           token: ${{ secrets.ACTIONS_TOKEN }}
+      - name: Decode env file
+        run: echo $ENV_FILE | base64 -d > .env
+        working-directory: ./frontend
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
