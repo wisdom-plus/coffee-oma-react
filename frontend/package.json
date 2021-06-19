@@ -53,7 +53,7 @@
     "build-storybook": "build-storybook -s public",
     "cypress": "cypress open",
     "cypress:run": "cypress run",
-    "start:ci": "CHOKIDAR_USEPOLLING=1 react-scripts start"
+    "start:ci": "CHOKIDAR_USEPOLLING=true react-scripts start"
   },
   "eslintConfig": {
     "extends": [
