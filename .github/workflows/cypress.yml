@@ -17,6 +17,10 @@ jobs:
         with:
           repository: tomoron/coffee-oma-react
           token: ${{ secrets.ACTIONS_TOKEN }}
+      - name: Yarn start
+        run: |
+          yarn install
+          yarn start
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
