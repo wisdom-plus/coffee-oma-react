@@ -27,14 +27,7 @@ jobs:
         with:
           node-version: '15.8.0'
           check-latest: true
-          working-directory: frontend
       - run: |
           yarn install
-          yarn start:ci &
+          yarn start:ci
         working-directory: frontend
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          working-directory: frontend
-          wait-on: 'http://localhost:3000'
