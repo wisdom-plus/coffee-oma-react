@@ -26,3 +26,4 @@ jobs:
         run: |
           yarn install
           yarn start
+        working-directory: ./frontend
