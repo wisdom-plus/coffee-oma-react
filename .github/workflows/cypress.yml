@@ -21,4 +21,4 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          working-directory: ./backend
+          working-directory: ./frontend
