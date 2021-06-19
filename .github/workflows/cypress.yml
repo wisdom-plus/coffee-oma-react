@@ -21,6 +21,7 @@ jobs:
         run: |
           yarn install
           yarn start
+        working-directory: ./frontend
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
