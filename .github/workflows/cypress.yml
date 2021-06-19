@@ -17,13 +17,10 @@ jobs:
         with:
           repository: tomoron/coffee-oma-react
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - name: Yarn start
-        run: |
-          yarn install
-          yarn start
-        working-directory: ./frontend
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          start: yarn start
           browser: chrome
           working-directory: ./frontend
+          wait-on: 'http://localhost:3000'
