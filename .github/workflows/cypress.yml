@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
-    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,12 +21,8 @@ jobs:
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
         working-directory: frontend
-      - name: Yarn install
-        uses: actions/setup-node@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         with:
-          node-version: '15.8.0'
-          check-latest: true
-      - run: |
-          yarn install
-          yarn start:ci
-        working-directory: frontend
+          working-directory: frontend
+          config: baseUrl= http://localhost:3000
