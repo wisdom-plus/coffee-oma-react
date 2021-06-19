@@ -27,5 +27,6 @@ jobs:
         with:
           start: yarn start:ci
           browser: chrome
-          working-directory: ./frontend
+          working-directory: frontend
           wait-on: 'http://localhost:3000'
+          command: yarn cypress:run
