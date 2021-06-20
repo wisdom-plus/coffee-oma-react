@@ -21,6 +21,20 @@ services:
     stdin_open: true
     depends_on:
       - database
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/:/coffee-oma/:delegated
+      - node_modules:/coffee-oma/frontend/node_modules
+    ports:
+      - "8000:3000"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - database
 volumes:
   mysql-data2:
     driver: local
+  node_modules:

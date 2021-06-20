@@ -1,0 +1,29 @@
+name: Cypress
+
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - Dockerfile
+      - docker-compose.yml
+
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    env:
+      ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: tomoron/coffee-oma-react
+          token: ${{ secrets.ACTIONS_TOKEN }}
+      - name: Decode env file
+        run: echo $ENV_FILE | base64 -d > .env
+        working-directory: frontend
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn start:ci
+          working-directory: frontend
+          config: baseUrl=http://localhost:3000

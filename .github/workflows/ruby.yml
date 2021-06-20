@@ -1,0 +1,60 @@
+name: Rails Rspec
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - Dockerfile
+      - docker-compose,yml
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DB_HOST: 127.0.0.1
+      DB_POET: 3300
+      ENV_FILE: ${{secrets.ENV_FILE}}
+    services:
+      database:
+        image: mysql:8.0
+        ports:
+          - 3300:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          BIND_ADDRESS: 0.0.0.0
+        volumes:
+          - mysqlconf.d:/etc/mysql/conf.d
+        options: --health-cmd "mysqladmin ping -h 127.0.0.1" --health-interval 20s --health-timeout 10s --health-retries 10
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: tomoron/coffee-oma-react
+          token: ${{ secrets.ACTIONS_TOKEN }}
+      - name: SET up Ruby 2.7.2
+        uses: ruby/setup-ruby@v1.68.0
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+          working-directory: ./backend
+      - name: Decode env file
+        run: echo $ENV_FILE | base64 -d > .env
+        working-directory: ./backend
+      - name: Setup Database
+        run: |
+          sudo systemctl start mysql
+          cp config/database.yml.ci config/database.yml
+          ./bin/rails db:create
+          ./bin/rails db:migrate
+        working-directory: ./backend
+      - name: run rubocop
+        run: bundle exec rubocop
+        working-directory: ./backend
+      - name: migration
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+        working-directory: ./backend
+      - name: run rspec
+        run: bundle exec rspec
+        working-directory: ./backend
+
