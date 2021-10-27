@@ -10,7 +10,8 @@ import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
 import { RecoilApp } from 'atom';
-import FlashMessage, { LocationState } from 'components/atoms/FlashMessage';
+import { LocationState } from 'components/atoms/FlashMessage';
+import EnhancedFlashMessage from 'container/EnhancedFlashMessage';
 
 const App: FC = () => {
   const { hash, pathname, state } = useLocation<LocationState>();
@@ -26,7 +27,9 @@ const App: FC = () => {
     <RecoilApp>
       <TopMenu />
       <Container style={{ paddingTop: '60px', flex: '1' }}>
-        {state && <FlashMessage message={state.message} type={state.type} />}
+        {state && (
+          <EnhancedFlashMessage message={state.message} type={state.type} />
+        )}
         <Switch>
           <Route exact path="/">
             <Home />

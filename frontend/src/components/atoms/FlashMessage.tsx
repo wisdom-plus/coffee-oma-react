@@ -4,8 +4,8 @@ import { Message } from 'semantic-ui-react';
 export type LocationState = {
   message: string;
   type: 'success' | 'error';
-  state: boolean;
-  dismiss: () => void;
+  state?: boolean;
+  dismiss?: () => void;
 };
 
 const FlashMessage: FC<LocationState> = ({
