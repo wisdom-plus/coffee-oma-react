@@ -11,10 +11,10 @@ import {
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
 import FollowButton from 'components/atoms/FollowButton';
-import useUserProfille from 'hooks/UserProfile';
+import useUserProfile from 'hooks/UserProfile';
 
 const UserProfile: FC = () => {
-  const { user, currentuser } = useUserProfille();
+  const { user, currentuser } = useUserProfile();
 
   return (
     <>

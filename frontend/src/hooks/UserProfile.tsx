@@ -5,7 +5,7 @@ import { FetchRegistrationShow } from 'apis/User';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'atom';
 
-const useUserProfille = (): { user: CurrentUser; currentuser: CurrentUser } => {
+const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
   const [user, setUser] = useState<CurrentUser>({} as CurrentUser);
   const { id } = useParams<{ id: string }>();
   const currentuser = useRecoilValue(LoginState);
@@ -32,4 +32,4 @@ const useUserProfille = (): { user: CurrentUser; currentuser: CurrentUser } => {
   return { user, currentuser };
 };
 
-export default useUserProfille;
+export default useUserProfile;
