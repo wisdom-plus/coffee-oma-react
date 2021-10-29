@@ -1,11 +1,11 @@
 module Api
   module V1
     class RelationshipsController < ApplicationController
-      before_action :authenticate_api_user!, only: %i[create destroy]
+      before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
         user = User.find_by(id: params[:relationships][:follow_id])
-        follow = current_api_user.follow(user)
+        follow = current_api_v1_user.follow(user)
         if follow.nil?
           render status: :internal_server_error
         else
@@ -14,7 +14,7 @@ module Api
       end
 
       def destroy
-        follow = current_api_user.unfollow(params[:id])
+        follow = current_api_v1_user.unfollow(params[:id])
         if follow.nil?
           render status: :internal_server_error
         else
@@ -25,7 +25,7 @@ module Api
       def exists
         user = User.find_by(id: params[:follow_id])
         if user
-          follow = current_api_user.following?(user) if api_user_signed_in?
+          follow = current_api_v1_user.following?(user) if api_v1_user_signed_in?
           if follow
             render status: :ok
           else

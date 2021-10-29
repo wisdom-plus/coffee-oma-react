@@ -1,7 +1,7 @@
 module Api
   module V1
     class LikesController < ApplicationController
-      before_action :authenticate_api_user!, only: %i[create destroy]
+      before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def index
         likes = Product.ranking(9)
@@ -13,7 +13,7 @@ module Api
       end
 
       def create
-        like = current_api_user.likes.new(like_params)
+        like = current_api_v1_user.likes.new(like_params)
         if like.save
           render status: :created
         else
@@ -22,7 +22,7 @@ module Api
       end
 
       def destroy
-        like = current_api_user.likes.find_by(product_id: params[:id])
+        like = current_api_v1_user.likes.find_by(product_id: params[:id])
         if like&.destroy
           render status: :created
         else
@@ -33,7 +33,7 @@ module Api
       def exists
         product = Product.find_by(id: params[:product_id])
         if product
-          liked = api_user_signed_in? && product.likes.exists?(user_id: current_api_user.id)
+          liked = api_v1_user_signed_in? && product.likes.exists?(user_id: current_api_v1_user.id)
           render json: { liked: liked, count: product.likes.count }, status: :ok
         else
           render status: :internal_server_error
