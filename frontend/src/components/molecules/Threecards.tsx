@@ -1,35 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Indexcards from 'components/atoms/Indexcards';
-import { Fetchproductindex } from 'apis/Product';
-import { Product } from 'model/index';
-import { useHistory } from 'react-router-dom';
+import useProductIndex from 'hooks/ProductIndex';
 
 type Props = {
   className?: string;
 };
 
 export const Threecards: FC<Props> = ({ className }) => {
-  const [state, setState] = useState<Product[]>([]);
-  const history = useHistory();
-
-  useEffect(() => {
-    Fetchproductindex()
-      .then((result) =>
-        result !== undefined && result.products !== undefined
-          ? setState(() => result.products)
-          : history.push('/products', {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
-        history.push('/products', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        }),
-      );
-  }, [history]);
+  const state = useProductIndex();
 
   return (
     <>

@@ -1,22 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react';
 import Ranking from 'components/atoms/Ranking';
 import { Link } from 'react-router-dom';
-import { Fetchproductindex } from 'apis/Product';
-import { Product } from 'model/index';
+import useHomeRanking from 'hooks/Homeranking';
 
 const RankThreeCards: FC = () => {
-  const [state, setState] = useState<Product[]>([]);
-
-  useEffect(() => {
-    Fetchproductindex()
-      .then((result) =>
-        result !== undefined && result.products
-          ? setState(result.products)
-          : [],
-      )
-      .catch(() => setState([]));
-  }, []);
+  const state = useHomeRanking();
 
   return (
     <Card.Group
