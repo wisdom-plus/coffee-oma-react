@@ -11,7 +11,7 @@ const Productrank: FC = () => (
       stryle={{ marginBottom: '3rem' }}
     />
     <Header as="h3" textAlign="center" stryle={{ marginBottom: '3rem' }}>
-      アイテムのライク数でランキングを表示しています。
+      アイテムのお気に入り数でランキングを表示しています。
     </Header>
     <RankingCards />
   </>

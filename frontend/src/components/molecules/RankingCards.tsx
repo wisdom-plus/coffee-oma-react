@@ -1,16 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
 import Indexcards from 'components/atoms/Indexcards';
-import { FetchLikeIndex } from 'apis/Product';
-import { Product } from 'model/index';
+import useRanking from 'hooks/Ranking';
 
 export const RankingCards: FC = () => {
-  const [state, setState] = useState<Product[]>([]);
-  useEffect(() => {
-    FetchLikeIndex()
-      .then((result) => (result !== 0 ? setState(result.likes) : []))
-      .catch(() => setState([]));
-  }, []);
+  const state = useRanking();
 
   return (
     <>

@@ -14,6 +14,13 @@ const Topmenu: FC = () => {
         <Menulogo />
         {user.email ? (
           <>
+            <Menu.Item header as={Link} to="/products" content="アイテム一覧" />
+            <Menu.Item
+              header
+              as={Link}
+              to="/product/ranking"
+              content="ランキング"
+            />
             <Menu.Item
               header
               as={Link}
