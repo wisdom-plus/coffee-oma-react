@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import {
   Container,
   Image,
@@ -10,36 +10,11 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
-import { useParams, useHistory } from 'react-router-dom';
-import { CurrentUser } from 'model/index';
-import { FetchRegistrationShow } from 'apis/User';
 import FollowButton from 'components/atoms/FollowButton';
-import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
+import useUserProfille from 'hooks/UserProfile';
 
 const UserProfile: FC = () => {
-  const [user, setUser] = useState<CurrentUser>({} as CurrentUser);
-  const { id } = useParams<{ id: string }>();
-  const currentuser = useRecoilValue(LoginState);
-  const history = useHistory();
-
-  useEffect(() => {
-    FetchRegistrationShow(id)
-      .then((result) =>
-        result !== 401
-          ? setUser((prevUser) => ({ ...prevUser, ...result.data }))
-          : history.push('/', {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
-        history.push('/', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        }),
-      );
-  }, [id, history]);
+  const { user, currentuser } = useUserProfille();
 
   return (
     <>
