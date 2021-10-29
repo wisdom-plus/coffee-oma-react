@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect } from 'react';
+import { FC } from 'react';
 import {
   Container,
   Image,
@@ -10,22 +10,10 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
-import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
-import { useHistory } from 'react-router-dom';
+import useMyProfile from 'hooks/MyProfile';
 
 const UserProfileForm: FC = () => {
-  const user = useRecoilValue(LoginState);
-  const history = useHistory();
-
-  useLayoutEffect(() => {
-    if (!localStorage.getItem('access-token')) {
-      history.push('/sign_in', {
-        message: 'ログインしてから、お試しください。',
-        type: 'error',
-      });
-    }
-  }, [history, user]);
+  const user = useMyProfile();
 
   return (
     <>
