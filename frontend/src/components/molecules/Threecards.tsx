@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-export const ThreeCards: FC<Props> = ({ className }) => {
+const ThreeCards: FC<Props> = ({ className }) => {
   const state = useProductIndex();
 
   return (

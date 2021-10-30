@@ -5,7 +5,7 @@ import { Fetchproductshow } from 'apis/Product';
 import { Product } from 'model/index';
 import { useParams, useHistory } from 'react-router-dom';
 
-const Productshow: FC = () => {
+const ProductShow: FC = () => {
   const [state, setState] = useState<{ product: Product }>(
     {} as { product: Product },
   );
@@ -42,4 +42,4 @@ const Productshow: FC = () => {
     </>
   );
 };
-export default Productshow;
+export default ProductShow;

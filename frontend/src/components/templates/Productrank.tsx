@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
 import { RankingCards } from 'components/molecules/RankingCards';
 
-const Productrank: FC = () => (
+const ProductRank: FC = () => (
   <>
     <Header
       as="h1"
@@ -16,4 +16,4 @@ const Productrank: FC = () => (
     <RankingCards />
   </>
 );
-export default Productrank;
+export default ProductRank;

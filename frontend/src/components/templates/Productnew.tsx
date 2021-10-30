@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
 import Newform from 'components/organisms/Newform';
 
-const Productnew: FC = () => (
+const ProductNew: FC = () => (
   <>
     <Header
       as="h1"
@@ -14,4 +14,4 @@ const Productnew: FC = () => (
   </>
 );
 
-export default Productnew;
+export default ProductNew;

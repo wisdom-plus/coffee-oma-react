@@ -3,7 +3,7 @@ import { Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import ThreeCards from 'components/molecules/ThreeCards';
 
-const Productindex: FC = () => (
+const ProductIndex: FC = () => (
   <>
     <Header
       as="h1"
@@ -18,4 +18,4 @@ const Productindex: FC = () => (
     <ThreeCards />
   </>
 );
-export default Productindex;
+export default ProductIndex;
