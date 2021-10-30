@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import IconHeader from 'components/atoms/IconHeader';
 
-const Threefivecolumn: FC = () => (
+const ThreeRowFiveColumn: FC = () => (
   <Grid.Row>
     <Grid.Column width={5}>
       <IconHeader
@@ -28,4 +28,4 @@ const Threefivecolumn: FC = () => (
   </Grid.Row>
 );
 
-export default Threefivecolumn;
+export default ThreeRowFiveColumn;

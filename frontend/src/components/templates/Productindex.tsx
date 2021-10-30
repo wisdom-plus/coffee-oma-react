@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Threecards } from 'components/molecules/Threecards';
+import ThreeCards from 'components/molecules/ThreeCards';
 
 const Productindex: FC = () => (
   <>
@@ -15,7 +15,7 @@ const Productindex: FC = () => (
       なければ
       <Link to="/product/new">こちらから登録</Link>
     </Header>
-    <Threecards />
+    <ThreeCards />
   </>
 );
 export default Productindex;

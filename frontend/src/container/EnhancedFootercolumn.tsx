@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Footercolumn from 'components/molecules/Footercolumn';
+import FooterColumn from 'components/molecules/FooterColumn';
 
 const List = [
   {
@@ -38,7 +38,7 @@ const List2 = [
 ];
 
 const EnhancedFootercolumn: FC = () => (
-  <Footercolumn List={List} List2={List2} />
+  <FooterColumn List={List} List2={List2} />
 );
 
 export default EnhancedFootercolumn;

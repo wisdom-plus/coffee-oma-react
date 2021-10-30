@@ -9,7 +9,7 @@ type Listtype = {
   url: string;
 };
 
-const Footercolumn: FC<{ List: Listtype[]; List2: Listtype[] }> = ({
+const FooterColumn: FC<{ List: Listtype[]; List2: Listtype[] }> = ({
   List = [{ id: 1, content: 'error', url: '/' }],
   List2 = [{ id: 2, content: 'error', url: '/' }],
 }) => (
@@ -26,4 +26,4 @@ const Footercolumn: FC<{ List: Listtype[]; List2: Listtype[] }> = ({
   </Grid>
 );
 
-export default Footercolumn;
+export default FooterColumn;
