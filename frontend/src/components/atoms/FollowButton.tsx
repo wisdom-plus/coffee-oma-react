@@ -7,7 +7,11 @@ type Followtype = {
   onFollowed: () => void;
 };
 
-const FollowButton: FC<Followtype> = ({ state, onFollow, onFollowed }) =>
+const FollowButton: FC<Followtype> = ({
+  state = false,
+  onFollow = () => undefined,
+  onFollowed = () => undefined,
+}) =>
   state ? (
     <Button
       icon
