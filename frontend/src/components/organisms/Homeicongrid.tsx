@@ -7,7 +7,7 @@ const Icongrid = styled.div`
   margin: 3rem 0 !important;
 `;
 
-const Homeicongrid: FC = () => (
+const HomeIconGrid: FC = () => (
   <Icongrid className="ui vertical stripe center aligned segment grid">
     <div className="ui text container">
       <Header content="coffee-omaとは" as="h1" style={{ fontSize: '3rem' }} />
@@ -17,4 +17,4 @@ const Homeicongrid: FC = () => (
   </Icongrid>
 );
 
-export default Homeicongrid;
+export default HomeIconGrid;

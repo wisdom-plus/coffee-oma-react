@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
 import { Container } from 'semantic-ui-react';
-import TopMenu from 'components/organisms/Topmenu';
+import TopMenu from 'components/organisms/TopMenu';
 import Home from 'components/pages/Home';
 import Product from 'components/pages/Product';
 import Footer from 'components/organisms/Footer';

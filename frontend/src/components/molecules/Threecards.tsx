@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-export const Threecards: FC<Props> = ({ className }) => {
+export const ThreeCards: FC<Props> = ({ className }) => {
   const state = useProductIndex();
 
   return (
@@ -21,4 +21,4 @@ export const Threecards: FC<Props> = ({ className }) => {
   );
 };
 
-export default Threecards;
+export default ThreeCards;
