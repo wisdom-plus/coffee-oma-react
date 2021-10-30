@@ -10,7 +10,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
-import FollowButton from 'components/atoms/FollowButton';
+import FollowButton from 'container/EnhancedFollowButton';
 import useUserProfile from 'hooks/UserProfile';
 
 const UserProfile: FC = () => {

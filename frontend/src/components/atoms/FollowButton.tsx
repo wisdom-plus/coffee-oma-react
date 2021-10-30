@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { Icon, Button } from 'semantic-ui-react';
-import useFollowButton from 'hooks/FollowButton';
 
-const FollowButton: FC = () => {
-  const { state, onFollow, onFollowed } = useFollowButton();
+type Followtype = {
+  state: boolean;
+  onFollow: () => void;
+  onFollowed: () => void;
+};
 
-  return state ? (
+const FollowButton: FC<Followtype> = ({ state, onFollow, onFollowed }) =>
+  state ? (
     <Button
       icon
       color="blue"
@@ -22,6 +25,5 @@ const FollowButton: FC = () => {
       フォローする
     </Button>
   );
-};
 
 export default FollowButton;
