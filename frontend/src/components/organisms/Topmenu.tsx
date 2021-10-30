@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Menu, Container } from 'semantic-ui-react';
-import Menulogo from 'components/atoms/Menulogo';
+import MenuLogo from 'components/atoms/MenuLogo';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'atom';
@@ -11,7 +11,7 @@ const Topmenu: FC = () => {
   return (
     <Menu fixed="top" inverted color="teal">
       <Container>
-        <Menulogo />
+        <MenuLogo />
         {user.email ? (
           <>
             <Menu.Item header as={Link} to="/products" content="アイテム一覧" />

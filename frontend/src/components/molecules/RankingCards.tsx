@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
-import Indexcards from 'components/atoms/Indexcards';
+import IndexCards from 'components/atoms/IndexCards';
 import useRanking from 'hooks/Ranking';
 
 export const RankingCards: FC = () => {
@@ -10,7 +10,7 @@ export const RankingCards: FC = () => {
     <>
       <Segment>
         <Card.Group itemsPerRow={3} stackable centered>
-          <Indexcards products={state} isrank />
+          <IndexCards products={state} isrank />
         </Card.Group>
       </Segment>
     </>

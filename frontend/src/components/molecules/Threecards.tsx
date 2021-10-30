@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
-import Indexcards from 'components/atoms/Indexcards';
+import IndexCards from 'components/atoms/IndexCards';
 import useProductIndex from 'hooks/ProductIndex';
 
 type Props = {
@@ -14,7 +14,7 @@ export const Threecards: FC<Props> = ({ className }) => {
     <>
       <Segment style={{ margin: '4em', padding: '3em' }}>
         <Card.Group itemsPerRow={3} stackable className={className} centered>
-          <Indexcards products={state} />
+          <IndexCards products={state} />
         </Card.Group>
       </Segment>
     </>

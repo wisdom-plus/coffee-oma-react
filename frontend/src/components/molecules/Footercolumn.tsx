@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
-import Menulogo from 'components/atoms/Menulogo';
-import Footerlist from 'components/atoms/Footerlist';
+import MenuLogo from 'components/atoms/MenuLogo';
+import FooterList from 'components/atoms/FooterList';
 
 type Listtype = {
   id: number;
@@ -15,13 +15,13 @@ const Footercolumn: FC<{ List: Listtype[]; List2: Listtype[] }> = ({
 }) => (
   <Grid stackable inverted divided columns="equal">
     <Grid.Column width={3}>
-      <Menulogo />
+      <MenuLogo />
     </Grid.Column>
     <Grid.Column width={3}>
-      <Footerlist links={List} />
+      <FooterList links={List} />
     </Grid.Column>
     <Grid.Column width={3}>
-      <Footerlist links={List2} />
+      <FooterList links={List2} />
     </Grid.Column>
   </Grid>
 );

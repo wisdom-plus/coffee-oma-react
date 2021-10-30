@@ -3,7 +3,7 @@ import { Rail, Sticky, Button } from 'semantic-ui-react';
 
 const returntop = () => window.scrollTo(0, 0);
 
-const Railtotop: FC = () => (
+const RailTop: FC = () => (
   <Rail position="right">
     <Sticky>
       <Button
@@ -17,4 +17,4 @@ const Railtotop: FC = () => (
   </Rail>
 );
 
-export default Railtotop;
+export default RailTop;
