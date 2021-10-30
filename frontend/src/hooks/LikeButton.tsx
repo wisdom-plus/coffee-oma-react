@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useHistory } from 'react-router-dom';
 
-type LikeState = { liked: boolean; count: number };
-
 const useLikeButton = (): {
-  state: LikeState;
+  state: { liked: boolean; count: number };
   onCreate: () => void;
   onDestroy: () => void;
 } => {

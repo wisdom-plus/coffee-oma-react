@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'atom';
 
-const Topmenu: FC = () => {
+const TopMenu: FC = () => {
   const user = useRecoilValue(LoginState);
 
   return (
@@ -59,4 +59,4 @@ const Topmenu: FC = () => {
   );
 };
 
-export default Topmenu;
+export default TopMenu;

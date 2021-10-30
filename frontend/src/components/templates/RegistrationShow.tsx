@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import UserProfile from 'components/molecules/UserProfile';
-import MyProfile from 'components/molecules/MyProfile';
+import UserProfile from 'container/EnhancedUserProfile';
+import MyProfile from 'container/EnhancedMyProfile';
 import { useLocation } from 'react-router-dom';
 
 const RegistrationShow: FC = () => {

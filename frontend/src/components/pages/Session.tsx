@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
 import SignInForm from 'components/molecules/SignInForm';
-import SignOut from 'components/atoms/SignOut';
+import SignOut from 'container/EnhancedSignOut';
 import Confirmation from 'components/molecules/Confirmation';
 import ResetPassword from 'components/organisms/ResetPassword';
 import ResetPasswordEdit from 'components/organisms/ResetPasswordEdit';

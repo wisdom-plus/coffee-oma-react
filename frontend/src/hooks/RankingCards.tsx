@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FetchLikeIndex } from 'apis/Product';
 import { Product } from 'model/index';
 
-const useRanking = (): Product[] => {
+const useRankingCards = (): Product[] => {
   const [state, setState] = useState<Product[]>([]);
   useEffect(() => {
     FetchLikeIndex()
@@ -13,4 +13,4 @@ const useRanking = (): Product[] => {
   return state;
 };
 
-export default useRanking;
+export default useRankingCards;

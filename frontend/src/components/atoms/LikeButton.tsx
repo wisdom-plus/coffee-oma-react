@@ -1,11 +1,20 @@
 import { FC } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
-import useLikeButton from 'hooks/LikeButton';
 
-const LikedButton: FC = () => {
-  const { state, onCreate, onDestroy } = useLikeButton();
+type LikeState = { liked: boolean; count: number };
 
-  return state.liked ? (
+type Liketype = {
+  state: LikeState;
+  onCreate: () => void;
+  onDestroy: () => void;
+};
+
+const LikedButton: FC<Liketype> = ({
+  state = { liked: false, count: 0 },
+  onCreate = () => undefined,
+  onDestroy = () => undefined,
+}) =>
+  state.liked ? (
     <Button
       circular
       onClick={onDestroy}
@@ -21,6 +30,5 @@ const LikedButton: FC = () => {
       Like({state.count})
     </Button>
   );
-};
 
 export default LikedButton;

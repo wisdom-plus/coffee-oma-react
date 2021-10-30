@@ -3,7 +3,7 @@ import { Fetchproductindex } from 'apis/Product';
 import { Product } from 'model/index';
 import { useHistory } from 'react-router-dom';
 
-const useProductIndex = (): Product[] => {
+const useThreeCards = (): Product[] => {
   const [state, setState] = useState<Product[]>([]);
   const history = useHistory();
 
@@ -28,4 +28,4 @@ const useProductIndex = (): Product[] => {
   return state;
 };
 
-export default useProductIndex;
+export default useThreeCards;

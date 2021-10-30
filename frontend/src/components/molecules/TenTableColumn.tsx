@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Grid, Table } from 'semantic-ui-react';
 import { Product } from 'model/index';
-import LikeButton from 'components/atoms/LikeButton';
+import LikeButton from 'container/EnhancedLikeButton';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'atom';
 

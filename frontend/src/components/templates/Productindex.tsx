@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import ThreeCards from 'components/molecules/ThreeCards';
+import ThreeCards from 'container/EnhancedThreeCards';
 
 const ProductIndex: FC = () => (
   <>

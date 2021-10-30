@@ -4,12 +4,12 @@ import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
 import LoginState from 'atom';
 
-type State = {
+const useSignout = (): {
   logout: boolean;
-};
-
-const useSignout = (): State => {
-  const [state, setState] = useState<State>({ logout: false });
+} => {
+  const [state, setState] = useState<{
+    logout: boolean;
+  }>({ logout: false });
   const history = useHistory();
   const resetUser = useResetRecoilState(LoginState);
 
