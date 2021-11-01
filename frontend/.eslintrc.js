@@ -119,7 +119,6 @@ module.exports = {
         html: 'enforce',
         custom: 'enforce',
         explicitSpread: 'ignore',
-        extensions: ['input'],
       },
     ],
     'react/react-in-jsx-scope': 'off',

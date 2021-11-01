@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import { RankingCards } from 'components/molecules/RankingCards';
+import RankingCards from 'container/EnhancedRankingCards';
 
 const ProductRank: FC = () => (
   <>
