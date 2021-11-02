@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet';
 import SignInForm from 'container/EnhancedSignInForm';
 import SignOut from 'container/EnhancedSignOut';
 import Confirmation from 'container/EnhancedConfirmation';
-import ResetPassword from 'components/organisms/ResetPassword';
 import ResetPasswordEdit from 'components/organisms/ResetPasswordEdit';
+import ResetPassword from 'container/EnhancedResetPassword';
 
 type Props = {
   issignin?: boolean;
