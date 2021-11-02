@@ -1,30 +1,30 @@
 import { FC } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { Input, Form, Ref } from 'semantic-ui-react';
 import { FormInputType } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
-const FormController: FC<{
+const FormControllerPasswordConfirmation: FC<{
   name: FormInputType;
   label: string;
   icon: string;
-  errormessage: string;
-  required?: boolean;
-}> = ({ name, label, icon, errormessage, required }) => {
+}> = ({ name, label, icon }) => {
   const {
     formState: { errors },
   } = useFormContext<Record<FormInputType, string>>();
 
+  const passwordconfirmation = useWatch<{ password: string }>({
+    name: 'password',
+    defaultValue: '',
+  });
+
   return (
     <Controller
       name={name}
-      rules={
-        required
-          ? {
-              required: errormessage,
-            }
-          : {}
-      }
+      rules={{
+        validate: (value) =>
+          value === passwordconfirmation || 'パスワードが一致しません',
+      }}
       defaultValue=""
       render={({ field: { ref, ...method } }) => (
         <Ref innerRef={ref}>
@@ -38,9 +38,9 @@ const FormController: FC<{
             control={Input}
             label={label}
             icon={icon}
-            type={name}
+            type="password"
             data-testid={name}
-            required={required}
+            required
             iconPosition="left"
             placeholder={name}
             {...method}
@@ -51,4 +51,4 @@ const FormController: FC<{
   );
 };
 
-export default FormController;
+export default FormControllerPasswordConfirmation;

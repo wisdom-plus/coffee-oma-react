@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import SignInForm from 'container/EnhancedSignInForm';
 import SignOut from 'container/EnhancedSignOut';
 import Confirmation from 'container/EnhancedConfirmation';
-import ResetPasswordEdit from 'components/organisms/ResetPasswordEdit';
+import ResetPasswordEdit from 'container/EnhancedResetPasswordEdit';
 import ResetPassword from 'container/EnhancedResetPassword';
 
 type Props = {

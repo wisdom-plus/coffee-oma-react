@@ -17,7 +17,7 @@ const SignUpForm: FC = () => {
   });
   const passwordconfirmation = useWatch({
     control,
-    name: 'password_confirmation',
+    name: 'password',
     defaultValue: '',
   });
 

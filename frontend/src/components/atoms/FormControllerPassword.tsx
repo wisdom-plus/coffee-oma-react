@@ -4,13 +4,12 @@ import { Input, Form, Ref } from 'semantic-ui-react';
 import { FormInputType } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
-const FormController: FC<{
+const FormControllerPassword: FC<{
   name: FormInputType;
   label: string;
   icon: string;
-  errormessage: string;
   required?: boolean;
-}> = ({ name, label, icon, errormessage, required }) => {
+}> = ({ name, label, icon, required }) => {
   const {
     formState: { errors },
   } = useFormContext<Record<FormInputType, string>>();
@@ -18,13 +17,12 @@ const FormController: FC<{
   return (
     <Controller
       name={name}
-      rules={
-        required
-          ? {
-              required: errormessage,
-            }
-          : {}
-      }
+      rules={{
+        minLength: {
+          value: 8,
+          message: 'パスワードは最低８文字以上必要です',
+        },
+      }}
       defaultValue=""
       render={({ field: { ref, ...method } }) => (
         <Ref innerRef={ref}>
@@ -51,4 +49,4 @@ const FormController: FC<{
   );
 };
 
-export default FormController;
+export default FormControllerPassword;

@@ -62,7 +62,7 @@ export type CurrentUser = {
   profile: string;
   ['created_at']: Date;
 };
-export type FormInputType = 'email' | 'password';
+export type FormInputType = 'email' | 'password' | 'password_confirmation';
 
 export type LikedData = { count: number; liked: boolean };
 export default Product;
