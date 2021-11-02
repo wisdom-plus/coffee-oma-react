@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
 import SignInForm from 'container/EnhancedSignInForm';
 import SignOut from 'container/EnhancedSignOut';
-import Confirmation from 'components/molecules/Confirmation';
+import Confirmation from 'container/EnhancedConfirmation';
 import ResetPassword from 'components/organisms/ResetPassword';
 import ResetPasswordEdit from 'components/organisms/ResetPasswordEdit';
 

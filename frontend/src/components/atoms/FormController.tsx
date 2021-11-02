@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Input, Form, Ref } from 'semantic-ui-react';
-import { Session } from 'model/index';
+import { FormInputType } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const FormController: FC<{
-  name: keyof Session;
+  name: FormInputType;
   label: string;
   icon: string;
   errormessage: string;
@@ -13,7 +13,7 @@ const FormController: FC<{
 }> = ({ name, label, icon, errormessage, required }) => {
   const {
     formState: { errors },
-  } = useFormContext<Session>();
+  } = useFormContext<Record<FormInputType, string>>();
 
   return (
     <Controller

@@ -62,6 +62,7 @@ export type CurrentUser = {
   profile: string;
   ['created_at']: Date;
 };
+export type FormInputType = 'email' | 'password';
 
 export type LikedData = { count: number; liked: boolean };
 export default Product;
