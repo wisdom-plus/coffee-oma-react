@@ -1,169 +1,47 @@
 import { FC } from 'react';
-import { Form, Grid, Input, Segment } from 'semantic-ui-react';
-import { useForm, Controller, useWatch } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
-import { UserInput } from 'model/index';
-import { Fetchregistrationnew } from 'apis/User';
+import { Form, Grid, Segment } from 'semantic-ui-react';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
+import FormController from 'components/atoms/FormController';
+import FormControllerPassword from 'components/atoms/FormControllerPassword';
+import FormControllerPasswordConfirmation from 'components/atoms/FormControllerPasswordConfirmation';
+import { UserInput } from 'model/index';
+/* eslint-disable react/jsx-props-no-spreading */
 
-const SignUpForm: FC = () => {
-  const history = useHistory();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<UserInput>({
-    criteriaMode: 'all',
-  });
-  const passwordconfirmation = useWatch({
-    control,
-    name: 'password',
-    defaultValue: '',
-  });
-
-  const onSubmit = async (data: UserInput) => {
-    await Fetchregistrationnew(data)
-      .then((result) =>
-        result !== undefined && result === 200
-          ? history.push('/send_mail')
-          : history.push('/sign_up', {
-              message: '無効な入力があります。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
-        history.push('/sign_up', {
-          message: '登録に失敗しました。',
-          type: 'error',
-        }),
-      );
-  };
-
-  return (
-    <Form size="small" onSubmit={handleSubmit(onSubmit)}>
+const SignUpForm: FC<{
+  methods: UseFormReturn<UserInput>;
+  onSubmit: (data: UserInput) => Promise<void>;
+}> = ({ methods, onSubmit }) => (
+  <FormProvider {...methods}>
+    <Form size="small" onSubmit={methods.handleSubmit(onSubmit)}>
       <Grid columns={3} centered style={{ margin: '4em' }}>
         <Grid.Column width={3} />
         <Grid.Column width={10}>
           <Segment>
-            <Controller
+            <FormController
               name="name"
-              control={control}
-              rules={{
-                required: 'アカウント名が入力されていません。',
-                minLength: {
-                  value: 2,
-                  message: 'アカウント名は最低2文字以上必要です',
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Field
-                  error={
-                    errors.name && {
-                      content: errors.name?.message,
-                      pointing: 'below',
-                    }
-                  }
-                  data-testid="name"
-                  control={Input}
-                  placeholder="account-name"
-                  label="アカウント名"
-                  icon="users"
-                  iconPosition="left"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
-              )}
+              icon="users"
+              label="アカウント名"
+              min
+              errormessage="アカウント名が入力されていません。"
             />
-            <Controller
+            <FormController
               name="email"
-              control={control}
-              rules={{
-                required: 'メールアドレスが入力されていません',
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Field
-                  error={
-                    errors.email && {
-                      content: errors.email?.message,
-                      pointing: 'below',
-                    }
-                  }
-                  data-testid="email"
-                  control={Input}
-                  label="メールアドレス"
-                  placeholder="e-mail"
-                  icon="mail"
-                  iconPosition="left"
-                  type="email"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
-              )}
+              label="メールアドレス"
+              icon="mail"
+              required
+              errormessage="メールアドレスが入力されていません。"
             />
-            <Controller
+            <FormControllerPassword
               name="password"
-              control={control}
-              rules={{
-                required: 'パスワードが入力されていません。',
-                minLength: {
-                  value: 8,
-                  message: 'パスワードは最低８文字以上必要です',
-                },
-              }}
-              defaultValue=""
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Field
-                  error={
-                    errors.password && {
-                      content: errors.password?.message,
-                      pointing: 'below',
-                    }
-                  }
-                  data-testid="password"
-                  control={Input}
-                  label="パスワード"
-                  placeholder="password"
-                  icon="key"
-                  required
-                  iconPosition="left"
-                  type="password"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
-              )}
+              icon="key"
+              label="パスワード"
+              required
             />
-            <Controller
+            <FormControllerPasswordConfirmation
               name="password_confirmation"
-              control={control}
-              rules={{
-                validate: (value) =>
-                  value === passwordconfirmation || 'パスワードが一致しません',
-              }}
-              defaultValue=""
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Field
-                  error={
-                    errors.password_confirmation && {
-                      content: errors.password_confirmation.message,
-                      pointing: 'below',
-                    }
-                  }
-                  data-testid="password_confirmation"
-                  control={Input}
-                  label="パスワード確認"
-                  placeholder="password-confirmation"
-                  icon="key"
-                  iconPosition="left"
-                  required
-                  type="password"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
-              )}
+              label="パスワード確認"
+              icon="key"
             />
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
@@ -176,7 +54,7 @@ const SignUpForm: FC = () => {
         <Grid.Column width={3} />
       </Grid>
     </Form>
-  );
-};
+  </FormProvider>
+);
 
 export default SignUpForm;

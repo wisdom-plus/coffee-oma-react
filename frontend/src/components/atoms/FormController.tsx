@@ -10,21 +10,33 @@ const FormController: FC<{
   icon: string;
   errormessage: string;
   required?: boolean;
-}> = ({ name, label, icon, errormessage, required }) => {
+  min?: boolean;
+}> = ({ name, label, icon, errormessage, required, min }) => {
   const {
     formState: { errors },
   } = useFormContext<Record<FormInputType, string>>();
 
+  const rule = () => {
+    if (required) {
+      return { required: errormessage };
+    }
+    if (min) {
+      return {
+        required: 'アカウント名が入力されていません。',
+        minLength: {
+          value: 2,
+          message: 'アカウント名は最低2文字以上必要です',
+        },
+      };
+    }
+
+    return {};
+  };
+
   return (
     <Controller
       name={name}
-      rules={
-        required
-          ? {
-              required: errormessage,
-            }
-          : {}
-      }
+      rules={rule()}
       defaultValue=""
       render={({ field: { ref, ...method } }) => (
         <Ref innerRef={ref}>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import SignUpForm from 'components/organisms/SignUpForm';
+import SignUpForm from 'container/EnhancedSignUpForm';
 
 const RegistrationNew: FC = () => (
   <>
