@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Grid, Segment, Header, Form } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormControllerPassword from 'components/atoms/FormControllerPassword';
-import FormControllerPasswordConfirmation from 'components/atoms/FormControllerPasswordConfirmation';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ResetPasswordEdit: FC<{
@@ -27,16 +26,7 @@ const ResetPasswordEdit: FC<{
           />
           <FormProvider {...methods}>
             <Form onSubmit={methods.handleSubmit(onSubmit)}>
-              <FormControllerPassword
-                label="パスワード"
-                name="password"
-                icon="key"
-              />
-              <FormControllerPasswordConfirmation
-                label="パスワード確認"
-                name="password_confirmation"
-                icon="key"
-              />
+              <FormControllerPassword />
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
               >

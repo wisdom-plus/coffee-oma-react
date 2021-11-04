@@ -4,7 +4,7 @@ import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
 import FormController from 'components/atoms/FormController';
 import FormControllerPassword from 'components/atoms/FormControllerPassword';
-import FormControllerPasswordConfirmation from 'components/atoms/FormControllerPasswordConfirmation';
+
 import { UserInput } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -32,17 +32,7 @@ const SignUpForm: FC<{
               required
               errormessage="メールアドレスが入力されていません。"
             />
-            <FormControllerPassword
-              name="password"
-              icon="key"
-              label="パスワード"
-              required
-            />
-            <FormControllerPasswordConfirmation
-              name="password_confirmation"
-              label="パスワード確認"
-              icon="key"
-            />
+            <FormControllerPassword />
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
