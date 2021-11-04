@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react';
-import { Form, Card, Table, Grid, Input, TextArea } from 'semantic-ui-react';
-import { useForm, Controller } from 'react-hook-form';
+import { Form, Card, Table, Grid } from 'semantic-ui-react';
+import { useForm, FormProvider } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
 import { useHistory } from 'react-router-dom';
 import { ProductForm } from 'model/index';
 import ProductImage from 'components/atoms/ProductImage';
+import FormController from 'container/EnhancedFormController';
+/* eslint-disable react/jsx-props-no-spreading */
 
 export interface CustomFormData extends FormData {
   append(name: string, value: string | number | Blob, fileName?: string): void;
@@ -13,12 +15,7 @@ export interface CustomFormData extends FormData {
 const Newform: FC = () => {
   const [file, setFile] = useState<Blob>();
   const history = useHistory();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<ProductForm>({ criteriaMode: 'all' });
+  const methods = useForm<ProductForm>({ criteriaMode: 'all' });
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
@@ -43,165 +40,80 @@ const Newform: FC = () => {
               type: 'error',
             }),
       )
-      .catch(() => reset());
+      .catch(() =>
+        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
+      );
   };
 
   return (
-    <Form size="small" onSubmit={handleSubmit(onSubmit)}>
-      <Grid columns={3} centered>
-        <Grid.Column width={3} />
-        <Grid.Column width={10}>
-          <Card centered fluid>
-            <ProductImage file={file} onChange={onChangeFile} />
-            <Card.Content>
-              <Card.Header>
-                <Controller
-                  name="name"
-                  control={control}
-                  rules={{
-                    required: '商品名が入力されていません。',
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Form.Field
-                      error={
-                        errors.name && {
-                          content: errors.name?.message,
-                          pointing: 'below',
-                        }
-                      }
-                      data-testid="name"
-                      control={Input}
-                      label="商品名"
-                      icon="shopping cart"
-                      required
-                      iconPosition="left"
-                      placeholder="name"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                    />
-                  )}
-                />
-              </Card.Header>
-              <Card.Meta>
-                <Controller
-                  name="shopname"
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Form.Field
-                      data-testid="shopname"
-                      control={Input}
-                      label="メーカー名"
-                      icon="credit card alternative"
-                      iconPosition="left"
-                      placeholder="shop-name"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                    />
-                  )}
-                />
-              </Card.Meta>
-            </Card.Content>
-            <Card.Content extra>
-              <Controller
-                name="price"
-                control={control}
-                rules={{
-                  required: '商品価格が入力されていません。',
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Form.Field
-                    error={
-                      errors.price && {
-                        content: errors.price?.message,
-                        pointing: 'below',
-                      }
-                    }
-                    data-testid="price"
-                    control={Input}
+    <FormProvider {...methods}>
+      <Form size="small" onSubmit={methods.handleSubmit(onSubmit)}>
+        <Grid columns={3} centered>
+          <Grid.Column width={3} />
+          <Grid.Column width={10}>
+            <Card centered fluid>
+              <ProductImage file={file} onChange={onChangeFile} />
+              <Card.Content>
+                <Card.Header>
+                  <FormController
+                    name="name"
                     label="商品名"
-                    icon="yen"
+                    icon="shopping cart"
                     required
-                    iconPosition="left"
-                    placeholder="price"
-                    type="number"
-                    min="0"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
+                    errormessage="商品名が入力されていません。"
                   />
-                )}
-              />
-            </Card.Content>
-            <Card.Content extra>
-              <Controller
-                name="url"
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Form.Field
-                    data-testid="url"
-                    control={Input}
-                    label="商品URL"
-                    icon="sitemap"
-                    iconPosition="left"
-                    placeholder="URL"
-                    type="url"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
+                </Card.Header>
+                <Card.Meta>
+                  <FormController
+                    label="メーカー名"
+                    icon="credit card alternative"
+                    name="shopname"
                   />
-                )}
-              />
-            </Card.Content>
-          </Card>
-          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>
-                  <Form.Field label="商品説明文" />
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>
-                  <Controller
-                    name="caption"
-                    control={control}
-                    rules={{
-                      required: '商品の説明が入力されていません。',
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Form.Field
-                        error={
-                          errors.caption && {
-                            content: errors.caption?.message,
-                            pointing: 'below',
-                          }
-                        }
-                        data-testid="caption"
-                        control={TextArea}
-                        placeholder="item-caption"
-                        id="caption"
-                        rows={6}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                      />
-                    )}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
-          <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
-            <Form.Button color="teal" content="submit" data-testid="submit" />
-          </Form.Field>
-        </Grid.Column>
-        <Grid.Column width={3} />
-      </Grid>
-    </Form>
+                </Card.Meta>
+              </Card.Content>
+              <Card.Content extra>
+                <FormController
+                  name="price"
+                  label="商品名"
+                  icon="yen"
+                  required
+                  errormessage="商品価格が入力されていません。"
+                />
+              </Card.Content>
+              <Card.Content extra>
+                <FormController name="url" label="商品URL" icon="sitemap" />
+              </Card.Content>
+            </Card>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>
+                    <Form.Field label="商品説明文" />
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>
+                    <FormController
+                      name="caption"
+                      textarea
+                      errormessage="商品の説明が入力されていません。"
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <Form.Field
+              style={{ textAlign: 'center', justifyContent: 'center' }}
+            >
+              <Form.Button color="teal" content="submit" data-testid="submit" />
+            </Form.Field>
+          </Grid.Column>
+          <Grid.Column width={3} />
+        </Grid>
+      </Form>
+    </FormProvider>
   );
 };
 

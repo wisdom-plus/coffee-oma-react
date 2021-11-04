@@ -3,7 +3,7 @@ import { FormInputType, ruletype } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
 type prop = {
-  errormessage: string;
+  errormessage?: string;
   required: boolean | undefined;
   min: boolean | undefined;
 };

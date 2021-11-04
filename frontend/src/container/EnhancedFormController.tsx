@@ -5,16 +5,19 @@ import useFormController from 'hooks/FormController';
 
 const EnhancedFormController: FC<{
   name: FormInputType;
-  label: string;
-  icon: string;
-  errormessage: string;
+  label?: string;
+  icon?: string;
+  errormessage?: string;
   required?: boolean;
   min?: boolean;
-}> = ({ name, label, icon, errormessage, required, min }) => {
+  textarea?: boolean;
+}> = ({ name, label, icon, errormessage, required, min, textarea }) => {
   const { errors, rule } = useFormController({ errormessage, required, min });
 
   return (
-    <FormController {...{ name, label, icon, required, min, errors, rule }} />
+    <FormController
+      {...{ name, label, icon, required, min, errors, rule, textarea }}
+    />
   );
 };
 

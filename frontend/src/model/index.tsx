@@ -66,7 +66,11 @@ export type FormInputType =
   | 'name'
   | 'email'
   | 'password'
-  | 'password_confirmation';
+  | 'password_confirmation'
+  | 'shopname'
+  | 'price'
+  | 'url'
+  | 'caption';
 
 export type LikedData = { count: number; liked: boolean };
 
