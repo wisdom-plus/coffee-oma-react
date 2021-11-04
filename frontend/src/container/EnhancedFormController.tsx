@@ -12,11 +12,24 @@ const EnhancedFormController: FC<{
   min?: boolean;
   textarea?: boolean;
 }> = ({ name, label, icon, errormessage, required, min, textarea }) => {
-  const { errors, rule } = useFormController({ errormessage, required, min });
+  const { errors, rule } = useFormController({
+    errormessage,
+    required,
+    min,
+  });
 
   return (
     <FormController
-      {...{ name, label, icon, required, min, errors, rule, textarea }}
+      {...{
+        name,
+        label,
+        icon,
+        required,
+        min,
+        errors,
+        rule,
+        textarea,
+      }}
     />
   );
 };

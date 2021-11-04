@@ -1,5 +1,6 @@
 import { useFormContext, DeepMap, FieldError } from 'react-hook-form';
 import { FormInputType, ruletype } from 'model/index';
+
 /* eslint-disable react/jsx-props-no-spreading */
 
 type prop = {
