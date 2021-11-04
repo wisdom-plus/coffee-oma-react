@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Grid, Header, Segment, Form } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
-import FormController from 'components/atoms/FormController';
+import FormController from 'container/EnhancedFormController';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ResetPassword: FC<{

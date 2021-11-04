@@ -69,4 +69,22 @@ export type FormInputType =
   | 'password_confirmation';
 
 export type LikedData = { count: number; liked: boolean };
+
+export type ruletype = () =>
+  | {
+      required: string;
+      minLength?: undefined;
+    }
+  | {
+      required: string;
+      minLength: {
+        value: number;
+        message: string;
+      };
+    }
+  | {
+      required?: undefined;
+      minLength?: undefined;
+    };
+
 export default Product;

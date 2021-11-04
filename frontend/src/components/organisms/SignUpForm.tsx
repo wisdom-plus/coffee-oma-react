@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Form, Grid, Segment } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
-import FormController from 'components/atoms/FormController';
+import FormController from 'container/EnhancedFormController';
 import FormControllerPassword from 'components/atoms/FormControllerPassword';
 
 import { UserInput } from 'model/index';
