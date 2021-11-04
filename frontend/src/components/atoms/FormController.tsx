@@ -13,11 +13,12 @@ const FormController: FC<{
   errors: DeepMap<Record<FormInputType, string>, FieldError>;
   rule: ruletype;
   textarea?: boolean;
-  default?: string;
-}> = ({ name, label, icon, required, errors, rule, textarea }) => (
+  value?: string;
+}> = ({ name, label, icon, required, errors, rule, textarea, value }) => (
   <Controller
     name={name}
     rules={rule()}
+    {...(!value && { defaultValue: '' })}
     render={({ field: { ref, ...method } }) => (
       <Ref innerRef={ref}>
         <Form.Field

@@ -14,24 +14,21 @@ const useSignout = (): {
   const resetUser = useResetRecoilState(LoginState);
 
   useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      Fetchsessiondestroy()
-        .then((result) =>
-          result !== undefined && result === 200
-            ? (resetUser(),
-              setState((prevUser) => ({ ...prevUser, logout: true })))
-            : history.push('/', {
-                message: 'ログアウトに失敗しました。',
-                type: 'error',
-              }),
-        )
-        .catch(() => setState({ logout: false }));
-      setTimeout(() => history.push('/'), 6000);
-    }
+    Fetchsessiondestroy()
+      .then((result) =>
+        result !== undefined && result === 200
+          ? (resetUser(),
+            setState((prevUser) => ({ ...prevUser, logout: true })))
+          : history.push('/', {
+              message: 'ログアウトに失敗しました。',
+              type: 'error',
+            }),
+      )
+      .catch(() => setState({ logout: false }));
+    const timer = setTimeout(() => history.push('/'), 5000);
 
     return (): void => {
-      isMounted = false;
+      clearTimeout(timer);
     };
   }, [history, resetUser]);
 

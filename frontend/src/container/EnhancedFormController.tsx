@@ -11,7 +11,8 @@ const EnhancedFormController: FC<{
   required?: boolean;
   min?: boolean;
   textarea?: boolean;
-}> = ({ name, label, icon, errormessage, required, min, textarea }) => {
+  value?: string;
+}> = ({ name, label, icon, errormessage, required, min, textarea, value }) => {
   const { errors, rule } = useFormController({
     errormessage,
     required,
@@ -29,6 +30,7 @@ const EnhancedFormController: FC<{
         errors,
         rule,
         textarea,
+        value,
       }}
     />
   );
