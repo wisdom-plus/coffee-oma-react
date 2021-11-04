@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Grid, Segment, Header, Form } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import FormControllerPassword from 'components/atoms/FormControllerPassword';
+import FormControllerPassword from 'container/EnhancedFormControllerPassword';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ResetPasswordEdit: FC<{

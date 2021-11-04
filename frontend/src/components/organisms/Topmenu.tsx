@@ -12,22 +12,16 @@ const TopMenu: FC = () => {
     <Menu fixed="top" inverted color="teal">
       <Container>
         <MenuLogo />
+        <Menu.Item header as={Link} to="/products" content="アイテム一覧" />
+        <Menu.Item
+          header
+          as={Link}
+          to="/product/ranking"
+          content="ランキング"
+        />
         {user.email ? (
-          <>
-            <Menu.Item header as={Link} to="/products" content="アイテム一覧" />
-            <Menu.Item
-              header
-              as={Link}
-              to="/product/ranking"
-              content="ランキング"
-            />
-            <Menu.Item
-              header
-              as={Link}
-              to="/mypage"
-              content="プロフィール"
-              position="right"
-            />
+          <Menu.Menu position="right">
+            <Menu.Item header as={Link} to="/mypage" content="プロフィール" />
             <Menu.Item
               header
               as={Link}
@@ -41,18 +35,12 @@ const TopMenu: FC = () => {
               content="ログアウト"
               data-testid="logout"
             />
-          </>
+          </Menu.Menu>
         ) : (
-          <>
-            <Menu.Item
-              header
-              as={Link}
-              to="/sign_up"
-              content="新規登録"
-              position="right"
-            />
+          <Menu.Menu position="right">
+            <Menu.Item header as={Link} to="/sign_up" content="新規登録" />
             <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
-          </>
+          </Menu.Menu>
         )}
       </Container>
     </Menu>
