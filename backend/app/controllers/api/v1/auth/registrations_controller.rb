@@ -3,7 +3,7 @@ module Api
     module Auth
       class RegistrationsController < DeviseTokenAuth::RegistrationsController
         before_action :configure_permitted_parameters
-        before_action :authenticate_api_user!, only: %i[update]
+        before_action :authenticate_api_v1_user!, only: %i[update]
 
         def show
           user = User.find_by(id: params[:id])
