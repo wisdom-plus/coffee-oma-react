@@ -35,4 +35,17 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     relationship = relationships.find_by(follow_id: other_user_id)
     relationship&.destroy
   end
+
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update(params, *options)
+    clean_up_passwords
+    result
+  end
 end

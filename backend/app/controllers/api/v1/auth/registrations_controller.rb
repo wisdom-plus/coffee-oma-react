@@ -15,14 +15,8 @@ module Api
         end
 
         def update
-          if params[:registration][:password] == '' && @resource.send('update', account_update_no_password_params)
-            yield @resource if block_given?
+          if @resource.update_without_current_password(account_update_params)
             render_update_success
-          elsif @resource&.send(resource_update_method, account_update_params)
-            yield @resource if block_given?
-            render_update_success
-          elsif @resource
-            render_update_error
           else
             render_update_error_user_not_found
           end
@@ -46,7 +40,7 @@ module Api
           end
 
           def account_update_no_password_params
-            params.require(:registration).permit(:email, :profile, :icon, :name)
+            params.require(:registration).permit(:email, :profile, :icon, :name, :password, :password_confirmation)
           end
       end
     end
