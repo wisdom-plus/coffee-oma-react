@@ -1,4 +1,11 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import {
+  useState,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { UserEditForm, CurrentUser } from 'model/index';
@@ -27,14 +34,29 @@ const useProfileForm = (): Props => {
   const [active, setActive] = useState(false);
   const [user, setUser] = useRecoilState(LoginState);
   const history = useHistory();
-  const methods = useForm<UserEditForm>({
-    criteriaMode: 'all',
-    defaultValues: {
+  const defaultvalues = useMemo(
+    () => ({
       name: user.name,
       email: user.email,
+      password: '',
+      password_confirmation: '',
+      current_password: '',
       profile: user.profile,
-    },
+    }),
+    [user],
+  );
+  const { reset, ...method } = useForm<UserEditForm>({
+    criteriaMode: 'all',
+    defaultValues: defaultvalues,
+    mode: 'onBlur',
   });
+  const Reset = useCallback((value) => reset(value), [reset]);
+
+  useEffect(() => {
+    Reset(defaultvalues);
+  }, [user, defaultvalues, Reset]);
+
+  const methods = { reset, ...method };
 
   const onSubmit = async (data: UserEditForm) => {
     const formdata = new FormData() as CustomFormData;
@@ -66,6 +88,7 @@ const useProfileForm = (): Props => {
         }),
       );
   };
+
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
 

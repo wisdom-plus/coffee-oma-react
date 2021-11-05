@@ -17,7 +17,7 @@ type props = {
 const useNewform = (): props => {
   const [file, setFile] = useState<Blob>();
   const history = useHistory();
-  const methods = useForm<ProductForm>({ criteriaMode: 'all' });
+  const methods = useForm<ProductForm>({ criteriaMode: 'all', mode: 'onBlur' });
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);

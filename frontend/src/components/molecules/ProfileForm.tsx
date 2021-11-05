@@ -44,13 +44,14 @@ const ProfileForm: FC<Props> = ({
               icon="users"
               required
               min
-              value={user.name}
+              value={user?.name}
+              errormessage="アカウント名が入力されていません。"
             />
             <FormController
               name="email"
               label="メールアドレス"
               icon="mail"
-              value={user.email}
+              value={user?.email}
             />
             <Accordion>
               <Accordion.Title
@@ -65,12 +66,16 @@ const ProfileForm: FC<Props> = ({
                   name="current_password"
                   label="現在のパスワード"
                   icon="key"
-                  value={user.profile}
                 />
                 <FormControllerPassword />
               </Accordion.Content>
             </Accordion>
-            <FormController name="profile" label="プロフィール" textarea />
+            <FormController
+              name="profile"
+              label="プロフィール"
+              textarea
+              value={user?.profile}
+            />
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >

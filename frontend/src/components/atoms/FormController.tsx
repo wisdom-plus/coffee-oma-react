@@ -13,12 +13,11 @@ const FormController: FC<{
   errors: DeepMap<Record<FormInputType, string>, FieldError>;
   rule: ruletype;
   textarea?: boolean;
-  value?: string;
-}> = ({ name, label, icon, required, errors, rule, textarea, value }) => (
+}> = ({ name, label, icon, required, errors, rule, textarea }) => (
   <Controller
     name={name}
     rules={rule()}
-    {...(!value && { defaultValue: '' })}
+    defaultValue=""
     render={({ field: { ref, ...method } }) => (
       <Ref innerRef={ref}>
         <Form.Field
@@ -31,7 +30,7 @@ const FormController: FC<{
           control={textarea ? TextArea : Input}
           label={label}
           icon={icon}
-          type={name}
+          type={name === 'current_password' ? 'password' : name}
           data-testid={name}
           required={required}
           {...(icon && { iconPosition: 'left' })}
