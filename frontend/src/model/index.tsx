@@ -37,9 +37,8 @@ export type UserEditForm = {
   icon: File;
   name: string;
   email: string;
-  ['current_password']: string;
-  password: string;
-  ['password_confirmation']: string;
+  password?: string;
+  ['password_confirmation']?: string;
   profile: string;
 };
 export type UserForm = Omit<User, 'id'>;

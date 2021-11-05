@@ -7,7 +7,8 @@ import { FormInputType } from 'model/index';
 const FormControllerPassword: FC<{
   errors: DeepMap<Record<FormInputType, string>, FieldError>;
   passwordconfirmation: string;
-}> = ({ errors, passwordconfirmation }) => (
+  required?: boolean;
+}> = ({ errors, passwordconfirmation, required }) => (
   <>
     <Controller
       name="password"
@@ -32,7 +33,7 @@ const FormControllerPassword: FC<{
             icon="key"
             type="password"
             data-testid="password"
-            required
+            required={required}
             iconPosition="left"
             placeholder="password"
             {...method}
@@ -61,7 +62,7 @@ const FormControllerPassword: FC<{
             icon="key"
             type="password"
             data-testid="password_confirmation"
-            required
+            required={required}
             iconPosition="left"
             placeholder="password"
             {...method}

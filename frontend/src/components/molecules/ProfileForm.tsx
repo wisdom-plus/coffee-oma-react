@@ -62,11 +62,6 @@ const ProfileForm: FC<Props> = ({
                 パスワードを変更する
               </Accordion.Title>
               <Accordion.Content active={active}>
-                <FormController
-                  name="current_password"
-                  label="現在のパスワード"
-                  icon="key"
-                />
                 <FormControllerPassword />
               </Accordion.Content>
             </Accordion>

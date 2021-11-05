@@ -40,7 +40,6 @@ const useProfileForm = (): Props => {
       email: user.email,
       password: '',
       password_confirmation: '',
-      current_password: '',
       profile: user.profile,
     }),
     [user],
