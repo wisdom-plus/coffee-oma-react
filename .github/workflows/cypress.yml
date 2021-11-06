@@ -15,9 +15,6 @@ jobs:
       ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
     steps:
       - uses: actions/checkout@v2
-        with:
-          repository: tomoron/coffee-oma-react
-          token: ${{ secrets.ACTIONS_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
