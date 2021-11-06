@@ -24,6 +24,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
+          start: yarn start
           working-directory: frontend
           config: baseUrl=http://localhost:3000
