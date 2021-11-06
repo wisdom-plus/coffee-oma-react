@@ -10,7 +10,7 @@ on:
 
 jobs:
   cypress:
-    runs-on: macos-11
+    runs-on: ubuntu-20.04
     env:
       ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
     steps:
