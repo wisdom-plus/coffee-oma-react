@@ -11,7 +11,8 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-20.04
-
+    env:
+      ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -26,4 +27,3 @@ jobs:
           config: baseUrl=http://localhost:3000
           browser: chrome
           headless: true
-          env: SKIP_PREFLIGHT_CHECK=true
