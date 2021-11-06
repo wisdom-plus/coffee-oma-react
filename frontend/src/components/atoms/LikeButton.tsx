@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 type LikeState = { liked: boolean; count: number };
 
@@ -18,17 +18,19 @@ const LikedButton: FC<Liketype> = ({
     <Button
       circular
       onClick={onDestroy}
-      style={{ color: 'red' }}
+      color="red"
       data-testid="destroy"
-    >
-      <Icon name="heart" color="red" />
-      Like({state.count})
-    </Button>
+      icon="heart"
+      content={` ${state.count}`}
+    />
   ) : (
-    <Button circular onClick={onCreate} data-testid="create">
-      <Icon name="heart" color="grey" />
-      Like({state.count})
-    </Button>
+    <Button
+      circular
+      onClick={onCreate}
+      data-testid="create"
+      icon="heart"
+      content={`${state.count}`}
+    />
   );
 
 export default LikedButton;

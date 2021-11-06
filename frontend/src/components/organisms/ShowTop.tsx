@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
-import TenTableColumn from 'components/molecules/TenTableColumn';
+import TenTableColumn from 'container/EnhancedTenTableColumn';
 import SixImagaeColumn from 'components/atoms/SixImageColumn';
 import CaptionColumn from 'components/atoms/CaptionColumn';
 import { Product } from 'model/index';
