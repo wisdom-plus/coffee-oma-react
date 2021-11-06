@@ -28,6 +28,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2.11.7
         with:
+          build: yarn build
           start: yarn start:ci
           working-directory: frontend
           wait-on: 'http://localhost:3000'
