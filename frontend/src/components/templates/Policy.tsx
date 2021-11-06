@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Header, Grid } from 'semantic-ui-react';
 import Privatepolicycontent from 'components/atoms/PrivatePolicyContent';
+import Policycontent from 'components/atoms/PolicyContent';
 
 type Props = {
   isprivate?: boolean;
@@ -12,6 +13,7 @@ const Prolicy: FC<Props> = ({ isprivate = false }) => (
       {isprivate ? (
         <>
           <Header as="h1" content="利用規約" textAlign="center" />
+          <Policycontent />
         </>
       ) : (
         <>
