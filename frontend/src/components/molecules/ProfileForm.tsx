@@ -1,7 +1,7 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import { Form, Grid, Segment, Accordion, Icon } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import IconForm from 'components/atoms/IconForm';
+import IconForm from 'container/EnhancedIconForm';
 import FormController from 'container/EnhancedFormController';
 import FormControllerPassword from 'container/EnhancedFormControllerPassword';
 import { UserEditForm, CurrentUser } from 'model/index';

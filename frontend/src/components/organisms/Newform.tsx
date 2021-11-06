@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Form, Card, Table, Grid } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import ProductImage from 'components/atoms/ProductImage';
+import ProductImage from 'container/EnhancedProductImage';
 import FormController from 'container/EnhancedFormController';
 import { ProductForm } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
