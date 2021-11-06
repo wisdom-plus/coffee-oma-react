@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
+import productindexURL from '../../src/urls/index';
 
 describe('The Home Page', () => {
   it('successfully loads', () => {
-    cy.intercept('GET', 'http://localhost:3001/api/products', {
+    cy.intercept('GET', productindexURL, {
       fixture: 'products',
     }).as('Products');
     cy.intercept(

@@ -21,7 +21,7 @@ const LikedButton: FC<Liketype> = ({
       color="red"
       data-testid="destroy"
       icon="heart"
-      content={` ${state.count}`}
+      content={`${state.count}`}
     />
   ) : (
     <Button

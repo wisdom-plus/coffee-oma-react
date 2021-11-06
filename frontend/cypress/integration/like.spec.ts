@@ -30,7 +30,7 @@ describe('Create', () => {
     cy.intercept('POST', LikeCreateURL, { statusCode: 201 });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = create]').click();
-    cy.get('[data-testid = destroy]').should('have.text', 'Like(2)');
+    cy.get('[data-testid = destroy]').should('have.text', '2');
   });
 
   it('failed', () => {
@@ -77,7 +77,7 @@ describe('Destroy', () => {
     });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid=destroy]').click();
-    cy.get('[data-testid=create]').should('have.text', 'Like(1)');
+    cy.get('[data-testid=create]').should('have.text', '1');
   });
   it('failed', () => {
     localStorage.setItem('access-token', 'access-token');

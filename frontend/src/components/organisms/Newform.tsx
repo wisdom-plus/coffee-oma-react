@@ -75,6 +75,7 @@ const Newform: FC<newformtype> = ({
                   <FormController
                     name="caption"
                     textarea
+                    required
                     errormessage="商品の説明が入力されていません。"
                   />
                 </Table.Cell>

@@ -47,7 +47,7 @@ describe('Sign up', () => {
     cy.get('[data-testid = submit]').click();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
-      'メールアドレスが入力されていません',
+      'メールアドレスが入力されていません。',
     );
   });
   it('form failed(password)', () => {
@@ -59,7 +59,7 @@ describe('Sign up', () => {
     cy.get('[data-testid = submit]').click();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
-      'パスワードは最低８文字以上必要です',
+      'パスワードは最低８文字以上必要ですパスワードが一致しません',
     );
   });
   it('form failed(password_confirmation)', () => {

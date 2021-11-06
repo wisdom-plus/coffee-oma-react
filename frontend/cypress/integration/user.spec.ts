@@ -86,28 +86,10 @@ describe('Edit', () => {
       body: currentuser,
     });
     cy.visit('/registration/edit');
-    cy.get('[data-testid = name] > input').clear().type('t');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid = name] > input').clear().blur();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
-      'アカウント名は２文字以上必要です',
-    );
-  });
-  it('error message(current_passowrd)', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
-    cy.visit('/registration/edit');
-    cy.get('[data-testid=accodion]').click();
-    cy.get('[data-testid = current_password] > input').clear().type('pass');
-    cy.get('[data-testid = submit]').click();
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'パスワードは最低８文字以上必要です',
+      'アカウント名が入力されていません。',
     );
   });
   it('error message(passowrd)', () => {
@@ -124,7 +106,7 @@ describe('Edit', () => {
     cy.get('[data-testid = submit]').click();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
-      'パスワードは最低８文字以上必要です',
+      'パスワードは最低８文字以上必要ですパスワードが一致しません',
     );
   });
   it('failed', () => {

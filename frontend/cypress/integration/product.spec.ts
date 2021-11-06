@@ -73,7 +73,7 @@ describe('New', () => {
     cy.visit('/product/new');
     cy.get('[data-testid =name] > input').type('coffee-name');
     cy.get('[data-testid =price] > input').type('1000');
-    cy.get('[data-testid =submit]').click();
+    cy.get('[data-testid =caption]').focus().blur();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       '商品の説明が入力されていません。',

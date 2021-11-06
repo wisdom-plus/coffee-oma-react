@@ -5,7 +5,7 @@ import {
   FollowURL,
   FollowExistsURL,
   FollowDestroyURL,
-} from '../../src/urls';
+} from '../../src/urls/index';
 import { products } from '../fixtures/products.json';
 import currentuser from '../fixtures/currentuser.json';
 import { users } from '../fixtures/users.json';
