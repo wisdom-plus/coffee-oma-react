@@ -29,5 +29,6 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           install-command: yarn install
-          start: yarn start
+          start: yarn cy:ci
           working-directory: frontend
+          wait-on: http://localhost:3000
