@@ -53,7 +53,7 @@
     "build-storybook": "build-storybook -s public",
     "cypress": "cypress open",
     "cypress:run": "cypress run",
-    "start:ci": "CHOKIDAR_USEPOLLING=true react-scripts start"
+    "start:ci": "npx start-server-and-test start http-get://localhost:3000/ cypress:run"
   },
   "eslintConfig": {
     "extends": [
@@ -139,6 +139,7 @@
     "react-docgen-typescript-loader": "^3.7.2",
     "react-test-renderer": "^17.0.2",
     "require-context.macro": "^1.2.2",
+    "start-server-and-test": "^1.14.0",
     "storybook-addon-mock": "^0.1.0",
     "storybook-react-router": "^1.0.8",
     "stylelint": "^13.12.0",

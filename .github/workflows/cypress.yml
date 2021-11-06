@@ -30,4 +30,3 @@ jobs:
           config: baseUrl=http://localhost:3000
           browser: chrome
           headless: true
-          command: yarn cypress:run
