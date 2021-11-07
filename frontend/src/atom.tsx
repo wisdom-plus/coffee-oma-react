@@ -23,7 +23,7 @@ export const RecoilApp: FC = ({ children }) => {
   const [cookie] = useCookies(['token']);
 
   useLayoutEffect(() => {
-    if (cookie) {
+    if (cookie.token) {
       const API = async (): Promise<void> => {
         try {
           const response = await Fetchsessionvaildate(

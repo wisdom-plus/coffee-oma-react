@@ -42,24 +42,21 @@ export const Fetchsessionnew = async (session: Session): Promise<login> => {
   }
 };
 
-export const Fetchsessiondestroy = (): Promise<number | undefined> =>
-  axios({
-    method: 'delete',
-    url: sessiondestroyURL,
-    headers: {
-      'access-token': localStorage.getItem('access-token'),
-      client: localStorage.getItem('client'),
-      uid: localStorage.getItem('uid'),
-    },
-  })
-    .then((result) => {
-      if (result.status === 200) {
-        localStorage.clear();
-      }
+export const Fetchsessiondestroy = async (token: {
+  token: Token;
+}): Promise<number> => {
+  try {
+    const response = await axios({
+      method: 'delete',
+      url: sessiondestroyURL,
+      headers: token.token,
+    });
 
-      return result.status;
-    })
-    .catch((error: undefined) => error);
+    return response.status;
+  } catch (e) {
+    throw new Error();
+  }
+};
 
 export const Fetchsessionvaildate = async (token: {
   token: Token;
