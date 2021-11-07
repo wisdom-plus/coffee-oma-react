@@ -67,10 +67,16 @@ describe('Edit', () => {
     });
     cy.visit('/registration/edit');
 
-    cy.get('[data-testid = name] > input').clear().type(updateuser.name);
-    cy.get('[data-testid = email] > input').clear().type(updateuser.email);
-    cy.get('[data-testid = profile]').clear().type(updateuser.profile);
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid = name] > input')
+      .clear()
+      .type(updateuser.name, { force: true });
+    cy.get('[data-testid = email] > input')
+      .clear()
+      .type(updateuser.email, { force: true });
+    cy.get('[data-testid = profile]')
+      .clear()
+      .type(updateuser.profile, { force: true });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/mypage');
     cy.get('[data-testid =success]').should(
       'have.text',
@@ -86,7 +92,7 @@ describe('Edit', () => {
       body: currentuser,
     });
     cy.visit('/registration/edit');
-    cy.get('[data-testid = name] > input').clear().blur();
+    cy.get('[data-testid = name] > input').clear({ force: true }).blur();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'アカウント名が入力されていません。',
@@ -101,9 +107,11 @@ describe('Edit', () => {
       body: currentuser,
     });
     cy.visit('/registration/edit');
-    cy.get('[data-testid=accodion]').click();
-    cy.get('[data-testid = password] > input').clear().type('pass');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid=accodion]').click({ force: true });
+    cy.get('[data-testid = password] > input')
+      .clear({ force: true })
+      .type('pass', { force: true });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'パスワードは最低８文字以上必要ですパスワードが一致しません',
@@ -121,10 +129,16 @@ describe('Edit', () => {
       statusCode: 401,
     });
     cy.visit('/registration/edit');
-    cy.get('[data-testid = name] > input').clear().type(updateuser.name);
-    cy.get('[data-testid = email] > input').clear().type(updateuser.email);
-    cy.get('[data-testid = profile]').clear().type(updateuser.profile);
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid = name] > input')
+      .clear()
+      .type(updateuser.name, { force: true });
+    cy.get('[data-testid = email] > input')
+      .clear()
+      .type(updateuser.email, { force: true });
+    cy.get('[data-testid = profile]')
+      .clear()
+      .type(updateuser.profile, { force: true });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/registration/edit');
     cy.get('[data-testid = error]').should(
       'have.text',

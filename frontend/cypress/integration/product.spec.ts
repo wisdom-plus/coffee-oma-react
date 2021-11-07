@@ -47,32 +47,40 @@ describe('New', () => {
   it('successfully', () => {
     cy.intercept('POST', productindexURL, { statusCode: 201 });
     cy.visit('/product/new');
-    cy.get('[data-testid =name] > input').type('coffee-name');
-    cy.get('[data-testid =shopname] > input').type('coffee-shop-name');
-    cy.get('[data-testid =price] > input').type('1000');
-    cy.get('[data-testid =url] > input').type('http://www.example.com');
-    cy.get('[data-testid =caption]').type('coffeeの説明文');
-    cy.get('[data-testid =submit]').click();
+    cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
+    cy.get('[data-testid =shopname] > input').type('coffee-shop-name', {
+      force: true,
+    });
+    cy.get('[data-testid =price] > input').type('1000', { force: true });
+    cy.get('[data-testid =url] > input').type('http://www.example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =caption]').type('coffeeの説明文', { force: true });
+    cy.get('[data-testid =submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/products');
     cy.get('[data-testid =success]').should('have.text', '登録成功しました。');
   });
   it('failed', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });
     cy.visit('/product/new');
-    cy.get('[data-testid =name] > input').type('coffee-name');
-    cy.get('[data-testid =shopname] > input').type('coffee-shop-name');
-    cy.get('[data-testid =price] > input').type('1000');
-    cy.get('[data-testid =url] > input').type('http://www.example.com');
-    cy.get('[data-testid =caption]').type('coffeeの説明文');
-    cy.get('[data-testid =submit]').click();
+    cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
+    cy.get('[data-testid =shopname] > input').type('coffee-shop-name', {
+      force: true,
+    });
+    cy.get('[data-testid =price] > input').type('1000', { force: true });
+    cy.get('[data-testid =url] > input').type('http://www.example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =caption]').type('coffeeの説明文', { force: true });
+    cy.get('[data-testid =submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/product/new');
     cy.get('[data-testid =error]').should('have.text', '登録に失敗しました。');
   });
   it('error message (caption)', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });
     cy.visit('/product/new');
-    cy.get('[data-testid =name] > input').type('coffee-name');
-    cy.get('[data-testid =price] > input').type('1000');
+    cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
+    cy.get('[data-testid =price] > input').type('1000', { force: true });
     cy.get('[data-testid =caption]').focus().blur();
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
