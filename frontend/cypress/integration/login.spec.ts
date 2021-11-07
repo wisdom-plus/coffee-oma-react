@@ -13,9 +13,13 @@ describe('Login', () => {
       fixture: 'products',
     }).as('Products');
     cy.visit('/sign_in');
-    cy.get('[data-testid=email] > input').type('test@example.com');
-    cy.get('[data-testid = password] > input').type('password');
-    cy.get('[data-testid = login]').click();
+    cy.get('[data-testid=email] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid = password] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = login]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/');
     cy.get('[data-testid = success]').should(
       'have.text',
@@ -30,9 +34,11 @@ describe('Login', () => {
       fixture: 'products',
     }).as('Products');
     cy.visit('/sign_in');
-    cy.get('[data-testid=email] > input').type('test@example.com');
-    cy.get('[data-testid = password] > input').type('pass');
-    cy.get('[data-testid = login]').click();
+    cy.get('[data-testid=email] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid = password] > input').type('pass', { force: true });
+    cy.get('[data-testid = login]').click({ force: true });
     cy.get('[data-testid = error]').should(
       'have.text',
       'ログインに失敗しました。',
