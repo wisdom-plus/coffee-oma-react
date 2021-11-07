@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { Grid } from 'semantic-ui-react';
 import ProductIndex from 'components/templates/ProductIndex';
-import ProductNew from 'components/templates/ProductNew';
+import ProductNew from 'components/templates/ProductnNew';
 import ProductShow from 'container/EnhancedProductShow';
-import ProductRank from 'components/templates/ProductRank';
+import ProductRank from 'components/templates/ProductrRank';
 
 type Props = {
   isindex?: boolean;
