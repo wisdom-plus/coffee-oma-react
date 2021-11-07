@@ -10,7 +10,7 @@ const Backimage = styled.div`
   background-size: cover !important;
 `;
 
-const Hometoptitles: FC = () => (
+const HomeTopTitle: FC = () => (
   <Backimage className="ui inverted vertical masthead center aligned segment">
     <Container text>
       <Header
@@ -27,4 +27,4 @@ const Hometoptitles: FC = () => (
   </Backimage>
 );
 
-export default Hometoptitles;
+export default HomeTopTitle;

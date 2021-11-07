@@ -1,62 +1,32 @@
 import { FC } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Grid, Header, Segment, Form, Input } from 'semantic-ui-react';
-import { useForm, Controller } from 'react-hook-form';
-import { Fetchpasswordreset } from 'apis/Session';
+import { Grid, Header, Segment, Form } from 'semantic-ui-react';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
+import FormController from 'container/EnhancedFormController';
+/* eslint-disable react/jsx-props-no-spreading */
 
-const ResetPassword: FC = () => {
-  const history = useHistory();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<{ email: string }>({ criteriaMode: 'all' });
-
-  const onSubmit = async (data: { email: string }) => {
-    await Fetchpasswordreset(data)
-      .then((result) => result === 200 && history.push('/send_mail'))
-      .catch(() => reset());
-  };
-
-  return (
-    <>
-      <Grid columns={3} centered style={{ margin: '4em' }}>
-        <Grid.Column width={3} />
-        <Grid.Column width={10}>
-          <Segment>
-            <Header
-              as="h3"
-              textAlign="center"
-              content="パスワードをリセットします"
-            />
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Controller
+const ResetPassword: FC<{
+  methods: UseFormReturn<{ email: string }>;
+  onSubmit: (data: { email: string }) => Promise<void>;
+}> = ({ methods, onSubmit }) => (
+  <>
+    <Grid columns={3} centered style={{ margin: '4em' }}>
+      <Grid.Column width={3} />
+      <Grid.Column width={10}>
+        <Segment>
+          <Header
+            as="h3"
+            textAlign="center"
+            content="パスワードをリセットします"
+          />
+          <FormProvider {...methods}>
+            <Form onSubmit={methods.handleSubmit(onSubmit)}>
+              <FormController
                 name="email"
-                control={control}
-                rules={{
-                  required: 'メールアドレスが入力されていません。',
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Form.Field
-                    error={
-                      errors.email && {
-                        content: errors.email?.message,
-                        pointing: 'below',
-                      }
-                    }
-                    control={Input}
-                    label="メールアドレス"
-                    icon="mail"
-                    required
-                    iconPosition="left"
-                    placeholder="e-mail"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                  />
-                )}
+                label="メールアドレス"
+                icon="mail"
+                errormessage="メールアドレスが入力されていません。"
+                required
               />
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
@@ -64,13 +34,13 @@ const ResetPassword: FC = () => {
                 <Form.Button color="teal" content="送信" />
               </Form.Field>
             </Form>
-          </Segment>
-          <FormMessage isreset />
-        </Grid.Column>
-        <Grid.Column width={3} />
-      </Grid>
-    </>
-  );
-};
+          </FormProvider>
+        </Segment>
+        <FormMessage isreset />
+      </Grid.Column>
+      <Grid.Column width={3} />
+    </Grid>
+  </>
+);
 
 export default ResetPassword;

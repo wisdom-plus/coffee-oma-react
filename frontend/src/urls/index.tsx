@@ -1,4 +1,4 @@
-const DEFAULT_API_LOCALHOST = 'http://localhost:3001/api';
+const DEFAULT_API_LOCALHOST = 'http://localhost:3001/api/v1';
 
 export const productindexURL = `${DEFAULT_API_LOCALHOST}/products`;
 export const productshowURL = (productId: string): string =>

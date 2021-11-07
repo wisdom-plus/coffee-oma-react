@@ -12,7 +12,7 @@ const Extra: FC<{ price: number }> = ({ price }) => (
   <Icon name="yen sign">{price.toLocaleString()}</Icon>
 );
 
-const Indexcards: FC<Props> = ({ products, isrank = false }) => (
+const IndexCards: FC<Props> = ({ products, isrank = false }) => (
   <>
     {products?.map((product, index) => (
       <Link
@@ -44,4 +44,4 @@ const Indexcards: FC<Props> = ({ products, isrank = false }) => (
   </>
 );
 
-export default Indexcards;
+export default IndexCards;

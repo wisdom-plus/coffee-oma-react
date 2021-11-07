@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
-import SignInForm from 'components/molecules/SignInForm';
-import SignOut from 'components/atoms/SignOut';
-import Confirmation from 'components/molecules/Confirmation';
-import ResetPassword from 'components/organisms/ResetPassword';
-import ResetPasswordEdit from 'components/organisms/ResetPasswordEdit';
+import SignInForm from 'container/EnhancedSignInForm';
+import SignOut from 'container/EnhancedSignOut';
+import Confirmation from 'container/EnhancedConfirmation';
+import ResetPasswordEdit from 'container/EnhancedResetPasswordEdit';
+import ResetPassword from 'container/EnhancedResetPassword';
 
 type Props = {
   issignin?: boolean;
@@ -16,11 +16,11 @@ type Props = {
 };
 
 const Session: FC<Props> = ({
-  issignin,
-  issignout,
-  isconfirm,
-  isreset,
-  isresetedit,
+  issignin = false,
+  issignout = false,
+  isconfirm = false,
+  isreset = false,
+  isresetedit = false,
 }) => (
   <>
     <Helmet title="Session" />

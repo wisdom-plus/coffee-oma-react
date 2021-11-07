@@ -64,22 +64,26 @@ export const Fetchsessiondestroy = (): Promise<number | undefined> =>
     })
     .catch((error: undefined) => error);
 
-export const Fetchsessionvaildate = (): Promise<
-  { data: CurrentUser } | undefined
-> =>
-  axios({
-    method: 'get',
-    url: sessionvalidateURL,
-    headers: {
-      'access-token': localStorage.getItem('access-token'),
-      client: localStorage.getItem('client'),
-      uid: localStorage.getItem('uid'),
-    },
-  })
-    .then<{ data: CurrentUser }>(
-      (result) => result.data as { data: CurrentUser },
-    )
-    .catch((error: undefined) => error);
+export const Fetchsessionvaildate = async (): Promise<{
+  data: CurrentUser;
+}> => {
+  try {
+    const { data } = await axios.get<{ data: CurrentUser }>(
+      sessionvalidateURL,
+      {
+        headers: {
+          'access-token': localStorage.getItem('access-token'),
+          client: localStorage.getItem('client'),
+          uid: localStorage.getItem('uid'),
+        },
+      },
+    );
+
+    return data;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const Fetchsessionconfirm = (params: {
   email: string;

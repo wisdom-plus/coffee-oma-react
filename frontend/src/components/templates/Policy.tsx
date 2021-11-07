@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Header, Grid } from 'semantic-ui-react';
-import Privatepolicycontent from 'components/atoms/Privatepolicycontent';
-import Policycontent from 'components/atoms/Policycontent';
+import Privatepolicycontent from 'components/atoms/PrivatePolicyContent';
+import Policycontent from 'components/atoms/PolicyContent';
 
 type Props = {
   isprivate?: boolean;

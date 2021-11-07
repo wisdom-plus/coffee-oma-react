@@ -8,7 +8,7 @@ export type Props = {
   url: string;
 };
 
-const Footerlist: FC<{ links: Props[] }> = ({ links }) => (
+const FooterList: FC<{ links: Props[] }> = ({ links }) => (
   <List inverted link>
     {links.map((link) => (
       <Link key={link.id} to={link.url} className="ui item">
@@ -18,4 +18,4 @@ const Footerlist: FC<{ links: Props[] }> = ({ links }) => (
   </List>
 );
 
-export default Footerlist;
+export default FooterList;

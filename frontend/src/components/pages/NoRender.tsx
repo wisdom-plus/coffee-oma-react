@@ -7,7 +7,7 @@ type Props = {
   issendmail?: boolean;
 };
 
-const NoRender: FC<Props> = ({ issendmail }) => (
+const NoRender: FC<Props> = ({ issendmail = false }) => (
   <>
     <Helmet title="NoRender" />
     <Grid centered textAlign="center" padded verticalAlign="middle">

@@ -10,20 +10,21 @@ on:
 
 jobs:
   cypress:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       ENV_FILE: ${{ secrets.FRONT_ENV_FILE}}
     steps:
       - uses: actions/checkout@v2
-        with:
-          repository: tomoron/coffee-oma-react
-          token: ${{ secrets.ACTIONS_TOKEN }}
       - name: Decode env file
         run: echo $ENV_FILE | base64 -d > .env
         working-directory: frontend
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn start:ci
-          working-directory: frontend
-          config: baseUrl=http://localhost:3000
+      - name: test
+        run: npm install -g typesync && yarn install && yarn start
+        working-directory: frontend
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v2.11.7
+      #   with:
+      #     install-command: yarn install
+      #     start: yarn start:ci
+      #     working-directory: frontend
+      #     wait-on: http://localhost:3000

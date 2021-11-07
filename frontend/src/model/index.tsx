@@ -37,9 +37,8 @@ export type UserEditForm = {
   icon: File;
   name: string;
   email: string;
-  ['current_password']: string;
-  password: string;
-  ['password_confirmation']: string;
+  password?: string;
+  ['password_confirmation']?: string;
   profile: string;
 };
 export type UserForm = Omit<User, 'id'>;
@@ -62,6 +61,35 @@ export type CurrentUser = {
   profile: string;
   ['created_at']: Date;
 };
+export type FormInputType =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'password_confirmation'
+  | 'current_password'
+  | 'shopname'
+  | 'price'
+  | 'url'
+  | 'caption'
+  | 'profile';
 
 export type LikedData = { count: number; liked: boolean };
+
+export type ruletype = () =>
+  | {
+      required: string;
+      minLength?: undefined;
+    }
+  | {
+      required: string;
+      minLength: {
+        value: number;
+        message: string;
+      };
+    }
+  | {
+      required?: undefined;
+      minLength?: undefined;
+    };
+
 export default Product;

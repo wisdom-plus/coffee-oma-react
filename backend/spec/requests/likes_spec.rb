@@ -11,19 +11,19 @@ RSpec.describe 'Likes', type: :request do
     it 'レスポンス成功' do
       product
       product1
-      get api_likes_path
+      get api_v1_likes_path
       expect(response).to have_http_status(:ok)
     end
 
     it 'ボディにproductsがあるか' do
       product1
       like
-      get api_likes_path
+      get api_v1_likes_path
       expect(json['likes']).to eq(expect_json(Product.ranking(9)))
     end
 
     it 'レスポンス失敗' do
-      get api_likes_path
+      get api_v1_likes_path
       expect(response).to have_http_status(:internal_server_error)
     end
   end
@@ -32,18 +32,18 @@ RSpec.describe 'Likes', type: :request do
     context 'ログインしているとき' do
       sign_in(:user)
       it 'レスポンス成功' do
-        post api_likes_path, params: { like: { product_id: product.id } }
+        post api_v1_likes_path, params: { like: { product_id: product.id } }
         expect(response).to have_http_status(:created)
       end
 
       it 'レスポンス失敗' do
-        post api_likes_path, params: { like: { product_id: (product1.id + 2) } }
+        post api_v1_likes_path, params: { like: { product_id: (product1.id + 2) } }
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
     it 'ログインしていない' do
-      post api_likes_path, params: { like: { product_id: product.id } }
+      post api_v1_likes_path, params: { like: { product_id: product.id } }
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -52,18 +52,18 @@ RSpec.describe 'Likes', type: :request do
     context 'ログインしているとき' do
       sign_in(:user)
       it 'レスポンス成功' do
-        delete api_like_path(like.product_id)
+        delete api_v1_like_path(like.product_id)
         expect(response).to have_http_status(:created)
       end
 
       it 'レスポンス失敗' do
-        delete api_like_path(like.product_id + 2)
+        delete api_v1_like_path(like.product_id + 2)
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
     it 'ログインしいないとき' do
-      delete api_like_path(like.product_id)
+      delete api_v1_like_path(like.product_id)
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -72,24 +72,24 @@ RSpec.describe 'Likes', type: :request do
     context 'ログインしている時' do
       sign_in(:user)
       it 'レスポンス成功(ログイン時)' do
-        get exists_api_likes_path, params: { product_id: like.product_id }
+        get exists_api_v1_likes_path, params: { product_id: like.product_id }
         expect(response).to have_http_status(:ok)
       end
 
       it 'レスポンス失敗' do
-        get exists_api_likes_path, params: { product_id: (like.product_id + 2) }
+        get exists_api_v1_likes_path, params: { product_id: (like.product_id + 2) }
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
     context 'ログインしていない時' do
       it 'レスポンス成功' do
-        get exists_api_likes_path, params: { product_id: product.id }
+        get exists_api_v1_likes_path, params: { product_id: product.id }
         expect(response).to have_http_status(:ok)
       end
 
       it 'レスポンス失敗' do
-        get exists_api_likes_path, params: { product_id: (like.product_id + 2) }
+        get exists_api_v1_likes_path, params: { product_id: (like.product_id + 2) }
         expect(response).to have_http_status(:internal_server_error)
       end
     end

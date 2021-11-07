@@ -1,53 +1,30 @@
-import React, { FC, useState } from 'react';
-import { Form, Card, Table, Grid, Input, TextArea } from 'semantic-ui-react';
-import { useForm, Controller } from 'react-hook-form';
-import { Fetchproductnew } from 'apis/Product';
-import { useHistory } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Form, Card, Table, Grid } from 'semantic-ui-react';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
+import ProductImage from 'container/EnhancedProductImage';
+import FormController from 'container/EnhancedFormController';
 import { ProductForm } from 'model/index';
-import ProductImage from 'components/atoms/ProductImage';
+/* eslint-disable react/jsx-props-no-spreading */
 
 export interface CustomFormData extends FormData {
   append(name: string, value: string | number | Blob, fileName?: string): void;
 }
 
-const Newform: FC = () => {
-  const [file, setFile] = useState<Blob>();
-  const history = useHistory();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<ProductForm>({ criteriaMode: 'all' });
+type newformtype = {
+  methods: UseFormReturn<ProductForm>;
+  file: Blob | undefined;
+  onSubmit: (data: ProductForm) => Promise<void>;
+  onChangeFile: (e: React.ChangeEvent<HTMLInputElement>) => void | null;
+};
 
-  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
-    e.target.files && setFile(e.target.files[0]);
-
-  const onSubmit = async (data: ProductForm) => {
-    const formdata = new FormData() as CustomFormData;
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-    keys.map((key, index) => formdata.append(`product[${key}]`, values[index]));
-    if (file !== undefined) {
-      formdata.append('product[image]', file);
-    }
-    await Fetchproductnew(formdata)
-      .then((result) =>
-        result !== undefined && result === 201
-          ? history.push('/products', {
-              message: '登録成功しました。',
-              type: 'success',
-            })
-          : history.push('/product/new', {
-              message: '登録に失敗しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() => reset());
-  };
-
-  return (
-    <Form size="small" onSubmit={handleSubmit(onSubmit)}>
+const Newform: FC<newformtype> = ({
+  methods,
+  file,
+  onSubmit,
+  onChangeFile,
+}) => (
+  <FormProvider {...methods}>
+    <Form size="small" onSubmit={methods.handleSubmit(onSubmit)}>
       <Grid columns={3} centered>
         <Grid.Column width={3} />
         <Grid.Column width={10}>
@@ -55,104 +32,33 @@ const Newform: FC = () => {
             <ProductImage file={file} onChange={onChangeFile} />
             <Card.Content>
               <Card.Header>
-                <Controller
+                <FormController
                   name="name"
-                  control={control}
-                  rules={{
-                    required: '商品名が入力されていません。',
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Form.Field
-                      error={
-                        errors.name && {
-                          content: errors.name?.message,
-                          pointing: 'below',
-                        }
-                      }
-                      data-testid="name"
-                      control={Input}
-                      label="商品名"
-                      icon="shopping cart"
-                      required
-                      iconPosition="left"
-                      placeholder="name"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                    />
-                  )}
+                  label="商品名"
+                  icon="shopping cart"
+                  required
+                  errormessage="商品名が入力されていません。"
                 />
               </Card.Header>
               <Card.Meta>
-                <Controller
+                <FormController
+                  label="メーカー名"
+                  icon="credit card alternative"
                   name="shopname"
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Form.Field
-                      data-testid="shopname"
-                      control={Input}
-                      label="メーカー名"
-                      icon="credit card alternative"
-                      iconPosition="left"
-                      placeholder="shop-name"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                    />
-                  )}
                 />
               </Card.Meta>
             </Card.Content>
             <Card.Content extra>
-              <Controller
+              <FormController
                 name="price"
-                control={control}
-                rules={{
-                  required: '商品価格が入力されていません。',
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Form.Field
-                    error={
-                      errors.price && {
-                        content: errors.price?.message,
-                        pointing: 'below',
-                      }
-                    }
-                    data-testid="price"
-                    control={Input}
-                    label="商品名"
-                    icon="yen"
-                    required
-                    iconPosition="left"
-                    placeholder="price"
-                    type="number"
-                    min="0"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                  />
-                )}
+                label="商品名"
+                icon="yen"
+                required
+                errormessage="商品価格が入力されていません。"
               />
             </Card.Content>
             <Card.Content extra>
-              <Controller
-                name="url"
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Form.Field
-                    data-testid="url"
-                    control={Input}
-                    label="商品URL"
-                    icon="sitemap"
-                    iconPosition="left"
-                    placeholder="URL"
-                    type="url"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                  />
-                )}
-              />
+              <FormController name="url" label="商品URL" icon="sitemap" />
             </Card.Content>
           </Card>
           <Table celled>
@@ -166,30 +72,11 @@ const Newform: FC = () => {
             <Table.Body>
               <Table.Row>
                 <Table.Cell>
-                  <Controller
+                  <FormController
                     name="caption"
-                    control={control}
-                    rules={{
-                      required: '商品の説明が入力されていません。',
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Form.Field
-                        error={
-                          errors.caption && {
-                            content: errors.caption?.message,
-                            pointing: 'below',
-                          }
-                        }
-                        data-testid="caption"
-                        control={TextArea}
-                        placeholder="item-caption"
-                        id="caption"
-                        rows={6}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                      />
-                    )}
+                    textarea
+                    required
+                    errormessage="商品の説明が入力されていません。"
                   />
                 </Table.Cell>
               </Table.Row>
@@ -202,7 +89,7 @@ const Newform: FC = () => {
         <Grid.Column width={3} />
       </Grid>
     </Form>
-  );
-};
+  </FormProvider>
+);
 
 export default Newform;

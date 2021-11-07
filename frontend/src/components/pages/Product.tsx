@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { Grid } from 'semantic-ui-react';
-import Productindex from 'components/templates/Productindex';
-import Productnew from 'components/templates/Productnew';
-import Productshow from 'components/templates/Productshow';
-import Productrank from 'components/templates/Productrank';
+import ProductIndex from 'components/templates/ProductIndex';
+import ProductNew from 'components/templates/ProductNew';
+import ProductShow from 'container/EnhancedProductShow';
+import ProductRank from 'components/templates/ProductRank';
 
 type Props = {
   isindex?: boolean;
@@ -13,15 +13,20 @@ type Props = {
   isrank?: boolean;
 };
 
-const Product: FC<Props> = ({ isindex, isshow, isnew, isrank }) => (
+const Product: FC<Props> = ({
+  isindex = false,
+  isshow = false,
+  isnew = false,
+  isrank = false,
+}) => (
   <>
     <Helmet title="Product" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
       <Grid.Column>
-        {isindex && <Productindex />}
-        {isrank && <Productrank />}
-        {isshow && <Productshow />}
-        {isnew && <Productnew />}
+        {isindex && <ProductIndex />}
+        {isrank && <ProductRank />}
+        {isshow && <ProductShow />}
+        {isnew && <ProductNew />}
       </Grid.Column>
     </Grid>
   </>

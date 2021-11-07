@@ -9,7 +9,12 @@ type Props = {
   isreset?: boolean;
 };
 
-const FormMessage: FC<Props> = ({ issignin, isconfirm, issignup, isreset }) => (
+const FormMessage: FC<Props> = ({
+  issignin = false,
+  isconfirm = false,
+  issignup = false,
+  isreset = false,
+}) => (
   <Message info>
     <List>
       {!isconfirm && (

@@ -1,13 +1,13 @@
 import { FC } from 'react';
-import Hometoptitles from 'components/organisms/Hometoptitles';
-import Homeicongrid from 'components/organisms/Homeicongrid';
-import Homeranking from 'components/organisms/Homeranking';
+import HomeTopTitle from 'components/organisms/HomeTopTitle';
+import HomeIconGrid from 'components/organisms/HomeIconGrid';
+import HomeRanking from 'components/organisms/HomeRanking';
 
 const Hometop: FC = () => (
   <>
-    <Hometoptitles />
-    <Homeicongrid />
-    <Homeranking />
+    <HomeTopTitle />
+    <HomeIconGrid />
+    <HomeRanking />
   </>
 );
 
