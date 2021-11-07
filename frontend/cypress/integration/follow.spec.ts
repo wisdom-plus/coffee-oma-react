@@ -25,7 +25,9 @@ describe('Create', () => {
     });
     cy.intercept('POST', FollowURL, { statusCode: 201 });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = create]', { includeShadowDom: true }).click();
+    cy.get('[data-testid = create]', { includeShadowDom: true }).click({
+      force: true,
+    });
     cy.get('[data-testid = destroy]', { includeShadowDom: true }).should(
       'have.text',
       'フォロー解除',
@@ -45,7 +47,9 @@ describe('Create', () => {
     });
     cy.intercept('POST', FollowURL, { statusCode: 500 });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = create]', { includeShadowDom: true }).click();
+    cy.get('[data-testid = create]', { includeShadowDom: true }).click({
+      force: true,
+    });
     cy.get('[data-testid = error]', { includeShadowDom: true }).should(
       'have.text',
       'エラーが発生しました。',
@@ -73,7 +77,9 @@ describe('Destory', () => {
       statusCode: 201,
     });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click();
+    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
+      force: true,
+    });
     cy.get('[data-testid = create]', { includeShadowDom: true }).should(
       'have.text',
       'フォローする',
@@ -98,7 +104,9 @@ describe('Destory', () => {
       statusCode: 500,
     });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click();
+    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
+      force: true,
+    });
     cy.get('[data-testid = error]', { includeShadowDom: true }).should(
       'have.text',
       'エラーが発生しました。',
