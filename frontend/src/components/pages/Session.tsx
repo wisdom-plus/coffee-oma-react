@@ -16,11 +16,11 @@ type Props = {
 };
 
 const Session: FC<Props> = ({
-  issignin,
-  issignout,
-  isconfirm,
-  isreset,
-  isresetedit,
+  issignin = false,
+  issignout = false,
+  isconfirm = false,
+  isreset = false,
+  isresetedit = false,
 }) => (
   <>
     <Helmet title="Session" />

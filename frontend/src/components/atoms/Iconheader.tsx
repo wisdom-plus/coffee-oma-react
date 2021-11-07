@@ -7,7 +7,7 @@ type Props = {
   subheader?: string;
 };
 
-const IconHeader: FC<Props> = ({ icontype, content, subheader }) => (
+const IconHeader: FC<Props> = ({ icontype, content, subheader = '' }) => (
   <Header as="h2" icon>
     <Icon name={icontype} />
     {content}

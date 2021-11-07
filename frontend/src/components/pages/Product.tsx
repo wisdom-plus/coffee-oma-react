@@ -13,7 +13,12 @@ type Props = {
   isrank?: boolean;
 };
 
-const Product: FC<Props> = ({ isindex, isshow, isnew, isrank }) => (
+const Product: FC<Props> = ({
+  isindex = false,
+  isshow = false,
+  isnew = false,
+  isrank = false,
+}) => (
   <>
     <Helmet title="Product" />
     <Grid centered textAlign="center" padded verticalAlign="middle">

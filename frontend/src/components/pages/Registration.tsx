@@ -12,7 +12,12 @@ type Props = {
   isshow?: boolean;
 };
 
-const Registration: FC<Props> = ({ isnew, isedit, ismypage, isshow }) => (
+const Registration: FC<Props> = ({
+  isnew = false,
+  isedit = false,
+  ismypage = false,
+  isshow = false,
+}) => (
   <>
     <Helmet title="Registration" />
     <Grid centered textAlign="center" padded verticalAlign="middle">
