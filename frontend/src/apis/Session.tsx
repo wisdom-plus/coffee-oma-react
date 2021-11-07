@@ -24,26 +24,23 @@ type ResetPasswordEditParams = {
   data: ResetPasswordEditdata;
 };
 
-const StorageSet = (result: Token): void => {
-  localStorage.setItem('access-token', result['access-token']);
-  localStorage.setItem('client', result.client);
-  localStorage.setItem('uid', result.uid);
+// const StorageSet = (result: Token): void => {
+//   localStorage.setItem('access-token', result['access-token']);
+//   localStorage.setItem('client', result.client);
+//   localStorage.setItem('uid', result.uid);
+// };
+
+export const Fetchsessionnew = async (session: Session): Promise<login> => {
+  try {
+    const response = await axios.post<{ data: CurrentUser }>(sessionnewURL, {
+      ...session,
+    });
+
+    return { data: response.data.data, headers: response.headers as Token };
+  } catch (error) {
+    throw new Error();
+  }
 };
-
-export const Fetchsessionnew = (
-  session: Session,
-): Promise<{ data: CurrentUser } | undefined> =>
-  axios
-    .post<login>(sessionnewURL, { ...session })
-    .then((result) => {
-      if (result.status === 401) {
-        return undefined;
-      }
-      StorageSet(result.headers);
-
-      return result.data;
-    })
-    .catch((error: undefined) => error);
 
 export const Fetchsessiondestroy = (): Promise<number | undefined> =>
   axios({
@@ -64,18 +61,16 @@ export const Fetchsessiondestroy = (): Promise<number | undefined> =>
     })
     .catch((error: undefined) => error);
 
-export const Fetchsessionvaildate = async (): Promise<{
+export const Fetchsessionvaildate = async (token: {
+  token: Token;
+}): Promise<{
   data: CurrentUser;
 }> => {
   try {
     const { data } = await axios.get<{ data: CurrentUser }>(
       sessionvalidateURL,
       {
-        headers: {
-          'access-token': localStorage.getItem('access-token'),
-          client: localStorage.getItem('client'),
-          uid: localStorage.getItem('uid'),
-        },
+        headers: token.token,
       },
     );
 

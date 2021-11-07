@@ -1,7 +1,8 @@
 import { FC, useLayoutEffect } from 'react';
 import { atom, useSetRecoilState } from 'recoil';
-import { CurrentUser } from 'model/index';
+import { CurrentUser, Token } from 'model/index';
 import { Fetchsessionvaildate } from 'apis/Session';
+import { useCookies } from 'react-cookie';
 
 const LoginState = atom<CurrentUser>({
   key: 'LoginUser',
@@ -19,12 +20,15 @@ const LoginState = atom<CurrentUser>({
 
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
+  const [cookie] = useCookies(['token']);
 
   useLayoutEffect(() => {
-    if (localStorage.getItem('access-token') !== null) {
+    if (cookie) {
       const API = async (): Promise<void> => {
         try {
-          const response = await Fetchsessionvaildate();
+          const response = await Fetchsessionvaildate(
+            cookie as { token: Token },
+          );
           setUser((prevUser) => ({ ...prevUser, ...response.data }));
         } catch (e) {
           throw new Error('APIエラー');
@@ -32,7 +36,7 @@ export const RecoilApp: FC = ({ children }) => {
       };
       void API();
     }
-  }, [setUser]);
+  }, [setUser, cookie]);
 
   return <>{children}</>;
 };
