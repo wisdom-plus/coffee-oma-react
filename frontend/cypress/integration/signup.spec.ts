@@ -102,7 +102,10 @@ describe('Sign up', () => {
       force: true,
     });
     cy.get('[data-testid = submit]').click({ force: true });
-    cy.get('[data-testid =password_confirmation ] > input').type('{backspace}');
+    cy.get('[data-testid =password_confirmation ] > input').type(
+      '{backspace}',
+      { force: true },
+    );
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'パスワードが一致しません',

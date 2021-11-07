@@ -68,13 +68,13 @@ describe('Edit', () => {
     cy.visit('/registration/edit');
 
     cy.get('[data-testid = name] > input')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.name, { force: true });
     cy.get('[data-testid = email] > input')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.email, { force: true });
     cy.get('[data-testid = profile]')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.profile, { force: true });
     cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/mypage');
@@ -130,13 +130,13 @@ describe('Edit', () => {
     });
     cy.visit('/registration/edit');
     cy.get('[data-testid = name] > input')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.name, { force: true });
     cy.get('[data-testid = email] > input')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.email, { force: true });
     cy.get('[data-testid = profile]')
-      .clear()
+      .clear({ force: true })
       .type(updateuser.profile, { force: true });
     cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/registration/edit');
