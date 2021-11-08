@@ -8,21 +8,15 @@ const useThreeCards = (): Product[] => {
   const history = useHistory();
 
   useEffect(() => {
-    Fetchproductindex()
-      .then((result) =>
-        result !== undefined && result.products !== undefined
-          ? setState(() => result.products)
-          : history.push('/products', {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
-        history.push('/products', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        }),
-      );
+    const API = async () => {
+      try {
+        const response = await Fetchproductindex();
+        setState(() => response.products);
+      } catch (e) {
+        history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      }
+    };
+    void API();
   }, [history]);
 
   return state;

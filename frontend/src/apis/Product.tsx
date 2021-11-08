@@ -2,19 +2,15 @@ import axios from 'axios';
 import { Product } from 'model/index';
 import { productindexURL, productshowURL, LikeIndexURL } from 'urls/index';
 
-export const Fetchproductindex = (): Promise<
-  { products: Product[] } | undefined
-> =>
-  axios
-    .get<{ products: Product[] }>(productindexURL)
-    .then((result) => {
-      if (result.status !== 200) {
-        return undefined;
-      }
+export const Fetchproductindex = async (): Promise<{ products: Product[] }> => {
+  try {
+    const response = await axios.get<{ products: Product[] }>(productindexURL);
 
-      return result.data;
-    })
-    .catch((error: undefined) => error);
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const Fetchproductshow = async (
   productId: string,
