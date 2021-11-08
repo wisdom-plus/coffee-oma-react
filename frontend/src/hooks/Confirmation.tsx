@@ -15,11 +15,14 @@ const useConfirmation = (): {
   });
 
   const onSubmit = async (data: { email: string }) => {
-    await Fetchsessionconfirm(data)
-      .then((result) => result === 200 && history.push('/send_mail'))
-      .catch(() =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
-      );
+    try {
+      const response = await Fetchsessionconfirm(data);
+      if (response === 200) {
+        history.push('/send_mail');
+      }
+    } catch (e) {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
   };
 
   return { methods, onSubmit };

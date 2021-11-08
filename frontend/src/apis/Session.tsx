@@ -24,12 +24,6 @@ type ResetPasswordEditParams = {
   data: ResetPasswordEditdata;
 };
 
-// const StorageSet = (result: Token): void => {
-//   localStorage.setItem('access-token', result['access-token']);
-//   localStorage.setItem('client', result.client);
-//   localStorage.setItem('uid', result.uid);
-// };
-
 export const Fetchsessionnew = async (session: Session): Promise<login> => {
   try {
     const response = await axios.post<{ data: CurrentUser }>(sessionnewURL, {
@@ -77,13 +71,17 @@ export const Fetchsessionvaildate = async (token: {
   }
 };
 
-export const Fetchsessionconfirm = (params: {
+export const Fetchsessionconfirm = async (params: {
   email: string;
-}): Promise<number> =>
-  axios
-    .post(sessionconfirmationURL, params)
-    .then((result) => result.status)
-    .catch(() => 404);
+}): Promise<number> => {
+  try {
+    const response = await axios.post(sessionconfirmationURL, params);
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const Fetchpasswordreset = (params: {
   email: string;
