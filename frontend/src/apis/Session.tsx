@@ -83,13 +83,17 @@ export const Fetchsessionconfirm = async (params: {
   }
 };
 
-export const Fetchpasswordreset = (params: {
+export const Fetchpasswordreset = async (params: {
   email: string;
-}): Promise<number | undefined> =>
-  axios
-    .post(passwordresetURL, params)
-    .then((result) => result.status)
-    .catch((error: undefined) => error);
+}): Promise<number> => {
+  try {
+    const response = await axios.post(passwordresetURL, params);
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const Fetchpasswordresetedit = (
   params: ResetPasswordEditParams,

@@ -13,11 +13,17 @@ const useResetPassword = (): {
   });
 
   const onSubmit = async (data: { email: string }) => {
-    await Fetchpasswordreset(data)
-      .then((result) => result === 200 && history.push('/send_mail'))
-      .catch(() =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
-      );
+    try {
+      const response = await Fetchpasswordreset(data);
+      if (response === 200) {
+        history.push('/send_mail', {
+          message: 'メールを送信しました。',
+          type: 'success',
+        });
+      }
+    } catch (e) {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
   };
 
   return { methods, onSubmit };
