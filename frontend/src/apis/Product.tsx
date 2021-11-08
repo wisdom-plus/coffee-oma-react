@@ -16,29 +16,31 @@ export const Fetchproductindex = (): Promise<
     })
     .catch((error: undefined) => error);
 
-export const Fetchproductshow = (
+export const Fetchproductshow = async (
   productId: string,
-): Promise<{ product: Product } | undefined> =>
-  axios
-    .get<{ product: Product }>(productshowURL(productId))
-    .then((result) => {
-      if (result.status !== 200) {
-        return undefined;
-      }
+): Promise<{ product: Product }> => {
+  try {
+    const response = await axios.get<{ product: Product }>(
+      productshowURL(productId),
+    );
 
-      return result.data;
-    })
-    .catch((error: undefined) => error);
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
-export const Fetchproductnew = (
-  product: FormData,
-): Promise<number | undefined> =>
-  axios
-    .post(productindexURL, product, {
+export const Fetchproductnew = async (formdata: FormData): Promise<number> => {
+  try {
+    const response = await axios.post(productindexURL, formdata, {
       headers: { 'content-type': 'multipart/form-data' },
-    })
-    .then((results) => results.status)
-    .catch((error: undefined) => error);
+    });
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const FetchLikeIndex = async (): Promise<{ likes: Product[] }> => {
   try {

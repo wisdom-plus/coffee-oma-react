@@ -11,21 +11,18 @@ const useProductShow = (): { product: Product } => {
   const history = useHistory();
 
   useEffect(() => {
-    Fetchproductshow(id)
-      .then((result) =>
-        result !== undefined && result.product !== undefined
-          ? setState(() => result)
-          : history.push('/products', {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
+    const API = async () => {
+      try {
+        const response = await Fetchproductshow(id);
+        setState(() => response);
+      } catch (e) {
         history.push('/products', {
           message: 'エラーが発生しました。',
           type: 'error',
-        }),
-      );
+        });
+      }
+    };
+    void API();
   }, [id, history]);
 
   return state;
