@@ -15,7 +15,7 @@ const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
     const API = async () => {
       try {
         const response = await FetchRegistrationShow(id);
-        setUser((prevUser) => ({ ...prevUser, ...response }));
+        setUser((prevUser) => ({ ...prevUser, ...response.data }));
       } catch (e) {
         history.push('/', {
           message: 'エラーが発生しました。',
@@ -24,6 +24,7 @@ const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
       }
     };
     void API();
+    console.log(user);
   }, [id, history]);
 
   return { user, currentuser };

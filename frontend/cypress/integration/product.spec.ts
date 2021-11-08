@@ -58,7 +58,10 @@ describe('New', () => {
     cy.get('[data-testid =caption]').type('coffeeの説明文', { force: true });
     cy.get('[data-testid =submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/products');
-    cy.get('[data-testid =success]').should('have.text', '登録成功しました。');
+    cy.get('[data-testid =success]').should(
+      'have.text',
+      '登録に成功しました。',
+    );
   });
   it('failed', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });

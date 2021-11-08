@@ -12,9 +12,10 @@ import { users } from '../fixtures/users.json';
 
 describe('Create', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -34,9 +35,10 @@ describe('Create', () => {
     );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -59,9 +61,10 @@ describe('Create', () => {
 
 describe('Destory', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -86,9 +89,10 @@ describe('Destory', () => {
     );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,

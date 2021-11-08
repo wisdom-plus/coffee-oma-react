@@ -32,7 +32,7 @@ const useSignInForm = (): {
       });
     } catch (e) {
       history.push('/sign_in', {
-        message: 'エラーが発生しました。',
+        message: 'ログインに失敗しました。',
         type: 'error',
       });
     }

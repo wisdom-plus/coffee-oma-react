@@ -3,6 +3,7 @@ import { atom, useSetRecoilState } from 'recoil';
 import { CurrentUser } from 'model/index';
 import { Fetchsessionvaildate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 
 const LoginState = atom<CurrentUser>({
   key: 'LoginUser',
@@ -21,6 +22,7 @@ const LoginState = atom<CurrentUser>({
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
   const [cookie] = useCookies(['token']);
+  const history = useHistory();
 
   useLayoutEffect(() => {
     if (cookie.token) {
@@ -29,12 +31,15 @@ export const RecoilApp: FC = ({ children }) => {
           const response = await Fetchsessionvaildate(cookie.token);
           setUser((prevUser) => ({ ...prevUser, ...response.data }));
         } catch (e) {
-          throw new Error('APIエラー');
+          history.push('/', {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          });
         }
       };
       void API();
     }
-  }, [setUser, cookie]);
+  }, [setUser, cookie, history]);
 
   return <>{children}</>;
 };

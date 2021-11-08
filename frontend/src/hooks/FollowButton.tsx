@@ -17,8 +17,10 @@ const useFollowButton = (): {
     const API = async () => {
       try {
         const response = await FetchFollowExists(id, cookie.token);
-        if (response === 201) {
-          setState(() => true);
+        if (response === 200) {
+          setState((prev) => !prev);
+        } else {
+          setState((prev) => prev);
         }
       } catch (err) {
         history.push('/', { message: 'エラーが発生しました。', type: 'error' });

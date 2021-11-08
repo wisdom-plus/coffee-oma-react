@@ -84,14 +84,14 @@ const useProfileForm = (): Props => {
           type: 'success',
         });
       } else {
-        history.push('/mypage', {
+        history.push('/registration/edit', {
           message: '入力が正しくありません。',
           type: 'error',
         });
       }
     } catch (e) {
-      history.push('/mypage', {
-        message: 'エラーが発生しました。',
+      history.push('/registration/edit', {
+        message: '入力が正しくありません。',
         type: 'error',
       });
     }

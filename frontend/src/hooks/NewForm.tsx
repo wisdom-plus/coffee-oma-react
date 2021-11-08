@@ -39,14 +39,17 @@ const useNewform = (): props => {
 
     try {
       const response = await Fetchproductnew(formdata);
-      if (response === 200) {
+      if (response === 201) {
         history.push('/products', {
           message: '登録に成功しました。',
           type: 'success',
         });
       }
     } catch (e) {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      history.push('/product/new', {
+        message: '登録に失敗しました。',
+        type: 'error',
+      });
     }
   };
 

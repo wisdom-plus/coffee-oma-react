@@ -33,10 +33,7 @@ describe('Sign up', () => {
     });
     cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/sign_up');
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      '無効な入力があります。',
-    );
+    cy.get('[data-testid = error]').should('have.text', '登録に失敗しました。');
   });
   it('form failed(name.minlength)', () => {
     cy.visit('/sign_up');

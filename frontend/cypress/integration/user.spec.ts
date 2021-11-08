@@ -3,6 +3,7 @@ import {
   sessionvalidateURL,
   RegistrationShowURL,
   RegistrationNewURL,
+  FollowExistsURL,
 } from '../../src/urls/index';
 import currentuser from '../fixtures/currentuser.json';
 import user from '../fixtures/users.json';
@@ -10,9 +11,10 @@ import updateuser from '../fixtures/updateuser.json';
 
 describe('mypage', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -31,12 +33,21 @@ describe('mypage', () => {
 });
 describe('show', () => {
   it('successfully', () => {
-    cy.intercept('GET', RegistrationShowURL(`${user.users[0].id}`), {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
-      body: { data: user.users[0] },
+      body: currentuser,
     });
-    cy.visit(`/registration/${user.users[0].id}`);
-    cy.get('[data-testid = name]').should('have.text', user.users[0].name);
+
+    cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
+      statusCode: 200,
+      body: { data: user.users[1] },
+    });
+    cy.visit(`/registration/${user.users[1].id}`);
+    cy.get('[data-testid = name]').should('have.text', user.users[1].name);
   });
   it('failed', () => {
     cy.intercept('GET', RegistrationShowURL(`${user.users[0].id}`), {
@@ -54,9 +65,10 @@ describe('show', () => {
 });
 describe('Edit', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -84,9 +96,10 @@ describe('Edit', () => {
     );
   });
   it('error message(name)', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -99,9 +112,10 @@ describe('Edit', () => {
     );
   });
   it('error message(passowrd)', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -118,9 +132,10 @@ describe('Edit', () => {
     );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
