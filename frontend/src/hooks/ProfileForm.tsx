@@ -8,10 +8,11 @@ import {
 } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { UserEditForm, CurrentUser } from 'model/index';
+import { UserEditForm, CurrentUser, Token } from 'model/index';
 import { FetchRegistrationUpdate } from 'apis/User';
 import LoginState from 'atom';
 import { useRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -33,6 +34,7 @@ const useProfileForm = (): Props => {
   const [file, setFile] = useState<Blob>();
   const [active, setActive] = useState(false);
   const [user, setUser] = useRecoilState(LoginState);
+  const [cookie] = useCookies(['token']);
   const history = useHistory();
   const defaultvalues = useMemo(
     () => ({
@@ -57,7 +59,7 @@ const useProfileForm = (): Props => {
 
   const methods = { reset, ...method };
 
-  const onSubmit = async (data: UserEditForm) => {
+  const CreateFormData = (data: UserEditForm): CustomFormData => {
     const formdata = new FormData() as CustomFormData;
     const keys = Object.keys(data);
     const values = Object.values(data);
@@ -67,25 +69,32 @@ const useProfileForm = (): Props => {
     if (file !== undefined) {
       formdata.append('registration[icon]', file);
     }
-    await FetchRegistrationUpdate(formdata)
-      .then((result) =>
-        result !== 401
-          ? (setUser((prevUser) => ({ ...prevUser, ...result.data })),
-            history.push('/mypage', {
-              message: 'アカウント情報を更新しました。',
-              type: 'success',
-            }))
-          : history.push('/registration/edit', {
-              message: '入力が正しくありません。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
+
+    return formdata;
+  };
+
+  const onSubmit = async (data: UserEditForm) => {
+    const formdata = CreateFormData(data);
+    try {
+      const response = await FetchRegistrationUpdate(formdata, cookie as Token);
+      if (response.status === 200) {
+        setUser((prevUser) => ({ ...prevUser, ...response.data }));
         history.push('/mypage', {
-          message: 'エラーが発生しました。',
+          message: 'アカウント情報を更新しました。',
+          type: 'success',
+        });
+      } else {
+        history.push('/mypage', {
+          message: '入力が正しくありません。',
           type: 'error',
-        }),
-      );
+        });
+      }
+    } catch (e) {
+      history.push('/mypage', {
+        message: 'エラーが発生しました。',
+        type: 'error',
+      });
+    }
   };
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>

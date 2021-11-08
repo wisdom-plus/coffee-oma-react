@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { UserInput, CurrentUser } from 'model/index';
-import { SignedInAxios } from 'apis/Session';
+import { UserInput, CurrentUser, Token } from 'model/index';
 import { RegistrationNewURL, RegistrationShowURL } from 'urls/index';
 
 export const Fetchregistrationnew = async (
@@ -19,22 +18,34 @@ export const Fetchregistrationnew = async (
   }
 };
 
-export const FetchRegistrationShow = (
+export const FetchRegistrationShow = async (
   UserId: string,
-): Promise<{ data: CurrentUser } | 401> =>
-  axios
-    .get<{ data: CurrentUser } | 401>(RegistrationShowURL(UserId))
-    .then<{ data: CurrentUser } | 401>((result) =>
-      result.status === 200 ? result.data : 401,
-    )
-    .catch(() => 401);
+): Promise<{ data: CurrentUser }> => {
+  try {
+    const response = await axios.get<{ data: CurrentUser }>(
+      RegistrationShowURL(UserId),
+    );
 
-export const FetchRegistrationUpdate = (
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+export const FetchRegistrationUpdate = async (
   User: FormData,
-): Promise<{ data: CurrentUser } | 401> =>
-  SignedInAxios.put<{ data: CurrentUser } | 401>(RegistrationNewURL, User)
-    .then<{ data: CurrentUser } | 401>((result) =>
-      result.status === 200 ? result.data : 401,
-    )
-    .catch(() => 401);
+  headers: Token,
+): Promise<{ data: CurrentUser; status: number }> => {
+  try {
+    const response = await axios.put<{ data: CurrentUser }>(
+      RegistrationNewURL,
+      User,
+      { headers },
+    );
+
+    return { data: response.data.data, status: response.status };
+  } catch (error) {
+    throw new Error();
+  }
+};
 export default Fetchregistrationnew;
