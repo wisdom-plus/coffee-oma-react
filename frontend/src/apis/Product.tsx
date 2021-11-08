@@ -40,9 +40,14 @@ export const Fetchproductnew = (
     .then((results) => results.status)
     .catch((error: undefined) => error);
 
-export const FetchLikeIndex = (): Promise<{ likes: Product[] } | 0> =>
-  axios
-    .get<{ likes: Product[] }>(LikeIndexURL)
-    .then((result) => result.data)
-    .catch(() => 0);
+export const FetchLikeIndex = async (): Promise<{ likes: Product[] }> => {
+  try {
+    const response = await axios.get<{ likes: Product[] }>(LikeIndexURL);
+
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
+
 export default Fetchproductindex;

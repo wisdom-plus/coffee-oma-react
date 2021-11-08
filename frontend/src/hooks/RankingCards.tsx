@@ -5,9 +5,15 @@ import { Product } from 'model/index';
 const useRankingCards = (): Product[] => {
   const [state, setState] = useState<Product[]>([]);
   useEffect(() => {
-    FetchLikeIndex()
-      .then((result) => (result !== 0 ? setState(result.likes) : []))
-      .catch(() => setState([]));
+    const API = async () => {
+      try {
+        const response = await FetchLikeIndex();
+        setState(() => response.likes);
+      } catch (e) {
+        setState(() => []);
+      }
+    };
+    void API();
   }, []);
 
   return state;
