@@ -95,17 +95,22 @@ export const Fetchpasswordreset = async (params: {
   }
 };
 
-export const Fetchpasswordresetedit = (
+export const Fetchpasswordresetedit = async (
   params: ResetPasswordEditParams,
-): Promise<number | undefined> =>
-  axios({
-    method: 'put',
-    url: passwordreseteditURL,
-    headers: { ...params.headers },
-    params: { ...params.data },
-  })
-    .then((result) => result.status)
-    .catch((error: undefined) => error);
+): Promise<number> => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: passwordreseteditURL,
+      headers: { ...params.headers },
+      params: { ...params.data },
+    });
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const SignedInAxios = axios.create({
   headers: {

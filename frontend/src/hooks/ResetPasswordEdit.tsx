@@ -18,24 +18,27 @@ const useResetPasswordEdit = (): {
     password: string;
     ['password_confirmation']: string;
   }>({ criteriaMode: 'all', mode: 'onBlur' });
+  const headers = {
+    'access-token': query.get('access-token') as string,
+    client: query.get('client') as string,
+    uid: query.get('uid') as string,
+  };
 
   const onSubmit = async (data: {
     ['password_confirmation']: string;
     password: string;
   }) => {
-    const params = {
-      data,
-      headers: {
-        'access-token': query.get('access-token') as string,
-        client: query.get('client') as string,
-        uid: query.get('uid') as string,
-      },
-    };
-    await Fetchpasswordresetedit(params)
-      .then((result) => result === 200 && history.push('/'))
-      .catch(() =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
-      );
+    try {
+      const response = await Fetchpasswordresetedit({ data, headers });
+      if (response === 200) {
+        history.push('/', {
+          message: 'パスワードが変更されました。',
+          type: 'success',
+        });
+      }
+    } catch (e) {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
   };
 
   return { methods, onSubmit };
