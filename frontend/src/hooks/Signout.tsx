@@ -4,7 +4,6 @@ import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
 import LoginState from 'atom';
 import { useCookies } from 'react-cookie';
-import { Token } from 'model/index';
 
 const useSignout = (): void => {
   const history = useHistory();
@@ -16,15 +15,11 @@ const useSignout = (): void => {
   }, [resetUser, removeCookie]);
 
   useEffect(() => {
-    const API = async (token: { token: Token }): Promise<void> => {
+    const API = async (): Promise<void> => {
       try {
-        const status = await Fetchsessiondestroy(token);
+        const status = await Fetchsessiondestroy(cookie.token);
         if (status === 200) {
           success();
-          history.push('/', {
-            message: 'ログアウトに成功しました。',
-            type: 'success',
-          });
         } else {
           history.push('/', {
             message: 'ログアウトに失敗しました。',
@@ -40,7 +35,7 @@ const useSignout = (): void => {
     };
     const timer = setTimeout(() => history.push('/'), 5000);
     if (cookie.token) {
-      void API(cookie as { token: Token });
+      void API();
     }
 
     return (): void => {

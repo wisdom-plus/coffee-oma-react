@@ -12,21 +12,18 @@ const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
   const history = useHistory();
 
   useEffect(() => {
-    FetchRegistrationShow(id)
-      .then((result) =>
-        result !== 401
-          ? setUser((prevUser) => ({ ...prevUser, ...result.data }))
-          : history.push('/', {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
+    const API = async () => {
+      try {
+        const response = await FetchRegistrationShow(id);
+        setUser((prevUser) => ({ ...prevUser, ...response }));
+      } catch (e) {
         history.push('/', {
           message: 'エラーが発生しました。',
           type: 'error',
-        }),
-      );
+        });
+      }
+    };
+    void API();
   }, [id, history]);
 
   return { user, currentuser };

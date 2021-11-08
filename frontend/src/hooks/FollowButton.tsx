@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
 import { useCookies } from 'react-cookie';
-import { Token } from 'model/index';
 
 const useFollowButton = (): {
   state: boolean;
@@ -17,7 +16,7 @@ const useFollowButton = (): {
   useEffect(() => {
     const API = async () => {
       try {
-        const response = await FetchFollowExists(id, cookie as Token);
+        const response = await FetchFollowExists(id, cookie.token);
         if (response === 201) {
           setState(() => true);
         }
@@ -30,7 +29,7 @@ const useFollowButton = (): {
 
   const onFollow = async () => {
     try {
-      const response = await FetchFollow(id, cookie as Token);
+      const response = await FetchFollow(id, cookie.token);
       if (response === 201) {
         setState((prev) => !prev);
       }
@@ -44,7 +43,7 @@ const useFollowButton = (): {
 
   const onFollowed = async () => {
     try {
-      const response = await FetchFollowed(id, cookie as Token);
+      const response = await FetchFollowed(id, cookie.token);
       if (response === 201) {
         setState((prev) => !prev);
       }

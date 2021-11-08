@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { Token } from 'model/index';
 
 const useLikeButton = (): {
   state: { liked: boolean; count: number };
@@ -17,7 +16,7 @@ const useLikeButton = (): {
   useEffect(() => {
     const API = async () => {
       try {
-        const response = await FetchLikeExists(id, cookie as Token);
+        const response = await FetchLikeExists(id, cookie.token);
         if (response.liked) {
           setState((prev) => ({ ...prev, ...response }));
         } else {
@@ -35,7 +34,7 @@ const useLikeButton = (): {
 
   const onCreate = async () => {
     try {
-      const response = await FetchLikeCreate(id, cookie as Token);
+      const response = await FetchLikeCreate(id, cookie.token);
       if (response === 201) {
         setState((prev) => ({ ...prev, liked: true, count: prev.count + 1 }));
       }
@@ -49,7 +48,7 @@ const useLikeButton = (): {
 
   const onDestroy = async () => {
     try {
-      const response = await FetchLikeDestroy(id, cookie as Token);
+      const response = await FetchLikeDestroy(id, cookie.token);
       if (response === 201) {
         setState((prevState) => ({
           ...prevState,

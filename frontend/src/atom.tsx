@@ -1,6 +1,6 @@
 import { FC, useLayoutEffect } from 'react';
 import { atom, useSetRecoilState } from 'recoil';
-import { CurrentUser, Token } from 'model/index';
+import { CurrentUser } from 'model/index';
 import { Fetchsessionvaildate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
 
@@ -26,9 +26,7 @@ export const RecoilApp: FC = ({ children }) => {
     if (cookie.token) {
       const API = async (): Promise<void> => {
         try {
-          const response = await Fetchsessionvaildate(
-            cookie as { token: Token },
-          );
+          const response = await Fetchsessionvaildate(cookie.token);
           setUser((prevUser) => ({ ...prevUser, ...response.data }));
         } catch (e) {
           throw new Error('APIエラー');

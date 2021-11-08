@@ -36,14 +36,12 @@ export const Fetchsessionnew = async (session: Session): Promise<login> => {
   }
 };
 
-export const Fetchsessiondestroy = async (token: {
-  token: Token;
-}): Promise<number> => {
+export const Fetchsessiondestroy = async (headers: Token): Promise<number> => {
   try {
     const response = await axios({
       method: 'delete',
       url: sessiondestroyURL,
-      headers: token.token,
+      headers,
     });
 
     return response.status;
@@ -52,16 +50,16 @@ export const Fetchsessiondestroy = async (token: {
   }
 };
 
-export const Fetchsessionvaildate = async (token: {
-  token: Token;
-}): Promise<{
+export const Fetchsessionvaildate = async (
+  headers: Token,
+): Promise<{
   data: CurrentUser;
 }> => {
   try {
     const { data } = await axios.get<{ data: CurrentUser }>(
       sessionvalidateURL,
       {
-        headers: token.token,
+        headers,
       },
     );
 

@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { UserEditForm, CurrentUser, Token } from 'model/index';
+import { UserEditForm, CurrentUser } from 'model/index';
 import { FetchRegistrationUpdate } from 'apis/User';
 import LoginState from 'atom';
 import { useRecoilState } from 'recoil';
@@ -76,7 +76,7 @@ const useProfileForm = (): Props => {
   const onSubmit = async (data: UserEditForm) => {
     const formdata = CreateFormData(data);
     try {
-      const response = await FetchRegistrationUpdate(formdata, cookie as Token);
+      const response = await FetchRegistrationUpdate(formdata, cookie.token);
       if (response.status === 200) {
         setUser((prevUser) => ({ ...prevUser, ...response.data }));
         history.push('/mypage', {

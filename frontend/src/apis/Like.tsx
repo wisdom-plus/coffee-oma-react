@@ -26,7 +26,9 @@ export const FetchLikeDestroy = async (
   headers: Token,
 ): Promise<number> => {
   try {
-    const response = await axios.delete(LikeDestroyURL(LikeId), { headers });
+    const response = await axios.delete(LikeDestroyURL(LikeId), {
+      headers,
+    });
 
     return response.status;
   } catch (error) {
