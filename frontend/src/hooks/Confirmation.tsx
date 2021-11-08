@@ -18,7 +18,10 @@ const useConfirmation = (): {
     try {
       const response = await Fetchsessionconfirm(data);
       if (response === 200) {
-        history.push('/send_mail');
+        history.push('/send_mail', {
+          message: 'メールが送信されました。',
+          type: 'success',
+        });
       }
     } catch (e) {
       history.push('/', { message: 'エラーが発生しました。', type: 'error' });
