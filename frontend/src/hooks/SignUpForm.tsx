@@ -15,21 +15,22 @@ const useSignUpForm = (): {
   });
 
   const onSubmit = async (data: UserInput) => {
-    await Fetchregistrationnew(data)
-      .then((result) =>
-        result !== undefined && result === 200
-          ? history.push('/send_mail')
-          : history.push('/sign_up', {
-              message: '無効な入力があります。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
+    try {
+      const response = await Fetchregistrationnew(data);
+      if (response === 200) {
+        history.push('/send_mail');
+      } else {
         history.push('/sign_up', {
-          message: '登録に失敗しました。',
+          message: '無効な入力があります。',
           type: 'error',
-        }),
-      );
+        });
+      }
+    } catch (e) {
+      history.push('/sign_up', {
+        message: '登録に失敗しました。',
+        type: 'error',
+      });
+    }
   };
 
   return { methods, onSubmit };

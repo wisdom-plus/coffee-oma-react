@@ -3,16 +3,21 @@ import { UserInput, CurrentUser } from 'model/index';
 import { SignedInAxios } from 'apis/Session';
 import { RegistrationNewURL, RegistrationShowURL } from 'urls/index';
 
-export const Fetchregistrationnew = (
+export const Fetchregistrationnew = async (
   user: UserInput,
-): Promise<number | undefined> =>
-  axios({
-    method: 'post',
-    url: RegistrationNewURL,
-    data: user,
-  })
-    .then((result) => result.status)
-    .catch((error: undefined) => error);
+): Promise<number> => {
+  try {
+    const response = await axios({
+      method: 'post',
+      url: RegistrationNewURL,
+      data: user,
+    });
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export const FetchRegistrationShow = (
   UserId: string,
