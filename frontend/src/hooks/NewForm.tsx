@@ -22,7 +22,7 @@ const useNewform = (): props => {
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
 
-  const onSubmit = async (data: ProductForm) => {
+  const CreateFormData = (data: ProductForm): CustomFormData => {
     const formdata = new FormData() as CustomFormData;
     const keys = Object.keys(data);
     const values = Object.values(data);
@@ -30,21 +30,24 @@ const useNewform = (): props => {
     if (file !== undefined) {
       formdata.append('product[image]', file);
     }
-    await Fetchproductnew(formdata)
-      .then((result) =>
-        result !== undefined && result === 201
-          ? history.push('/products', {
-              message: '登録成功しました。',
-              type: 'success',
-            })
-          : history.push('/product/new', {
-              message: '登録に失敗しました。',
-              type: 'error',
-            }),
-      )
-      .catch(() =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
-      );
+
+    return formdata;
+  };
+
+  const onSubmit = async (data: ProductForm) => {
+    const formdata = CreateFormData(data);
+
+    try {
+      const response = await Fetchproductnew(formdata);
+      if (response === 200) {
+        history.push('/products', {
+          message: '登録に成功しました。',
+          type: 'success',
+        });
+      }
+    } catch (e) {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
   };
 
   return { methods, file, onSubmit, onChangeFile };
