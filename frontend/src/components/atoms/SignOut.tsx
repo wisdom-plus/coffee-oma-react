@@ -2,15 +2,13 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Grid, Segment } from 'semantic-ui-react';
 
-const SignOut: FC<{ logout: boolean }> = ({ logout = false }) => (
+const SignOut: FC = () => (
   <>
     <Grid columns={3} centered style={{ margin: '4em' }}>
       <Grid.Column width={3} />
       <Grid.Column width={10} as={Segment}>
         <Header as="h4" textAlign="center" data-testid="logout-message">
-          {logout
-            ? 'ログアウトが正常に行われました'
-            : 'ログアウトができせんでした。'}
+          ログアウトが正常に行われました
           <Header.Subheader>
             ５秒後にトップページに移動します。
             <Link to="/">Topへ</Link>
