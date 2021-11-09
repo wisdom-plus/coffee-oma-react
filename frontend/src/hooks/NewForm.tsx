@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
 import { useHistory } from 'react-router-dom';

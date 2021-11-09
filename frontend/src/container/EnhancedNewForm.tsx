@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import NewForm from 'components/organisms/NewForm';
 import useNewForm from 'hooks/NewForm';
 /* eslint-disable react/jsx-props-no-spreading */

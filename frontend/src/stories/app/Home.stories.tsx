@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
 import { Story, Meta } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import { MemoryRouter } from 'react-router';

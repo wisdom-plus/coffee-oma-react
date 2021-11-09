@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Form, Card, Table, Grid } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import ProductImage from 'container/EnhancedProductImage';
