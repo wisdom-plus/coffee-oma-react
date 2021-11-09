@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import TenTableColumn from 'container/EnhancedTenTableColumn';
 import SixImagaeColumn from 'components/atoms/SixImageColumn';
