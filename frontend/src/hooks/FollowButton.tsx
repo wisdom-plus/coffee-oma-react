@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
+import { useCookies } from 'react-cookie';
 
 const useFollowButton = (): {
   state: boolean;
@@ -10,37 +11,51 @@ const useFollowButton = (): {
   const [state, setState] = useState(false);
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
+  const [cookie] = useCookies(['token']);
 
   useEffect(() => {
-    FetchFollowExists(id)
-      .then((result) => result === 200 && setState(() => true))
-      .catch(() =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
-      );
-  }, [id, history]);
+    const API = async () => {
+      try {
+        const response = await FetchFollowExists(id, cookie.token);
+        if (response === 200) {
+          setState((prev) => !prev);
+        } else {
+          setState((prev) => prev);
+        }
+      } catch (err) {
+        history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      }
+    };
+    void API();
+  }, [id, history, cookie]);
 
-  const onFollow = () =>
-    FetchFollow(id)
-      .then((result) =>
-        result === 201
-          ? setState((prev) => !prev)
-          : history.push(`/registration/${id}`, {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch();
-  const onFollowed = () =>
-    FetchFollowed(id)
-      .then((result) =>
-        result === 201
-          ? setState((prev) => !prev)
-          : history.push(`/registration/${id}`, {
-              message: 'エラーが発生しました。',
-              type: 'error',
-            }),
-      )
-      .catch();
+  const onFollow = async () => {
+    try {
+      const response = await FetchFollow(id, cookie.token);
+      if (response === 201) {
+        setState((prev) => !prev);
+      }
+    } catch (e) {
+      history.push(`/registration/${id}`, {
+        message: 'エラーが発生しました。',
+        type: 'error',
+      });
+    }
+  };
+
+  const onFollowed = async () => {
+    try {
+      const response = await FetchFollowed(id, cookie.token);
+      if (response === 201) {
+        setState((prev) => !prev);
+      }
+    } catch (e) {
+      history.push(`/registration/${id}`, {
+        message: 'エラーが発生しました。',
+        type: 'error',
+      });
+    }
+  };
 
   return { state, onFollow, onFollowed };
 };

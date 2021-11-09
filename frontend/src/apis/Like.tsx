@@ -1,24 +1,55 @@
-import { SignedInAxios } from 'apis/Session';
-import { LikedData } from 'model/index';
+import axios from 'axios';
+import { LikedData, Token } from 'model/index';
 import { LikeCreateURL, LikeDestroyURL, LikeExistsURL } from 'urls/index';
 
-export const FetchLikeCreate = (ProductId: string): Promise<number> =>
-  SignedInAxios.post<number>(LikeCreateURL, {
-    like: { product_id: ProductId },
-  })
-    .then<number>((result) => result.status)
-    .catch(() => 500);
+export const FetchLikeCreate = async (
+  ProductId: string,
+  headers: Token,
+): Promise<number> => {
+  try {
+    const response = await axios.post<number>(
+      LikeCreateURL,
+      {
+        like: { product_id: ProductId },
+      },
+      { headers },
+    );
 
-export const FetchLikeDestroy = (LikeId: string): Promise<number | 500> =>
-  SignedInAxios.delete(LikeDestroyURL(LikeId))
-    .then((result) => result.status)
-    .catch(() => 500);
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
-export const FetchLikeExists = (ProductId: string): Promise<LikedData | 0> =>
-  SignedInAxios.get<LikedData>(LikeExistsURL, {
-    params: { product_id: ProductId },
-  })
-    .then<LikedData | 0>((result) => result.data)
-    .catch(() => 0);
+export const FetchLikeDestroy = async (
+  LikeId: string,
+  headers: Token,
+): Promise<number> => {
+  try {
+    const response = await axios.delete(LikeDestroyURL(LikeId), {
+      headers,
+    });
+
+    return response.status;
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+export const FetchLikeExists = async (
+  ProductId: string,
+  headers: Token,
+): Promise<LikedData> => {
+  try {
+    const response = await axios.get<LikedData>(LikeExistsURL, {
+      params: { product_id: ProductId },
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
 
 export default FetchLikeCreate;

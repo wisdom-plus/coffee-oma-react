@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const useLikeButton = (): {
   state: { liked: boolean; count: number };
@@ -10,56 +11,58 @@ const useLikeButton = (): {
   const [state, setState] = useState({ liked: false, count: 0 });
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
+  const [cookie] = useCookies(['token']);
 
   useEffect(() => {
-    FetchLikeExists(id)
-      .then((result) => {
-        if (result !== 0 && result.liked) {
-          setState((prev) => ({ ...prev, ...result }));
-        } else if (result !== 0 && !result.liked) {
-          setState((prev) => ({ ...prev, ...result }));
+    const API = async () => {
+      try {
+        const response = await FetchLikeExists(id, cookie.token);
+        if (response.liked) {
+          setState((prev) => ({ ...prev, ...response }));
         } else {
-          history.push(`/product/${id}`, {
-            message: 'エラーが発生しました。',
-            type: 'error',
-          });
+          setState((prev) => ({ ...prev, ...response }));
         }
-      })
-      .catch(() =>
+      } catch (e) {
         history.push(`/`, {
           message: 'エラーが発生しました。',
           type: 'error',
-        }),
-      );
-  }, [id, history]);
+        });
+      }
+    };
+    void API();
+  }, [id, history, cookie]);
 
-  const onCreate = () =>
-    FetchLikeCreate(id).then((result) =>
-      result === 201
-        ? setState((prevState) => ({
-            ...prevState,
-            liked: true,
-            count: prevState.count + 1,
-          }))
-        : history.push(`/product/${id}`, {
-            message: 'エラーが発生しました。',
-            type: 'error',
-          }),
-    );
+  const onCreate = async () => {
+    try {
+      const response = await FetchLikeCreate(id, cookie.token);
+      if (response === 201) {
+        setState((prev) => ({ ...prev, liked: true, count: prev.count + 1 }));
+      }
+    } catch (e) {
+      history.push(`/product/${id}`, {
+        message: 'エラーが発生しました。',
+        type: 'error',
+      });
+    }
+  };
 
-  const onDestroy = () =>
-    FetchLikeDestroy(id).then((result) =>
-      result === 201
-        ? setState((prevState) => ({
-            ...prevState,
-            liked: false,
-            count: prevState.count - 1,
-          }))
-        : history.push(`/product/${id}`, {
-            message: 'エラーが発生しました。',
-            type: 'error',
-          }),
-    );
+  const onDestroy = async () => {
+    try {
+      const response = await FetchLikeDestroy(id, cookie.token);
+      if (response === 201) {
+        setState((prevState) => ({
+          ...prevState,
+          liked: false,
+          count: prevState.count - 1,
+        }));
+      }
+    } catch (e) {
+      history.push(`/product/${id}`, {
+        message: 'エラーが発生しました。',
+        type: 'error',
+      });
+    }
+  };
 
   return { state, onCreate, onDestroy };
 };

@@ -12,9 +12,10 @@ import { users } from '../fixtures/users.json';
 
 describe('Create', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -25,13 +26,19 @@ describe('Create', () => {
     });
     cy.intercept('POST', FollowURL, { statusCode: 201 });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = create]').click();
-    cy.get('[data-testid = destroy]').should('have.text', 'フォロー解除');
+    cy.get('[data-testid = create]', { includeShadowDom: true }).click({
+      force: true,
+    });
+    cy.get('[data-testid = destroy]', { includeShadowDom: true }).should(
+      'have.text',
+      'フォロー解除',
+    );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -42,8 +49,10 @@ describe('Create', () => {
     });
     cy.intercept('POST', FollowURL, { statusCode: 500 });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = create]').click();
-    cy.get('[data-testid = error]').should(
+    cy.get('[data-testid = create]', { includeShadowDom: true }).click({
+      force: true,
+    });
+    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
       'have.text',
       'エラーが発生しました。',
     );
@@ -52,9 +61,10 @@ describe('Create', () => {
 
 describe('Destory', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -70,13 +80,19 @@ describe('Destory', () => {
       statusCode: 201,
     });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = destroy]').click();
-    cy.get('[data-testid = create]').should('have.text', 'フォローする');
+    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
+      force: true,
+    });
+    cy.get('[data-testid = create]', { includeShadowDom: true }).should(
+      'have.text',
+      'フォローする',
+    );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -92,8 +108,10 @@ describe('Destory', () => {
       statusCode: 500,
     });
     cy.visit(`/registration/${users[1].id}`);
-    cy.get('[data-testid = destroy]').click();
-    cy.get('[data-testid = error]').should(
+    cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
+      force: true,
+    });
+    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
       'have.text',
       'エラーが発生しました。',
     );

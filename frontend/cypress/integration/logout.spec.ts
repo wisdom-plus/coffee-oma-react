@@ -4,9 +4,10 @@ import { sessionvalidateURL, sessiondestroyURL } from '../../src/urls/index';
 
 describe('Logout', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -19,9 +20,10 @@ describe('Logout', () => {
     );
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,

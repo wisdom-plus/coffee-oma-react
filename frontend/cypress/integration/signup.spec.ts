@@ -5,34 +5,49 @@ describe('Sign up', () => {
   it('successfully', () => {
     cy.intercept('POST', RegistrationNewURL, { statusCode: 200 });
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('test');
-    cy.get('[data-testid =email ] > input').type('test@example.com');
-    cy.get('[data-testid =password ] > input').type('password');
-    cy.get('[data-testid =password_confirmation ] > input').type('password');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid =name ] > input').type('test', { force: true });
+    cy.get('[data-testid =email ] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =password ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid =password_confirmation ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/send_mail');
   });
   it('failed', () => {
     cy.intercept('POST', RegistrationNewURL, { statusCode: 401 });
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('test');
-    cy.get('[data-testid =email ] > input').type('test@example.com');
-    cy.get('[data-testid =password ] > input').type('password');
-    cy.get('[data-testid =password_confirmation ] > input').type('password');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid =name ] > input').type('test', { force: true });
+    cy.get('[data-testid =email ] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =password ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid =password_confirmation ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/sign_up');
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      '無効な入力があります。',
-    );
+    cy.get('[data-testid = error]').should('have.text', '登録に失敗しました。');
   });
   it('form failed(name.minlength)', () => {
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('t');
-    cy.get('[data-testid =email ] > input').type('test@example.com');
-    cy.get('[data-testid =password ] > input').type('password');
-    cy.get('[data-testid =password_confirmation ] > input').type('password');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid =name ] > input').type('t', { force: true });
+    cy.get('[data-testid =email ] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =password ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid =password_confirmation ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'アカウント名は最低2文字以上必要です',
@@ -40,11 +55,15 @@ describe('Sign up', () => {
   });
   it('form failed(email)', () => {
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('test');
-    cy.get('[data-testid =email ] > input').type(' ');
-    cy.get('[data-testid =password ] > input').type('password');
-    cy.get('[data-testid =password_confirmation ] > input').type('password');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid =name ] > input').type('test', { force: true });
+    cy.get('[data-testid =email ] > input').type(' ', { force: true });
+    cy.get('[data-testid =password ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid =password_confirmation ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'メールアドレスが入力されていません。',
@@ -52,11 +71,15 @@ describe('Sign up', () => {
   });
   it('form failed(password)', () => {
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('test');
-    cy.get('[data-testid =email ] > input').type('test@example.com');
-    cy.get('[data-testid =password ] > input').type(' ');
-    cy.get('[data-testid =password_confirmation ] > input').type('password');
-    cy.get('[data-testid = submit]').click();
+    cy.get('[data-testid =name ] > input').type('test', { force: true });
+    cy.get('[data-testid =email ] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =password ] > input').type(' ', { force: true });
+    cy.get('[data-testid =password_confirmation ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'パスワードは最低８文字以上必要ですパスワードが一致しません',
@@ -65,12 +88,21 @@ describe('Sign up', () => {
   it('form failed(password_confirmation)', () => {
     cy.intercept('POST', RegistrationNewURL, { statusCode: 401 });
     cy.visit('/sign_up');
-    cy.get('[data-testid =name ] > input').type('test');
-    cy.get('[data-testid =email ] > input').type('test@example.com');
-    cy.get('[data-testid =password ] > input').type('password');
-    cy.get('[data-testid =password_confirmation ] > input').type('passwerd');
-    cy.get('[data-testid = submit]').click();
-    cy.get('[data-testid =password_confirmation ] > input').type('{backspace}');
+    cy.get('[data-testid =name ] > input').type('test', { force: true });
+    cy.get('[data-testid =email ] > input').type('test@example.com', {
+      force: true,
+    });
+    cy.get('[data-testid =password ] > input').type('password', {
+      force: true,
+    });
+    cy.get('[data-testid =password_confirmation ] > input').type('passwerd', {
+      force: true,
+    });
+    cy.get('[data-testid = submit]').click({ force: true });
+    cy.get('[data-testid =password_confirmation ] > input').type(
+      '{backspace}',
+      { force: true },
+    );
     cy.get('.ui.pointing.below.prompt.label').should(
       'have.text',
       'パスワードが一致しません',

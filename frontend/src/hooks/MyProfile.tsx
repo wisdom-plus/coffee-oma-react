@@ -3,19 +3,21 @@ import { useRecoilValue } from 'recoil';
 import LoginState from 'atom';
 import { useHistory } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
+import { useCookies } from 'react-cookie';
 
 const useMyProfile = (): CurrentUser => {
   const user = useRecoilValue(LoginState);
   const history = useHistory();
+  const [cookie] = useCookies(['token']);
 
   useLayoutEffect(() => {
-    if (!localStorage.getItem('access-token')) {
+    if (!cookie.token) {
       history.push('/sign_in', {
         message: 'ログインしてから、お試しください。',
         type: 'error',
       });
     }
-  }, [history, user]);
+  }, [history, user, cookie]);
 
   return user;
 };

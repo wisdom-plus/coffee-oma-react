@@ -12,9 +12,10 @@ import { like } from '../fixtures/like.json';
 
 describe('Create', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -29,14 +30,15 @@ describe('Create', () => {
     });
     cy.intercept('POST', LikeCreateURL, { statusCode: 201 });
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid = create]').click();
+    cy.get('[data-testid = create]').click({ force: true });
     cy.get('[data-testid = destroy]').should('have.text', '2');
   });
 
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -47,7 +49,7 @@ describe('Create', () => {
     });
     cy.intercept('POST', LikeCreateURL, { statusCode: 500 });
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid = create]').click();
+    cy.get('[data-testid = create]').click({ force: true });
     cy.get('[data-testid = error]').should(
       'have.text',
       'エラーが発生しました。',
@@ -57,9 +59,10 @@ describe('Create', () => {
 
 describe('Destroy', () => {
   it('successfully', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -76,13 +79,14 @@ describe('Destroy', () => {
       statusCode: 201,
     });
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid=destroy]').click();
+    cy.get('[data-testid=destroy]').click({ force: true });
     cy.get('[data-testid=create]').should('have.text', '1');
   });
   it('failed', () => {
-    localStorage.setItem('access-token', 'access-token');
-    localStorage.setItem('client', 'client');
-    localStorage.setItem('uid', 'uid');
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
     cy.intercept('GET', sessionvalidateURL, {
       statusCode: 200,
       body: currentuser,
@@ -99,7 +103,7 @@ describe('Destroy', () => {
       statusCode: 500,
     });
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid=destroy]').click();
+    cy.get('[data-testid=destroy]').click({ force: true });
     cy.get('[data-testid = error]').should(
       'have.text',
       'エラーが発生しました。',
