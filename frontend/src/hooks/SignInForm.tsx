@@ -15,6 +15,12 @@ const useSignInForm = (): {
   const methods = useForm<Session>({ criteriaMode: 'all', mode: 'onBlur' });
   const setUser = useSetRecoilState(LoginState);
   const [, setCookies] = useCookies(['token']);
+  const limittime = () => {
+    const today = new Date();
+    const limit = new Date(today.setDate(today.getDate() + 7));
+
+    return limit;
+  };
 
   const onSubmit = async (data: Session) => {
     try {
@@ -25,7 +31,10 @@ const useSignInForm = (): {
         client: response.headers.client,
         uid: response.headers.uid,
       };
-      setCookies('token', token, { path: '/' });
+      setCookies('token', token, {
+        path: '/',
+        expires: limittime(),
+      });
       history.push('/', {
         message: 'ログインに成功しました。',
         type: 'success',

@@ -24,7 +24,6 @@ const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
       }
     };
     void API();
-    console.log(user);
   }, [id, history]);
 
   return { user, currentuser };
