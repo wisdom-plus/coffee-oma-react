@@ -9,10 +9,10 @@ import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
-import { RecoilApp } from 'atom';
+import { RecoilApp } from 'RecoilApp';
 import { LocationState } from 'components/atoms/FlashMessage';
 import FlashMessage from 'container/EnhancedFlashMessage';
-import ErrorBoundary from 'ErrorBoundary';
+import ErrorBoundary from 'error/ErrorBoundary';
 
 const App: FC = () => {
   const { hash, pathname, state } = useLocation<LocationState>();

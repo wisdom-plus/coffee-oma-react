@@ -10,7 +10,7 @@ import { useForm, UseFormReturn } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { UserEditForm, CurrentUser } from 'model/index';
 import { FetchRegistrationUpdate } from 'apis/User';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 import { useRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
 

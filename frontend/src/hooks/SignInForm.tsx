@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
 import { useSetRecoilState } from 'recoil';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 import { useCookies } from 'react-cookie';
 /* eslint-disable react/jsx-props-no-spreading */
 

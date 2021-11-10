@@ -1,6 +1,6 @@
 import { ErrorInfo, PureComponent, ReactNode } from 'react';
 import { AxiosError } from 'axios';
-import ErrorMessage from 'ErrorMessage';
+import ErrorMessage from 'error/ErrorMessage';
 
 type StatusMessages = { [status: number]: string };
 type Props = { statusMessages?: StatusMessages };

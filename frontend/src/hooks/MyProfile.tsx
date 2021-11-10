@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 import { useHistory } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { useCookies } from 'react-cookie';

@@ -23,10 +23,10 @@ type ResetPasswordEditParams = {
   headers: Token;
   data: ResetPasswordEditdata;
 };
-const delay = (time: number) => (result: number) =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve(result), time);
-  });
+// const delay = (time: number) => (result: number) =>
+//   new Promise((resolve) => {
+//     setTimeout(() => resolve(result), time);
+//   });
 
 export const Fetchsessionnew = async (session: Session): Promise<login> => {
   try {
@@ -62,7 +62,6 @@ export const Fetchsessionvaildate = async (
   const { data } = await axios.get<{ data: CurrentUser }>(sessionvalidateURL, {
     headers,
   });
-  delay(5000);
 
   return data;
 };

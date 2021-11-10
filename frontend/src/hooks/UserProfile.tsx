@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { FetchRegistrationShow } from 'apis/User';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 
 const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
   const [user, setUser] = useState<CurrentUser>({} as CurrentUser);

@@ -23,8 +23,13 @@ const LoginState = atom<CurrentUser>({
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
   const [cookie] = useCookies(['token']);
-  const { data: currentuser, isSuccess } = useQuery([cookie, 'user'], () =>
-    Fetchsessionvaildate(cookie.token),
+
+  const { data: currentuser, isSuccess } = useQuery(
+    [cookie, 'user'],
+    () => Fetchsessionvaildate(cookie.token),
+    {
+      enabled: !!cookie.token,
+    },
   );
 
   useEffect(() => {
@@ -32,22 +37,6 @@ export const RecoilApp: FC = ({ children }) => {
       setUser((prevUser) => ({ ...prevUser, ...currentuser.data }));
     }
   }, [currentuser, isSuccess, setUser]);
-  // useLayoutEffect(() => {
-  //   if (cookie.token) {
-  //     const API = async (): Promise<void> => {
-  //       try {
-  //         const response = await Fetchsessionvaildate(cookie.token);
-  //         setUser((prevUser) => ({ ...prevUser, ...response.data }));
-  //       } catch (e) {
-  //         history.push('/', {
-  //           message: 'エラーが発生しました。',
-  //           type: 'error',
-  //         });
-  //       }
-  //     };
-  //     void API();
-  //   }
-  // }, [setUser, cookie, history]);
 
   return <>{children}</>;
 };
