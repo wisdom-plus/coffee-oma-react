@@ -1,10 +1,10 @@
-import { useFormContext, useWatch, DeepMap, FieldError } from 'react-hook-form';
+import { useFormContext, useWatch, FieldError } from 'react-hook-form';
 import { FormInputType } from 'model/index';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
 const useFormControllerPassword = (): {
-  errors: DeepMap<Record<FormInputType, string>, FieldError>;
+  errors: Partial<Record<FormInputType, FieldError | undefined>>;
   passwordconfirmation: string;
 } => {
   const {

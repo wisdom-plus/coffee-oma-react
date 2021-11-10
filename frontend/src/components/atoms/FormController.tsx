@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Controller, DeepMap, FieldError } from 'react-hook-form';
+import { Controller, FieldError } from 'react-hook-form';
 import { Input, Form, Ref, TextArea } from 'semantic-ui-react';
 import { FormInputType, ruletype } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
@@ -10,7 +10,7 @@ const FormController: FC<{
   icon?: string;
   required?: boolean;
   min?: boolean;
-  errors: DeepMap<Record<FormInputType, string>, FieldError>;
+  errors: Partial<Record<FormInputType, FieldError | undefined>>;
   rule: ruletype;
   textarea?: boolean;
 }> = ({ name, label, icon, required, errors, rule, textarea }) => (

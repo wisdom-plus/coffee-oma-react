@@ -1,12 +1,12 @@
-import { useFormContext, DeepMap, FieldError } from 'react-hook-form';
+import { useFormContext, FieldError } from 'react-hook-form';
 import { FormInputType, ruletype } from 'model/index';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
 type prop = {
   errormessage?: string;
-  required: boolean | undefined;
-  min: boolean | undefined;
+  required?: boolean | undefined;
+  min?: boolean | undefined;
 };
 
 const useFormController = ({
@@ -14,7 +14,7 @@ const useFormController = ({
   required,
   min,
 }: prop): {
-  errors: DeepMap<Record<FormInputType, string>, FieldError>;
+  errors: Partial<Record<FormInputType, FieldError | undefined>>;
   rule: ruletype;
 } => {
   const {
