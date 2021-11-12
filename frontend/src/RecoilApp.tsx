@@ -3,7 +3,6 @@ import { atom, useSetRecoilState } from 'recoil';
 import { CurrentUser } from 'model/index';
 import { Fetchsessionvaildate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
-
 import { useQuery } from 'react-query';
 
 const LoginState = atom<CurrentUser>({
