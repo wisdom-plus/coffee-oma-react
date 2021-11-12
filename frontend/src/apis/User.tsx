@@ -20,16 +20,15 @@ export const Fetchregistrationnew = async (
 
 export const FetchRegistrationShow = async (
   UserId: string,
-): Promise<{ data: CurrentUser }> => {
-  try {
-    const response = await axios.get<{ data: CurrentUser }>(
-      RegistrationShowURL(UserId),
-    );
-
-    return response.data;
-  } catch (error) {
-    throw new Error();
+): Promise<CurrentUser> => {
+  if (!UserId) {
+    throw new Error('userIdエラー');
   }
+  const response = await axios.get<{ data: CurrentUser }>(
+    RegistrationShowURL(UserId),
+  );
+
+  return response.data.data;
 };
 
 export const FetchRegistrationUpdate = async (

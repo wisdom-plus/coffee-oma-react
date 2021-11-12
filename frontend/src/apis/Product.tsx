@@ -15,6 +15,9 @@ export const Fetchproductindex = async (): Promise<{ products: Product[] }> => {
 export const Fetchproductshow = async (
   productId: string,
 ): Promise<{ product: Product }> => {
+  if (!productId) {
+    throw new Error('エラー');
+  }
   const response = await axios.get<{ product: Product }>(
     productshowURL(productId),
   );

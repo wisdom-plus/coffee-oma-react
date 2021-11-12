@@ -59,6 +59,9 @@ export const Fetchsessionvaildate = async (
 ): Promise<{
   data: CurrentUser;
 }> => {
+  if (!headers) {
+    throw new Error('ヘッダーエラー');
+  }
   const { data } = await axios.get<{ data: CurrentUser }>(sessionvalidateURL, {
     headers,
   });
