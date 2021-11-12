@@ -1,31 +1,16 @@
-import { useState, useEffect } from 'react';
 import { Fetchproductshow } from 'apis/Product';
 import { Product } from 'model/index';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const useProductShow = (): { product: Product } => {
-  const [state, setState] = useState<{ product: Product }>(
-    {} as { product: Product },
-  );
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const { data: item = { product: {} as Product } } = useQuery(
+    [id, 'product'],
+    () => Fetchproductshow(id),
+  );
 
-  useEffect(() => {
-    const API = async () => {
-      try {
-        const response = await Fetchproductshow(id);
-        setState(() => response);
-      } catch (e) {
-        history.push('/products', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        });
-      }
-    };
-    void API();
-  }, [id, history]);
-
-  return state;
+  return item;
 };
 
 export default useProductShow;

@@ -15,15 +15,11 @@ export const Fetchproductindex = async (): Promise<{ products: Product[] }> => {
 export const Fetchproductshow = async (
   productId: string,
 ): Promise<{ product: Product }> => {
-  try {
-    const response = await axios.get<{ product: Product }>(
-      productshowURL(productId),
-    );
+  const response = await axios.get<{ product: Product }>(
+    productshowURL(productId),
+  );
 
-    return response.data;
-  } catch (error) {
-    throw new Error();
-  }
+  return response.data;
 };
 
 export const Fetchproductnew = async (formdata: FormData): Promise<number> => {
