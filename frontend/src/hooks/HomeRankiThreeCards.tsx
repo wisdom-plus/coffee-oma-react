@@ -8,9 +8,7 @@ const useHomeRanking = (): Product[] => {
   useEffect(() => {
     Fetchproductindex()
       .then((result) =>
-        result !== undefined && result.products
-          ? setState(result.products)
-          : [],
+        result !== undefined && result ? setState(result) : [],
       )
       .catch(() => setState([]));
   }, []);

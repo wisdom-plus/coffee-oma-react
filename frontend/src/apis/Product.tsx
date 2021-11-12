@@ -2,14 +2,10 @@ import axios from 'axios';
 import { Product } from 'model/index';
 import { productindexURL, productshowURL, LikeIndexURL } from 'urls/index';
 
-export const Fetchproductindex = async (): Promise<{ products: Product[] }> => {
-  try {
-    const response = await axios.get<{ products: Product[] }>(productindexURL);
+export const Fetchproductindex = async (): Promise<Product[]> => {
+  const response = await axios.get<{ products: Product[] }>(productindexURL);
 
-    return response.data;
-  } catch (error) {
-    throw new Error();
-  }
+  return response.data.products;
 };
 
 export const Fetchproductshow = async (

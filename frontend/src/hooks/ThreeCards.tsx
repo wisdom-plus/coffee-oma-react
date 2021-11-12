@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react';
 import { Fetchproductindex } from 'apis/Product';
 import { Product } from 'model/index';
-import { useHistory } from 'react-router-dom';
+
+import { useQuery } from 'react-query';
 
 const useThreeCards = (): Product[] => {
-  const [state, setState] = useState<Product[]>([]);
-  const history = useHistory();
+  const { data: products = [] } = useQuery(['products'], () =>
+    Fetchproductindex(),
+  );
 
-  useEffect(() => {
-    const API = async () => {
-      try {
-        const response = await Fetchproductindex();
-        setState(() => response.products);
-      } catch (e) {
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' });
-      }
-    };
-    void API();
-  }, [history]);
-
-  return state;
+  return products;
 };
 
 export default useThreeCards;
