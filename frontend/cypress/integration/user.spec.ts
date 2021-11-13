@@ -53,13 +53,10 @@ describe('show', () => {
     cy.intercept('GET', RegistrationShowURL(`${user.users[0].id}`), {
       statusCode: 401,
     });
-    cy.intercept('GET', 'http://localhost:3001/api/products', {
-      fixture: 'products',
-    });
     cy.visit(`/registration/${user.users[0].id}`);
-    cy.get('[data-testid = error]').should(
+    cy.get('[data-testid = error-message]').should(
       'have.text',
-      'エラーが発生しました。',
+      'ユーザー情報が存在しません。',
     );
   });
 });

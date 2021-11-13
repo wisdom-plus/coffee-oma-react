@@ -26,7 +26,7 @@ const UserProfile: FC<{ user: CurrentUser; currentuser: CurrentUser }> = ({
       <Segment basic>
         <Segment basic>
           {currentuser.email && (
-            <ErrorBoundary statusMessages={{ 404: 'エラーが発生しました。' }}>
+            <ErrorBoundary statusMessages={{ 401: 'エラーが発生しました。' }}>
               <Suspense
                 fallback={
                   <Button

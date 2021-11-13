@@ -10,7 +10,7 @@ const ErrorMessage: FC<{ message: string }> = ({ message }) => (
         <Grid columns={3} centered style={{ margin: '4em' }}>
           <Grid.Column width={3} />
           <Grid.Column width={10} as={Segment}>
-            <Header as="h4" textAlign="center">
+            <Header as="h4" textAlign="center" data-testid="error-message">
               {message}
               <Header.Subheader>
                 時間をおいてから再度アクセスしてください。
