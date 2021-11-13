@@ -7,7 +7,7 @@ module Api
         user = User.find_by(id: params[:relationships][:follow_id])
         follow = current_api_v1_user.follow(user)
         if follow.nil?
-          render status: :internal_server_error
+          render status: :not_found
         else
           render status: :created
         end
@@ -16,7 +16,7 @@ module Api
       def destroy
         follow = current_api_v1_user.unfollow(params[:id])
         if follow.nil?
-          render status: :internal_server_error
+          render status: :not_found
         else
           render status: :created
         end
@@ -32,7 +32,7 @@ module Api
             render status: :no_content
           end
         else
-          render status: :internal_server_error
+          render status: :not_found
         end
       end
     end

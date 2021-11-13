@@ -6,7 +6,7 @@ module Api
       def index
         likes = Product.ranking(9)
         if likes.empty?
-          render status: :internal_server_error
+          render status: :not_found
         else
           render json: { likes: likes }, status: :ok
         end
@@ -17,7 +17,7 @@ module Api
         if like.save
           render status: :created
         else
-          render status: :internal_server_error
+          render status: :not_found
         end
       end
 
@@ -26,7 +26,7 @@ module Api
         if like&.destroy
           render status: :created
         else
-          render status: :internal_server_error
+          render status: :not_found
         end
       end
 
@@ -36,7 +36,7 @@ module Api
           liked = api_v1_user_signed_in? && product.likes.exists?(user_id: current_api_v1_user.id)
           render json: { liked: liked, count: product.likes.count }, status: :ok
         else
-          render status: :internal_server_error
+          render status: :not_found
         end
       end
 
