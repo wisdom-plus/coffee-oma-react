@@ -15,7 +15,7 @@ RSpec.describe 'Relationships', type: :request do
 
       it 'レスポンス失敗' do
         post api_v1_relationships_path, params: { relationships: { follow_id: (user1.id + 2) } }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe 'Relationships', type: :request do
 
       it 'レスポンス失敗' do
         delete api_v1_relationship_path(follow.follow_id + 4)
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Relationships', type: :request do
 
       it 'レスポンス失敗' do
         get exists_api_v1_relationships_path, params: { follow_id: (user1.id + 3) }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe 'Relationships', type: :request do
 
       it 'レスポンス失敗' do
         get exists_api_v1_relationships_path, params: { follow_id: (user1.id + 3) }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

@@ -24,7 +24,7 @@ RSpec.describe 'Likes', type: :request do
 
     it 'レスポンス失敗' do
       get api_v1_likes_path
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:not_found)
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Likes', type: :request do
 
       it 'レスポンス失敗' do
         post api_v1_likes_path, params: { like: { product_id: (product1.id + 2) } }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Likes', type: :request do
 
       it 'レスポンス失敗' do
         delete api_v1_like_path(like.product_id + 2)
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe 'Likes', type: :request do
 
       it 'レスポンス失敗' do
         get exists_api_v1_likes_path, params: { product_id: (like.product_id + 2) }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.describe 'Likes', type: :request do
 
       it 'レスポンス失敗' do
         get exists_api_v1_likes_path, params: { product_id: (like.product_id + 2) }
-        expect(response).to have_http_status(:internal_server_error)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
