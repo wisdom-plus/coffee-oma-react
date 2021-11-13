@@ -33,14 +33,10 @@ export const Fetchproductnew = async (formdata: FormData): Promise<number> => {
   }
 };
 
-export const FetchLikeIndex = async (): Promise<{ likes: Product[] }> => {
-  try {
-    const response = await axios.get<{ likes: Product[] }>(LikeIndexURL);
+export const FetchLikeIndex = async (): Promise<Product[]> => {
+  const response = await axios.get<{ likes: Product[] }>(LikeIndexURL);
 
-    return response.data;
-  } catch (error) {
-    throw new Error();
-  }
+  return response.data.likes;
 };
 
 export default Fetchproductindex;

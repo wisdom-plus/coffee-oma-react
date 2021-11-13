@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Fetchproductindex } from 'apis/Product';
+import { FetchLikeIndex } from 'apis/Product';
 import { Product } from 'model/index';
+import { useQuery } from 'react-query';
 
 const useHomeRanking = (): Product[] => {
-  const [state, setState] = useState<Product[]>([]);
+  const { data: products = [] } = useQuery(['HomeRank'], () =>
+    FetchLikeIndex(),
+  );
 
-  useEffect(() => {
-    Fetchproductindex()
-      .then((result) =>
-        result !== undefined && result ? setState(result) : [],
-      )
-      .catch(() => setState([]));
-  }, []);
-
-  return state;
+  return products;
 };
 
 export default useHomeRanking;

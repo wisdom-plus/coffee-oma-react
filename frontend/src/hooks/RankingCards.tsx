@@ -8,7 +8,7 @@ const useRankingCards = (): Product[] => {
     const API = async () => {
       try {
         const response = await FetchLikeIndex();
-        setState(() => response.likes);
+        setState(() => response);
       } catch (e) {
         setState(() => []);
       }
