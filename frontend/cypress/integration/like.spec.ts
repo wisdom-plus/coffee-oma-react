@@ -47,6 +47,10 @@ describe('Create', () => {
       statusCode: 200,
       body: { product: products[0] },
     });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { count: 1, liked: false },
+    });
     cy.intercept('POST', LikeCreateURL, { statusCode: 500 });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = create]').click({ force: true });
