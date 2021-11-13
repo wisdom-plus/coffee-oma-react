@@ -28,7 +28,7 @@ module Api
         if @product.save
           render json: { status: 'OK' }, status: :created
         else
-          render json: { status: 'Failure' }, status: :internal_server_error
+          render json: { status: 'Failure' }, status: :not_found
         end
       end
 
