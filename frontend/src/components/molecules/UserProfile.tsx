@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import {
   Container,
   Image,
@@ -8,10 +8,12 @@ import {
   Grid,
   Table,
   Segment,
+  Button,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
 import FollowButton from 'container/EnhancedFollowButton';
 import { CurrentUser } from 'model/index';
+import ErrorBoundary from 'error/ErrorBoundary';
 
 const UserProfile: FC<{ user: CurrentUser; currentuser: CurrentUser }> = ({
   user,
@@ -22,7 +24,24 @@ const UserProfile: FC<{ user: CurrentUser; currentuser: CurrentUser }> = ({
       <Image src={user?.icon?.url} circular size="small" centered />
       <Header content={user.name} textAlign="center" data-testid="name" />
       <Segment basic>
-        <Segment basic>{currentuser.email && <FollowButton />}</Segment>
+        <Segment basic>
+          {currentuser.email && (
+            <ErrorBoundary statusMessages={{ 404: 'エラーが発生しました。' }}>
+              <Suspense
+                fallback={
+                  <Button
+                    circular
+                    icon="user plus"
+                    content="フォロー"
+                    disabled
+                  />
+                }
+              >
+                <FollowButton />
+              </Suspense>
+            </ErrorBoundary>
+          )}
+        </Segment>
         <Label>
           <Icon name="calendar alternate outline" />
           {dayjs(user.created_at).format('YYYY年MM月')}から利用中

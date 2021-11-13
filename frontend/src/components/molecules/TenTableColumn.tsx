@@ -37,7 +37,7 @@ const TenTableColumn: FC<{ product: Product; user: CurrentUser }> = ({
         <Table.Row>
           <Table.Cell colSpan="3">
             {user.email && (
-              <ErrorBoundary statusMessages={{}}>
+              <ErrorBoundary statusMessages={{ 404: 'エラーが発生しました。' }}>
                 <Suspense
                   fallback={
                     <Button circular icon="heart" content="0" disabled />
