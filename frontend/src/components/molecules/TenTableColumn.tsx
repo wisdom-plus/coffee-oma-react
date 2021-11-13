@@ -1,7 +1,8 @@
-import { FC } from 'react';
-import { Grid, Table } from 'semantic-ui-react';
+import { FC, Suspense } from 'react';
+import { Grid, Table, Button } from 'semantic-ui-react';
 import { Product, CurrentUser } from 'model/index';
 import LikeButton from 'container/EnhancedLikeButton';
+import ErrorBoundary from 'error/ErrorBoundary';
 
 const TenTableColumn: FC<{ product: Product; user: CurrentUser }> = ({
   product,
@@ -35,7 +36,17 @@ const TenTableColumn: FC<{ product: Product; user: CurrentUser }> = ({
           </Table.Row> */}
         <Table.Row>
           <Table.Cell colSpan="3">
-            {user.email && <LikeButton />}
+            {user.email && (
+              <ErrorBoundary statusMessages={{}}>
+                <Suspense
+                  fallback={
+                    <Button circular icon="heart" content="0" disabled />
+                  }
+                >
+                  <LikeButton />
+                </Suspense>
+              </ErrorBoundary>
+            )}
             <a href={product.url} className="ui blue circular button">
               商品を詳しく見る
             </a>
