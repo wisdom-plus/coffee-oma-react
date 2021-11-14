@@ -61,6 +61,14 @@ export type CurrentUser = {
   profile: string;
   ['created_at']: Date;
 };
+
+export type Review = {
+  title: string;
+  content: string;
+  id: number;
+  ['created_at']: Date;
+};
+
 export type FormInputType =
   | 'name'
   | 'email'
