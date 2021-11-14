@@ -12,7 +12,7 @@ module Api
         end
       end
 
-      def destory
+      def destroy
         review = Review.find_by(id: params[:id])
         if review.destroy
           render status: :ok
@@ -24,15 +24,16 @@ module Api
       def exists
         reviews = Review.get_reviews(params[:id])
         if review
-          render json: {reviews: reviews},status: :ok
+          render json: { reviews: reviews }, status: :ok
         else
           render status: :not_found
         end
       end
 
       private
+
         def review_params
-          params.require(:review).permit(:title,:content,:rate)
+          params.require(:review).permit(:title, :content, :rate)
         end
     end
   end
