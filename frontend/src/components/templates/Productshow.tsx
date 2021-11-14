@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
 import ShowTop from 'components/organisms/ShowTop';
 import { Product } from 'model/index';
-import ReviewArea from 'components/organisms/ReviewArea';
+import ReviewArea from 'container/EnhancedReviewArea';
 
 const ProductShow: FC<{ product: Product }> = ({ product }) => (
   <>
