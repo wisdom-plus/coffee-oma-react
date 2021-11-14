@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   end
   namespace :api do
     namespace :v1 do
-      resources :products, only: %i[index create show]
+      resources :products, only: %i[index create show] do
+        resources :reviews, only: %i[create destroy] do
+          collection do
+            get 'exists'
+          end
+        end
+      end
       resources :likes, only: %i[create destroy index] do
         collection do
           get 'exists'
