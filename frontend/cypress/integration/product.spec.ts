@@ -33,21 +33,14 @@ describe('Index', () => {
       ).should('have.text', Products.products[0].name);
     });
   });
-  // it('faild', () => {
-  //   cy.intercept(
-  //     {
-  //       headers: {
-  //         accept: 'application/json',
-  //       },
-  //     },
-  //     {
-  //       statusCode: 404,
-  //     },
-  //   );
-  //   cy.visit('/products', { failOnStatusCode: false });
-  //   cy.wait(5000);
-  //   cy.get('[data-testid = loader]').should('be.visible');
-  // });
+  it('faild', () => {
+    cy.intercept('GET', productindexURL, { statusCode: 404 });
+    cy.visit('/products', { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
+      'have.text',
+      'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
+    );
+  });
 });
 
 describe('New', () => {
@@ -107,22 +100,14 @@ describe('Show', () => {
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = name]').should('have.text', products[0].name);
   });
-  // it('failed', () => {
-  //   cy.intercept(
-  //     {
-  //       method: 'GET',
-  //       pathname: productshowURL(`${products[0].id}`),
-  //     },
-  //     {
-  //       body: 'test does not allow it',
-  //       statusCode: 404,
-  //       delayMs: 2000,
-  //     },
-  //   );
-  //   cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
-  //   cy.get('[data-testid=error-message]').should(
-  //     'have.text',
-  //     'アイテムが存在しません。',
-  //   );
-  // });
+  it('failed', () => {
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 404,
+    });
+    cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
+      'have.text',
+      'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
+    );
+  });
 });

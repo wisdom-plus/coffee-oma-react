@@ -16,7 +16,7 @@ const RegistrationShow: FC<{ pathname: string }> = ({ pathname }) => (
     {pathname === '/mypage' ? (
       <MyProfile />
     ) : (
-      <ErrorBoundary statusMessages={{ 401: 'ユーザー情報が存在しません。' }}>
+      <ErrorBoundary statusMessages={{ 404: 'ユーザー情報が存在しません。' }}>
         <Suspense fallback={<UserProfileLoading />}>
           <UserProfile />
         </Suspense>

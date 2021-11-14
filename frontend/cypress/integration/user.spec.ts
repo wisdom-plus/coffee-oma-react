@@ -49,18 +49,17 @@ describe('show', () => {
     cy.wait('@RegistrationShow');
     cy.get('[data-testid = name]').should('have.text', user.users[1].name);
   });
-  // it('failed', () => {
-  //   cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
-  //     statusCode: 200,
-  //     body: { data: user.users[1] },
-  //   }).as('RegistrationShow');
-  //   cy.visit(`/registration/${user.users[0].id}`, { failOnStatusCode: false });
-  //   cy.get('[data-testid = name]').should('have.text', user.users[1].name);
-  //   cy.get('[data-testid=errormessage]').should(
-  //     'have.text',
-  //     'ユーザー情報が存在しません。',
-  //   );
-  // });
+  it('failed', () => {
+    cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
+      statusCode: 404,
+      body: { data: user.users[1] },
+    }).as('RegistrationShow');
+    cy.visit(`/registration/${user.users[0].id}`, { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
+      'have.text',
+      'サーバーエラーが発生しました。時間をおいてから再度アクセスしてください。',
+    );
+  });
 });
 describe('Edit', () => {
   it('successfully', () => {
