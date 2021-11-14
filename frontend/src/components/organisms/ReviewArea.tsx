@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { Divider, Header, Icon } from 'semantic-ui-react';
-import ReviewItems from 'components/atoms/ReviewItems';
-import { Review } from 'model/index';
+import { FC, Suspense } from 'react';
+import { Divider, Header, Icon, Loader } from 'semantic-ui-react';
+import ReviewItems from 'container/EnhancedReviewItems';
+import ErrorBoundary from 'error/ErrorBoundary';
 
-const ReviewArea: FC<{ reviews: Review[] }> = ({ reviews }) => (
+const ReviewArea: FC = () => (
   <>
     <Divider horizontal>
       <Header as="h4">
@@ -11,7 +11,11 @@ const ReviewArea: FC<{ reviews: Review[] }> = ({ reviews }) => (
         ユーザーレビュー
       </Header>
     </Divider>
-    {reviews && <ReviewItems reviews={reviews} />}
+    <ErrorBoundary statusMessages={{ 404: 'エラーが発生しました。' }}>
+      <Suspense fallback={<Loader active />}>
+        <ReviewItems />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
