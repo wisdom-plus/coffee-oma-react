@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import { Header } from 'semantic-ui-react';
 import UserProfile from 'container/EnhancedUserProfile';
 import MyProfile from 'container/EnhancedMyProfile';
+import ErrorBoundary from 'error/ErrorBoundary';
+import UserProfileLoading from 'error/UserProfileLoading';
 
 const RegistrationShow: FC<{ pathname: string }> = ({ pathname }) => (
   <>
@@ -11,7 +13,15 @@ const RegistrationShow: FC<{ pathname: string }> = ({ pathname }) => (
       textAlign="center"
       stryle={{ marginBottom: '3rem' }}
     />
-    {pathname === '/mypage' ? <MyProfile /> : <UserProfile />}
+    {pathname === '/mypage' ? (
+      <MyProfile />
+    ) : (
+      <ErrorBoundary statusMessages={{ 404: 'ユーザー情報が存在しません。' }}>
+        <Suspense fallback={<UserProfileLoading />}>
+          <UserProfile />
+        </Suspense>
+      </ErrorBoundary>
+    )}
   </>
 );
 

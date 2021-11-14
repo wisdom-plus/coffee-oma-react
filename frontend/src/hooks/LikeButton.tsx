@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useQuery } from 'react-query';
 
 const useLikeButton = (): {
   state: { liked: boolean; count: number };
@@ -12,25 +13,16 @@ const useLikeButton = (): {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [cookie] = useCookies(['token']);
+  const { data: like = { liked: false, count: 0 }, isSuccess } = useQuery(
+    [id, cookie, 'like'],
+    () => FetchLikeExists(id, cookie.token),
+  );
 
   useEffect(() => {
-    const API = async () => {
-      try {
-        const response = await FetchLikeExists(id, cookie.token);
-        if (response.liked) {
-          setState((prev) => ({ ...prev, ...response }));
-        } else {
-          setState((prev) => ({ ...prev, ...response }));
-        }
-      } catch (e) {
-        history.push(`/`, {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        });
-      }
-    };
-    void API();
-  }, [id, history, cookie]);
+    if (isSuccess) {
+      setState((prev) => ({ ...prev, ...like }));
+    }
+  }, [isSuccess, like]);
 
   const onCreate = async () => {
     try {

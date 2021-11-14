@@ -1,9 +1,9 @@
-import { FC, useLayoutEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { atom, useSetRecoilState } from 'recoil';
 import { CurrentUser } from 'model/index';
 import { Fetchsessionvaildate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
-import { useHistory } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const LoginState = atom<CurrentUser>({
   key: 'LoginUser',
@@ -22,24 +22,20 @@ const LoginState = atom<CurrentUser>({
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
   const [cookie] = useCookies(['token']);
-  const history = useHistory();
 
-  useLayoutEffect(() => {
-    if (cookie.token) {
-      const API = async (): Promise<void> => {
-        try {
-          const response = await Fetchsessionvaildate(cookie.token);
-          setUser((prevUser) => ({ ...prevUser, ...response.data }));
-        } catch (e) {
-          history.push('/', {
-            message: 'エラーが発生しました。',
-            type: 'error',
-          });
-        }
-      };
-      void API();
+  const { data: currentuser, isSuccess } = useQuery(
+    [cookie, 'user'],
+    () => Fetchsessionvaildate(cookie.token),
+    {
+      enabled: !!cookie.token,
+    },
+  );
+
+  useEffect(() => {
+    if (isSuccess && currentuser) {
+      setUser((prevUser) => ({ ...prevUser, ...currentuser.data }));
     }
-  }, [setUser, cookie, history]);
+  }, [currentuser, isSuccess, setUser]);
 
   return <>{children}</>;
 };

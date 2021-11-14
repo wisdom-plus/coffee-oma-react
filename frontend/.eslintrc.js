@@ -39,7 +39,6 @@ module.exports = {
   ],
   root: true,
   rules: {
-    // occur error in `import React from 'react'` with react-scripts 4.0.1
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'lines-between-class-members': [
@@ -123,6 +122,7 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',
+    'react/require-default-props': [0],
     'react-hooks/exhaustive-deps': [
       'warn',
       {

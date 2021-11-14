@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 import currentuser from '../fixtures/currentuser.json';
-import { sessionnewURL, productindexURL } from '../../src/urls/index';
+import {
+  sessionnewURL,
+  productindexURL,
+  sessionvalidateURL,
+} from '../../src/urls/index';
 
 describe('Login', () => {
   it('successfully', () => {
@@ -12,6 +16,10 @@ describe('Login', () => {
     cy.intercept('GET', productindexURL, {
       fixture: 'products',
     }).as('Products');
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    }).as('Loginuser');
     cy.visit('/sign_in');
     cy.get('[data-testid=email] > input').type('test@example.com', {
       force: true,

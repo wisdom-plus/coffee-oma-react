@@ -4,7 +4,7 @@ import IndexCards from 'components/atoms/IndexCards';
 import { Product } from 'model/index';
 
 const ThreeCards: FC<{ state: Product[] }> = ({ state = [] }) => (
-  <Segment style={{ margin: '4em', padding: '3em' }}>
+  <Segment style={{ marginTop: '4em', padding: '3em' }}>
     <Card.Group itemsPerRow={3} stackable centered>
       <IndexCards products={state} />
     </Card.Group>

@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
-import productindexURL from '../../src/urls/index';
+import { LikeIndexURL } from '../../src/urls/index';
 
 describe('The Home Page', () => {
   it('successfully loads', () => {
-    cy.intercept('GET', productindexURL, {
-      fixture: 'products',
+    cy.intercept('GET', LikeIndexURL, {
+      fixture: 'likes',
     }).as('Products');
     cy.intercept(
       'GET',
@@ -28,10 +28,11 @@ describe('The Home Page', () => {
       },
     );
     cy.visit('/');
-    cy.fixture('products').then((Products) => {
+    cy.wait('@Products');
+    cy.fixture('likes').then((Likes) => {
       cy.get(
-        `[data-rankid= ${Products.products[0].id}] > .card >.content >.header`,
-      ).should('have.text', Products.products[0].name);
+        `[data-rankid= ${Likes.likes[0].id}] > .card >.content >.header`,
+      ).should('have.text', Likes.likes[0].name);
     });
   });
 });

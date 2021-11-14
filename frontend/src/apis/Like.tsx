@@ -40,16 +40,15 @@ export const FetchLikeExists = async (
   ProductId: string,
   headers: Token,
 ): Promise<LikedData> => {
-  try {
-    const response = await axios.get<LikedData>(LikeExistsURL, {
-      params: { product_id: ProductId },
-      headers,
-    });
-
-    return response.data;
-  } catch (error) {
-    throw new Error();
+  if (!ProductId && !headers) {
+    throw new Error('APIエラー');
   }
+  const response = await axios.get<LikedData>(LikeExistsURL, {
+    params: { product_id: ProductId },
+    headers,
+  });
+
+  return response.data;
 };
 
 export default FetchLikeCreate;

@@ -40,16 +40,15 @@ export const FetchFollowExists = async (
   FollowId: string,
   headers: Token,
 ): Promise<number> => {
-  try {
-    const response = await axios.get(FollowExistsURL, {
-      params: { follow_id: FollowId },
-      headers,
-    });
-
-    return response.status;
-  } catch (e) {
-    throw new Error();
+  if (!FollowId && !headers) {
+    throw new Error('APIエラー');
   }
+  const response = await axios.get(FollowExistsURL, {
+    params: { follow_id: FollowId },
+    headers,
+  });
+
+  return response.status;
 };
 
 export default FetchFollow;

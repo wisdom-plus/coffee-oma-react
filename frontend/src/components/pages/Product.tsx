@@ -1,10 +1,12 @@
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Grid } from 'semantic-ui-react';
 import ProductIndex from 'components/templates/ProductIndex';
 import ProductNew from 'components/templates/ProductNew';
 import ProductShow from 'container/EnhancedProductShow';
 import ProductRank from 'components/templates/ProductRank';
+import ErrorBoundary from 'error/ErrorBoundary';
+import ProductShowLoading from 'error/ProductShowLoading';
 
 type Props = {
   isindex?: boolean;
@@ -25,8 +27,12 @@ const Product: FC<Props> = ({
       <Grid.Column>
         {isindex && <ProductIndex />}
         {isrank && <ProductRank />}
-        {isshow && <ProductShow />}
         {isnew && <ProductNew />}
+        <ErrorBoundary statusMessages={{ 404: 'アイテムが存在しません。' }}>
+          <Suspense fallback={<ProductShowLoading />}>
+            {isshow && <ProductShow />}
+          </Suspense>
+        </ErrorBoundary>
       </Grid.Column>
     </Grid>
   </>

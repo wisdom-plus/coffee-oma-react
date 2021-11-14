@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react';
 import { FetchLikeIndex } from 'apis/Product';
 import { Product } from 'model/index';
+import { useQuery } from 'react-query';
 
 const useRankingCards = (): Product[] => {
-  const [state, setState] = useState<Product[]>([]);
-  useEffect(() => {
-    const API = async () => {
-      try {
-        const response = await FetchLikeIndex();
-        setState(() => response.likes);
-      } catch (e) {
-        setState(() => []);
-      }
-    };
-    void API();
-  }, []);
+  const { data: products = [] } = useQuery(['ranking'], () => FetchLikeIndex());
 
-  return state;
+  return products;
 };
 
 export default useRankingCards;

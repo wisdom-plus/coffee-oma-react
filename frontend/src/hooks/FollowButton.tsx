@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
 import { useCookies } from 'react-cookie';
+import { useQuery } from 'react-query';
 
 const useFollowButton = (): {
   state: boolean;
@@ -12,22 +13,19 @@ const useFollowButton = (): {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [cookie] = useCookies(['token']);
+  const { data: status, isSuccess } = useQuery([id, 'follow'], () =>
+    FetchFollowExists(id, cookie.token),
+  );
 
   useEffect(() => {
-    const API = async () => {
-      try {
-        const response = await FetchFollowExists(id, cookie.token);
-        if (response === 200) {
-          setState((prev) => !prev);
-        } else {
-          setState((prev) => prev);
-        }
-      } catch (err) {
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' });
-      }
-    };
-    void API();
-  }, [id, history, cookie]);
+    if (isSuccess && status === 200) {
+      setState(() => true);
+    } else if (isSuccess && status === 204) {
+      setState(() => false);
+    } else {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
+  }, [history, status, isSuccess]);
 
   const onFollow = async () => {
     try {

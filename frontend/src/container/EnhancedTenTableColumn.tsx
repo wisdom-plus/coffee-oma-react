@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Product } from 'model/index';
 import TenTableColumn from 'components/molecules/TenTableColumn';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 
 const EnhancedTenTableColumn: FC<{ product: Product }> = ({ product }) => {
   const user = useRecoilValue(LoginState);

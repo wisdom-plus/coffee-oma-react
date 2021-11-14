@@ -24,6 +24,9 @@ describe('Create', () => {
       statusCode: 200,
       body: { data: users[1] },
     });
+    cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
+      statusCode: 204,
+    });
     cy.intercept('POST', FollowURL, { statusCode: 201 });
     cy.visit(`/registration/${users[1].id}`);
     cy.get('[data-testid = create]', { includeShadowDom: true }).click({
@@ -46,6 +49,9 @@ describe('Create', () => {
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
+    });
+    cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
+      statusCode: 204,
     });
     cy.intercept('POST', FollowURL, { statusCode: 500 });
     cy.visit(`/registration/${users[1].id}`);

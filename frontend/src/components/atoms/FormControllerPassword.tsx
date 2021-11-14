@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { Controller, DeepMap, FieldError } from 'react-hook-form';
+import { Controller, FieldError } from 'react-hook-form';
 import { Input, Form, Ref } from 'semantic-ui-react';
 import { FormInputType } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const FormControllerPassword: FC<{
-  errors: DeepMap<Record<FormInputType, string>, FieldError>;
+  errors: Partial<Record<FormInputType, FieldError | undefined>>;
   passwordconfirmation: string;
   required?: boolean;
 }> = ({ errors, passwordconfirmation, required }) => (

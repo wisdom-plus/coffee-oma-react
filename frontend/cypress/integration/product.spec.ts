@@ -34,11 +34,11 @@ describe('Index', () => {
     });
   });
   it('faild', () => {
-    cy.intercept('GET', productindexURL, { statusCode: 401 });
-    cy.visit('/products');
-    cy.get('[data-testid = error]').should(
+    cy.intercept('GET', productindexURL, { statusCode: 404 });
+    cy.visit('/products', { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
       'have.text',
-      'エラーが発生しました。',
+      'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
   });
 });
@@ -102,9 +102,12 @@ describe('Show', () => {
   });
   it('failed', () => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 401,
+      statusCode: 404,
     });
-    cy.visit(`/product/${products[0].id}`);
-    cy.url().should('eq', 'http://localhost:3000/products');
+    cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
+      'have.text',
+      'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
+    );
   });
 });

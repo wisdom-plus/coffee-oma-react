@@ -41,25 +41,23 @@ describe('show', () => {
       statusCode: 200,
       body: currentuser,
     });
-
     cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
       statusCode: 200,
       body: { data: user.users[1] },
-    });
+    }).as('RegistrationShow');
     cy.visit(`/registration/${user.users[1].id}`);
+    cy.wait('@RegistrationShow');
     cy.get('[data-testid = name]').should('have.text', user.users[1].name);
   });
   it('failed', () => {
-    cy.intercept('GET', RegistrationShowURL(`${user.users[0].id}`), {
-      statusCode: 401,
-    });
-    cy.intercept('GET', 'http://localhost:3001/api/products', {
-      fixture: 'products',
-    });
-    cy.visit(`/registration/${user.users[0].id}`);
-    cy.get('[data-testid = error]').should(
+    cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
+      statusCode: 404,
+      body: { data: user.users[1] },
+    }).as('RegistrationShow');
+    cy.visit(`/registration/${user.users[0].id}`, { failOnStatusCode: false });
+    cy.get('[data-testid=errormessage]').should(
       'have.text',
-      'エラーが発生しました。',
+      'サーバーエラーが発生しました。時間をおいてから再度アクセスしてください。',
     );
   });
 });

@@ -3,7 +3,7 @@ import { Menu, Container } from 'semantic-ui-react';
 import MenuLogo from 'components/atoms/MenuLogo';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'atom';
+import LoginState from 'RecoilApp';
 
 const TopMenu: FC = () => {
   const user = useRecoilValue(LoginState);

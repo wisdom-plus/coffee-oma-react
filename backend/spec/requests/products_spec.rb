@@ -43,22 +43,22 @@ RSpec.describe 'Products', type: :request do
 
     it 'レスポンス失敗(name)' do
       post api_v1_products_path, params: { product: attributes_for(:product, name: '') }
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:not_found)
     end
 
     it 'レスポンス失敗(priceが空)' do
       post api_v1_products_path, params: { product: attributes_for(:product, price: '') }
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:not_found)
     end
 
     it 'レスポンス失敗(priceが0)' do
       post api_v1_products_path, params: { product: attributes_for(:product, price: 0) }
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:not_found)
     end
 
     it 'レスポンス失敗(caption)' do
       post api_v1_products_path, params: { product: attributes_for(:product, caption: '') }
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

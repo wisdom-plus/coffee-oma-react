@@ -23,6 +23,10 @@ type ResetPasswordEditParams = {
   headers: Token;
   data: ResetPasswordEditdata;
 };
+// const delay = (time: number) => (result: number) =>
+//   new Promise((resolve) => {
+//     setTimeout(() => resolve(result), time);
+//   });
 
 export const Fetchsessionnew = async (session: Session): Promise<login> => {
   try {
@@ -55,18 +59,14 @@ export const Fetchsessionvaildate = async (
 ): Promise<{
   data: CurrentUser;
 }> => {
-  try {
-    const { data } = await axios.get<{ data: CurrentUser }>(
-      sessionvalidateURL,
-      {
-        headers,
-      },
-    );
-
-    return data;
-  } catch (error) {
-    throw new Error();
+  if (!headers) {
+    throw new Error('ヘッダーエラー');
   }
+  const { data } = await axios.get<{ data: CurrentUser }>(sessionvalidateURL, {
+    headers,
+  });
+
+  return data;
 };
 
 export const Fetchsessionconfirm = async (params: {
@@ -117,4 +117,5 @@ export const SignedInAxios = axios.create({
     uid: localStorage.getItem('uid'),
   },
 });
+
 export default Fetchsessionnew;
