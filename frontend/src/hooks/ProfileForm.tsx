@@ -55,7 +55,10 @@ const useProfileForm = (): Props => {
 
   useEffect(() => {
     Reset(defaultvalues);
-  }, [user, defaultvalues, Reset]);
+    if (!cookie.token) {
+      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+    }
+  }, [user, defaultvalues, Reset, history, cookie]);
 
   const methods = { reset, ...method };
 

@@ -17,7 +17,7 @@ const ProductIndex: FC = () => (
       なければ
       <Link to="/product/new">こちらから登録</Link>
     </Header>
-    <ErrorBoundary statusMessages={{ 401: 'ログイン情報が正しくありません。' }}>
+    <ErrorBoundary statusMessages={{ 404: 'アイテムが存在しません。' }}>
       <Suspense fallback={<ThreeCardsLoading />}>
         <ThreeCards />
       </Suspense>

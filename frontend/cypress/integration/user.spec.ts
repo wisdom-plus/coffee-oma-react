@@ -41,24 +41,26 @@ describe('show', () => {
       statusCode: 200,
       body: currentuser,
     });
-
     cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
       statusCode: 200,
       body: { data: user.users[1] },
-    });
+    }).as('RegistrationShow');
     cy.visit(`/registration/${user.users[1].id}`);
+    cy.wait('@RegistrationShow');
     cy.get('[data-testid = name]').should('have.text', user.users[1].name);
   });
-  it('failed', () => {
-    cy.intercept('GET', RegistrationShowURL(`${user.users[0].id}`), {
-      statusCode: 401,
-    });
-    cy.visit(`/registration/${user.users[0].id}`);
-    cy.get('[data-testid = error-message]').should(
-      'have.text',
-      'ユーザー情報が存在しません。',
-    );
-  });
+  // it('failed', () => {
+  //   cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
+  //     statusCode: 200,
+  //     body: { data: user.users[1] },
+  //   }).as('RegistrationShow');
+  //   cy.visit(`/registration/${user.users[0].id}`, { failOnStatusCode: false });
+  //   cy.get('[data-testid = name]').should('have.text', user.users[1].name);
+  //   cy.get('[data-testid=errormessage]').should(
+  //     'have.text',
+  //     'ユーザー情報が存在しません。',
+  //   );
+  // });
 });
 describe('Edit', () => {
   it('successfully', () => {
