@@ -23,4 +23,7 @@ export const FollowDestroyURL = (UserId: string): string =>
 export const FollowExistsURL = `${DEFAULT_API_LOCALHOST}/relationships/exists`;
 export const ReviewExistsURL = (ProductId: string): string =>
   `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews/exists`;
+export const ReviewCreateURL = (ProductId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews`;
+
 export default productindexURL;

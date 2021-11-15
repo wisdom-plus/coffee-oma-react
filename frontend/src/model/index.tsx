@@ -65,9 +65,12 @@ export type CurrentUser = {
 export type Review = {
   title: string;
   content: string;
+  rate: number;
   id: number;
   ['time_ago']: Date;
 };
+
+export type ReviewFormData = Omit<Review, 'id' | 'time_ago'>;
 
 export type FormInputType =
   | 'name'
@@ -79,7 +82,9 @@ export type FormInputType =
   | 'price'
   | 'url'
   | 'caption'
-  | 'profile';
+  | 'profile'
+  | 'title'
+  | 'content';
 
 export type LikedData = { count: number; liked: boolean };
 
