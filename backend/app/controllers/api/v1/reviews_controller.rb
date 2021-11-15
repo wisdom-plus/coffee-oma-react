@@ -4,7 +4,7 @@ module Api
       before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
-        review = current_api_v1_user.reviews.new(reivew_params)
+        review = current_api_v1_user.reviews.new(review_params)
         if review.save
           render status: :created
         else
