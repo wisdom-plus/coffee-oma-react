@@ -66,7 +66,7 @@ export type Review = {
   title: string;
   content: string;
   id: number;
-  ['created_at']: Date;
+  ['time_ago']: Date;
 };
 
 export type FormInputType =

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ReviewController < ApplicationController
+    class ReviewsController < ApplicationController
       before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
@@ -22,8 +22,8 @@ module Api
       end
 
       def exists
-        reviews = Review.get_reviews(params[:id])
-        if review
+        reviews = Review.api_json(params[:product_id])
+        if reviews
           render json: { reviews: reviews }, status: :ok
         else
           render status: :not_found

@@ -13,7 +13,7 @@ const ReviewItems: FC<{ reviews: Review[] }> = ({ reviews }) => (
           <Item.Content>
             <Header as="h3">{review.title}</Header>
             <Item.Meta>
-              <span className="data">{review.created_at}前</span>
+              <span className="data">{review.time_ago}前</span>
             </Item.Meta>
             <Item.Description style={{ whiteSpace: 'pre-wrap' }}>
               {review.content}
