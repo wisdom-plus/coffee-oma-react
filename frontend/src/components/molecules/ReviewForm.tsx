@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import FormController from 'container/EnhancedFormController';
 import { ReviewFormData } from 'model/index';
 import { FetchReviewCreate } from 'apis/Review';
+import RateFormController from 'container/EnhancedRateFormController';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ReviewForm: FC = () => {
@@ -45,6 +46,7 @@ const ReviewForm: FC = () => {
                 required
                 errormessage="タイトルが入力されていません。"
               />
+              <RateFormController errormessage="レートが入力されていません。" />
               <FormController
                 name="content"
                 textarea

@@ -24,6 +24,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.4.0",
     "react-query": "^3.32.1",
+    "react-rating": "^2.0.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

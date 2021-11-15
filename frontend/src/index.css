@@ -31,3 +31,8 @@ code {
   flex-direction: column;
   min-height: 100%;
 }
+
+.rate-form {
+  display: block !important;
+  font-size: 1.7rem !important;
+}

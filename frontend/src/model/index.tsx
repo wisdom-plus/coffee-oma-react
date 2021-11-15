@@ -84,7 +84,8 @@ export type FormInputType =
   | 'caption'
   | 'profile'
   | 'title'
-  | 'content';
+  | 'content'
+  | 'rate';
 
 export type LikedData = { count: number; liked: boolean };
 
