@@ -49,6 +49,7 @@ const ReviewForm: FC = () => {
               <RateFormController />
               <FormController
                 name="content"
+                label="レビュー内容"
                 textarea
                 required
                 errormessage="レビュー本文が入力されていません。"

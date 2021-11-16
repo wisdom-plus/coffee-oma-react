@@ -14,7 +14,7 @@ const RateFormController: FC<{
   errors: Partial<Record<'rate', FieldError | undefined>>;
 }> = ({ register, setValue, errors }) => (
   <>
-    <Form.Field>
+    <Form.Field required>
       <label htmlFor="rate">
         レート
         {errors.rate && (
@@ -37,6 +37,7 @@ const RateFormController: FC<{
       onRate={(e, value) => {
         setValue('rate', value.rating, { shouldValidate: true });
       }}
+      style={{ paddingBottom: ' 0.5em' }}
     />
   </>
 );
