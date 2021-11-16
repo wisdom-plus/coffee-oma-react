@@ -33,7 +33,7 @@ module Api
       private
 
         def review_params
-          params.require(:review).permit(:title, :content, :rate)
+          params.require(:review).permit(:title, :content, :rate).merge(product_id: params[:product_id])
         end
     end
   end
