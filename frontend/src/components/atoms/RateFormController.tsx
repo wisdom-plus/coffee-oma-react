@@ -34,6 +34,8 @@ const RateFormController: FC<{
       maxRating={5}
       icon="star"
       size="massive"
+      id="review-form-rating"
+      clearable
       onRate={(e, value) => {
         setValue('rate', value.rating, { shouldValidate: true });
       }}
