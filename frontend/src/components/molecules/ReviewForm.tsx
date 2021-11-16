@@ -46,7 +46,7 @@ const ReviewForm: FC = () => {
                 required
                 errormessage="タイトルが入力されていません。"
               />
-              <RateFormController errormessage="レートが入力されていません。" />
+              <RateFormController />
               <FormController
                 name="content"
                 textarea

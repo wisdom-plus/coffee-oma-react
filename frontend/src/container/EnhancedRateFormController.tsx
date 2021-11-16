@@ -1,19 +1,20 @@
 import { FC } from 'react';
+import { useFormContext } from 'react-hook-form';
 import RateFormController from 'components/atoms/RateFormController';
-import useRateFormController from 'hooks/RateFormController';
+/* eslint-disable react/jsx-props-no-spreading */
 
-const EnhancedRateFormController: FC<{
-  errormessage: string;
-  required?: boolean;
-}> = ({ errormessage }) => {
-  const { errors } = useRateFormController();
+const EnhancedRateFormController: FC = () => {
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <RateFormController
-      {...{
-        errors,
-        errormessage,
-      }}
+      register={register}
+      setValue={setValue}
+      errors={errors}
     />
   );
 };
