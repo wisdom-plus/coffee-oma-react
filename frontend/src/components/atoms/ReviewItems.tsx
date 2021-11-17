@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { Item, Segment, Header } from 'semantic-ui-react';
-import { Review } from 'model/index';
+import { Review, CurrentUser } from 'model/index';
+import ReviewRemoveButton from 'components/atoms/ReveiwRemoveButton';
 
-const ReviewItems: FC<{ reviews: Review[] }> = ({ reviews }) => (
+const ReviewItems: FC<{ reviews: Review[]; user: CurrentUser }> = ({
+  reviews,
+  user,
+}) => (
   <Item.Group>
     {reviews.map((review) => (
       <Segment
@@ -18,6 +22,11 @@ const ReviewItems: FC<{ reviews: Review[] }> = ({ reviews }) => (
             <Item.Description style={{ whiteSpace: 'pre-wrap' }}>
               {review.content}
             </Item.Description>
+            <Item.Extra>
+              {review.user_id === user.id && (
+                <ReviewRemoveButton UserId={review.user_id} />
+              )}
+            </Item.Extra>
           </Item.Content>
         </Item>
       </Segment>

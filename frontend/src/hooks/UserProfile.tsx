@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { FetchRegistrationShow } from 'apis/User';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'RecoilApp';
+import LoginState from 'Atom';
 import { useQuery } from 'react-query';
 
 const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {

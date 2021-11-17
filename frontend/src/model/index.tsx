@@ -68,6 +68,7 @@ export type Review = {
   rate: number;
   id: number;
   ['time_ago']: Date;
+  ['user_id']: number;
 };
 
 export type ReviewFormData = Omit<Review, 'id' | 'time_ago'>;

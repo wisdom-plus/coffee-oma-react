@@ -1,23 +1,9 @@
 import { FC, useEffect } from 'react';
-import { atom, useSetRecoilState } from 'recoil';
-import { CurrentUser } from 'model/index';
+import { useSetRecoilState } from 'recoil';
 import { Fetchsessionvaildate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
 import { useQuery } from 'react-query';
-
-const LoginState = atom<CurrentUser>({
-  key: 'LoginUser',
-  default: {
-    email: '',
-    id: 0,
-    icon: {
-      url: '',
-    },
-    name: '',
-    profile: '',
-    created_at: new Date(),
-  },
-});
+import LoginState from 'Atom';
 
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
@@ -40,4 +26,4 @@ export const RecoilApp: FC = ({ children }) => {
   return <>{children}</>;
 };
 
-export default LoginState;
+export default RecoilApp;
