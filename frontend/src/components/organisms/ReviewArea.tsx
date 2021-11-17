@@ -3,7 +3,7 @@ import { Divider, Header, Icon } from 'semantic-ui-react';
 import ReviewItems from 'container/EnhancedReviewItems';
 import ErrorBoundary from 'error/ErrorBoundary';
 import ErrorReviewLoader from 'error/ErrorReviewLoader';
-import ReviewForm from 'components/molecules/ReviewForm';
+import ReviewForm from 'container/EnhancedReviewForm';
 
 const ReviewArea: FC = () => (
   <>

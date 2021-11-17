@@ -12,11 +12,12 @@ import 'semantic-ui-css/semantic.min.css';
 const client = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 0,
+      retry: false,
       suspense: true,
+      refetchOnWindowFocus: false,
     },
     mutations: {
-      retry: 0,
+      retry: false,
     },
   },
 });

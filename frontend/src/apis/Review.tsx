@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Review, ReviewFormData, Token } from 'model/index';
-import { ReviewExistsURL, ReviewCreateURL } from 'urls/index';
+import { ReviewExistsURL, ReviewCreateURL, ReviewDestroyURL } from 'urls/index';
 
 export const FetchReviewExists = async (
   ProductId: string,
@@ -22,6 +22,22 @@ export const FetchReviewCreate = async (
 ): Promise<number> => {
   try {
     const response = await axios.post(ReviewCreateURL(ProductId), formdata, {
+      headers,
+    });
+
+    return response.status;
+  } catch (e) {
+    throw new Error('error');
+  }
+};
+
+export const FetchReviewDestroy = async (
+  ProductId: string,
+  ReviewId: string,
+  headers: Token,
+): Promise<number> => {
+  try {
+    const response = await axios.delete(ReviewDestroyURL(ProductId, ReviewId), {
       headers,
     });
 

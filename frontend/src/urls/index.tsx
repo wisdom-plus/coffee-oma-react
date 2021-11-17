@@ -25,5 +25,7 @@ export const ReviewExistsURL = (ProductId: string): string =>
   `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews/exists`;
 export const ReviewCreateURL = (ProductId: string): string =>
   `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews`;
+export const ReviewDestroyURL = (ProductId: string, ReviewId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews/${ReviewId}`;
 
 export default productindexURL;
