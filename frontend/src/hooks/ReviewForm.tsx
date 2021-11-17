@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { ReviewFormData } from 'model/index';
 import { FetchReviewCreate } from 'apis/Review';
+import { useMutation, useQueryClient } from 'react-query';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const useReviewForm = (): {
@@ -25,9 +26,19 @@ const useReviewForm = (): {
       elements.map((rate) => rate.classList.remove('active'));
     }
   };
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    ({ data }: { data: ReviewFormData }) =>
+      FetchReviewCreate(data, cookie.token, id),
+    {
+      onSuccess: () => queryClient.invalidateQueries([id, 'review']),
+    },
+  );
+
   const onSubmit = async (data: ReviewFormData) => {
     try {
-      const response = await FetchReviewCreate(data, cookie.token, id);
+      const response = await mutation.mutateAsync({ data });
       if (response === 201) {
         history.push(`/product/${id}`, {
           message: 'レビューが作成されました.',
