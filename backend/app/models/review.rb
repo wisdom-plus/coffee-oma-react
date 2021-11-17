@@ -15,7 +15,8 @@ class Review < ApplicationRecord
       title: title,
       content: content,
       rate: rate,
-      time_ago: time_ago_in_words(created_at)
+      time_ago: time_ago_in_words(created_at),
+      user_id: user_id
     }
   end
 end
