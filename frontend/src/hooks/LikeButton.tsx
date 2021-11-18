@@ -1,34 +1,68 @@
-import { useState, useEffect } from 'react';
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
+
+type LikeType = { liked: boolean; count: number };
 
 const useLikeButton = (): {
-  state: { liked: boolean; count: number };
+  like: LikeType;
   onCreate: () => void;
   onDestroy: () => void;
 } => {
-  const [state, setState] = useState({ liked: false, count: 0 });
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [cookie] = useCookies(['token']);
-  const { data: like = { liked: false, count: 0 }, isSuccess } = useQuery(
-    [id, cookie, 'like'],
+  const queryClient = useQueryClient();
+  const { data: like = { liked: false, count: 0 } } = useQuery(
+    [id, cookie.token, 'like'],
     () => FetchLikeExists(id, cookie.token),
   );
+  const createmutation = useMutation(() => FetchLikeCreate(id, cookie.token), {
+    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),
+    onSuccess: () => {
+      const oldquery = queryClient.getQueryData<LikeType>([
+        id,
+        cookie.token,
+        'like',
+      ]);
+      if (oldquery) {
+        queryClient.setQueryData([id, cookie.token, 'like'], () => ({
+          liked: true,
+          count: oldquery.count + 1,
+        }));
+      }
+    },
+  });
 
-  useEffect(() => {
-    if (isSuccess) {
-      setState((prev) => ({ ...prev, ...like }));
-    }
-  }, [isSuccess, like]);
+  const destroymutation = useMutation(
+    () => FetchLikeDestroy(id, cookie.token),
+    {
+      onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),
+      onSuccess: () => {
+        const oldquery = queryClient.getQueryData<LikeType>([
+          id,
+          cookie.token,
+          'like',
+        ]);
+        if (oldquery) {
+          queryClient.setQueryData([id, cookie.token, 'like'], () => ({
+            liked: false,
+            count: oldquery.count - 1,
+          }));
+        }
+      },
+    },
+  );
 
   const onCreate = async () => {
     try {
-      const response = await FetchLikeCreate(id, cookie.token);
+      const response = await createmutation.mutateAsync();
       if (response === 201) {
-        setState((prev) => ({ ...prev, liked: true, count: prev.count + 1 }));
+        history.push(`/product/${id}`, {
+          message: 'お気に入りに追加しました。',
+          type: 'success',
+        });
       }
     } catch (e) {
       history.push(`/product/${id}`, {
@@ -40,13 +74,12 @@ const useLikeButton = (): {
 
   const onDestroy = async () => {
     try {
-      const response = await FetchLikeDestroy(id, cookie.token);
-      if (response === 201) {
-        setState((prevState) => ({
-          ...prevState,
-          liked: false,
-          count: prevState.count - 1,
-        }));
+      const response = await destroymutation.mutateAsync();
+      if (response === 200) {
+        history.push(`/product/${id}`, {
+          message: 'お気に入りを削除しました。',
+          type: 'success',
+        });
       }
     } catch (e) {
       history.push(`/product/${id}`, {
@@ -56,7 +89,7 @@ const useLikeButton = (): {
     }
   };
 
-  return { state, onCreate, onDestroy };
+  return { like, onCreate, onDestroy };
 };
 
 export default useLikeButton;

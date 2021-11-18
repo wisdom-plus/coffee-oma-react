@@ -3,9 +3,9 @@ import useLikeButton from 'hooks/LikeButton';
 import LikeButton from 'components/atoms/LikeButton';
 
 const EnhancedLikedButton: FC = () => {
-  const { state, onCreate, onDestroy } = useLikeButton();
+  const { like, onCreate, onDestroy } = useLikeButton();
 
-  return <LikeButton state={state} onCreate={onCreate} onDestroy={onDestroy} />;
+  return <LikeButton {...{ like, onCreate, onDestroy }} />;
 };
 
 export default EnhancedLikedButton;
