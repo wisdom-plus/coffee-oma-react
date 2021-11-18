@@ -13,7 +13,7 @@ module Api
       end
 
       def destroy
-        review = Review.find_by(id: params[:id],product_id: params[:product_id])
+        review = Review.find_by(id: params[:id], product_id: params[:product_id])
         if review&.destroy
           render status: :ok
         else
