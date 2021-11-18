@@ -10,6 +10,7 @@ const ReviewItems: FC<{
   <Item.Group>
     {reviews.map((review) => (
       <Segment
+        data-testid={`review${review.id}`}
         key={review.id}
         style={{ display: 'inline-block', width: '70%' }}
       >

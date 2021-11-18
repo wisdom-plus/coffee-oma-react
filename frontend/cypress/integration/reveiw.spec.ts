@@ -1,0 +1,365 @@
+/// <reference types="cypress" />
+import {
+  sessionvalidateURL,
+  ReviewCreateURL,
+  productshowURL,
+  ReviewExistsURL,
+  LikeExistsURL,
+  ReviewDestroyURL,
+} from '../../src/urls/index';
+import currentuser from '../fixtures/currentuser.json';
+import { reviews } from '../fixtures/reviews.json';
+import { products } from '../fixtures/products.json';
+import { like } from '../fixtures/like.json';
+
+describe('Exists', () => {
+  it('successfully(login)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews },
+    }).as('ReviewExists');
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get(`[data-testid = review${reviews[0].id}]`).should('be.visible');
+  });
+
+  it('successfully(not_login)', () => {
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { liked: false, count: 2 },
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews },
+    }).as('ReviewExists');
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get(`[data-testid = review${reviews[0].id}]`).should('be.visible');
+  });
+
+  it('failed(login)(404)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 404,
+    }).as('ReviewExists');
+    cy.visit(`/product/${products[0].id}`);
+    cy.get('[data-testid=errormessage]').should('be.visible');
+  });
+
+  it('failed(not_login)(404)', () => {
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { liked: false, count: 2 },
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 404,
+    }).as('ReviewExists');
+    cy.visit(`/product/${products[0].id}`);
+    cy.get('[data-testid=errormessage]').should('be.visible');
+  });
+});
+
+describe('Create', () => {
+  it('successfully', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [reviews[1]] },
+    }).as('ReviewExists');
+    cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
+      statusCode: 201,
+    }).as('ReviewCreated');
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get('[data-testid =title] > input').type(reviews[0].title, {
+      force: true,
+    });
+    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('[data-testid =content]').type(reviews[0].content, {
+      force: true,
+    });
+    cy.get('[data-testid =submit]').click({ force: true });
+    cy.get('[data-testid=success]').should('be.visible');
+  });
+
+  it('failed(タイトル未入力)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [] },
+    });
+    cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
+      statusCode: 201,
+    });
+    cy.visit(`/product/${products[0].id}`);
+    cy.get('[data-testid =title] > input').focus().blur();
+    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('[data-testid =content]').type(reviews[0].content, {
+      force: true,
+    });
+    cy.get('.ui.pointing.below.prompt.label').should(
+      'have.text',
+      'タイトルが入力されていません。',
+    );
+  });
+
+  it('failed(レビュー内容が未入力)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [] },
+    });
+    cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
+      statusCode: 201,
+    });
+    cy.visit(`/product/${products[0].id}`);
+    cy.get('[data-testid =title] > input').type(reviews[0].title, {
+      force: true,
+    });
+    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('[data-testid =content]').focus().blur();
+    cy.get('.ui.pointing.below.prompt.label').should(
+      'have.text',
+      'レビュー本文が入力されていません。',
+    );
+  });
+
+  it('failed(404)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [reviews[1]] },
+    }).as('ReviewExists');
+    cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
+      statusCode: 404,
+    }).as('ReviewCreated');
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get('[data-testid =title] > input').type(reviews[0].title, {
+      force: true,
+    });
+    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('[data-testid =content]').type(reviews[0].content, {
+      force: true,
+    });
+    cy.get('[data-testid =submit]').click({ force: true });
+    cy.get('[data-testid=error]').should('be.visible');
+  });
+
+  it('failed(not_login)', () => {
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { liked: false, count: 2 },
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [] },
+    });
+    cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
+      statusCode: 201,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews: [reviews[0]] },
+    }).as('ReviewCreated');
+    cy.visit(`/product/${products[0].id}`);
+    cy.get('[data-testid =title] > input').should('not.exist');
+  });
+});
+describe('Destroy', () => {
+  it('successfully(login)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews },
+    }).as('ReviewExists');
+    cy.intercept(
+      'DELETE',
+      ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
+      { statusCode: 200 },
+    );
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get(`[data-testid =modalbutton${reviews[0].id}]`).click({ force: true });
+    cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
+      force: true,
+    });
+    cy.get('[data-testid=success]').should('be.visible');
+  });
+
+  it('failed(404)', () => {
+    cy.setCookie(
+      'token',
+      '{"access-token":"access-token","client":"client","uid":"uid"}',
+    );
+    cy.intercept('GET', sessionvalidateURL, {
+      statusCode: 200,
+      body: currentuser,
+    });
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews },
+    }).as('ReviewExists');
+    cy.intercept(
+      'DELETE',
+      ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
+      { statusCode: 404 },
+    );
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get(`[data-testid =modalbutton${reviews[0].id}]`).click({ force: true });
+    cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
+      force: true,
+    });
+    cy.get('[data-testid=error]').should('be.visible');
+  });
+
+  it('failed(not_login)', () => {
+    cy.intercept('GET', productshowURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { product: products[0] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { liked: false, count: 2 },
+    });
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
+      statusCode: 200,
+      body: { reviews },
+    }).as('ReviewExists');
+    cy.intercept(
+      'DELETE',
+      ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
+      { statusCode: 200 },
+    );
+    cy.visit(`/product/${products[0].id}`);
+    cy.wait('@ReviewExists');
+    cy.get(`[data-testid =modalbutton${reviews[0].id}]`).should('not.exist');
+  });
+});

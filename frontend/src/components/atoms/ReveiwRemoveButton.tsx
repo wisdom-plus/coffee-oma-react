@@ -5,13 +5,19 @@ const ReveiwRemoveButton: FC<{
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   onDestroy: () => Promise<void>;
-}> = ({ open, setOpen, onDestroy }) => (
+  ReviewId: number;
+}> = ({ open, setOpen, onDestroy, ReviewId }) => (
   <Modal
     size="tiny"
     closeIcon
     open={open}
     trigger={
-      <Button negative compact style={{ marginTop: '1em' }}>
+      <Button
+        negative
+        compact
+        style={{ marginTop: '1em' }}
+        data-testid={`modalbutton${ReviewId}`}
+      >
         レビューを削除する
       </Button>
     }
@@ -31,7 +37,11 @@ const ReveiwRemoveButton: FC<{
         <Icon name="remove" />
         閉じる
       </Button>
-      <Button color="green" onClick={() => onDestroy()}>
+      <Button
+        color="green"
+        onClick={() => onDestroy()}
+        data-testid={`ReviewDestroy${ReviewId}`}
+      >
         <Icon name="checkmark" />
         削除する
       </Button>

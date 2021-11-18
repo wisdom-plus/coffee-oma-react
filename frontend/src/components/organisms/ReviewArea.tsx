@@ -4,8 +4,9 @@ import ReviewItems from 'container/EnhancedReviewItems';
 import ErrorBoundary from 'error/ErrorBoundary';
 import ErrorReviewLoader from 'error/ErrorReviewLoader';
 import ReviewForm from 'container/EnhancedReviewForm';
+import { CurrentUser } from 'model/index';
 
-const ReviewArea: FC = () => (
+const ReviewArea: FC<{ user: CurrentUser }> = ({ user }) => (
   <>
     <Divider horizontal>
       <Header as="h4">
@@ -19,7 +20,7 @@ const ReviewArea: FC = () => (
       </Suspense>
     </ErrorBoundary>
     <Divider section />
-    <ReviewForm />
+    {user.name && <ReviewForm />}
   </>
 );
 

@@ -7,7 +7,7 @@ const EnhancedReveiwRemoveButton: FC<{
 }> = ({ ReviewId }) => {
   const { open, setOpen, onDestroy } = useReviewRemoveButoon(ReviewId);
 
-  return <ReviewRemoveButton {...{ open, setOpen, onDestroy }} />;
+  return <ReviewRemoveButton {...{ open, setOpen, onDestroy, ReviewId }} />;
 };
 
 export default EnhancedReveiwRemoveButton;
