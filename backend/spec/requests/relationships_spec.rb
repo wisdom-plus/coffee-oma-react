@@ -5,7 +5,7 @@ RSpec.describe 'Relationships', type: :request do
   let(:user1) { create(:user, email: 'test1@example.com', name: 'test1') }
   let(:follow) { create(:relationship, user: user, follow: user1) }
 
-  describe 'GET /create' do
+  describe 'POST /create' do
     context 'ログインしている' do
       sign_in(:user)
       it 'レスポンス成功' do
@@ -25,12 +25,12 @@ RSpec.describe 'Relationships', type: :request do
     end
   end
 
-  describe 'GET /destroy' do
+  describe 'DELETE /destroy' do
     context 'ログインしている' do
       sign_in(:user)
       it 'レスポンス成功' do
         delete api_v1_relationship_path(follow.follow_id)
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'レスポンス失敗' do
@@ -46,7 +46,7 @@ RSpec.describe 'Relationships', type: :request do
     end
   end
 
-  describe 'Get /exists' do
+  describe 'GET /exists' do
     context 'ログインしている時' do
       sign_in(:user)
       it 'レスポンス成功(フォローが存在するとき)' do

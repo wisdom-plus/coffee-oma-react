@@ -24,7 +24,7 @@ module Api
       def destroy
         like = current_api_v1_user.likes.find_by(product_id: params[:id])
         if like&.destroy
-          render status: :created
+          render status: :ok
         else
           render status: :not_found
         end

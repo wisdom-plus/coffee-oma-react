@@ -13,8 +13,8 @@ module Api
       end
 
       def destroy
-        review = Review.find_by(id: params[:id])
-        if review.destroy
+        review = Review.find_by(id: params[:id],product_id: params[:product_id])
+        if review&.destroy
           render status: :ok
         else
           render status: :not_found
@@ -23,7 +23,7 @@ module Api
 
       def exists
         reviews = Review.api_json(params[:product_id])
-        if reviews
+        if reviews.present?
           render json: { reviews: reviews }, status: :ok
         else
           render status: :not_found

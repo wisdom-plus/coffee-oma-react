@@ -2,6 +2,13 @@ class Review < ApplicationRecord
   include ActionView::Helpers::DateHelper
   belongs_to :product
   belongs_to :user
+  validates :title, :content, :user_id, :product_id, presence: true
+  validates :rate, numericality: {
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: 5
+  }, presence: true
+
+
   scope :get_reviews, ->(id) { where('product_id = ?', id) }
 
   def self.api_json(product_id)

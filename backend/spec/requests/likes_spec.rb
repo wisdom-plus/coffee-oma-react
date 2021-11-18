@@ -53,7 +53,7 @@ RSpec.describe 'Likes', type: :request do
       sign_in(:user)
       it 'レスポンス成功' do
         delete api_v1_like_path(like.product_id)
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'レスポンス失敗' do
