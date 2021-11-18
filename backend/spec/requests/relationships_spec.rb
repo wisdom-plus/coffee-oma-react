@@ -13,6 +13,12 @@ RSpec.describe 'Relationships', type: :request do
         expect(response).to have_http_status(:created)
       end
 
+      it 'データが作成される' do
+        expect do
+          post api_v1_relationships_path, params: { relationships: { follow_id: user1.id } }
+        end.to change(Relationship, :count).by 1
+      end
+
       it 'レスポンス失敗' do
         post api_v1_relationships_path, params: { relationships: { follow_id: (user1.id + 2) } }
         expect(response).to have_http_status(:not_found)
@@ -31,6 +37,13 @@ RSpec.describe 'Relationships', type: :request do
       it 'レスポンス成功' do
         delete api_v1_relationship_path(follow.follow_id)
         expect(response).to have_http_status(:ok)
+      end
+
+      it 'データが削除される' do
+        follow
+        expect do
+          delete api_v1_relationship_path(follow.follow_id)
+        end.to change(Relationship, :count).by(-1)
       end
 
       it 'レスポンス失敗' do

@@ -36,6 +36,12 @@ RSpec.describe 'Likes', type: :request do
         expect(response).to have_http_status(:created)
       end
 
+      it 'データが作成される' do
+        expect do
+          post api_v1_likes_path, params: { like: { product_id: product.id } }
+        end.to change(Like, :count).by 1
+      end
+
       it 'レスポンス失敗' do
         post api_v1_likes_path, params: { like: { product_id: (product1.id + 2) } }
         expect(response).to have_http_status(:not_found)
@@ -54,6 +60,13 @@ RSpec.describe 'Likes', type: :request do
       it 'レスポンス成功' do
         delete api_v1_like_path(like.product_id)
         expect(response).to have_http_status(:ok)
+      end
+
+      it 'データが削除される' do
+        like
+        expect do
+          delete api_v1_like_path(like.product_id)
+        end.to change(Like, :count).by(-1)
       end
 
       it 'レスポンス失敗' do
@@ -76,6 +89,13 @@ RSpec.describe 'Likes', type: :request do
         expect(response).to have_http_status(:ok)
       end
 
+      it 'レスポンスボディ' do
+        like
+        get exists_api_v1_likes_path, params: { product_id: like.product_id }
+        expect(json['liked']).to eq(expect_json(true))
+        expect(json['count']).to eq(expect_json(product.likes.size))
+      end
+
       it 'レスポンス失敗' do
         get exists_api_v1_likes_path, params: { product_id: (like.product_id + 2) }
         expect(response).to have_http_status(:not_found)
@@ -86,6 +106,13 @@ RSpec.describe 'Likes', type: :request do
       it 'レスポンス成功' do
         get exists_api_v1_likes_path, params: { product_id: product.id }
         expect(response).to have_http_status(:ok)
+      end
+
+      it 'レスポンスボディ' do
+        like
+        get exists_api_v1_likes_path, params: { product_id: like.product_id }
+        expect(json['liked']).to eq(expect_json(false))
+        expect(json['count']).to eq(expect_json(product.likes.size))
       end
 
       it 'レスポンス失敗' do
