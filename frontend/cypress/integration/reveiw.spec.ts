@@ -112,7 +112,7 @@ describe('Create', () => {
       force: true,
     });
     cy.get('[data-testid =submit]').click({ force: true });
-    cy.get('[data-testid=success]').should('be.visible');
+    cy.FlashMessage('success', 'レビューが作成されました.');
   });
 
   it('failed(タイトル未入力)', () => {
@@ -194,6 +194,7 @@ describe('Create', () => {
       force: true,
     });
     cy.get('[data-testid =submit]').click({ force: true });
+    cy.FlashMessage('error', 'エラーが発生しました。');
     cy.get('[data-testid=error]').should('be.visible');
   });
 
@@ -247,7 +248,7 @@ describe('Destroy', () => {
     cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
       force: true,
     });
-    cy.get('[data-testid=success]').should('be.visible');
+    cy.FlashMessage('success', 'レビューを削除しました。');
   });
 
   it('failed(404)', () => {
@@ -275,7 +276,7 @@ describe('Destroy', () => {
     cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
       force: true,
     });
-    cy.get('[data-testid=error]').should('be.visible');
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 
   it('failed(not_login)', () => {
