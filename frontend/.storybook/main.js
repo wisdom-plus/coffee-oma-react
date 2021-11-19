@@ -14,6 +14,10 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@storybook/addon-docs',
     '@storybook/addon-controls',
+    '@storybook/addon-notes/register',
+    '@storybook/addon-a11y',
+    '@whitespace/storybook-addon-html',
+    'storybook-axios/register',
   ],
   webpackFinal: async (config) => {
     config.resolve.modules = [

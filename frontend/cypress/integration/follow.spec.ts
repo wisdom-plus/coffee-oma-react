@@ -11,15 +11,8 @@ import currentuser from '../fixtures/currentuser.json';
 import { users } from '../fixtures/users.json';
 
 describe('Create', () => {
-  it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+  beforeEach(() => {
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
@@ -27,6 +20,8 @@ describe('Create', () => {
     cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
       statusCode: 204,
     });
+  });
+  it('successfully', () => {
     cy.intercept('POST', FollowURL, { statusCode: 201 });
     cy.visit(`/registration/${users[1].id}`);
     cy.get('[data-testid = create]', { includeShadowDom: true }).click({
@@ -38,43 +33,18 @@ describe('Create', () => {
     );
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
-    cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
-      statusCode: 200,
-      body: { data: users[1] },
-    });
-    cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
-      statusCode: 204,
-    });
     cy.intercept('POST', FollowURL, { statusCode: 500 });
     cy.visit(`/registration/${users[1].id}`);
     cy.get('[data-testid = create]', { includeShadowDom: true }).click({
       force: true,
     });
-    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });
 
 describe('Destory', () => {
-  it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+  beforeEach(() => {
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
@@ -82,6 +52,8 @@ describe('Destory', () => {
     cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
       statusCode: 200,
     });
+  });
+  it('successfully', () => {
     cy.intercept('DELETE', FollowDestroyURL(`${users[1].id}`), {
       statusCode: 201,
     });
@@ -95,21 +67,6 @@ describe('Destory', () => {
     );
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
-    cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
-      statusCode: 200,
-      body: { data: users[1] },
-    });
-    cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
-      statusCode: 200,
-    });
     cy.intercept('DELETE', FollowDestroyURL(`${users[1].id}`), {
       statusCode: 500,
     });
@@ -117,9 +74,6 @@ describe('Destory', () => {
     cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
       force: true,
     });
-    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });

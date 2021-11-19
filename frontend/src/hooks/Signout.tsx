@@ -2,10 +2,10 @@ import { useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
-import LoginState from 'RecoilApp';
+import LoginState from 'Atom';
 import { useCookies } from 'react-cookie';
 
-const useSignout = (): void => {
+const useSignOut = (): void => {
   const history = useHistory();
   const resetUser = useResetRecoilState(LoginState);
   const [cookie, , removeCookie] = useCookies(['token']);
@@ -44,4 +44,4 @@ const useSignout = (): void => {
   }, [history, success, cookie]);
 };
 
-export default useSignout;
+export default useSignOut;

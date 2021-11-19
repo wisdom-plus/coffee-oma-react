@@ -1,6 +1,5 @@
 import { Fetchproductindex } from 'apis/Product';
 import { Product } from 'model/index';
-
 import { useQuery } from 'react-query';
 
 const useThreeCards = (): Product[] => {

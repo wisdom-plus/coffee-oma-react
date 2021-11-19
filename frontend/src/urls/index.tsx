@@ -13,12 +13,19 @@ export const sessionconfirmationURL = `${DEFAULT_API_LOCALHOST}/auth/confirmatio
 export const passwordresetURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
 export const passwordreseteditURL = `${DEFAULT_API_LOCALHOST}/auth/password`;
 export const LikeCreateURL = `${DEFAULT_API_LOCALHOST}/likes`;
-export const LikeDestroyURL = (productId: string): string =>
-  `${DEFAULT_API_LOCALHOST}/likes/${productId}`;
+export const LikeDestroyURL = (ProductId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/likes/${ProductId}`;
 export const LikeExistsURL = `${DEFAULT_API_LOCALHOST}/likes/exists`;
 export const LikeIndexURL = `${DEFAULT_API_LOCALHOST}/likes`;
 export const FollowURL = `${DEFAULT_API_LOCALHOST}/relationships`;
 export const FollowDestroyURL = (UserId: string): string =>
   `${DEFAULT_API_LOCALHOST}/relationships/${UserId}`;
 export const FollowExistsURL = `${DEFAULT_API_LOCALHOST}/relationships/exists`;
+export const ReviewExistsURL = (ProductId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews/exists`;
+export const ReviewCreateURL = (ProductId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews`;
+export const ReviewDestroyURL = (ProductId: string, ReviewId: string): string =>
+  `${DEFAULT_API_LOCALHOST}/products/${ProductId}/reviews/${ReviewId}`;
+
 export default productindexURL;

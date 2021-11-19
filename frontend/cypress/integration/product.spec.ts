@@ -36,8 +36,7 @@ describe('Index', () => {
   it('faild', () => {
     cy.intercept('GET', productindexURL, { statusCode: 404 });
     cy.visit('/products', { failOnStatusCode: false });
-    cy.get('[data-testid=errormessage]').should(
-      'have.text',
+    cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
   });
@@ -58,10 +57,7 @@ describe('New', () => {
     cy.get('[data-testid =caption]').type('coffeeの説明文', { force: true });
     cy.get('[data-testid =submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/products');
-    cy.get('[data-testid =success]').should(
-      'have.text',
-      '登録に成功しました。',
-    );
+    cy.FlashMessage('success', '登録に成功しました。');
   });
   it('failed', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });
@@ -85,10 +81,7 @@ describe('New', () => {
     cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
     cy.get('[data-testid =price] > input').type('1000', { force: true });
     cy.get('[data-testid =caption]').focus().blur();
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      '商品の説明が入力されていません。',
-    );
+    cy.FormErrorMessage('商品の説明が入力されていません。');
   });
 });
 describe('Show', () => {
@@ -105,8 +98,7 @@ describe('Show', () => {
       statusCode: 404,
     });
     cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
-    cy.get('[data-testid=errormessage]').should(
-      'have.text',
+    cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
   });

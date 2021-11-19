@@ -7,6 +7,8 @@ import AxiosMack from 'stories/app/Apimock';
 import MockAdapter from 'axios-mock-adapter';
 import { sessionvalidateURL } from 'urls/index';
 import { currentuser } from 'mock/User';
+import { CookiesProvider } from 'react-cookie';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
   title: 'app/registration',
@@ -17,14 +19,31 @@ const mock = (apiMock: MockAdapter) => {
   apiMock.onGet(sessionvalidateURL).reply(200, { data: currentuser });
 };
 
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      suspense: true,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
 const Template: Story<ComponentProps<typeof App>> = () => (
-  <RecoilRoot>
-    <MemoryRouter initialEntries={['/registration/edit']}>
-      <AxiosMack mock={mock}>
-        <App />
-      </AxiosMack>
-    </MemoryRouter>
-  </RecoilRoot>
+  <QueryClientProvider client={client}>
+    <CookiesProvider>
+      <RecoilRoot>
+        <MemoryRouter initialEntries={['/registration/edit']}>
+          <AxiosMack mock={mock}>
+            <App />
+          </AxiosMack>
+        </MemoryRouter>
+      </RecoilRoot>
+    </CookiesProvider>
+  </QueryClientProvider>
 );
 
 export const edit = Template.bind({});

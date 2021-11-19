@@ -18,7 +18,7 @@ module Api
         if follow.nil?
           render status: :not_found
         else
-          render status: :created
+          render status: :ok
         end
       end
 

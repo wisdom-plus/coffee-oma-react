@@ -4,24 +4,24 @@ import { Button } from 'semantic-ui-react';
 type LikeState = { liked: boolean; count: number };
 
 type Liketype = {
-  state: LikeState;
+  like: LikeState;
   onCreate: () => void;
   onDestroy: () => void;
 };
 
 const LikedButton: FC<Liketype> = ({
-  state = { liked: false, count: 0 },
+  like = { liked: false, count: 0 },
   onCreate = () => undefined,
   onDestroy = () => undefined,
 }) =>
-  state.liked ? (
+  like.liked ? (
     <Button
       circular
       onClick={onDestroy}
       color="red"
       data-testid="destroy"
       icon="heart"
-      content={`${state.count}`}
+      content={`${like.count}`}
     />
   ) : (
     <Button
@@ -29,7 +29,7 @@ const LikedButton: FC<Liketype> = ({
       onClick={onCreate}
       data-testid="create"
       icon="heart"
-      content={`${state.count}`}
+      content={`${like.count}`}
     />
   );
 

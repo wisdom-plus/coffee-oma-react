@@ -1,0 +1,20 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "title": "レビュータイトル１",
+      "content": "レビュー内容１",
+      "rate": 5,
+      "time_ago": "1日",
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "title": "レビュータイトル2",
+      "content": "レビュー内容2",
+      "rate": 1,
+      "time_ago": "1日",
+      "user_id": 2
+    }
+  ]
+}
