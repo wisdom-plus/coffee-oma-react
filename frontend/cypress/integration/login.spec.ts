@@ -29,10 +29,7 @@ describe('Login', () => {
     });
     cy.get('[data-testid = login]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/');
-    cy.get('[data-testid = success]').should(
-      'have.text',
-      'ログインに成功しました。',
-    );
+    cy.FlashMessage('success', 'ログインに成功しました。');
   });
   it('failed', () => {
     cy.intercept('POST', sessionnewURL, {
@@ -47,9 +44,6 @@ describe('Login', () => {
     });
     cy.get('[data-testid = password] > input').type('pass', { force: true });
     cy.get('[data-testid = login]').click({ force: true });
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      'ログインに失敗しました。',
-    );
+    cy.FlashMessage('error', 'ログインに失敗しました。');
   });
 });

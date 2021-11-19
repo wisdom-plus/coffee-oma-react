@@ -40,10 +40,7 @@ describe('Create', () => {
     cy.intercept('POST', LikeCreateURL, { statusCode: 500 });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = create]').click({ force: true });
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });
 
@@ -80,9 +77,6 @@ describe('Destroy', () => {
     });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid=destroy]').click({ force: true });
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });

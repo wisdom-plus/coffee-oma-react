@@ -18,10 +18,7 @@ describe('mypage', () => {
   it('failed', () => {
     cy.visit('/mypage');
     cy.url().should('eq', 'http://localhost:3000/sign_in');
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      'ログインしてから、お試しください。',
-    );
+    cy.FlashMessage('error', 'ログインしてから、お試しください。');
   });
 });
 describe('show', () => {
@@ -67,10 +64,7 @@ describe('Edit', () => {
       .type(updateuser.profile, { force: true });
     cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/mypage');
-    cy.get('[data-testid =success]').should(
-      'have.text',
-      'アカウント情報を更新しました。',
-    );
+    cy.FlashMessage('success', 'アカウント情報を更新しました。');
   });
   it('error message(name)', () => {
     cy.Logined(currentuser);
@@ -107,9 +101,6 @@ describe('Edit', () => {
       .type(updateuser.profile, { force: true });
     cy.get('[data-testid = submit]').click({ force: true });
     cy.url().should('eq', 'http://localhost:3000/registration/edit');
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      '入力が正しくありません。',
-    );
+    cy.FlashMessage('error', '入力が正しくありません。');
   });
 });

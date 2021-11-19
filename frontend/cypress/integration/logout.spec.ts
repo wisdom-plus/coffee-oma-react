@@ -16,9 +16,6 @@ describe('Logout', () => {
     cy.Logined(currentuser);
     cy.intercept('DELETE', sessiondestroyURL, { statusCode: 401 });
     cy.visit('/sign_out');
-    cy.get('[data-testid = error]').should(
-      'have.text',
-      'ログアウトに失敗しました。',
-    );
+    cy.FlashMessage('error', 'ログアウトに失敗しました。');
   });
 });

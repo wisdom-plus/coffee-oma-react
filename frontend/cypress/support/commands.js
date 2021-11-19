@@ -13,3 +13,7 @@ Cypress.Commands.add('Logined', (login_user) => {
 Cypress.Commands.add('FormErrorMessage', (errormessage) => {
   cy.get('.ui.pointing.below.prompt.label').should('have.text', errormessage);
 });
+
+Cypress.Commands.add('FlashMessage', (type, message) => {
+  cy.get(`[data-testid=${type}]`).should('have.text', message);
+});

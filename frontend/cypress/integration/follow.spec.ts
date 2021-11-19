@@ -44,10 +44,7 @@ describe('Create', () => {
     cy.get('[data-testid = create]', { includeShadowDom: true }).click({
       force: true,
     });
-    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });
 
@@ -89,9 +86,6 @@ describe('Destory', () => {
     cy.get('[data-testid = destroy]', { includeShadowDom: true }).click({
       force: true,
     });
-    cy.get('[data-testid = error]', { includeShadowDom: true }).should(
-      'have.text',
-      'エラーが発生しました。',
-    );
+    cy.FlashMessage('error', 'エラーが発生しました。');
   });
 });
