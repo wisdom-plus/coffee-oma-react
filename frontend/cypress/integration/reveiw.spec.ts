@@ -14,14 +14,7 @@ import { like } from '../fixtures/like.json';
 
 describe('Exists', () => {
   it('successfully(login)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -58,14 +51,7 @@ describe('Exists', () => {
   });
 
   it('failed(login)(404)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -100,14 +86,7 @@ describe('Exists', () => {
 
 describe('Create', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -137,14 +116,7 @@ describe('Create', () => {
   });
 
   it('failed(タイトル未入力)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -166,21 +138,11 @@ describe('Create', () => {
     cy.get('[data-testid =content]').type(reviews[0].content, {
       force: true,
     });
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'タイトルが入力されていません。',
-    );
+    cy.FormErrorMessage('タイトルが入力されていません。');
   });
 
   it('failed(レビュー内容が未入力)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -202,21 +164,11 @@ describe('Create', () => {
     });
     cy.get('[aria-posinset="5"]').click({ force: true });
     cy.get('[data-testid =content]').focus().blur();
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'レビュー本文が入力されていません。',
-    );
+    cy.FormErrorMessage('レビュー本文が入力されていません。');
   });
 
   it('failed(404)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -271,14 +223,7 @@ describe('Create', () => {
 });
 describe('Destroy', () => {
   it('successfully(login)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -306,14 +251,7 @@ describe('Destroy', () => {
   });
 
   it('failed(404)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },

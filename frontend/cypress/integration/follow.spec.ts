@@ -12,14 +12,7 @@ import { users } from '../fixtures/users.json';
 
 describe('Create', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
@@ -38,14 +31,7 @@ describe('Create', () => {
     );
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
@@ -67,14 +53,7 @@ describe('Create', () => {
 
 describe('Destory', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },
@@ -95,14 +74,7 @@ describe('Destory', () => {
     );
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${users[1].id}`), {
       statusCode: 200,
       body: { data: users[1] },

@@ -48,10 +48,7 @@ describe('Sign up', () => {
       force: true,
     });
     cy.get('[data-testid = submit]').click({ force: true });
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'アカウント名は最低2文字以上必要です',
-    );
+    cy.FormErrorMessage('アカウント名は最低2文字以上必要です');
   });
   it('form failed(email)', () => {
     cy.visit('/sign_up');
@@ -64,10 +61,7 @@ describe('Sign up', () => {
       force: true,
     });
     cy.get('[data-testid = submit]').click({ force: true });
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'メールアドレスが入力されていません。',
-    );
+    cy.FormErrorMessage('メールアドレスが入力されていません。');
   });
   it('form failed(password)', () => {
     cy.visit('/sign_up');
@@ -80,8 +74,7 @@ describe('Sign up', () => {
       force: true,
     });
     cy.get('[data-testid = submit]').click({ force: true });
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
+    cy.FormErrorMessage(
       'パスワードは最低８文字以上必要ですパスワードが一致しません',
     );
   });
@@ -103,9 +96,6 @@ describe('Sign up', () => {
       '{backspace}',
       { force: true },
     );
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'パスワードが一致しません',
-    );
+    cy.FormErrorMessage('パスワードが一致しません');
   });
 });

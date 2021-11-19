@@ -85,10 +85,7 @@ describe('New', () => {
     cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
     cy.get('[data-testid =price] > input').type('1000', { force: true });
     cy.get('[data-testid =caption]').focus().blur();
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      '商品の説明が入力されていません。',
-    );
+    cy.FormErrorMessage('商品の説明が入力されていません。');
   });
 });
 describe('Show', () => {

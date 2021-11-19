@@ -12,14 +12,7 @@ import { like } from '../fixtures/like.json';
 
 describe('Create', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -35,14 +28,7 @@ describe('Create', () => {
   });
 
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -63,14 +49,7 @@ describe('Create', () => {
 
 describe('Destroy', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
@@ -87,14 +66,7 @@ describe('Destroy', () => {
     cy.get('[data-testid=create]').should('have.text', '1');
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },

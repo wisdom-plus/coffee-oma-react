@@ -11,14 +11,7 @@ import updateuser from '../fixtures/updateuser.json';
 
 describe('mypage', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.visit('/mypage');
     cy.get('[data-testid = name]').should('have.text', currentuser.data.name);
   });
@@ -33,14 +26,7 @@ describe('mypage', () => {
 });
 describe('show', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('GET', RegistrationShowURL(`${user.users[1].id}`), {
       statusCode: 200,
       body: { data: user.users[1] },
@@ -63,14 +49,7 @@ describe('show', () => {
 });
 describe('Edit', () => {
   it('successfully', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('PUT', RegistrationNewURL, {
       statusCode: 200,
       body: { data: updateuser },
@@ -94,50 +73,25 @@ describe('Edit', () => {
     );
   });
   it('error message(name)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.visit('/registration/edit');
     cy.get('[data-testid = name] > input').clear({ force: true }).blur();
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
-      'アカウント名が入力されていません。',
-    );
+    cy.FormErrorMessage('アカウント名が入力されていません。');
   });
   it('error message(passowrd)', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.visit('/registration/edit');
     cy.get('[data-testid=accodion]').click({ force: true });
     cy.get('[data-testid = password] > input')
       .clear({ force: true })
       .type('pass', { force: true });
     cy.get('[data-testid = submit]').click({ force: true });
-    cy.get('.ui.pointing.below.prompt.label').should(
-      'have.text',
+    cy.FormErrorMessage(
       'パスワードは最低８文字以上必要ですパスワードが一致しません',
     );
   });
   it('failed', () => {
-    cy.setCookie(
-      'token',
-      '{"access-token":"access-token","client":"client","uid":"uid"}',
-    );
-    cy.intercept('GET', sessionvalidateURL, {
-      statusCode: 200,
-      body: currentuser,
-    });
+    cy.Logined(currentuser);
     cy.intercept('PUT', RegistrationNewURL, {
       statusCode: 401,
     });

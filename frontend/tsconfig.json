@@ -7,7 +7,7 @@
       "esnext",
       "es5"
     ],
-    "types": ["cypress"],
+    "types": ["jest"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
