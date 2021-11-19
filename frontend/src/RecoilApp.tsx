@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Fetchsessionvaildate } from 'apis/Session';
+import { Fetchsessionvalidate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
 import { useQuery } from 'react-query';
 import LoginState from 'Atom';
@@ -11,7 +11,7 @@ export const RecoilApp: FC = ({ children }) => {
 
   const { data: currentuser, isSuccess } = useQuery(
     [cookie, 'user'],
-    () => Fetchsessionvaildate(cookie.token),
+    () => Fetchsessionvalidate(cookie.token),
     {
       enabled: !!cookie.token,
     },

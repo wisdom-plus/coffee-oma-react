@@ -5,7 +5,7 @@ import { sessionvalidateURL, LikeExistsURL } from 'urls/index';
 import { currentuser } from 'mock/User';
 import { SignedInAxios } from 'apis/Session';
 
-const apiMock = new MockAdapter(axios);
+const apiMock = new MockAdapter(axios.create());
 const SignedMock = new MockAdapter(SignedInAxios);
 
 type Props = {
@@ -23,9 +23,8 @@ const AxiosMock: FC<Props> = ({
 }) => {
   useEffect(() => {
     if (logined) {
-      localStorage.setItem('access-token', 'access-token');
-      localStorage.setItem('client', 'client');
-      localStorage.setItem('uid', 'uid');
+      document.cookie =
+        'token={"access-token":"access-token","client":"client","uid":"uid"}';
       apiMock.onGet(sessionvalidateURL).reply(200, { data: currentuser });
     }
     if (like) {
@@ -37,6 +36,7 @@ const AxiosMock: FC<Props> = ({
     mock(apiMock);
 
     return () => {
+      document.cookie = 'token=; max-age=0';
       apiMock.reset();
     };
   });

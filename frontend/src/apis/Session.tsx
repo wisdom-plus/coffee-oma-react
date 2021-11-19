@@ -23,10 +23,6 @@ type ResetPasswordEditParams = {
   headers: Token;
   data: ResetPasswordEditdata;
 };
-// const delay = (time: number) => (result: number) =>
-//   new Promise((resolve) => {
-//     setTimeout(() => resolve(result), time);
-//   });
 
 export const Fetchsessionnew = async (session: Session): Promise<login> => {
   try {
@@ -54,7 +50,7 @@ export const Fetchsessiondestroy = async (headers: Token): Promise<number> => {
   }
 };
 
-export const Fetchsessionvaildate = async (
+export const Fetchsessionvalidate = async (
   headers: Token,
 ): Promise<{
   data: CurrentUser;

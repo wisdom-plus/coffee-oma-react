@@ -5,26 +5,47 @@ import { MemoryRouter } from 'react-router';
 import App from 'App';
 import AxiosMack from 'stories/app/Apimock';
 import MockAdapter from 'axios-mock-adapter';
-import { productindexURL } from 'urls/index';
+import { LikeIndexURL } from 'urls/index';
 import { products } from 'mock/product';
+import { CookiesProvider } from 'react-cookie';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 export default {
   title: 'app/home',
   component: App,
 } as Meta;
 
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      suspense: true,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
 const mock = (apiMock: MockAdapter) => {
-  apiMock.onGet(productindexURL).reply(200, { products });
+  apiMock.onGet(LikeIndexURL).reply(200, { likes: products });
 };
 
 const Template: Story<ComponentProps<typeof App>> = () => (
-  <RecoilRoot>
-    <MemoryRouter initialEntries={['/']}>
-      <AxiosMack mock={mock}>
-        <App />
-      </AxiosMack>
-    </MemoryRouter>
-  </RecoilRoot>
+  <QueryClientProvider client={client}>
+    <CookiesProvider>
+      <RecoilRoot>
+        <MemoryRouter initialEntries={['/']}>
+          <AxiosMack mock={mock} logined>
+            <App />
+          </AxiosMack>
+        </MemoryRouter>
+      </RecoilRoot>
+    </CookiesProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 );
 
 export const home = Template.bind({});

@@ -7,6 +7,8 @@ import AxiosMack from 'stories/app/Apimock';
 import MockAdapter from 'axios-mock-adapter';
 import { productshowURL } from 'urls/index';
 import { products } from 'mock/product';
+import { CookiesProvider } from 'react-cookie';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
   title: 'app/product',
@@ -17,14 +19,31 @@ const mock = (apiMock: MockAdapter) => {
   apiMock.onGet(productshowURL('1')).reply(200, { product: products[0] });
 };
 
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      suspense: true,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
 const Template: Story<ComponentProps<typeof App>> = () => (
-  <RecoilRoot>
-    <MemoryRouter initialEntries={['/product/1']}>
-      <AxiosMack mock={mock}>
-        <App />
-      </AxiosMack>
-    </MemoryRouter>
-  </RecoilRoot>
+  <QueryClientProvider client={client}>
+    <CookiesProvider>
+      <RecoilRoot>
+        <MemoryRouter initialEntries={['/product/1']}>
+          <AxiosMack mock={mock}>
+            <App />
+          </AxiosMack>
+        </MemoryRouter>
+      </RecoilRoot>
+    </CookiesProvider>
+  </QueryClientProvider>
 );
 
 export const show = Template.bind({});
