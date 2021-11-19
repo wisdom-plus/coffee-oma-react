@@ -36,8 +36,7 @@ describe('Index', () => {
   it('faild', () => {
     cy.intercept('GET', productindexURL, { statusCode: 404 });
     cy.visit('/products', { failOnStatusCode: false });
-    cy.get('[data-testid=errormessage]').should(
-      'have.text',
+    cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
   });
@@ -99,8 +98,7 @@ describe('Show', () => {
       statusCode: 404,
     });
     cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
-    cy.get('[data-testid=errormessage]').should(
-      'have.text',
+    cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
   });

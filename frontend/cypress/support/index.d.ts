@@ -21,5 +21,6 @@ declare namespace Cypress {
     }): void;
     FormErrorMessage(errrormessage: string): void;
     FlashMessage(type: 'success' | 'error', message: string): void;
+    ErrorBoundary(message: string): void;
   }
 }

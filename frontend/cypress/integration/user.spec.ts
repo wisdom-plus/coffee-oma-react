@@ -38,8 +38,7 @@ describe('show', () => {
       body: { data: user.users[1] },
     }).as('RegistrationShow');
     cy.visit(`/registration/${user.users[0].id}`, { failOnStatusCode: false });
-    cy.get('[data-testid=errormessage]').should(
-      'have.text',
+    cy.ErrorBoundary(
       'サーバーエラーが発生しました。時間をおいてから再度アクセスしてください。',
     );
   });

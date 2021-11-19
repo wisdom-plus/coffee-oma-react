@@ -13,12 +13,14 @@ import { products } from '../fixtures/products.json';
 import { like } from '../fixtures/like.json';
 
 describe('Exists', () => {
-  it('successfully(login)', () => {
-    cy.Logined(currentuser);
+  beforeEach(() => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
     });
+  });
+  it('successfully(login)', () => {
+    cy.Logined(currentuser);
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -33,10 +35,6 @@ describe('Exists', () => {
   });
 
   it('successfully(not_login)', () => {
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: { liked: false, count: 2 },
@@ -52,10 +50,6 @@ describe('Exists', () => {
 
   it('failed(login)(404)', () => {
     cy.Logined(currentuser);
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -64,14 +58,12 @@ describe('Exists', () => {
       statusCode: 404,
     }).as('ReviewExists');
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid=errormessage]').should('be.visible');
+    cy.ErrorBoundary(
+      'レビューが取得できませんでした。時間をおいてから再度アクセスしてください。',
+    );
   });
 
   it('failed(not_login)(404)', () => {
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: { liked: false, count: 2 },
@@ -80,17 +72,21 @@ describe('Exists', () => {
       statusCode: 404,
     }).as('ReviewExists');
     cy.visit(`/product/${products[0].id}`);
-    cy.get('[data-testid=errormessage]').should('be.visible');
+    cy.ErrorBoundary(
+      'レビューが取得できませんでした。時間をおいてから再度アクセスしてください。',
+    );
   });
 });
 
 describe('Create', () => {
-  it('successfully', () => {
-    cy.Logined(currentuser);
+  beforeEach(() => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
-    });
+    }).as('ProductShow');
+  });
+  it('successfully', () => {
+    cy.Logined(currentuser);
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -117,10 +113,6 @@ describe('Create', () => {
 
   it('failed(タイトル未入力)', () => {
     cy.Logined(currentuser);
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -143,10 +135,6 @@ describe('Create', () => {
 
   it('failed(レビュー内容が未入力)', () => {
     cy.Logined(currentuser);
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -169,10 +157,6 @@ describe('Create', () => {
 
   it('failed(404)', () => {
     cy.Logined(currentuser);
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
@@ -195,14 +179,9 @@ describe('Create', () => {
     });
     cy.get('[data-testid =submit]').click({ force: true });
     cy.FlashMessage('error', 'エラーが発生しました。');
-    cy.get('[data-testid=error]').should('be.visible');
   });
 
   it('failed(not_login)', () => {
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: { liked: false, count: 2 },
@@ -223,20 +202,27 @@ describe('Create', () => {
   });
 });
 describe('Destroy', () => {
-  it('successfully(login)', () => {
-    cy.Logined(currentuser);
+  beforeEach(() => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
     });
-    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
       statusCode: 200,
-      body: like,
+      body: { reviews },
     });
     cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
       statusCode: 200,
       body: { reviews },
     }).as('ReviewExists');
+  });
+
+  it('successfully(login)', () => {
+    cy.Logined(currentuser);
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: like,
+    });
     cy.intercept(
       'DELETE',
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
@@ -253,18 +239,10 @@ describe('Destroy', () => {
 
   it('failed(404)', () => {
     cy.Logined(currentuser);
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: like,
     });
-    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { reviews },
-    }).as('ReviewExists');
     cy.intercept(
       'DELETE',
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
@@ -280,18 +258,10 @@ describe('Destroy', () => {
   });
 
   it('failed(not_login)', () => {
-    cy.intercept('GET', productshowURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { product: products[0] },
-    });
     cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
       statusCode: 200,
       body: { liked: false, count: 2 },
     });
-    cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
-      statusCode: 200,
-      body: { reviews },
-    }).as('ReviewExists');
     cy.intercept(
       'DELETE',
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
