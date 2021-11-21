@@ -1,8 +1,7 @@
 FROM node:15.8.0-alpine
-SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 WORKDIR /usr/src/frontend
 COPY . .
-RUN echo U0tJUF9QUkVGTElHSFRfQ0hFQ0s9dHJ1ZQoK | base 64 -d >.env \
+RUN echo U0tJUF9QUkVGTElHSFRfQ0hFQ0s9dHJ1ZQoK | base64 -d >.env \
     && yarn install \
     && yarn cache clean \
     && yarn build
