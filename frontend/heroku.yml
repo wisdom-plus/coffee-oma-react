@@ -1,0 +1,12 @@
+setup:
+  config:
+    NODE_ENV: production
+    NPM_CONFIG_PRODUCTION: false
+build:
+  docker:
+    web: Dockerfile.web
+  config:
+    WORKDIR: frontend
+    API_URL: "https://coffee-oma-backend.herokuapp.com"
+run:
+  web: yarn start

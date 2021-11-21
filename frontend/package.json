@@ -42,6 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "heroku:start": "react-scripts build && react-scripts start",
     "fix": "npm run -s format && npm run -s lint:fix",
     "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx,gql,graphql,json}'",
     "lint": "npm run -s lint:style; npm run -s lint:es",
