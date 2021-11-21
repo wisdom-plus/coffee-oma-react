@@ -1,0 +1,8 @@
+FROM node:15.8.0-alpine
+WORKDIR /usr/src/frontend
+COPY . .
+RUN yarn install \
+    && yarn cache clean \
+    && yarn build
+
+EXPOSE 3000

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import ProductShow from 'components/templates/ProductShow';
 import useProductShow from 'hooks/ProductShow';
+import ProductShow from 'components/templates/ProductShow';
 
 const EnhancedProductShow: FC = () => {
   const state = useProductShow();
