@@ -1,12 +1,14 @@
 FROM ruby:2.7.2-alpine
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 WORKDIR /coffee-oma
-
+ARG ENV_FILE
 ENV PORT 3001
 
 COPY Gemfile Gemfile.lock  ./
 
-RUN apk  --no-cache add linux-headers\
+RUN echo "$ENV_FILE" | base64 -d >.env  \
+    && apk  --no-cache add linux-headers\
                         libxml2-dev\
                         make\
                         gcc\
