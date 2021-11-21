@@ -35,7 +35,7 @@ preload_app!
 
 rackup DefaultRackup
 port  ENV['PORT'] || 3001
-enviroment ENV['RACK_ENV'] || 'development'
+environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
   ActiveRecord:Base.establish_connection
