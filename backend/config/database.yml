@@ -53,8 +53,9 @@ test:
 #
 production:
   <<: *default
-  database: backend_production
-  username: root
-  password: <%= ENV['COFFEE_DATABASE_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  database: <%= ENV['DATABASE_DATABASE'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  ports: <%= ENV['DATABASE_PORT'] %>
