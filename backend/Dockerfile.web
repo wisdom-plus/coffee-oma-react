@@ -27,5 +27,8 @@ RUN echo "$ENV_FILE" | base64 -d >.env  \
     apk del build-dependencies
 
 COPY . .
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
 
 EXPOSE 3001
+ENTRYPOINT ["entrypoinst.sh"]
