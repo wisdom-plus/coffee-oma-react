@@ -4,6 +4,8 @@ COPY . .
 RUN echo U0tJUF9QUkVGTElHSFRfQ0hFQ0s9dHJ1ZQoK | base64 -d >.env \
     && yarn install \
     && yarn cache clean \
-    && yarn build
+    && yarn build \
+    && echo fs.inotify.max_user_watches=24288 | sudo tee -a /etc/sysctl.conf \
+    && sysctl -p
 
 EXPOSE 3000
