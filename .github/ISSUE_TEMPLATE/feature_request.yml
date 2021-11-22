@@ -9,16 +9,17 @@ body:
     attributes:
       value: |
         新しい機能のを追加するためのissueを書いてください。React,Railsなど関係なくissueを追加してください。
-  - type: checkboxes
-    id: type
+  - type: dropdown
+    id: download
     attributes:
-      label: Code type
-      description: FrontendとBackendのどちらか
+      label: How did you download the software?
       options:
-        - 'FrontEnd'
-        - 'BackEnd'
-    validations:
-      required: true
+        - Homebrew
+        - MacPorts
+        - apt-get
+        - Built from source
+  validations:
+    required: true
   - type: textarea
     id: feature
     attributes:
