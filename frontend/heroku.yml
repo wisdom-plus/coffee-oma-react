@@ -10,4 +10,4 @@ build:
     API_URL: "https://coffee-oma-backend.herokuapp.com"
     NODE_ENV: production
 run:
-  web: serve -s build
+  web: yarn global add serve && serve -s build
