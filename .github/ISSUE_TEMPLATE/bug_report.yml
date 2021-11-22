@@ -1,4 +1,4 @@
-name: bug_report
+name: バグレポート
 description: バグの報告
 title: "[Bug]: "
 labels: ["bug"]
@@ -13,7 +13,7 @@ body:
     id: logs
     attributes:
       label: ログの出力
-      description: 関連するログの出力をコピーしてペーストしてください。 これは自動的にコードにフォーマットされるので、バックティックは不要です。
+      description: 関連するログの出力をコピーしてペーストしてください。
       render: shell
   - type: textarea
     id: what-happened
