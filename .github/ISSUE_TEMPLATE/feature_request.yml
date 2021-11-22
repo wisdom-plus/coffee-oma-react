@@ -1,7 +1,7 @@
-name: feature
+name: 新機能
 description: new feature
 title: "[feature]: "
-labels: ["New feature"]
+labels: ["New Feature"]
 assignees:
   - tomoron
 body:
