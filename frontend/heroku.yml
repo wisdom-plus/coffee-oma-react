@@ -8,5 +8,6 @@ build:
   config:
     WORKDIR: frontend
     API_URL: "https://coffee-oma-backend.herokuapp.com"
+    NODE_ENV: production
 run:
-  web: yarn start
+  web: serve -s build
