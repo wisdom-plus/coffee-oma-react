@@ -17,8 +17,8 @@ body:
       options:
         - FrontEnd
         - BackEnd
-      validations:
-        required: true
+    validations:
+      required: true
   - type: textarea
     id: feature
     attributes:
