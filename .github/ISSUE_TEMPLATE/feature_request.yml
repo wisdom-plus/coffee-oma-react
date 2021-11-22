@@ -15,8 +15,8 @@ body:
       label: Code type
       description: FrontendとBackendのどちらか
       options:
-        - FrontEnd
-        - BackEnd
+        - 'FrontEnd'
+        - 'BackEnd'
     validations:
       required: true
   - type: textarea
