@@ -1,0 +1,30 @@
+name: feature
+description: new feature
+title: "[feature]: "
+labels: ["New feature"]
+assignees:
+  - tomoron
+body:
+  - type: markdown
+    attributes:
+      value: |
+        新しい機能のを追加するためのissueを書いてください。React,Railsなど関係なくissueを追加してください。
+  - type: checkboxes
+    id: type
+    attributes:
+      label: Code type
+      description: FrontendとBackendのどちらか
+      options:
+        - FrontEnd
+        - BackEnd
+      validations:
+        required: true
+  - type: textarea
+    id: feature
+    attributes:
+      label: 新機能
+      description: 新機能の説明
+      placeholder:　新機能の説明
+      value: '新機能の説明'
+    validations:
+      required: true
