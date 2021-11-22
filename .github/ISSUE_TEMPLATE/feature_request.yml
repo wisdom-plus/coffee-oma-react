@@ -10,14 +10,15 @@ body:
       value: |
         新しい機能のを追加するためのissueを書いてください。React,Railsなど関係なくissueを追加してください。
   - type: dropdown
-    id: download
+    id: type
     attributes:
-      label: How did you download the software?
+      label: Code type
+      description: FrontendとBackendのどちらか
       options:
-        - Homebrew
-        - MacPorts
-        - apt-get
-        - Built from source
+        - FrontEnd
+        - BackEnd
+    validations:
+      required: true
   - type: textarea
     id: feature
     attributes:
