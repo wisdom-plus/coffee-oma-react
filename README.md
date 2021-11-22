@@ -6,8 +6,8 @@
 ![coffee-oma-logo](https://user-images.githubusercontent.com/48266893/112326442-deefcb80-8cf7-11eb-9432-cc83ade690de.png)
 
 
-
-
+[![Rails Rspec](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml)
+[![Cypress](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml)
 
 
 # 特に見ていただきたい点
