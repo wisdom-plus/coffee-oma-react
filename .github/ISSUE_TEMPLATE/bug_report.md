@@ -1,38 +1,26 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: bug
-assignees: tomoron
-
----
-
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+name: バグレポート
+description: バグの報告
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - tomoron
+body:
+  - type: markdown
+    attributes:
+      value: |
+        何が原因でバグが発生したかを報告してください。なお、わからない時は直前に行った操作を書いてください。
+  - type: textarea
+    id: logs
+    attributes:
+      label: ログの出力
+      description: 関連するログの出力をコピーしてペーストしてください。 これは自動的にコードにフォーマットされるので、バックティックは不要です。
+      render: shell
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 何がしたかったか
+      description: また、生じると期待されていたことは何でしょうか？
+      placeholder: 何が発生すると予想していましたか？
+      value: "バグが生じました!"
+    validations:
+      required: true
