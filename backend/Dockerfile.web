@@ -1,5 +1,4 @@
 FROM ruby:2.7.2-alpine
-SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 WORKDIR /usr/src/coffee-oma
 ARG ENV_FILE
