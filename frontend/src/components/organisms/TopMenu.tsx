@@ -4,6 +4,7 @@ import MenuLogo from 'components/atoms/MenuLogo';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'Atom';
+import GuestLoginButton from 'container/EnhancedGuestLoginButton';
 
 const TopMenu: FC = () => {
   const user = useRecoilValue(LoginState);
@@ -38,6 +39,7 @@ const TopMenu: FC = () => {
           </Menu.Menu>
         ) : (
           <Menu.Menu position="right">
+            <GuestLoginButton />
             <Menu.Item header as={Link} to="/sign_up" content="新規登録" />
             <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
           </Menu.Menu>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'api/v1/auth/registrations/:id' => 'api/v1/auth/registrations#show'
+    get 'api/v1/auth/guest_login' => 'api/v1/auth/sessions#guest_login'
   end
   namespace :api do
     namespace :v1 do

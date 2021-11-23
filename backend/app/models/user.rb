@@ -49,4 +49,13 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     clean_up_passwords
     result
   end
+
+  def self.guest
+    find_or_create_by(email: 'guest@example.com') do |user|
+      user.name = 'ゲストユーザー'
+      user.password = SecureRandom.urlsafe_base64
+      user.profile = 'ゲストユーザーのプロフィールです'
+      user.confirmed_at = Time.zone.now
+    end
+  end
 end

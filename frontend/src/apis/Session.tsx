@@ -12,6 +12,7 @@ import {
   sessionconfirmationURL,
   passwordresetURL,
   passwordreseteditURL,
+  SessionGuestLoginURL,
 } from '../urls/index';
 
 type login = {
@@ -46,6 +47,18 @@ export const Fetchsessiondestroy = async (headers: Token): Promise<number> => {
 
     return response.status;
   } catch (e) {
+    throw new Error();
+  }
+};
+
+export const FetchGuestLogin = async (): Promise<login> => {
+  try {
+    const response = await axios.get<{ data: CurrentUser }>(
+      SessionGuestLoginURL,
+    );
+
+    return { data: response.data.data, headers: response.headers as Token };
+  } catch (error) {
     throw new Error();
   }
 };
