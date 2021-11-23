@@ -2,7 +2,6 @@ module Api
   module V1
     module Auth
       class SessionsController < DeviseTokenAuth::SessionsController
-
         def guest_login
           @resource = User.guest
           create_and_assign_guest_login
