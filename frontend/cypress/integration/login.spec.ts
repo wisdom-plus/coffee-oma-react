@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 import currentuser from '../fixtures/currentuser.json';
+import guestuser from '../fixtures/guestuser.json';
 import {
   sessionnewURL,
   productindexURL,
   sessionvalidateURL,
+  LikeIndexURL,
+  SessionGuestLoginURL,
 } from '../../src/urls/index';
 
 describe('Login', () => {
@@ -44,6 +47,36 @@ describe('Login', () => {
     });
     cy.get('[data-testid = password] > input').type('pass', { force: true });
     cy.get('[data-testid = login]').click({ force: true });
+    cy.FlashMessage('error', 'ログインに失敗しました。');
+  });
+});
+
+describe('GuestLogin', () => {
+  it('successfully', () => {
+    cy.intercept('GET', LikeIndexURL, {
+      fixture: 'likes',
+    }).as('HomeLike');
+    cy.intercept('GET', SessionGuestLoginURL, {
+      statusCode: 201,
+      headers: { 'access-token': 'access-token', client: 'client', uid: 'uid' },
+      body: guestuser,
+    });
+    cy.visit('/');
+    cy.wait('@HomeLike');
+    cy.get('[data-testid = GuestButton]').click({ force: true });
+    cy.FlashMessage('success', 'ログインに成功しました。');
+  });
+
+  it('failed', () => {
+    cy.intercept('GET', LikeIndexURL, {
+      fixture: 'likes',
+    }).as('HomeLike');
+    cy.intercept('GET', SessionGuestLoginURL, {
+      statusCode: 404,
+    });
+    cy.visit('/');
+    cy.wait('@HomeLike');
+    cy.get('[data-testid = GuestButton]').click({ force: true });
     cy.FlashMessage('error', 'ログインに失敗しました。');
   });
 });

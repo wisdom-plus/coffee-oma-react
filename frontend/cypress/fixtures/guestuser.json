@@ -1,0 +1,12 @@
+{
+  "data": {
+    "id": 3,
+    "name": "ゲストユーザー",
+    "email": "guest@example.com",
+    "profile": "ゲストユーザーのプロフィールです",
+    "icon": {
+      "url": "http://localhost:3001/uploads/user/icon/1/icon-1.png"
+    },
+    "created_at": "2021-05-28T11:57:20.046+09:00"
+  }
+}
