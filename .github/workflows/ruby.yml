@@ -40,7 +40,6 @@ jobs:
         run: |
           sudo systemctl start mysql
           cp config/database.yml.ci config/database.yml
-          cat .env
           ./bin/rails db:create
           ./bin/rails db:migrate
         working-directory: ./backend
