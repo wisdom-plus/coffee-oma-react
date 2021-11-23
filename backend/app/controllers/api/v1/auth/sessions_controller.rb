@@ -4,7 +4,10 @@ module Api
       class SessionsController < DeviseTokenAuth::SessionsController
 
         def guest_login
-
+          user = User.guest
+          create_and_assign_token
+          sign_in(user)
+          render_create_session
         end
 
         private
