@@ -4,7 +4,7 @@ import MenuLogo from 'components/atoms/MenuLogo';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'Atom';
-import GuestLoginButton from 'components/atoms/GuestLoginButton';
+import GuestLoginButton from 'container/EnhancedGuestLoginButton';
 
 const TopMenu: FC = () => {
   const user = useRecoilValue(LoginState);
