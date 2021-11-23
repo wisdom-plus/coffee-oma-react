@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Auth::Registrations', type: :request do
-  let(:guest) {create(:user,name: 'ゲストユーザー',email: 'guest@example.com',profile: 'ゲストユーザーのプロフィールです')}
+  let(:guest) { create(:user, name: 'ゲストユーザー', email: 'guest@example.com', profile: 'ゲストユーザーのプロフィールです') }
+
   describe 'GET /guest_login' do
     it 'レスポンス成功' do
       get '/api/v1/auth/guest_login'
@@ -19,7 +20,6 @@ RSpec.describe 'Auth::Registrations', type: :request do
       get '/api/v1/auth/guest_login'
       expect(response).to have_http_status(:found)
     end
-
 
     it 'ユーザが作成されない(ゲストが作成されている)' do
       guest
