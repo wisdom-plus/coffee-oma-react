@@ -15,35 +15,37 @@ export default {
   component: App,
 } as Meta;
 
-const mock = (apiMock: MockAdapter) => {
-  apiMock.onGet(productindexURL).reply(200, { products });
+const Template: Story<ComponentProps<typeof App>> = () => {
+  const mock = (apiMock: MockAdapter) => {
+    apiMock.onGet(productindexURL).reply(200, { products });
+  };
+
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        suspense: true,
+        refetchOnWindowFocus: false,
+      },
+      mutations: {
+        retry: false,
+      },
+    },
+  });
+
+  return (
+    <QueryClientProvider client={client}>
+      <CookiesProvider>
+        <RecoilRoot>
+          <MemoryRouter initialEntries={['/products']}>
+            <AxiosMack mock={mock}>
+              <App />
+            </AxiosMack>
+          </MemoryRouter>
+        </RecoilRoot>
+      </CookiesProvider>
+    </QueryClientProvider>
+  );
 };
-
-const client = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      suspense: true,
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      retry: false,
-    },
-  },
-});
-
-const Template: Story<ComponentProps<typeof App>> = () => (
-  <QueryClientProvider client={client}>
-    <CookiesProvider>
-      <RecoilRoot>
-        <MemoryRouter initialEntries={['/products']}>
-          <AxiosMack mock={mock}>
-            <App />
-          </AxiosMack>
-        </MemoryRouter>
-      </RecoilRoot>
-    </CookiesProvider>
-  </QueryClientProvider>
-);
 
 export const index = Template.bind({});

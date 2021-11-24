@@ -37,7 +37,7 @@ const Template: Story<ComponentProps<typeof App>> = () => (
     <CookiesProvider>
       <RecoilRoot>
         <MemoryRouter initialEntries={['/mypage']}>
-          <AxiosMack mock={mock}>
+          <AxiosMack mock={mock} logined>
             <App />
           </AxiosMack>
         </MemoryRouter>
