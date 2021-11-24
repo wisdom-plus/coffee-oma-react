@@ -9,7 +9,6 @@ import { LikeIndexURL } from 'urls/index';
 import { products } from 'mock/product';
 import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 export default {
   title: 'app/home',
@@ -44,7 +43,6 @@ const Template: Story<ComponentProps<typeof App>> = () => (
         </MemoryRouter>
       </RecoilRoot>
     </CookiesProvider>
-    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
 

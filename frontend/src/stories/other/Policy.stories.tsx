@@ -7,7 +7,7 @@ import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
-  title: 'app/other',
+  title: 'app/Other/Policy',
   component: App,
 } as Meta;
 

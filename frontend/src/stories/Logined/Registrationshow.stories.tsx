@@ -11,7 +11,7 @@ import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
-  title: 'app/login',
+  title: 'app/Login/RegistrationShow',
   component: App,
 } as Meta;
 
@@ -37,7 +37,7 @@ const Template: Story<ComponentProps<typeof App>> = () => (
     <CookiesProvider>
       <RecoilRoot>
         <MemoryRouter initialEntries={['/registration/2']}>
-          <AxiosMack mock={mock} logined>
+          <AxiosMack mock={mock} logined follow>
             <App />
           </AxiosMack>
         </MemoryRouter>

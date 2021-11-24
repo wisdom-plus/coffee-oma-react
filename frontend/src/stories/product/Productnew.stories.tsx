@@ -7,7 +7,7 @@ import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
-  title: 'app/product',
+  title: 'app/Product/New',
   component: App,
 } as Meta;
 

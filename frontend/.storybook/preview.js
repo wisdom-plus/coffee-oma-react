@@ -15,6 +15,3 @@ export const parameters = {
   layout: 'centered',
 };
 addDecorator(StoryRouter());
-
-const req = requireContext('../src/stories', true, /.(story|stories).tsx$/);
-configure(req, module);

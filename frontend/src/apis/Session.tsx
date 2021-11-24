@@ -119,12 +119,4 @@ export const Fetchpasswordresetedit = async (
   }
 };
 
-export const SignedInAxios = axios.create({
-  headers: {
-    'access-token': localStorage.getItem('access-token'),
-    client: localStorage.getItem('client'),
-    uid: localStorage.getItem('uid'),
-  },
-});
-
 export default Fetchsessionnew;
