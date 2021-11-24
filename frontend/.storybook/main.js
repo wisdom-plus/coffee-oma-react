@@ -15,7 +15,6 @@ module.exports = {
     '@storybook/addon-docs',
     '@storybook/addon-controls',
     '@storybook/addon-a11y',
-    '@whitespace/storybook-addon-html',
   ],
   webpackFinal: async (config) => {
     config.resolve.modules = [
