@@ -7,7 +7,7 @@ import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
-  title: 'app/session',
+  title: 'app/Session/ResetPassword',
   component: App,
 } as Meta;
 

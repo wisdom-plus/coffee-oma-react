@@ -11,7 +11,7 @@ import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export default {
-  title: 'app/registration',
+  title: 'app/Registration/Mypage',
   component: App,
 } as Meta;
 
