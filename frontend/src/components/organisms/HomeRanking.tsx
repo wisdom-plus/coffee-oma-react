@@ -1,5 +1,5 @@
 import { FC, Suspense } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Container } from 'semantic-ui-react';
 import styled from 'styled-components';
 import HomeRankThreeCards from 'container/EnhancedHomeRankThreeCards';
 import ErrorBoundary from 'error/ErrorBoundary';
@@ -11,7 +11,9 @@ const Rankinggrid = styled.div`
 
 const HomeRanking: FC = () => (
   <Rankinggrid className="ui vertical stripe center aligned segment grid">
-    <Header as="h2" content="お気に入りアイテムランキング" />
+    <Container text>
+      <Header as="h2" content="お気に入りアイテムランキング" />
+    </Container>
     <ErrorBoundary statusMessages={{ 404: 'エラーが発生しました。' }}>
       <Suspense fallback={<HomeThreeCardsLoading />}>
         <HomeRankThreeCards />
