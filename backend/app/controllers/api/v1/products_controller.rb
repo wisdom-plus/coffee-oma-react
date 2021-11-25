@@ -17,7 +17,7 @@ module Api
         if product
           render json: {
             product: product
-          }, status: :ok,expect: %i[id, name,url,shopname,price,caption,image,reviews_count]
+          }, status: :ok,except: %i[likes_count created_at updated_at]
         else
           render status: :not_found
         end
