@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, Form, Segment } from 'semantic-ui-react';
+import { Grid, Form, Segment, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormController from 'container/EnhancedFormController';
 import { ReviewFormData } from 'model/index';
@@ -34,7 +34,10 @@ const ReviewForm: FC<{
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
-              <Form.Button color="teal" content="登録" data-testid="submit" />
+              <Form.Button color="teal" data-testid="submit" animated="fade">
+                <Button.Content visible>登録</Button.Content>
+                <Button.Content hidden>Submit</Button.Content>
+              </Form.Button>
             </Form.Field>
           </Segment>
         </Form>

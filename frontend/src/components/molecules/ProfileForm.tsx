@@ -1,5 +1,12 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import { Form, Grid, Segment, Accordion, Icon } from 'semantic-ui-react';
+import {
+  Form,
+  Grid,
+  Segment,
+  Accordion,
+  Icon,
+  Button,
+} from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import IconForm from 'container/EnhancedIconForm';
 import FormController from 'container/EnhancedFormController';
@@ -74,7 +81,10 @@ const ProfileForm: FC<Props> = ({
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
-              <Form.Button color="teal" content="登録" data-testid="submit" />
+              <Form.Button color="teal" data-testid="submit" animated="fade">
+                <Button.Content visible>登録</Button.Content>
+                <Button.Content hidden>Submit</Button.Content>
+              </Form.Button>
             </Form.Field>
           </Segment>
         </Grid.Column>

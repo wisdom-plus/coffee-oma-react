@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Form, Card, Table, Grid } from 'semantic-ui-react';
+import { Form, Card, Table, Grid, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import ProductImage from 'container/EnhancedProductImage';
 import FormController from 'container/EnhancedFormController';
@@ -83,7 +83,10 @@ const Newform: FC<newformtype> = ({
             </Table.Body>
           </Table>
           <Form.Field style={{ textAlign: 'center', justifyContent: 'center' }}>
-            <Form.Button color="teal" content="submit" data-testid="submit" />
+            <Form.Button color="teal" data-testid="submit" animated="fade">
+              <Button.Content visible>登録</Button.Content>
+              <Button.Content hidden>Submit</Button.Content>
+            </Form.Button>
           </Form.Field>
         </Grid.Column>
         <Grid.Column width={3} />
