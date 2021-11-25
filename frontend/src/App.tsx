@@ -1,6 +1,6 @@
 import { FC, useEffect, Suspense } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
-import { Container, Loader } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import TopMenu from 'components/organisms/TopMenu';
 import Home from 'components/pages/Home';
 import Product from 'components/pages/Product';
@@ -13,6 +13,7 @@ import { RecoilApp } from 'RecoilApp';
 import { LocationState } from 'components/atoms/FlashMessage';
 import FlashMessage from 'container/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
+import LoaderGrid from 'error/LoaderGrid';
 
 const App: FC = () => {
   const { hash, pathname, state } = useLocation<LocationState>();
@@ -26,7 +27,7 @@ const App: FC = () => {
 
   return (
     <ErrorBoundary statusMessages={{ 401: 'ログイン情報が正しくありません。' }}>
-      <Suspense fallback={<Loader active size="big" />}>
+      <Suspense fallback={<LoaderGrid />}>
         <RecoilApp>
           <TopMenu />
           <Container style={{ paddingTop: '60px', flex: '1' }}>

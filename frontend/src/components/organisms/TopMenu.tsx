@@ -13,7 +13,7 @@ const TopMenu: FC = () => {
     <Menu fixed="top" inverted color="teal">
       <Container>
         <MenuLogo />
-        <Menu.Item header as={Link} to="/products" content="アイテム一覧">
+        <Menu.Item header as={Link} to="/products">
           <Icon name="chat" />
           アイテム一覧
         </Menu.Item>
