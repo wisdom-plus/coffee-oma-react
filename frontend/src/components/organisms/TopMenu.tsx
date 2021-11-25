@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Icon } from 'semantic-ui-react';
 import MenuLogo from 'components/atoms/MenuLogo';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -13,35 +13,43 @@ const TopMenu: FC = () => {
     <Menu fixed="top" inverted color="teal">
       <Container>
         <MenuLogo />
-        <Menu.Item header as={Link} to="/products" content="アイテム一覧" />
-        <Menu.Item
-          header
-          as={Link}
-          to="/product/ranking"
-          content="ランキング"
-        />
+        <Menu.Item header as={Link} to="/products" content="アイテム一覧">
+          <Icon name="chat" />
+          アイテム一覧
+        </Menu.Item>
+        <Menu.Item header as={Link} to="/product/ranking">
+          <Icon name="chess queen" />
+          ランキング
+        </Menu.Item>
+
         {user.email ? (
           <Menu.Menu position="right">
-            <Menu.Item header as={Link} to="/mypage" content="プロフィール" />
+            <Menu.Item header as={Link} to="/mypage">
+              <Icon name="address card outline" />
+              プロフィール
+            </Menu.Item>
             <Menu.Item
               header
               as={Link}
               to="/registration/edit"
               content="アカウント編集"
             />
-            <Menu.Item
-              header
-              as={Link}
-              to="/sign_out"
-              content="ログアウト"
-              data-testid="logout"
-            />
+            <Menu.Item header as={Link} to="/sign_out" data-testid="logout">
+              <Icon name="sign-out" />
+              ログアウト
+            </Menu.Item>
           </Menu.Menu>
         ) : (
           <Menu.Menu position="right">
             <GuestLoginButton />
-            <Menu.Item header as={Link} to="/sign_up" content="新規登録" />
-            <Menu.Item header as={Link} to="/sign_in" content="ログイン" />
+            <Menu.Item header as={Link} to="/sign_up">
+              <Icon name="signup" />
+              新規登録
+            </Menu.Item>
+            <Menu.Item header as={Link} to="/sign_in">
+              <Icon name="sign-in" />
+              ログイン
+            </Menu.Item>
           </Menu.Menu>
         )}
       </Container>
