@@ -8,9 +8,17 @@ import { list } from 'constant/index';
 const ThreeCards: FC<{ state: Product[] }> = ({ state = [] }) => (
   <Segment style={{ marginTop: '4em', padding: '3em' }}>
     <motion.div initial="hidden" animate="visible" variants={list}>
-      <Card.Group itemsPerRow={3} stackable centered>
-        <IndexCards products={state} />
-      </Card.Group>
+      <motion.div
+        className="thumbnails"
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
+      >
+        <Card.Group itemsPerRow={3} stackable centered>
+          <IndexCards products={state} />
+        </Card.Group>
+      </motion.div>
     </motion.div>
   </Segment>
 );

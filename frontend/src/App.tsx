@@ -14,10 +14,11 @@ import { LocationState } from 'components/atoms/FlashMessage';
 import FlashMessage from 'container/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';
+import { AnimatePresence } from 'framer-motion';
 
 const App: FC = () => {
   const { hash, pathname, state } = useLocation<LocationState>();
-  const { action } = useHistory();
+  const { action, location } = useHistory();
 
   useEffect(() => {
     if (!hash || action !== 'POP') {
@@ -34,62 +35,64 @@ const App: FC = () => {
             {state && (
               <FlashMessage message={state.message} type={state.type} />
             )}
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/sign_up">
-                <Registration isnew />
-              </Route>
-              <Route exact path="/sign_in">
-                <Session issignin />
-              </Route>
-              <Route exact path="/sign_out">
-                <Session issignout />
-              </Route>
-              <Route exact path="/confirmation">
-                <Session isconfirm />
-              </Route>
-              <Route exact path="/password_reset">
-                <Session isreset />
-              </Route>
-              <Route exact path="/password_reset/edit">
-                <Session isresetedit />
-              </Route>
-              <Route exact path="/registration/edit">
-                <Registration isedit />
-              </Route>
-              <Route exact path="/mypage">
-                <Registration ismypage />
-              </Route>
-              <Route exact path="/registration/:id(\d+)">
-                <Registration isshow />
-              </Route>
-              <Route exact path="/products">
-                <Product isindex />
-              </Route>
-              <Route exact path="/product/new">
-                <Product isnew />
-              </Route>
-              <Route exact path="/product/ranking">
-                <Product isrank />
-              </Route>
-              <Route exact path="/product/:id(\d+)">
-                <Product isshow />
-              </Route>
-              <Route exact path="/private_policy">
-                <Policy isprivate />
-              </Route>
-              <Route exact path="/policy">
-                <Policy />
-              </Route>
-              <Route exact path="/send_mail">
-                <NoRender issendmail />
-              </Route>
-              <Route>
-                <NoRender />
-              </Route>
-            </Switch>
+            <AnimatePresence exitBeforeEnter initial={false}>
+              <Switch key={location.pathname} location={location}>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/sign_up">
+                  <Registration isnew />
+                </Route>
+                <Route exact path="/sign_in">
+                  <Session issignin />
+                </Route>
+                <Route exact path="/sign_out">
+                  <Session issignout />
+                </Route>
+                <Route exact path="/confirmation">
+                  <Session isconfirm />
+                </Route>
+                <Route exact path="/password_reset">
+                  <Session isreset />
+                </Route>
+                <Route exact path="/password_reset/edit">
+                  <Session isresetedit />
+                </Route>
+                <Route exact path="/registration/edit">
+                  <Registration isedit />
+                </Route>
+                <Route exact path="/mypage">
+                  <Registration ismypage />
+                </Route>
+                <Route exact path="/registration/:id(\d+)">
+                  <Registration isshow />
+                </Route>
+                <Route exact path="/product/new">
+                  <Product isnew />
+                </Route>
+                <Route exact path="/product/ranking">
+                  <Product isrank />
+                </Route>
+                <Route exact path="/product/:id(\d+)">
+                  <Product isshow />
+                </Route>
+                <Route exact path="/products">
+                  <Product isindex />
+                </Route>
+                <Route exact path="/private_policy">
+                  <Policy isprivate />
+                </Route>
+                <Route exact path="/policy">
+                  <Policy />
+                </Route>
+                <Route exact path="/send_mail">
+                  <NoRender issendmail />
+                </Route>
+                <Route path="*">
+                  <NoRender />
+                </Route>
+              </Switch>
+            </AnimatePresence>
           </Container>
           <Footer />
         </RecoilApp>
