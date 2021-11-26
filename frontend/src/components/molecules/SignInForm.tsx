@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Form, Grid, Segment, Header } from 'semantic-ui-react';
+import { Form, Grid, Segment, Header, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
 import FormController from 'container/EnhancedFormController';
@@ -40,11 +40,10 @@ const SignInForm: FC<{
               <Form.Field
                 style={{ textAlign: 'center', justifyContent: 'center' }}
               >
-                <Form.Button
-                  color="teal"
-                  content="ログイン"
-                  data-testid="login"
-                />
+                <Form.Button color="teal" data-testid="login" animated="fade">
+                  <Button.Content visible>ログイン</Button.Content>
+                  <Button.Content hidden>Login</Button.Content>
+                </Form.Button>
               </Form.Field>
             </Segment>
             <FormMessage issignin />

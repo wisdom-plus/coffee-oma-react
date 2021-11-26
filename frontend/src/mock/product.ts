@@ -13,6 +13,7 @@ export const products: Product[] = [
     url: 'http://www.example.com/1',
     caption: 'アイテムの説明が入ります。1',
     likes_count: 1,
+    review_count: 2,
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ export const products: Product[] = [
     url: 'http://www.example.com/2',
     caption: 'アイテムの説明が入ります。2',
     likes_count: 2,
+    review_count: 0,
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ export const products: Product[] = [
     url: 'http://www.example.com/3',
     caption: 'アイテムの説明が入ります。3',
     likes_count: 3,
+    review_count: 0,
   },
 ];
 

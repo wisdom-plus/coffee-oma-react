@@ -13,7 +13,7 @@ const ProductShow: FC<{ product: Product }> = ({ product }) => (
       style={{ marginBottom: '1rem' }}
     />
     <ShowTop product={product} />
-    <ReviewArea />
+    <ReviewArea product={product} />
   </>
 );
 export default ProductShow;

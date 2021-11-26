@@ -1,13 +1,11 @@
 import { FC } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 const GuestLoginButton: FC<{ onLogin: () => void }> = ({ onLogin }) => (
-  <Menu.Item
-    header
-    onClick={() => onLogin()}
-    content="ゲストログイン"
-    data-testid="GuestButton"
-  />
+  <Menu.Item header onClick={() => onLogin()} data-testid="GuestButton">
+    <Icon name="signup" />
+    ゲストログイン
+  </Menu.Item>
 );
 
 export default GuestLoginButton;

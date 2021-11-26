@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Form, Grid, Segment } from 'semantic-ui-react';
+import { Form, Grid, Segment, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
 import FormController from 'container/EnhancedFormController';
@@ -36,7 +36,10 @@ const SignUpForm: FC<{
             <Form.Field
               style={{ textAlign: 'center', justifyContent: 'center' }}
             >
-              <Form.Button color="teal" content="登録" data-testid="submit" />
+              <Form.Button color="teal" data-testid="submit" animated="fade">
+                <Button.Content visible>登録</Button.Content>
+                <Button.Content hidden>Submit</Button.Content>
+              </Form.Button>
             </Form.Field>
           </Segment>
           <FormMessage issignup />

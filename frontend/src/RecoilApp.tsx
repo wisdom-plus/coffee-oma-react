@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { Fetchsessionvalidate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
@@ -7,21 +7,13 @@ import LoginState from 'Atom';
 
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);
-  const [cookie] = useCookies(['token']);
+  const [cookie, , removeCookies] = useCookies(['token']);
 
-  const { data: currentuser, isSuccess } = useQuery(
-    [cookie, 'user'],
-    () => Fetchsessionvalidate(cookie.token),
-    {
-      enabled: !!cookie.token,
-    },
-  );
-
-  useEffect(() => {
-    if (isSuccess && currentuser) {
-      setUser((prevUser) => ({ ...prevUser, ...currentuser.data }));
-    }
-  }, [currentuser, isSuccess, setUser]);
+  useQuery([cookie, 'user'], () => Fetchsessionvalidate(cookie.token), {
+    enabled: !!cookie.token,
+    onSuccess: (data) => setUser((prevUser) => ({ ...prevUser, ...data.data })),
+    onError: () => removeCookies('token'),
+  });
 
   return <>{children}</>;
 };

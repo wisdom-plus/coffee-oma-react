@@ -8,6 +8,7 @@ class Review < ApplicationRecord
     less_than_or_equal_to: 5
   }, presence: true
 
+  counter_culture :product
   scope :get_reviews, ->(id) { where('product_id = ?', id) }
 
   def self.api_json(product_id)

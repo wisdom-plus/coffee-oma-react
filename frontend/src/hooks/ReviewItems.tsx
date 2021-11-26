@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Review } from 'model/index';
 
-const useReviewArea = (): Review[] => {
+const useReviewItems = (): Review[] => {
   const { id } = useParams<{ id: string }>();
   const { data: reviews = [] } = useQuery([id, 'review'], () =>
     FetchReviewExists(id),
@@ -12,4 +12,4 @@ const useReviewArea = (): Review[] => {
   return reviews;
 };
 
-export default useReviewArea;
+export default useReviewItems;
