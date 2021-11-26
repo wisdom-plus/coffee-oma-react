@@ -3,12 +3,7 @@ import { Card, Icon, Image, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Product } from 'model/index';
 import { motion } from 'framer-motion';
-import {
-  item,
-  transition,
-  frameVariants,
-  thumbnailVariants,
-} from 'constant/index';
+import { item, transition, frameVariants, Variants } from 'constant/index';
 
 type Props = {
   products: Product[];
@@ -24,7 +19,7 @@ const IndexCards: FC<Props> = ({ products, isrank = false }) => (
     {products?.map((product, index) => (
       <motion.div
         key={product.id}
-        variants={thumbnailVariants}
+        variants={Variants}
         style={{ margin: '0.875em 1em' }}
         className="thumbnail"
       >

@@ -20,7 +20,7 @@ export const frameVariants = {
   hover: { scale: 0.9 },
 };
 
-export const thumbnailVariants = {
+export const Variants = {
   initial: { scale: 0.9, opacity: 0 },
   enter: { scale: 1, opacity: 1, transition },
   exit: {
