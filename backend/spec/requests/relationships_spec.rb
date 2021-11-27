@@ -65,11 +65,13 @@ RSpec.describe 'Relationships', type: :request do
       it 'レスポンス成功(フォローが存在するとき)' do
         get exists_api_v1_relationships_path, params: { follow_id: follow.follow_id }
         expect(response).to have_http_status(:ok)
+        expect(json['follow']).to eq(expect_json(true))
       end
 
       it 'レスポンス成功(フォローがない)' do
         get exists_api_v1_relationships_path, params: { follow_id: user1.id }
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:ok)
+        expect(json['follow']).to eq(expect_json(false))
       end
 
       it 'レスポンス失敗' do
@@ -81,12 +83,14 @@ RSpec.describe 'Relationships', type: :request do
     context 'ログインしていない時' do
       it 'レスポンス成功' do
         get exists_api_v1_relationships_path, params: { follow_id: follow.follow_id }
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:ok)
+        expect(json['follow']).to eq(expect_json(false))
       end
 
       it 'レスポンス成功(フォローがない)' do
         get exists_api_v1_relationships_path, params: { follow_id: user1.id }
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:ok)
+        expect(json['follow']).to eq(expect_json(false))
       end
 
       it 'レスポンス失敗' do
