@@ -25,12 +25,12 @@ module Api
       def exists
         user = User.find_by(id: params[:follow_id])
         if user
-          follow =  if api_v1_user_signed_in?
-                        current_api_v1_user.following?(user)
-                    else
-                      false
-                    end
-          render json: {follow: follow} , status: :ok
+          follow = if api_v1_user_signed_in?
+                     current_api_v1_user.following?(user)
+                   else
+                     false
+                   end
+          render json: { follow: follow }, status: :ok
         else
           render status: :not_found
         end
