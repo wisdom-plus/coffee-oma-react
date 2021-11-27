@@ -20,25 +20,27 @@ const useReveiwRemoveButton = (
   const mutation = useMutation(
     () => FetchReviewDestroy(id, reviewid, cookie.token),
     {
-      onSuccess: () => queryClient.invalidateQueries([id, 'review']),
+      onSuccess: (status) => {
+        void queryClient.invalidateQueries([id, 'review']);
+        if (status === 200) {
+          history.push(`/product/${id}`, {
+            message: 'レビューを削除しました。',
+            type: 'success',
+          });
+        } else {
+          history.push('/products', {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          });
+        }
+      },
     },
   );
 
   const onDestroy = async () => {
     setOpen(false);
     try {
-      const response = await mutation.mutateAsync();
-      if (response === 200) {
-        history.push(`/product/${id}`, {
-          message: 'レビューを削除しました。',
-          type: 'success',
-        });
-      } else {
-        history.push('/products', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        });
-      }
+      await mutation.mutateAsync();
     } catch (e) {
       history.push('/products', {
         message: 'エラーが発生しました。',
