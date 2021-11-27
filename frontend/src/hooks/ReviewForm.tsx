@@ -32,26 +32,28 @@ const useReviewForm = (): {
     ({ data }: { data: ReviewFormData }) =>
       FetchReviewCreate(data, cookie.token, id),
     {
-      onSuccess: () => queryClient.invalidateQueries([id, 'review']),
+      onSuccess: (status) => {
+        void queryClient.invalidateQueries([id, 'review']);
+        if (status === 201) {
+          history.push(`/product/${id}`, {
+            message: 'レビューが作成されました.',
+            type: 'success',
+          });
+          methods.reset();
+          RemoveRate();
+        } else {
+          history.push('/products', {
+            message: 'エラーが発生しました。',
+            type: 'error',
+          });
+        }
+      },
     },
   );
 
   const onSubmit = async (data: ReviewFormData) => {
     try {
-      const response = await mutation.mutateAsync({ data });
-      if (response === 201) {
-        history.push(`/product/${id}`, {
-          message: 'レビューが作成されました.',
-          type: 'success',
-        });
-        methods.reset();
-        RemoveRate();
-      } else {
-        history.push('/products', {
-          message: 'エラーが発生しました。',
-          type: 'error',
-        });
-      }
+      await mutation.mutateAsync({ data });
     } catch (e) {
       history.push('/products', {
         message: 'エラーが発生しました。',
