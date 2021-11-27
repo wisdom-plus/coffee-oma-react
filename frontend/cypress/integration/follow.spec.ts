@@ -9,6 +9,7 @@ import {
 import { products } from '../fixtures/products.json';
 import currentuser from '../fixtures/currentuser.json';
 import { users } from '../fixtures/users.json';
+import { follow } from '../fixtures/follow.json';
 
 describe('Create', () => {
   beforeEach(() => {
@@ -18,7 +19,8 @@ describe('Create', () => {
       body: { data: users[1] },
     });
     cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
-      statusCode: 204,
+      statusCode: 200,
+      body: { follow },
     });
   });
   it('successfully', () => {
@@ -51,6 +53,7 @@ describe('Destory', () => {
     });
     cy.intercept('GET', `${FollowExistsURL}?follow_id=${users[1].id}`, {
       statusCode: 200,
+      body: { follow: true },
     });
   });
   it('successfully', () => {

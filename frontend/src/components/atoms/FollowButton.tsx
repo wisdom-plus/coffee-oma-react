@@ -1,18 +1,19 @@
 import { FC } from 'react';
 import { Icon, Button } from 'semantic-ui-react';
+import { Follow } from 'model/index';
 
 type Followtype = {
-  state: boolean;
+  follow: Follow;
   onFollow: () => void;
   onFollowed: () => void;
 };
 
 const FollowButton: FC<Followtype> = ({
-  state = false,
+  follow = { follow: false },
   onFollow = () => undefined,
   onFollowed = () => undefined,
 }) =>
-  state ? (
+  follow.follow ? (
     <Button
       icon
       color="blue"

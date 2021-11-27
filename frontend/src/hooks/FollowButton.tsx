@@ -1,38 +1,62 @@
-import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
 import { useCookies } from 'react-cookie';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { Follow } from 'model/index';
 
 const useFollowButton = (): {
-  state: boolean;
+  follow: Follow;
   onFollow: () => void;
   onFollowed: () => void;
 } => {
-  const [state, setState] = useState(false);
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [cookie] = useCookies(['token']);
-  const { data: status, isSuccess } = useQuery([id, 'follow'], () =>
-    FetchFollowExists(id, cookie.token),
+  const queryClient = useQueryClient();
+  const { data: follow = { follow: false } } = useQuery(
+    [id, cookie.token, 'follow'],
+    () => FetchFollowExists(id, cookie.token),
+    {
+      onError: () =>
+        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
+    },
   );
 
-  useEffect(() => {
-    if (isSuccess && status === 200) {
-      setState(() => true);
-    } else if (isSuccess && status === 204) {
-      setState(() => false);
-    } else {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
-    }
-  }, [history, status, isSuccess]);
+  const createmutation = useMutation(() => FetchFollow(id, cookie.token), {
+    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
+    onSuccess: () => {
+      const oldquery = queryClient.getQueryData<Follow>([
+        id,
+        cookie.token,
+        'follow',
+      ]);
+      if (oldquery) {
+        queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
+          follow: true,
+        }));
+      }
+    },
+  });
+
+  const destroymutation = useMutation(() => FetchFollowed(id, cookie.token), {
+    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
+    onSuccess: () => {
+      const oldquery = queryClient.getQueryData<Follow>([
+        id,
+        cookie.token,
+        'follow',
+      ]);
+      if (oldquery) {
+        queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
+          follow: false,
+        }));
+      }
+    },
+  });
 
   const onFollow = async () => {
     try {
-      const response = await FetchFollow(id, cookie.token);
-      if (response === 201) {
-        setState((prev) => !prev);
-      }
+      await createmutation.mutateAsync();
     } catch (e) {
       history.push(`/registration/${id}`, {
         message: 'エラーが発生しました。',
@@ -43,10 +67,7 @@ const useFollowButton = (): {
 
   const onFollowed = async () => {
     try {
-      const response = await FetchFollowed(id, cookie.token);
-      if (response === 201) {
-        setState((prev) => !prev);
-      }
+      await destroymutation.mutateAsync();
     } catch (e) {
       history.push(`/registration/${id}`, {
         message: 'エラーが発生しました。',
@@ -55,7 +76,7 @@ const useFollowButton = (): {
     }
   };
 
-  return { state, onFollow, onFollowed };
+  return { follow, onFollow, onFollowed };
 };
 
 export default useFollowButton;

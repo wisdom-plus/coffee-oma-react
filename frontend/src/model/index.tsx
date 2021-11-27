@@ -63,6 +63,10 @@ export type CurrentUser = {
   ['created_at']: Date;
 };
 
+export type Follow = {
+  follow: boolean;
+};
+
 export type Review = {
   title: string;
   content: string;

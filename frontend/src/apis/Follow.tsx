@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FollowURL, FollowDestroyURL, FollowExistsURL } from 'urls/index';
-import { Token } from 'model/index';
+import { Token, Follow } from 'model/index';
 
 export const FetchFollow = async (
   FollowId: string,
@@ -39,16 +39,16 @@ export const FetchFollowed = async (
 export const FetchFollowExists = async (
   FollowId: string,
   headers: Token,
-): Promise<number> => {
+): Promise<Follow> => {
   if (!FollowId && !headers) {
     throw new Error('APIエラー');
   }
-  const response = await axios.get(FollowExistsURL, {
+  const response = await axios.get<Follow>(FollowExistsURL, {
     params: { follow_id: FollowId },
     headers,
   });
 
-  return response.status;
+  return response.data;
 };
 
 export default FetchFollow;
