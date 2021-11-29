@@ -27,10 +27,9 @@ class Product < ApplicationRecord
       shopname: shopname,
       price: price,
       caption: caption,
-      image: {url: image.url},
+      image: { url: image.url },
       reviews_count: reviews_count,
-      rate_average: self.rate_average
+      rate_average: rate_average
     }
   end
-
 end
