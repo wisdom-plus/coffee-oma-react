@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Item, Segment, Header } from 'semantic-ui-react';
+import { Item, Segment, Header, Rating } from 'semantic-ui-react';
 import { Review, CurrentUser } from 'model/index';
 import ReviewRemoveButton from 'container/EnhancedReviewRemoveButton';
 
@@ -18,7 +18,15 @@ const ReviewItems: FC<{
           <Item.Content>
             <Header as="h3">{review.title}</Header>
             <Item.Meta>
-              <span className="data">{review.time_ago}前</span>
+              <Rating
+                icon="star"
+                defaultRating={review.rate}
+                disabled
+                maxRating={5}
+              />
+              <span className="data" style={{ marginLeft: '0.6em' }}>
+                {review.time_ago}前
+              </span>
             </Item.Meta>
             <Item.Description style={{ whiteSpace: 'pre-wrap' }}>
               {review.content}
