@@ -9,7 +9,9 @@ class Review < ApplicationRecord
   }, presence: true
 
   counter_culture :product
-  scope :get_reviews, ->(id) { where('product_id = ?', id) }
+  counter_culture :product, column_name: 'rate_sum', delta_column: 'rate'
+
+  scope :get_reviews, ->(id) { where(product_id: id) }
 
   def self.api_json(product_id)
     reviews = Review.get_reviews(product_id)

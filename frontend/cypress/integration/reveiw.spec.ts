@@ -103,7 +103,7 @@ describe('Create', () => {
     cy.get('[data-testid =title] > input').type(reviews[0].title, {
       force: true,
     });
-    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('#review-form-rating > [aria-posinset="5"]').click({ force: true });
     cy.get('[data-testid =content]').type(reviews[0].content, {
       force: true,
     });
@@ -173,7 +173,7 @@ describe('Create', () => {
     cy.get('[data-testid =title] > input').type(reviews[0].title, {
       force: true,
     });
-    cy.get('[aria-posinset="5"]').click({ force: true });
+    cy.get('#review-form-rating > [aria-posinset="5"]').click({ force: true });
     cy.get('[data-testid =content]').type(reviews[0].content, {
       force: true,
     });

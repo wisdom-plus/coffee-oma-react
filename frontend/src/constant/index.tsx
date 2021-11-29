@@ -24,8 +24,8 @@ export const Variants = {
   initial: { scale: 0.9, opacity: 0 },
   enter: { scale: 1, opacity: 1, transition },
   exit: {
-    scale: 0.5,
+    scale: 0.7,
     opacity: 0,
-    transition: { ...transition, duration: 1.5 },
+    transition: { ...transition, duration: 0.6 },
   },
 };

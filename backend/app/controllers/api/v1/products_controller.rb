@@ -16,8 +16,8 @@ module Api
         product = Product.find_by(id: params[:id])
         if product
           render json: {
-            product: product
-          }, status: :ok, except: %i[likes_count created_at updated_at]
+            product: product.api_json
+          }, status: :ok
         else
           render status: :not_found
         end

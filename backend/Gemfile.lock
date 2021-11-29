@@ -98,7 +98,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.9.4)
       devise (>= 4.7.1)
-    devise_token_auth (1.1.5)
+    devise_token_auth (1.2.0)
       bcrypt (~> 3.0)
       devise (> 3.5.2, < 5)
       rails (>= 4.2.0, < 6.2)
@@ -309,7 +309,7 @@ DEPENDENCIES
   counter_culture (~> 2.0)
   devise
   devise-i18n
-  devise_token_auth
+  devise_token_auth (~> 1.2.0)
   dotenv-rails
   factory_bot_rails
   faker!

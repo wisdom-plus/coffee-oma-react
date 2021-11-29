@@ -8,4 +8,28 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   scope :ranking, ->(count) { all.order('likes_count desc').limit(count) }
+
+  def rate_average_sum
+    return unless reviews.average(:rate)
+
+    (reviews.average(:rate) * 2).floor / 2.to_f
+  end
+
+  def rate_average
+    (rate_sum.to_f / reviews_count).floor(1)
+  end
+
+  def api_json
+    {
+      id: id,
+      name: name,
+      url: url,
+      shopname: shopname,
+      price: price,
+      caption: caption,
+      image: { url: image.url },
+      reviews_count: reviews_count,
+      rate_average: rate_average
+    }
+  end
 end

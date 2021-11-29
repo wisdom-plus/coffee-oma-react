@@ -7,7 +7,7 @@ import { Product } from 'model/index';
 const EnhancedReviewArea: FC<{ product: Product }> = ({ product }) => {
   const user = useRecoilValue(LoginState);
 
-  return <ReviewArea user={user} exists={!!product.review_count} />;
+  return <ReviewArea user={user} exists={!!product.reviews_count} />;
 };
 
 export default EnhancedReviewArea;
