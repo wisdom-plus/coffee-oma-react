@@ -16601,6 +16601,11 @@ react-side-effect@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.1.tgz#66c5701c3e7560ab4822a4ee2742dee215d72eb3"
   integrity sha512-2FoTQzRNTncBVtnzxFOk2mCpcfxQpenBMbk5kSVBg5UcPqV9fRbgY2zhb7GTWWOlpFmAxhClBDlIq8Rsubz1yQ==
 
+react-simple-star-rating@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-simple-star-rating/-/react-simple-star-rating-4.0.0.tgz#fe5e5b4f2386061f89b3b09cf2e071175abce6b5"
+  integrity sha512-UiTMJDmaqj9CRqS+pJCyGNiP82VPr8WZxfHGJQSd7r8d4B6OoYQz17QJudRnGsniLhQY0TlZLO9FEg7O2iznHg==
+
 react-sizeme@^2.6.7:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/react-sizeme/-/react-sizeme-2.6.12.tgz#ed207be5476f4a85bf364e92042520499455453e"

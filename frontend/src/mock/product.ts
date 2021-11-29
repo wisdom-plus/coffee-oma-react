@@ -14,6 +14,7 @@ export const products: Product[] = [
     caption: 'アイテムの説明が入ります。1',
     likes_count: 1,
     reviews_count: 2,
+    rate_average: 9,
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ export const products: Product[] = [
     caption: 'アイテムの説明が入ります。2',
     likes_count: 2,
     reviews_count: 0,
+    rate_average: 0,
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const products: Product[] = [
     caption: 'アイテムの説明が入ります。3',
     likes_count: 3,
     reviews_count: 0,
+    rate_average: 0,
   },
 ];
 

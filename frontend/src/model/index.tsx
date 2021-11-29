@@ -8,6 +8,7 @@ export type Product = {
   image: { url: string };
   ['likes_count']: number;
   ['reviews_count']: number;
+  ['rate_average']: number;
 };
 export type Productdata = {
   id: number;

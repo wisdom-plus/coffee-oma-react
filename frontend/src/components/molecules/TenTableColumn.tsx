@@ -3,6 +3,7 @@ import { Grid, Table, Button } from 'semantic-ui-react';
 import { Product } from 'model/index';
 import LikeButton from 'container/EnhancedLikeButton';
 import ErrorBoundary from 'error/ErrorBoundary';
+import { Rating } from 'react-simple-star-rating';
 
 const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
   <Grid.Column width={10}>
@@ -23,11 +24,22 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
           <Table.Cell>ブランド</Table.Cell>
           <Table.Cell>{product.shopname}</Table.Cell>
         </Table.Row>
+        <Table.Row>
+          <Table.Cell>評価</Table.Cell>
+          <Table.Cell>
+            {product.rate_average ? (
+              <Rating
+                ratingValue={product.rate_average}
+                readonly
+                onClick={() => true}
+                allowHalfIcon
+              />
+            ) : (
+              '評価がまだありません。'
+            )}
+          </Table.Cell>
+        </Table.Row>
         {/* <Table.Row>
-            <Table.Cell>評価</Table.Cell>
-            <Table.Cell>未実装</Table.Cell>
-          </Table.Row>
-          <Table.Row>
             <Table.Cell>タグ</Table.Cell>
             <Table.Cell>未実装</Table.Cell>
           </Table.Row> */}
