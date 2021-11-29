@@ -37,9 +37,5 @@ rackup DefaultRackup
 port ENV['PORT'] || 3001
 environment ENV['RACK_ENV'] || 'development'
 
-on_worker_boot do
-  ActiveRecord :Base.establish_connection
-end
-
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
