@@ -26,7 +26,7 @@ const TenTableColumn: FC<{ product: Product }> = ({ product }) => (
         </Table.Row>
         <Table.Row>
           <Table.Cell>評価</Table.Cell>
-          <Table.Cell>
+          <Table.Cell data-testid="rate_average">
             {product.rate_average ? (
               <Rating
                 ratingValue={product.rate_average}

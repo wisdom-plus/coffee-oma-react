@@ -14,7 +14,7 @@
       "updated_at": "2021-05-28T11:03:03.731+09:00",
       "likes_count": 2,
       "reviews_count": 2,
-      "rate_averge": 9
+      "rate_average": 9
     },
     {
       "id": 2,
@@ -30,7 +30,7 @@
       "updated_at": "2021-05-28T11:03:03.810+09:00",
       "likes_count": 1,
       "reviews_count": 0,
-      "rate_averge": 0
+      "rate_average": 0
     },
     {
       "id": 3,
@@ -46,7 +46,7 @@
       "updated_at": "2021-05-28T11:03:03.882+09:00",
       "likes_count": 0,
       "reviews_count": 0,
-      "rate_averge": 0
+      "rate_average": 0
     }
   ]
 }

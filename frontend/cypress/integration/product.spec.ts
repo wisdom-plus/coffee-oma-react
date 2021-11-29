@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
-import { productindexURL, productshowURL } from '../../src/urls/index';
+import {
+  productindexURL,
+  productshowURL,
+  LikeExistsURL,
+} from '../../src/urls/index';
 import { products } from '../fixtures/products.json';
 
 describe('Index', () => {
@@ -85,13 +89,34 @@ describe('New', () => {
   });
 });
 describe('Show', () => {
-  it('successfully', () => {
+  it('successfully(product[0])', () => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 200,
       body: { product: products[0] },
     });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { count: 1, liked: false },
+    });
     cy.visit(`/product/${products[0].id}`);
     cy.get('[data-testid = name]').should('have.text', products[0].name);
+    cy.get('[data-testid = rate_average]').should('be.visible');
+  });
+  it('successfully(product[1])', () => {
+    cy.intercept('GET', productshowURL(`${products[1].id}`), {
+      statusCode: 200,
+      body: { product: products[1] },
+    });
+    cy.intercept('GET', `${LikeExistsURL}?product_id=1`, {
+      statusCode: 200,
+      body: { count: 1, liked: false },
+    });
+    cy.visit(`/product/${products[1].id}`);
+    cy.get('[data-testid = name]').should('have.text', products[1].name);
+    cy.get('[data-testid = rate_average]').should(
+      'have.text',
+      '評価がまだありません。',
+    );
   });
   it('failed', () => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
