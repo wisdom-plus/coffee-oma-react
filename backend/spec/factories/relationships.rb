@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :relationship do
-    assosiation { :user }
+    user
   end
 end
