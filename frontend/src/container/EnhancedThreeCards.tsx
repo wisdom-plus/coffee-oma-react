@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import ThreeCards from 'components/molecules/ThreeCards';
-import useProductIndex from 'hooks/ThreeCards';
+import useThreeCards from 'hooks/ThreeCards';
 
 const EnhancedThreeCards: FC = () => {
-  const state = useProductIndex();
+  const { products, fetchNext } = useThreeCards();
 
-  return <ThreeCards state={state} />;
+  return <ThreeCards {...{ products, fetchNext }} />;
 };
 
 export default EnhancedThreeCards;

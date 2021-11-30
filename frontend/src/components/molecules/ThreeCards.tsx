@@ -1,11 +1,17 @@
 import { FC } from 'react';
-import { Card, Segment } from 'semantic-ui-react';
+import { Card, Segment, Button } from 'semantic-ui-react';
 import IndexCards from 'components/atoms/IndexCards';
-import { Product } from 'model/index';
+import { ProductInfinite } from 'model/index';
 import { motion } from 'framer-motion';
 import { list } from 'constant/index';
+import { FetchNextPageOptions, InfiniteQueryObserverResult } from 'react-query';
 
-const ThreeCards: FC<{ state: Product[] }> = ({ state = [] }) => (
+const ThreeCards: FC<{
+  products: ProductInfinite[] | undefined;
+  fetchNext: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<ProductInfinite, unknown>>;
+}> = ({ products = [], fetchNext }) => (
   <Segment style={{ marginTop: '4em', padding: '3em' }}>
     <motion.div initial="hidden" animate="visible" variants={list}>
       <motion.div
@@ -16,8 +22,11 @@ const ThreeCards: FC<{ state: Product[] }> = ({ state = [] }) => (
         variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
       >
         <Card.Group itemsPerRow={3} stackable centered>
-          <IndexCards products={state} />
+          <IndexCards products={products} />
         </Card.Group>
+        {fetchNext && (
+          <Button onClick={() => fetchNext()} color="teal" content="next" />
+        )}
       </motion.div>
     </motion.div>
   </Segment>

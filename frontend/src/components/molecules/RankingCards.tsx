@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Card, Segment } from 'semantic-ui-react';
-import IndexCards from 'components/atoms/IndexCards';
+import RankingCard from 'components/atoms/RankingCard';
 import { Product } from 'model/index';
 import { motion } from 'framer-motion';
 import { list } from 'constant/index';
@@ -17,7 +17,7 @@ const RankingCards: FC<{ state: Product[] }> = ({ state = [] }) => (
           variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
         >
           <Card.Group itemsPerRow={3} stackable centered>
-            <IndexCards products={state} isrank />
+            <RankingCard products={state} />
           </Card.Group>
         </motion.div>
       </motion.div>
