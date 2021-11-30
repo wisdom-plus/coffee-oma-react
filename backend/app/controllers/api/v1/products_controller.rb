@@ -2,15 +2,15 @@ module Api
   module V1
     class ProductsController < ApplicationController
       def index
-        products = Product.all.limit(9).offset(9*params[:page].to_i)
+        products = Product.all.limit(9).offset(9 * params[:page].to_i)
         if products.empty?
           render status: :not_found
         else
-          render json: {product:{
+          render json: { product: {
             pages: params[:page].to_i,
-            nextpage: has_next_page?(params[:page].to_i),
+            nextpage: next_page?(params[:page].to_i),
             data: products
-          }}, status: :ok
+          } }, status: :ok
         end
       end
 
@@ -40,12 +40,8 @@ module Api
           params.require(:product).permit(:name, :price, :url, :shopname, :caption, :image)
         end
 
-        def has_next_page?(page)
-          if (page +1 ) * 9 > Product.count || (page+1) > 10
-            false
-          else
-            true
-          end
+        def next_page?(page)
+          !((page + 1) * 9 > Product.count || (page + 1) > 10)
         end
     end
   end
