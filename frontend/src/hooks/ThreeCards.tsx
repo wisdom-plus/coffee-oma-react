@@ -11,8 +11,9 @@ const useThreeCards = (): {
   fetchNext: (
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<ProductInfinite, unknown>>;
+  isFetch: boolean;
 } => {
-  const { data, fetchNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['products'],
     async ({ pageParam = 0 }) => Fetchproductindexinfinite(pageParam),
     {
@@ -21,7 +22,11 @@ const useThreeCards = (): {
     },
   );
 
-  return { products: data?.pages, fetchNext: fetchNextPage };
+  return {
+    products: data?.pages,
+    fetchNext: fetchNextPage,
+    isFetch: isFetchingNextPage,
+  };
 };
 
 export default useThreeCards;

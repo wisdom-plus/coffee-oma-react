@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Card, Icon, Image, Label } from 'semantic-ui-react';
+import React, { FC, Fragment } from 'react';
+import { Card, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { ProductInfinite } from 'model/index';
 import { motion } from 'framer-motion';
@@ -7,17 +7,16 @@ import { item, transition, frameVariants, Variants } from 'constant/index';
 
 type Props = {
   products: ProductInfinite[] | undefined;
-  isrank?: boolean;
 };
 const Extra: FC<{ price: number }> = ({ price }) => (
   <Icon name="yen sign">{price.toLocaleString()}</Icon>
 );
 
-const IndexCards: FC<Props> = ({ products, isrank = false }) => (
+const IndexCards: FC<Props> = ({ products }) => (
   <>
     {products?.map((page) => (
-      <>
-        {page.data.map((product, index) => (
+      <React.Fragment key={page.pages}>
+        {page.data.map((product) => (
           <motion.div
             key={product.id}
             variants={Variants}
@@ -33,15 +32,6 @@ const IndexCards: FC<Props> = ({ products, isrank = false }) => (
               >
                 <Link to={`/product/${product.id}`} data-testid={product.id}>
                   <Card>
-                    {isrank && (
-                      <Label color="teal" attached="top left" size="small">
-                        <Icon
-                          name="chess queen"
-                          style={{ fontSize: '1.3em' }}
-                        />
-                        {index + 1}
-                      </Label>
-                    )}
                     <Image src={product.image?.url} />
                     <Card.Content>
                       <Card.Header>{product.name}</Card.Header>
@@ -58,7 +48,7 @@ const IndexCards: FC<Props> = ({ products, isrank = false }) => (
             </motion.div>
           </motion.div>
         ))}
-      </>
+      </React.Fragment>
     ))}
   </>
 );

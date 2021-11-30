@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Card, Segment, Button } from 'semantic-ui-react';
+import { Card, Segment, Visibility, Loader } from 'semantic-ui-react';
 import IndexCards from 'components/atoms/IndexCards';
 import { ProductInfinite } from 'model/index';
 import { motion } from 'framer-motion';
@@ -11,7 +11,8 @@ const ThreeCards: FC<{
   fetchNext: (
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<ProductInfinite, unknown>>;
-}> = ({ products = [], fetchNext }) => (
+  isFetch: boolean;
+}> = ({ products = [], fetchNext, isFetch }) => (
   <Segment style={{ marginTop: '4em', padding: '3em' }}>
     <motion.div initial="hidden" animate="visible" variants={list}>
       <motion.div
@@ -21,11 +22,15 @@ const ThreeCards: FC<{
         exit="exit"
         variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
       >
-        <Card.Group itemsPerRow={3} stackable centered>
-          <IndexCards products={products} />
-        </Card.Group>
-        {fetchNext && (
-          <Button onClick={() => fetchNext()} color="teal" content="next" />
+        <Visibility onBottomVisible={() => fetchNext()}>
+          <Card.Group itemsPerRow={3} stackable centered>
+            <IndexCards products={products} />
+          </Card.Group>
+        </Visibility>
+        {isFetch && (
+          <Loader active inline="centered" size="large">
+            Loading...
+          </Loader>
         )}
       </motion.div>
     </motion.div>
