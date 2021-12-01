@@ -8,7 +8,9 @@ import { products } from '../fixtures/products.json';
 
 describe('Index', () => {
   it('successfully', () => {
-    cy.intercept('GET', productindexURL, { fixture: 'products' });
+    cy.intercept('GET', 'http://localhost:3001/api/v1/products?page=0', {
+      fixture: 'infiniteproduct',
+    });
     cy.intercept(
       'GET',
       'http://localhost:3001/uploads/product/image/1/product-01.jpg',
@@ -38,7 +40,9 @@ describe('Index', () => {
     });
   });
   it('faild', () => {
-    cy.intercept('GET', productindexURL, { statusCode: 404 });
+    cy.intercept('GET', 'http://localhost:3001/api/v1/products?page=0', {
+      statusCode: 404,
+    });
     cy.visit('/products', { failOnStatusCode: false });
     cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
