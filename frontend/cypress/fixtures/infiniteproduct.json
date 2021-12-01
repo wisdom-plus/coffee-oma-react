@@ -1,0 +1,56 @@
+{
+  "product": {
+    "pages": 0,
+    "nextpage": false,
+    "data": [
+      {
+        "id": 1,
+        "name": "ハリオV60コーヒードリッパー01",
+        "url": "https://www.amazon.co.jp/HARIO-%E3%83%8F%E3%83%AA%E3%82%AA-%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%83%89%E3%83%AA%E3%83%83%E3%83%91%E3%83%BC-%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%83%89%E3%83%AA%E3%83%83%E3%83%97-VDG-01B/dp/B002VUP2M8/ref=sr_1_20?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&dchild=1&keywords=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%83%89%E3%83%AA%E3%83%83%E3%83%91%E3%83%BC&qid=1615521096&sr=8-20",
+        "shopname": "HARIO",
+        "price": 1027,
+        "caption": "大きな穴からペーパーの先端が出ることで、\n  注がれたお湯がドリッパーからの制限を受けることなく、\n  よりネルドリップに近い抽出ができる\n  また、お湯を注ぐ速度により珈琲の味を変えることができるため、\n  お好みの珈琲が楽しめる\n  珈琲粉の膨らみを妨げない、スパイラルリブ採用\n  ドリッパー内部のリブ（凸部）を高く上部まで付けることにより、\n  ペーパーとドリッパーの密着をふせぎ、空気の抜ける空間ができる\n  蒸らしの際に、この空間から空気が抜け珈琲粉がしっかりと膨らむ",
+        "image": {
+          "url": "http://localhost:3001/uploads/product/image/1/product-01.jpg"
+        },
+        "created_at": "2021-05-28T11:03:03.731+09:00",
+        "updated_at": "2021-05-28T11:03:03.731+09:00",
+        "likes_count": 2,
+        "reviews_count": 2,
+        "rate_average": 9
+      },
+      {
+        "id": 2,
+        "name": "カリタ コーヒードリッパー 101-D ",
+        "url": "https://www.amazon.co.jp/Kalita-%E3%82%AB%E3%83%AA%E3%82%BF-%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%83%A1%E3%82%B8%E3%83%A3%E3%83%BC-1-2%E4%BA%BA%E7%94%A8-04001/dp/B001TM6FF2/ref=psdc_251688011_t4_B002VUP2M8",
+        "shopname": "Kalita",
+        "price": 417,
+        "caption": "カリタ三つ穴ドリッパー\n  雑味がでる前に美味しさだけをドリップする\n  軽くて扱い易いプラスチック製\n  1~2人用",
+        "image": {
+          "url": "http://localhost:3001/uploads/product/image/2/product-02.jpg"
+        },
+        "created_at": "2021-05-28T11:03:03.810+09:00",
+        "updated_at": "2021-05-28T11:03:03.810+09:00",
+        "likes_count": 1,
+        "reviews_count": 0,
+        "rate_average": 0
+      },
+      {
+        "id": 3,
+        "name": "カリタ ウェーブドリッパー 155",
+        "url": "https://www.amazon.co.jp/%E3%82%AB%E3%83%AA%E3%82%BF-%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%83%89%E3%83%AA%E3%83%83%E3%83%91%E3%83%BC-%E3%82%B9%E3%83%86%E3%83%B3%E3%83%AC%E3%82%B9%E8%A3%BD-%E3%82%A6%E3%82%A7%E3%83%BC%E3%83%96%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-04021/dp/B004W5L1XY/ref=rtpb_17?pd_rd_w=j47TD&pf_rd_p=c221ae92-96f8-424c-884c-196b2fc439b0&pf_rd_r=DVH847KYHQYS2NKNT365&pd_rd_r=e086efea-4a5b-4832-bbfa-e860a0963f39&pd_rd_wg=VUQ1u&pd_rd_i=B004W5L1XY&psc=1",
+        "shopname": "Kalita",
+        "price": 1650,
+        "caption": "長時間フィルターとウェーブゾーンにコーヒー液がとどまらないので、\n  雑美成分の抽出が少なく美味しさだけをドリップするドリッパー【\n  特長】・味ブレの少ないドリップコーヒーを、ご家庭で手軽にお楽しみいただけるドリッパー。\n  ・このフィルターは底が平らになっており、注ぐお湯が多少ブレてもしっかりと粉全体に馴染んでくれる特長があります。\n  ・また、カリタの特長である3つの穴があいており、長時間お湯が溜まりにくいため雑味が少なく、美味しいドリップを可能にしてくれます。\n  ・1～2人用です。",
+        "image": {
+          "url": "http://localhost:3001/uploads/product/image/3/product-03.jpg"
+        },
+        "created_at": "2021-05-28T11:03:03.882+09:00",
+        "updated_at": "2021-05-28T11:03:03.882+09:00",
+        "likes_count": 0,
+        "reviews_count": 0,
+        "rate_average": 0
+      }
+    ]
+  }
+}

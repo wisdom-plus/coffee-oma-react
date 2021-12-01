@@ -10,6 +10,12 @@ export type Product = {
   ['reviews_count']: number;
   ['rate_average']: number;
 };
+
+export type ProductInfinite = {
+  pages: number;
+  nextpage: boolean;
+  data: Product[];
+};
 export type Productdata = {
   id: number;
   name: string;

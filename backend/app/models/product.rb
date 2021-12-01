@@ -8,6 +8,12 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   scope :ranking, ->(count) { all.order('likes_count desc').limit(count) }
+  scope :limit_index, -> { limit(INDEX_NUM) }
+  scope :page_offset, ->(page_num) { offset(INDEX_NUM * page_num) }
+
+  def self.index_pagenation(page)
+    limit_index.page_offset(page)
+  end
 
   def rate_average_sum
     return unless reviews.average(:rate)

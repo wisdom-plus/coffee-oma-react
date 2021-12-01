@@ -1,11 +1,24 @@
 import axios from 'axios';
-import { Product } from 'model/index';
+import { Product, ProductInfinite } from 'model/index';
 import { productindexURL, productshowURL, LikeIndexURL } from 'urls/index';
 
 export const Fetchproductindex = async (): Promise<Product[]> => {
   const response = await axios.get<{ products: Product[] }>(productindexURL);
 
   return response.data.products;
+};
+
+export const Fetchproductindexinfinite = async (
+  offset: number,
+): Promise<ProductInfinite> => {
+  const response = await axios.get<{ product: ProductInfinite }>(
+    productindexURL,
+    {
+      params: { page: offset },
+    },
+  );
+
+  return response.data.product;
 };
 
 export const Fetchproductshow = async (

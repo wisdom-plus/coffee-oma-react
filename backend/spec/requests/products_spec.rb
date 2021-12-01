@@ -11,6 +11,14 @@ RSpec.describe 'Products', type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'レスポンスボディの検証' do
+      product
+      get api_v1_products_path
+      expect(json['product']['data']).to eq(expect_json(Product.index_pagenation(0)))
+      expect(json['product']['pages']).to eq(expect_json(0))
+      expect(json['product']['nextpage']).to eq(expect_json(false))
+    end
+
     it 'レスポンス失敗' do
       get api_v1_products_path
       expect(response).to have_http_status(:not_found)
@@ -21,6 +29,11 @@ RSpec.describe 'Products', type: :request do
     it 'レスポンス成功' do
       get api_v1_product_path(product.id)
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'レスポンスボディの検証' do
+      get api_v1_product_path(product.id)
+      expect(json['product']).to eq(expect_json(Product.find_by(id: product.id).api_json))
     end
 
     it 'レスポンス失敗' do

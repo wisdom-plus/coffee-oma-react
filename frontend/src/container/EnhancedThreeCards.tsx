@@ -1,11 +1,12 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import ThreeCards from 'components/molecules/ThreeCards';
-import useProductIndex from 'hooks/ThreeCards';
+import useThreeCards from 'hooks/ThreeCards';
 
 const EnhancedThreeCards: FC = () => {
-  const state = useProductIndex();
+  const { products, fetchNext, isFetch } = useThreeCards();
+  const Railref = useRef<HTMLElement>(null);
 
-  return <ThreeCards state={state} />;
+  return <ThreeCards {...{ products, fetchNext, isFetch, Railref }} />;
 };
 
 export default EnhancedThreeCards;
