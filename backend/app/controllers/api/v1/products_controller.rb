@@ -2,7 +2,7 @@ module Api
   module V1
     class ProductsController < ApplicationController
       def index
-        products = Product.all.limit(9).offset(9 * params[:page].to_i)
+        products = Product.index_pagenation(params[:page].to_i)
         if products.empty?
           render status: :not_found
         else
