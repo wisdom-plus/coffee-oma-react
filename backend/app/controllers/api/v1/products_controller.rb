@@ -28,9 +28,9 @@ module Api
       def create
         @product = Product.new(product_params)
         if @product.save
-          render json: { status: 'OK' }, status: :created
+          render status: :created
         else
-          render json: { status: 'Failure' }, status: :not_found
+          render status: :not_found
         end
       end
 
