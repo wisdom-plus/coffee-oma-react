@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   scope :ranking, ->(count) { all.order('likes_count desc').limit(count) }
   scope :limit_index, -> { limit(INDEX_NUM) }
-  scope :page_offset, -> (page_num) {offset(INDEX_NUM * page_num)}
+  scope :page_offset, ->(page_num) { offset(INDEX_NUM * page_num) }
 
   def self.index_pagenation(page)
     limit_index.page_offset(page)
