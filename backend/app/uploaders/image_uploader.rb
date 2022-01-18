@@ -10,6 +10,8 @@ class ImageUploader < CarrierWave::Uploader::Base
     storage :file
   end
 
+  process resize_and_pad: [500, 350, '#ffffff']
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
