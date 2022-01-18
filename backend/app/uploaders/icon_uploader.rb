@@ -17,7 +17,11 @@ class IconUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*_args)
-    "#{ENV['LOCAL_API_URL']}/images/#{[version_name, 'default.png'].compact.join('_')}"
+    if Rails.env.production?
+      "#{ENV['BACKEND_URL']}/images/#{[version_name, 'default.png'].compact.join('_')}"
+    else
+      "#{ENV['LOCAL_API_URL']}/images/#{[version_name, 'default.png'].compact.join('_')}"
+    end
   end
 
   # Process files as they are uploaded:
