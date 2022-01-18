@@ -1,5 +1,7 @@
 const DEFAULT_API_LOCALHOST =
-  process.env.REACT_APP_PRODUCTION_URL || 'http://localhost:3001/api/v1';
+  process.env.REACT_APP_NODE_ENV === 'production'
+    ? 'https://coffee-oma-backend.herokuapp.com/api/v1'
+    : 'http://localhost:3001/api/v1';
 
 export const productindexURL = `${DEFAULT_API_LOCALHOST}/products`;
 export const productshowURL = (productId: string): string =>
