@@ -25,7 +25,6 @@ class ImageUploader < CarrierWave::Uploader::Base
     else
       "#{ENV['LOCAL_API_URL']}/images/#{[version_name, 'noimage.jpg'].compact.join('_')}"
     end
-
   end
 
   # Process files as they are uploaded:
