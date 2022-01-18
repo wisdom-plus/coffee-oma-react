@@ -5,6 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+12.times do |n|
+  name = Faker::Internet.unique.username
+  email = Faker::Internet.unique.email
+  password = Faker::Internet.password
+  User.create!(email: email,
+              password: password,
+              name: name,
+              confirmed_at: Time.zone.now,
+              icon: File.open("./public/seed/icon-#{n+1}.png")
+  )
+end
 Product.create!(
   image:File.open("./public/seed/product-01.jpg"),
   caption:"大きな穴からペーパーの先端が出ることで、
@@ -127,3 +138,144 @@ Product.create!(
   url: "https://www.amazon.co.jp/%E3%82%A8%E3%82%A2%E3%83%AD%E3%83%97%E3%83%AC%E3%82%B9-AEROPRESS-%E3%82%A8%E3%82%A2%E3%83%AD%E3%83%97%E3%83%AC%E3%82%B9%E3%82%B4%E3%83%BC/dp/B086LFKT6T/ref=sr_1_8?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&dchild=1&keywords=%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC+%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0&qid=1615528194&sr=8-8",
   shopname: "エアロプレス",
 )
+
+
+Review.create!(
+  user: User.find(1),
+  product: Product.find(1),
+  title: "最高のドリッパーです",
+  content: "簡単においしいコーヒーを淹れることができるドリッパーです",
+  rate: 5
+)
+
+Review.create!(
+  user: User.find(2),
+  product: Product.find(1),
+  title: "すぐに壊れてしまいました",
+  content: "２回使っただけなのに壊れてしまいました。",
+  rate: 1
+)
+
+Review.create!(
+  user: User.find(10),
+  product: Product.find(1),
+  title: "初心者用のドリッパーです",
+  content: "初心者用のドリッパーです。
+  上級者から初心者でも使える万能なドリッパーです",
+  rate: 4
+)
+Review.create!(
+  user: User.find(9),
+  product: Product.find(2),
+  title: "退屈なドリッパー",
+  content: "粉をいれて湯をいれたらコーヒーの完成です
+  簡単で悪く言えば、退屈なドリッパーです",
+  rate: 2
+)
+
+Review.create!(
+  user: User.find(3),
+  product: Product.find(2),
+  title: "簡単にコーヒーが淹れれます",
+  content: "粉とお湯をいれるだけで、いつでも同じ味のコーヒーを淹れることができます。",
+  rate: 4
+)
+
+Review.create!(
+  user: User.find(11),
+  product: Product.find(10),
+  title: "美味しく作れお掃除簡単",
+  content: "すぐ作れるのと掃除が簡単で美味しい！
+  キャンプにも持って行く予定です。",
+  rate: 5
+)
+Review.create!(
+  user: User.find(1),
+  product: Product.find(5),
+  title: "コンパクトでお買い得",
+  content: "コーヒーを挽くのも力も要らず、ゴリゴリどころかジョリジョリスリスリ挽けます。
+  コンパクトだし持ち歩きにハンドルもバンドに収納できます。
+  １人分位なら家でも毎日挽いても苦ではないです。",
+  rate: 4
+)
+Review.create!(
+  user: User.find(12),
+  product: Product.find(6),
+  title: "取りにくい",
+  content: "一度に2，3枚出たときに、フィルターが元にキチンと収まらない（形が少し崩れて）。",
+  rate: 3
+)
+Review.create!(
+  user: User.find(8),
+  product: Product.find(3),
+  title: "ドリップが安定する",
+  content: "ウェーブドリッパーは、他のレビューにあるように、確かにドリップのブレが無いように感じます。
+  常に安定したドリップになります。
+  デメリットは、メリットの逆でドリップに変化をつけづらいことと、ペーパーコストが少し高いことでしょうか。",
+  rate: 5
+)
+Review.create!(
+  user: User.find(4),
+  product: Product.find(9),
+  title: "取り扱い要注意です",
+  content: "残念ながら数回使ってサーバーが割れてしまいました。
+  耐熱ガラスにしては薄手の為、使い始めの時に割れそうだなーと少し不安に思っていましたが、
+  現実となりました。 取り扱い要注意です！",
+  rate: 1
+)
+
+Review.create!(
+  user: User.find(1),
+  product: Product.find(7),
+  title: "快適な使用感",
+  content: "豆を挽いてる間にこちらに湯を移し、温度を下げて、毎日コーヒーを淹れています。
+  細口で自分の加減で入れれるので、悩んで購入した甲斐がありました！",
+  rate: 5
+)
+Review.create!(
+  user: User.find(12),
+  product: Product.find(8),
+  title: "これこそもとめていたスケール",
+  content: "物凄く使いやすい。今まで安いスケールを20個近く試してきましたが、精度や拭きやすさ、強度で満足いくものはありませんでした。
+  こちらの商品は見た目、拭きやすさ、精度に満足している上に、充電式で乾電池不要なのも◎。
+  一台購入後、追加で2台購入しました。",
+  rate: 5
+)
+Review.create!(
+  user: User.find(4),
+  product: Product.find(4),
+  title: "LED表示が思ったほど明るくない",
+  content: "液晶がLEDで視認性がよく見やすいと思い少し割高ですが購入しました。
+  ですが視認性はあまりよくないです。少し本体との取付に個体差によるズレがあるみたいで気になる方には気になると思います。",
+  rate: 2
+)
+
+10.times do |n|
+  Relationship.create!(
+    user: User.find(n+1),
+    follow: User.find(n +2)
+  )
+  Relationship.create!(
+    user: User.find(n +2),
+    follow: User.find(n + 1)
+  )
+  if n != 0 && n % 2 == 0
+    Relationship.create!(
+      user: User.find(n+1),
+      follow: User.find(1)
+    )
+    Like.create!(
+      user: User.find(n +1),
+      product_id: 1
+    )
+  end
+  Like.create!(
+    user: User.find(n +1),
+    product_id: n +1
+  )
+  Like.create!(
+    user: User.find(n +2),
+    product_id: n +1
+  )
+
+end
