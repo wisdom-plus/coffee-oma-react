@@ -4,6 +4,7 @@
 coffee-omaをReact x Rails APIでリプレースしたアプリケーションです
 
 ### [coffee-oma-react](https://coffee-oma-frontend.herokuapp.com)
+herokuでのデプロイのため初回のアクセス時表示まで時間がかかりますがご理解ください
 
 ![coffee-oma-logo](https://user-images.githubusercontent.com/48266893/112326442-deefcb80-8cf7-11eb-9432-cc83ade690de.png)
 
