@@ -3,14 +3,12 @@
 コーヒーに関する器具や、豆などの評価や感想を投稿しシェアするwebアプリケーションです。
 coffee-omaをReact x Rails APIでリプレースしたアプリケーションです
 
-### [リンク](https://coffee-oma-frontend.herokuapp.com)
+### [coffee-oma-react](https://coffee-oma-frontend.herokuapp.com)
 
 ![coffee-oma-logo](https://user-images.githubusercontent.com/48266893/112326442-deefcb80-8cf7-11eb-9432-cc83ade690de.png)
 
 
-[![Rails Rspec](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml)
-
-[![Cypress](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml)
+[![Rails Rspec](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/ruby.yml)[![Cypress](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml/badge.svg)](https://github.com/tomoron/coffee-oma-react/actions/workflows/cypress.yml)
 
 
 # 特に見ていただきたい点
