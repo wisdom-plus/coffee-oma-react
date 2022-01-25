@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 const useProductShow = (): { product: Product } => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams() as { id: string };
   const { data: item = { product: {} as Product } } = useQuery(
     [id, 'product'],
     () => Fetchproductshow(id),
