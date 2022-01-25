@@ -53,7 +53,7 @@ const App: FC = () => {
                 />
                 <Route path="mypage" element={<Registration ismypage />} />
                 <Route
-                  path="registration/:id(\d+)"
+                  path="registration/:id"
                   element={<Registration isshow />}
                 />
 

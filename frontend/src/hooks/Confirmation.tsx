@@ -1,14 +1,12 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchsessionconfirm } from 'apis/Session';
-
-/* eslint-disable react/jsx-props-no-spreading */
 
 const useConfirmation = (): {
   methods: UseFormReturn<{ email: string }>;
   onSubmit: (data: { email: string }) => Promise<void>;
 } => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const methods = useForm<{ email: string }>({
     criteriaMode: 'all',
     mode: 'onBlur',
@@ -18,13 +16,17 @@ const useConfirmation = (): {
     try {
       const response = await Fetchsessionconfirm(data);
       if (response === 200) {
-        history.push('/send_mail', {
-          message: 'メールが送信されました。',
-          type: 'success',
+        navigate('/send_mail', {
+          state: {
+            message: 'メールが送信されました。',
+            type: 'success',
+          },
         });
       }
     } catch (e) {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      navigate('/', {
+        state: { message: 'エラーが発生しました。', type: 'error' },
+      });
     }
   };
 
