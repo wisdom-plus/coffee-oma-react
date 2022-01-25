@@ -1,12 +1,12 @@
 import { useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
 import LoginState from 'Atom';
 import { useCookies } from 'react-cookie';
 
 const useSignOut = (): void => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const resetUser = useResetRecoilState(LoginState);
   const [cookie, , removeCookie] = useCookies(['token']);
   const success = useCallback(() => {
@@ -21,19 +21,23 @@ const useSignOut = (): void => {
         if (status === 200) {
           success();
         } else {
-          history.push('/', {
-            message: 'ログアウトに失敗しました。',
-            type: 'error',
+          navigate('/', {
+            state: {
+              message: 'ログアウトに失敗しました。',
+              type: 'error',
+            },
           });
         }
       } catch (e) {
-        history.push('/', {
-          message: 'ログアウトに失敗しました。',
-          type: 'error',
+        navigate('/', {
+          state: {
+            message: 'ログアウトに失敗しました。',
+            type: 'error',
+          },
         });
       }
     };
-    const timer = setTimeout(() => history.push('/'), 5000);
+    const timer = setTimeout(() => navigate('/'), 5000);
     if (cookie.token) {
       void API();
     }
@@ -41,7 +45,7 @@ const useSignOut = (): void => {
     return (): void => {
       clearTimeout(timer);
     };
-  }, [history, success, cookie]);
+  }, [navigate, success, cookie]);
 };
 
 export default useSignOut;
