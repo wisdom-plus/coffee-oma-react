@@ -53,7 +53,7 @@ describe('Index', () => {
 describe('New', () => {
   it('successfully', () => {
     cy.intercept('POST', productindexURL, { statusCode: 201 });
-    cy.visit('/product/new');
+    cy.visit('/products/new');
     cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
     cy.get('[data-testid =shopname] > input').type('coffee-shop-name', {
       force: true,
@@ -69,7 +69,7 @@ describe('New', () => {
   });
   it('failed', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });
-    cy.visit('/product/new');
+    cy.visit('/products/new');
     cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
     cy.get('[data-testid =shopname] > input').type('coffee-shop-name', {
       force: true,
@@ -85,7 +85,7 @@ describe('New', () => {
   });
   it('error message (caption)', () => {
     cy.intercept('POST', productindexURL, { statusCode: 401 });
-    cy.visit('/product/new');
+    cy.visit('/products/new');
     cy.get('[data-testid =name] > input').type('coffee-name', { force: true });
     cy.get('[data-testid =price] > input').type('1000', { force: true });
     cy.get('[data-testid =caption]').focus().blur();
@@ -102,7 +102,7 @@ describe('Show', () => {
       statusCode: 200,
       body: { count: 1, liked: false },
     });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid = name]').should('have.text', products[0].name);
     cy.get('[data-testid = rate_average]').should('be.visible');
   });
@@ -115,7 +115,7 @@ describe('Show', () => {
       statusCode: 200,
       body: { count: 1, liked: false },
     });
-    cy.visit(`/product/${products[1].id}`);
+    cy.visit(`/products/${products[1].id}`);
     cy.get('[data-testid = name]').should('have.text', products[1].name);
     cy.get('[data-testid = rate_average]').should(
       'have.text',
@@ -126,7 +126,7 @@ describe('Show', () => {
     cy.intercept('GET', productshowURL(`${products[0].id}`), {
       statusCode: 404,
     });
-    cy.visit(`/product/${products[0].id}`, { failOnStatusCode: false });
+    cy.visit(`/products/${products[0].id}`, { failOnStatusCode: false });
     cy.ErrorBoundary(
       'アイテムが存在しません。時間をおいてから再度アクセスしてください。',
     );
