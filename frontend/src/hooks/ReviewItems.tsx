@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Review } from 'model/index';
 
 const useReviewItems = (): Review[] => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams() as { id: string };
   const { data: reviews = [] } = useQuery([id, 'review'], () =>
     FetchReviewExists(id),
   );

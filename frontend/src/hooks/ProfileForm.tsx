@@ -7,7 +7,7 @@ import {
   useCallback,
 } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserEditForm, CurrentUser } from 'model/index';
 import { FetchRegistrationUpdate } from 'apis/User';
 import LoginState from 'Atom';
@@ -35,7 +35,7 @@ const useProfileForm = (): Props => {
   const [active, setActive] = useState(false);
   const [user, setUser] = useRecoilState(LoginState);
   const [cookie] = useCookies(['token']);
-  const history = useHistory();
+  const navigate = useNavigate();
   const defaultvalues = useMemo(
     () => ({
       name: user.name,
@@ -56,9 +56,11 @@ const useProfileForm = (): Props => {
   useEffect(() => {
     Reset(defaultvalues);
     if (!cookie.token) {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      navigate('/', {
+        state: { message: 'エラーが発生しました。', type: 'error' },
+      });
     }
-  }, [user, defaultvalues, Reset, history, cookie]);
+  }, [user, defaultvalues, Reset, navigate, cookie]);
 
   const methods = { reset, ...method };
 
@@ -82,20 +84,26 @@ const useProfileForm = (): Props => {
       const response = await FetchRegistrationUpdate(formdata, cookie.token);
       if (response.status === 200) {
         setUser((prevUser) => ({ ...prevUser, ...response.data }));
-        history.push('/mypage', {
-          message: 'アカウント情報を更新しました。',
-          type: 'success',
+        navigate('/mypage', {
+          state: {
+            message: 'アカウント情報を更新しました。',
+            type: 'success',
+          },
         });
       } else {
-        history.push('/registration/edit', {
-          message: '入力が正しくありません。',
-          type: 'error',
+        navigate('/registration/edit', {
+          state: {
+            message: '入力が正しくありません。',
+            type: 'error',
+          },
         });
       }
     } catch (e) {
-      history.push('/registration/edit', {
-        message: '入力が正しくありません。',
-        type: 'error',
+      navigate('/registration/edit', {
+        state: {
+          message: '入力が正しくありません。',
+          type: 'error',
+        },
       });
     }
   };
