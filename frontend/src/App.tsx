@@ -16,6 +16,8 @@ import LoaderGrid from 'error/LoaderGrid';
 import { AnimatePresence } from 'framer-motion';
 import { LocationState } from 'components/atoms/FlashMessage';
 import ProductRank from 'components/templates/ProductRank';
+import ProductIndex from 'components/templates/ProductIndex';
+import ProductShow from 'container/EnhancedProductShow';
 
 import ProductNew from 'components/templates/ProductNew';
 
@@ -60,10 +62,11 @@ const App: FC = () => {
                   element={<Registration isshow />}
                 />
 
-                <Route path="products" element={<Product isindex />}>
+                <Route path="products" element={<Product />}>
+                  <Route path="" element={<ProductIndex />} />
                   <Route path="new" element={<ProductNew />} />
                   <Route path="ranking" element={<ProductRank />} />
-                  <Route path=":id" element={<Product isshow />} />
+                  <Route path=":id" element={<ProductShow />} />
                 </Route>
                 <Route path="private_policy" element={<Policy isprivate />} />
                 <Route path="policy" element={<Policy />} />

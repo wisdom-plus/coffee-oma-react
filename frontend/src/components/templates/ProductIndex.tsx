@@ -15,7 +15,7 @@ const ProductIndex: FC = () => (
     />
     <Header as="h3" textAlign="center">
       なければ
-      <Link to="/product/new">こちらから登録</Link>
+      <Link to="/products/new">こちらから登録</Link>
     </Header>
     <ErrorBoundary statusMessages={{ 404: 'アイテムが存在しません。' }}>
       <Suspense fallback={<ThreeCardsLoading />}>
