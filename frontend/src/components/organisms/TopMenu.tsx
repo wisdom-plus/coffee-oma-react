@@ -17,7 +17,7 @@ const TopMenu: FC = () => {
           <Icon name="chat" />
           アイテム一覧
         </Menu.Item>
-        <Menu.Item header as={Link} to="/product/ranking">
+        <Menu.Item header as={Link} to="/products/ranking">
           <Icon name="chess queen" />
           ランキング
         </Menu.Item>

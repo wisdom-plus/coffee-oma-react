@@ -30,7 +30,7 @@ const IndexCards: FC<Props> = ({ products }) => (
                 variants={frameVariants}
                 transition={transition}
               >
-                <Link to={`/product/${product.id}`} data-testid={product.id}>
+                <Link to={`/products/${product.id}`} data-testid={product.id}>
                   <Card>
                     <Image src={product.image?.url} />
                     <Card.Content>

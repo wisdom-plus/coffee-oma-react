@@ -15,6 +15,9 @@ import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';
 import { AnimatePresence } from 'framer-motion';
 import { LocationState } from 'components/atoms/FlashMessage';
+import ProductRank from 'components/templates/ProductRank';
+
+import ProductNew from 'components/templates/ProductNew';
 
 const App: FC = () => {
   const location = useLocation();
@@ -58,8 +61,8 @@ const App: FC = () => {
                 />
 
                 <Route path="products" element={<Product isindex />}>
-                  <Route path="new" element={<Product isnew />} />
-                  <Route path="ranking" element={<Product isrank />} />
+                  <Route path="new" element={<ProductNew />} />
+                  <Route path="ranking" element={<ProductRank />} />
                   <Route path=":id" element={<Product isshow />} />
                 </Route>
                 <Route path="private_policy" element={<Policy isprivate />} />
