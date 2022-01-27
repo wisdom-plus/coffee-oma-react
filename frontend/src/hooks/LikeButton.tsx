@@ -59,7 +59,7 @@ const useLikeButton = (): {
     try {
       const response = await createmutation.mutateAsync();
       if (response === 201) {
-        navigate(`/product/${id}`, {
+        navigate(`/products/${id}`, {
           state: {
             message: 'お気に入りに追加しました。',
             type: 'success',
@@ -67,7 +67,7 @@ const useLikeButton = (): {
         });
       }
     } catch (e) {
-      navigate(`/product/${id}`, {
+      navigate(`/products/${id}`, {
         state: {
           message: 'エラーが発生しました。',
           type: 'error',
@@ -80,7 +80,7 @@ const useLikeButton = (): {
     try {
       const response = await destroymutation.mutateAsync();
       if (response === 200) {
-        navigate(`/product/${id}`, {
+        navigate(`/products/${id}`, {
           state: {
             message: 'お気に入りを削除しました。',
             type: 'success',
@@ -88,7 +88,7 @@ const useLikeButton = (): {
         });
       }
     } catch (e) {
-      navigate(`/product/${id}`, {
+      navigate(`/products/${id}`, {
         state: {
           message: 'エラーが発生しました。',
           type: 'error',

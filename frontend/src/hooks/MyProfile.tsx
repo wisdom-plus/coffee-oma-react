@@ -1,4 +1,3 @@
-import { useLayoutEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import LoginState from 'Atom';
 import { useNavigate } from 'react-router-dom';
@@ -10,16 +9,14 @@ const useMyProfile = (): CurrentUser => {
   const navigate = useNavigate();
   const [cookie] = useCookies(['token']);
 
-  useLayoutEffect(() => {
-    if (!cookie.token) {
-      navigate('/sign_in', {
-        state: {
-          message: 'ログインしてから、お試しください。',
-          type: 'error',
-        },
-      });
-    }
-  }, [navigate, user, cookie]);
+  if (!cookie.token) {
+    navigate('/sign_in', {
+      state: {
+        message: 'ログインしてから、お試しください。',
+        type: 'error',
+      },
+    });
+  }
 
   return user;
 };
