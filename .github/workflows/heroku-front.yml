@@ -18,3 +18,4 @@ jobs:
           app_dir: "frontend"
           use_docker: true
           remote_branch: "heroku-frontend"
+          stack: "container"
