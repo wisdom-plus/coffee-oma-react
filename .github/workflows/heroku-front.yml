@@ -14,7 +14,7 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'coffee-oma-frontend'
-          heroku_eamil: ${{secrets.HEROKU_EMAIL}}
-          app_dir: "frontend"
-          use_docker: true
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "frontend"
+          usedocker: true
           stack: "container"
