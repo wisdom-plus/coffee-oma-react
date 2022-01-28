@@ -16,3 +16,4 @@ jobs:
           heroku_app_name: 'coffee-oma-frontend'
           heroku_eamil: ${{secrets.HEROKU_EMAIL}}
           app_dir: "frontend"
+          use_docker: true
