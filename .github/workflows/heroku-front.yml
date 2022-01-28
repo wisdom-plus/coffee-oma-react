@@ -17,3 +17,4 @@ jobs:
           heroku_eamil: ${{secrets.HEROKU_EMAIL}}
           app_dir: "frontend"
           use_docker: true
+          remote_branch: "heroku-frontend"
