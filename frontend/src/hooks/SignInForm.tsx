@@ -1,5 +1,5 @@
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
 import { useSetRecoilState } from 'recoil';
@@ -11,7 +11,7 @@ const useSignInForm = (): {
   methods: UseFormReturn<Session>;
   onSubmit: (data: Session) => Promise<void>;
 } => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const methods = useForm<Session>({ criteriaMode: 'all', mode: 'onBlur' });
   const setUser = useSetRecoilState(LoginState);
   const [, setCookies] = useCookies(['token']);
@@ -35,14 +35,18 @@ const useSignInForm = (): {
         path: '/',
         expires: limittime(),
       });
-      history.push('/', {
-        message: 'ログインに成功しました。',
-        type: 'success',
+      navigate('/', {
+        state: {
+          message: 'ログインに成功しました。',
+          type: 'success',
+        },
       });
     } catch (e) {
-      history.push('/sign_in', {
-        message: 'ログインに失敗しました。',
-        type: 'error',
+      navigate('/sign_in', {
+        state: {
+          message: 'ログインに失敗しました。',
+          type: 'error',
+        },
       });
     }
   };

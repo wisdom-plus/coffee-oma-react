@@ -1,5 +1,5 @@
 import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 
@@ -10,8 +10,8 @@ const useLikeButton = (): {
   onCreate: () => void;
   onDestroy: () => void;
 } => {
-  const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const { id } = useParams() as { id: string };
+  const navigate = useNavigate();
   const [cookie] = useCookies(['token']);
   const queryClient = useQueryClient();
   const { data: like = { liked: false, count: 0 } } = useQuery(
@@ -59,15 +59,19 @@ const useLikeButton = (): {
     try {
       const response = await createmutation.mutateAsync();
       if (response === 201) {
-        history.push(`/product/${id}`, {
-          message: 'お気に入りに追加しました。',
-          type: 'success',
+        navigate(`/products/${id}`, {
+          state: {
+            message: 'お気に入りに追加しました。',
+            type: 'success',
+          },
         });
       }
     } catch (e) {
-      history.push(`/product/${id}`, {
-        message: 'エラーが発生しました。',
-        type: 'error',
+      navigate(`/products/${id}`, {
+        state: {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        },
       });
     }
   };
@@ -76,15 +80,19 @@ const useLikeButton = (): {
     try {
       const response = await destroymutation.mutateAsync();
       if (response === 200) {
-        history.push(`/product/${id}`, {
-          message: 'お気に入りを削除しました。',
-          type: 'success',
+        navigate(`/products/${id}`, {
+          state: {
+            message: 'お気に入りを削除しました。',
+            type: 'success',
+          },
         });
       }
     } catch (e) {
-      history.push(`/product/${id}`, {
-        message: 'エラーが発生しました。',
-        type: 'error',
+      navigate(`/products/${id}`, {
+        state: {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        },
       });
     }
   };

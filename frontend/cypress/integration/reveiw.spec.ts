@@ -29,7 +29,7 @@ describe('Exists', () => {
       statusCode: 200,
       body: { reviews },
     }).as('ReviewExists');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get(`[data-testid = review${reviews[0].id}]`).should('be.visible');
   });
@@ -43,7 +43,7 @@ describe('Exists', () => {
       statusCode: 200,
       body: { reviews },
     }).as('ReviewExists');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get(`[data-testid = review${reviews[0].id}]`).should('be.visible');
   });
@@ -57,7 +57,7 @@ describe('Exists', () => {
     cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
       statusCode: 404,
     }).as('ReviewExists');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.ErrorBoundary(
       'レビューが取得できませんでした。時間をおいてから再度アクセスしてください。',
     );
@@ -71,7 +71,7 @@ describe('Exists', () => {
     cy.intercept('GET', ReviewExistsURL(`${products[0].id}`), {
       statusCode: 404,
     }).as('ReviewExists');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.ErrorBoundary(
       'レビューが取得できませんでした。時間をおいてから再度アクセスしてください。',
     );
@@ -98,7 +98,7 @@ describe('Create', () => {
     cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
       statusCode: 201,
     }).as('ReviewCreated');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get('[data-testid =title] > input').type(reviews[0].title, {
       force: true,
@@ -124,7 +124,7 @@ describe('Create', () => {
     cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
       statusCode: 201,
     });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid =title] > input').focus().blur();
     cy.get('[aria-posinset="5"]').click({ force: true });
     cy.get('[data-testid =content]').type(reviews[0].content, {
@@ -146,7 +146,7 @@ describe('Create', () => {
     cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
       statusCode: 201,
     });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid =title] > input').type(reviews[0].title, {
       force: true,
     });
@@ -168,7 +168,7 @@ describe('Create', () => {
     cy.intercept('POST', ReviewCreateURL(`${products[0].id}`), {
       statusCode: 404,
     }).as('ReviewCreated');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get('[data-testid =title] > input').type(reviews[0].title, {
       force: true,
@@ -197,7 +197,7 @@ describe('Create', () => {
       statusCode: 200,
       body: { reviews: [reviews[0]] },
     }).as('ReviewCreated');
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid =title] > input').should('not.exist');
   });
 });
@@ -228,7 +228,7 @@ describe('Destroy', () => {
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
       { statusCode: 200 },
     );
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get(`[data-testid =modalbutton${reviews[0].id}]`).click({ force: true });
     cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
@@ -248,7 +248,7 @@ describe('Destroy', () => {
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
       { statusCode: 404 },
     );
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get(`[data-testid =modalbutton${reviews[0].id}]`).click({ force: true });
     cy.get(`[data-testid =ReviewDestroy${reviews[0].id}]`).click({
@@ -267,7 +267,7 @@ describe('Destroy', () => {
       ReviewDestroyURL(`${products[0].id}`, `${reviews[0].id}`),
       { statusCode: 200 },
     );
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.wait('@ReviewExists');
     cy.get(`[data-testid =modalbutton${reviews[0].id}]`).should('not.exist');
   });

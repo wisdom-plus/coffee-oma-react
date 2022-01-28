@@ -1,4 +1,4 @@
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchpasswordresetedit } from 'apis/Session';
 
@@ -13,7 +13,7 @@ const useResetPasswordEdit = (): {
   }) => Promise<void>;
 } => {
   const query = new URLSearchParams(useLocation().search);
-  const history = useHistory();
+  const navigate = useNavigate();
   const methods = useForm<{
     password: string;
     ['password_confirmation']: string;
@@ -31,13 +31,17 @@ const useResetPasswordEdit = (): {
     try {
       const response = await Fetchpasswordresetedit({ data, headers });
       if (response === 200) {
-        history.push('/', {
-          message: 'パスワードが変更されました。',
-          type: 'success',
+        navigate('/', {
+          state: {
+            message: 'パスワードが変更されました。',
+            type: 'success',
+          },
         });
       }
     } catch (e) {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      navigate('/', {
+        state: { message: 'エラーが発生しました。', type: 'error' },
+      });
     }
   };
 

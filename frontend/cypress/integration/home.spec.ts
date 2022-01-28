@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { LikeIndexURL } from '../../src/urls/index';
 
-describe('The Home Page', () => {
+describe('Home', () => {
   it('successfully loads', () => {
     cy.intercept('GET', LikeIndexURL, {
       fixture: 'likes',

@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchpasswordreset } from 'apis/Session';
 
@@ -6,7 +6,7 @@ const useResetPassword = (): {
   methods: UseFormReturn<{ email: string }>;
   onSubmit: (data: { email: string }) => Promise<void>;
 } => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const methods = useForm<{ email: string }>({
     criteriaMode: 'all',
     mode: 'onBlur',
@@ -16,13 +16,17 @@ const useResetPassword = (): {
     try {
       const response = await Fetchpasswordreset(data);
       if (response === 200) {
-        history.push('/send_mail', {
-          message: 'メールを送信しました。',
-          type: 'success',
+        navigate('/send_mail', {
+          state: {
+            message: 'メールを送信しました。',
+            type: 'success',
+          },
         });
       }
     } catch (e) {
-      history.push('/', { message: 'エラーが発生しました。', type: 'error' });
+      navigate('/', {
+        state: { message: 'エラーが発生しました。', type: 'error' },
+      });
     }
   };
 

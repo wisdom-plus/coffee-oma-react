@@ -28,7 +28,7 @@ const RankingCard: FC<Props> = ({ products }) => (
             variants={frameVariants}
             transition={transition}
           >
-            <Link to={`/product/${product.id}`} data-testid={product.id}>
+            <Link to={`/products/${product.id}`} data-testid={product.id}>
               <Card>
                 <Label color="teal" attached="top left" size="small">
                   <Icon name="chess queen" style={{ fontSize: '1.3em' }} />

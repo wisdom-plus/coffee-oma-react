@@ -1,5 +1,5 @@
 import { FC, useEffect, Suspense } from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import { Container } from 'semantic-ui-react';
 import TopMenu from 'components/organisms/TopMenu';
 import Home from 'components/pages/Home';
@@ -10,21 +10,26 @@ import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
 import { RecoilApp } from 'RecoilApp';
-import { LocationState } from 'components/atoms/FlashMessage';
 import FlashMessage from 'container/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';
 import { AnimatePresence } from 'framer-motion';
+import { LocationState } from 'components/atoms/FlashMessage';
+import ProductRank from 'components/templates/ProductRank';
+import ProductIndex from 'components/templates/ProductIndex';
+import ProductShow from 'container/EnhancedProductShow';
+
+import ProductNew from 'components/templates/ProductNew';
 
 const App: FC = () => {
-  const { hash, pathname, state } = useLocation<LocationState>();
-  const { action, location } = useHistory();
+  const location = useLocation();
+  const state = location.state as LocationState;
 
   useEffect(() => {
-    if (!hash || action !== 'POP') {
+    if (location.hash !== 'POP') {
       window.scrollTo(0, 0);
     }
-  }, [action, hash, pathname]);
+  }, [location]);
 
   return (
     <ErrorBoundary statusMessages={{ 401: 'ログイン情報が正しくありません。' }}>
@@ -36,62 +41,38 @@ const App: FC = () => {
               <FlashMessage message={state.message} type={state.type} />
             )}
             <AnimatePresence exitBeforeEnter initial={false}>
-              <Switch key={location.pathname} location={location}>
-                <Route exact path="/">
-                  <Home />
+              <Routes key={location.pathname} location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="sign_up" element={<Registration isnew />} />
+                <Route path="sign_in" element={<Session issignin />} />
+                <Route path="sign_out" element={<Session issignout />} />
+                <Route path="confirmation" element={<Session isconfirm />} />
+                <Route path="password_reset" element={<Session isreset />} />
+                <Route
+                  path="password_reset/edit"
+                  element={<Session isresetedit />}
+                />
+                <Route
+                  path="registration/edit"
+                  element={<Registration isedit />}
+                />
+                <Route path="mypage" element={<Registration ismypage />} />
+                <Route
+                  path="registration/:id"
+                  element={<Registration isshow />}
+                />
+
+                <Route path="products" element={<Product />}>
+                  <Route path="" element={<ProductIndex />} />
+                  <Route path="new" element={<ProductNew />} />
+                  <Route path="ranking" element={<ProductRank />} />
+                  <Route path=":id" element={<ProductShow />} />
                 </Route>
-                <Route exact path="/sign_up">
-                  <Registration isnew />
-                </Route>
-                <Route exact path="/sign_in">
-                  <Session issignin />
-                </Route>
-                <Route exact path="/sign_out">
-                  <Session issignout />
-                </Route>
-                <Route exact path="/confirmation">
-                  <Session isconfirm />
-                </Route>
-                <Route exact path="/password_reset">
-                  <Session isreset />
-                </Route>
-                <Route exact path="/password_reset/edit">
-                  <Session isresetedit />
-                </Route>
-                <Route exact path="/registration/edit">
-                  <Registration isedit />
-                </Route>
-                <Route exact path="/mypage">
-                  <Registration ismypage />
-                </Route>
-                <Route exact path="/registration/:id(\d+)">
-                  <Registration isshow />
-                </Route>
-                <Route exact path="/product/new">
-                  <Product isnew />
-                </Route>
-                <Route exact path="/product/ranking">
-                  <Product isrank />
-                </Route>
-                <Route exact path="/product/:id(\d+)">
-                  <Product isshow />
-                </Route>
-                <Route exact path="/products">
-                  <Product isindex />
-                </Route>
-                <Route exact path="/private_policy">
-                  <Policy isprivate />
-                </Route>
-                <Route exact path="/policy">
-                  <Policy />
-                </Route>
-                <Route exact path="/send_mail">
-                  <NoRender issendmail />
-                </Route>
-                <Route path="*">
-                  <NoRender />
-                </Route>
-              </Switch>
+                <Route path="private_policy" element={<Policy isprivate />} />
+                <Route path="policy" element={<Policy />} />
+                <Route path="send_mail" element={<NoRender issendmail />} />
+                <Route path="*" element={<NoRender />} />
+              </Routes>
             </AnimatePresence>
           </Container>
           <Footer />

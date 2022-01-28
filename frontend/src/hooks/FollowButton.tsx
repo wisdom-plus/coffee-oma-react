@@ -1,4 +1,4 @@
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
 import { useCookies } from 'react-cookie';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
@@ -9,8 +9,8 @@ const useFollowButton = (): {
   onFollow: () => void;
   onFollowed: () => void;
 } => {
-  const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const { id } = useParams() as { id: string };
+  const navigate = useNavigate();
   const [cookie] = useCookies(['token']);
   const queryClient = useQueryClient();
   const { data: follow = { follow: false } } = useQuery(
@@ -18,7 +18,9 @@ const useFollowButton = (): {
     () => FetchFollowExists(id, cookie.token),
     {
       onError: () =>
-        history.push('/', { message: 'エラーが発生しました。', type: 'error' }),
+        navigate('/', {
+          state: { message: 'エラーが発生しました。', type: 'error' },
+        }),
     },
   );
 
@@ -58,9 +60,11 @@ const useFollowButton = (): {
     try {
       await createmutation.mutateAsync();
     } catch (e) {
-      history.push(`/registration/${id}`, {
-        message: 'エラーが発生しました。',
-        type: 'error',
+      navigate(`/registration/${id}`, {
+        state: {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        },
       });
     }
   };
@@ -69,9 +73,11 @@ const useFollowButton = (): {
     try {
       await destroymutation.mutateAsync();
     } catch (e) {
-      history.push(`/registration/${id}`, {
-        message: 'エラーが発生しました。',
-        type: 'error',
+      navigate(`/registration/${id}`, {
+        state: {
+          message: 'エラーが発生しました。',
+          type: 'error',
+        },
       });
     }
   };

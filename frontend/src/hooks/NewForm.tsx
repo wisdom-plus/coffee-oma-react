@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProductForm } from 'model/index';
 
 export interface CustomFormData extends FormData {
@@ -16,7 +16,7 @@ type props = {
 };
 const useNewform = (): props => {
   const [file, setFile] = useState<Blob>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const methods = useForm<ProductForm>({ criteriaMode: 'all', mode: 'onBlur' });
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -40,15 +40,13 @@ const useNewform = (): props => {
     try {
       const response = await Fetchproductnew(formdata);
       if (response === 201) {
-        history.push('/products', {
-          message: '登録に成功しました。',
-          type: 'success',
+        navigate('/products', {
+          state: { message: '登録に成功しました。', type: 'success' },
         });
       }
     } catch (e) {
-      history.push('/product/new', {
-        message: '登録に失敗しました。',
-        type: 'error',
+      navigate('/product/new', {
+        state: { message: '登録に失敗しました。', type: 'error' },
       });
     }
   };

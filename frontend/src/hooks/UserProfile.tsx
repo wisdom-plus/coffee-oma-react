@@ -6,7 +6,7 @@ import LoginState from 'Atom';
 import { useQuery } from 'react-query';
 
 const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams() as { id: string };
   const currentuser = useRecoilValue(LoginState);
   const { data: user = {} as CurrentUser } = useQuery([id, 'user'], () =>
     FetchRegistrationShow(id),

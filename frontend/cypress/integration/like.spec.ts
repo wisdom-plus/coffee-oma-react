@@ -24,14 +24,14 @@ describe('Create', () => {
   });
   it('successfully', () => {
     cy.intercept('POST', LikeCreateURL, { statusCode: 201 });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid = create]').click({ force: true });
     cy.get('[data-testid = destroy]').should('have.text', '2');
   });
 
   it('failed', () => {
     cy.intercept('POST', LikeCreateURL, { statusCode: 500 });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid = create]').click({ force: true });
     cy.FlashMessage('error', 'エラーが発生しました。');
   });
@@ -53,7 +53,7 @@ describe('Destroy', () => {
     cy.intercept('DELETE', LikeDestroyURL(`${products[0].id}`), {
       statusCode: 201,
     });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid=destroy]').click({ force: true });
     cy.get('[data-testid=create]').should('have.text', '1');
   });
@@ -61,7 +61,7 @@ describe('Destroy', () => {
     cy.intercept('DELETE', LikeDestroyURL(`${products[0].id}`), {
       statusCode: 500,
     });
-    cy.visit(`/product/${products[0].id}`);
+    cy.visit(`/products/${products[0].id}`);
     cy.get('[data-testid=destroy]').click({ force: true });
     cy.FlashMessage('error', 'エラーが発生しました。');
   });
