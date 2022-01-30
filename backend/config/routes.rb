@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   namespace :api do
     namespace :v1 do
+      resources :health, only: %i[index]
       resources :products, only: %i[index create show] do
         resources :reviews, only: %i[create destroy] do
           collection do
