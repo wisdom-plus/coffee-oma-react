@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'health/index'
   devise_for :user
 
   devise_scope :user do
