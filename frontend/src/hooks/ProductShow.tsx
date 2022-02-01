@@ -8,6 +8,7 @@ const useProductShow = (): { product: Product } => {
   const { data: item = { product: {} as Product } } = useQuery(
     [id, 'product'],
     () => Fetchproductshow(id),
+    { notifyOnChangeProps: 'tracked' },
   );
 
   return item;

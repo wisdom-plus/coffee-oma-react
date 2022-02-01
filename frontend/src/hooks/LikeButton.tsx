@@ -17,6 +17,7 @@ const useLikeButton = (): {
   const { data: like = { liked: false, count: 0 } } = useQuery(
     [id, cookie.token, 'like'],
     () => FetchLikeExists(id, cookie.token),
+    { notifyOnChangeProps: 'tracked' },
   );
   const createmutation = useMutation(() => FetchLikeCreate(id, cookie.token), {
     onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),

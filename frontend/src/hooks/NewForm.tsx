@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Fetchproductnew } from 'apis/Product';
 import { useNavigate } from 'react-router-dom';
@@ -22,17 +22,22 @@ const useNewform = (): props => {
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) =>
     e.target.files && setFile(e.target.files[0]);
 
-  const CreateFormData = (data: ProductForm): CustomFormData => {
-    const formdata = new FormData() as CustomFormData;
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-    keys.map((key, index) => formdata.append(`product[${key}]`, values[index]));
-    if (file !== undefined) {
-      formdata.append('product[image]', file);
-    }
+  const CreateFormData = useCallback(
+    (data: ProductForm): CustomFormData => {
+      const formdata = new FormData() as CustomFormData;
+      const keys = Object.keys(data);
+      const values = Object.values(data);
+      keys.map((key, index) =>
+        formdata.append(`product[${key}]`, values[index]),
+      );
+      if (file !== undefined) {
+        formdata.append('product[image]', file);
+      }
 
-    return formdata;
-  };
+      return formdata;
+    },
+    [file],
+  );
 
   const onSubmit = async (data: ProductForm) => {
     const formdata = CreateFormData(data);
@@ -45,7 +50,7 @@ const useNewform = (): props => {
         });
       }
     } catch (e) {
-      navigate('/product/new', {
+      navigate('/products/new', {
         state: { message: '登録に失敗しました。', type: 'error' },
       });
     }
