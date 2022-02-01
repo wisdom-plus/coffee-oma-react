@@ -5,8 +5,10 @@ import { Review } from 'model/index';
 
 const useReviewItems = (): Review[] => {
   const { id } = useParams() as { id: string };
-  const { data: reviews = [] } = useQuery([id, 'review'], () =>
-    FetchReviewExists(id),
+  const { data: reviews = [] } = useQuery(
+    [id, 'review'],
+    () => FetchReviewExists(id),
+    { notifyOnChangeProps: 'tracked' },
   );
 
   return reviews;

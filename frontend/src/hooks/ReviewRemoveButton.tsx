@@ -23,7 +23,7 @@ const useReveiwRemoveButton = (
       onSuccess: (status) => {
         void queryClient.invalidateQueries([id, 'review']);
         if (status === 200) {
-          navigate(`/product/${id}`, {
+          navigate(`/products/${id}`, {
             state: {
               message: 'レビューを削除しました。',
               type: 'success',
