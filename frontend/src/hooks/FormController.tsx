@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useFormContext, FieldError } from 'react-hook-form';
 import { FormInputType, ruletype } from 'model/index';
 
@@ -21,7 +22,7 @@ const useFormController = ({
     formState: { errors },
   } = useFormContext<Record<FormInputType, string>>();
 
-  const rule = () => {
+  const rule = useCallback(() => {
     if (required) {
       return { required: errormessage };
     }
@@ -36,7 +37,7 @@ const useFormController = ({
     }
 
     return {};
-  };
+  }, [required, min, errormessage]);
 
   return { errors, rule };
 };
