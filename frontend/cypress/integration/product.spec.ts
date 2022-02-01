@@ -80,7 +80,7 @@ describe('New', () => {
     });
     cy.get('[data-testid =caption]').type('coffeeの説明文', { force: true });
     cy.get('[data-testid =submit]').click({ force: true });
-    cy.url().should('eq', 'http://localhost:3000/product/new');
+    cy.url().should('eq', 'http://localhost:3000/products/new');
     cy.get('[data-testid =error]').should('have.text', '登録に失敗しました。');
   });
   it('error message (caption)', () => {
