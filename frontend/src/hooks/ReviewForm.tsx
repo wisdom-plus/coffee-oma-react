@@ -17,6 +17,7 @@ const useReviewForm = (): {
   const navigate = useNavigate();
   const { id } = useParams() as { id: string };
   const [cookie] = useCookies(['token']);
+  const queryClient = useQueryClient();
   const RemoveRate = () => {
     const rates = document.getElementById('review-form-rating');
     if (rates) {
@@ -25,7 +26,6 @@ const useReviewForm = (): {
       elements.map((rate) => rate.classList.remove('active'));
     }
   };
-  const queryClient = useQueryClient();
 
   const mutation = useMutation(
     ({ data }: { data: ReviewFormData }) =>
@@ -34,7 +34,7 @@ const useReviewForm = (): {
       onSuccess: (status) => {
         void queryClient.invalidateQueries([id, 'review']);
         if (status === 201) {
-          navigate(`/product/${id}`, {
+          navigate(`/products/${id}`, {
             state: {
               message: 'レビューが作成されました.',
               type: 'success',
