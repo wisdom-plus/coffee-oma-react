@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Session } from 'model/index';
@@ -15,12 +16,12 @@ const useSignInForm = (): {
   const methods = useForm<Session>({ criteriaMode: 'all', mode: 'onBlur' });
   const setUser = useSetRecoilState(LoginState);
   const [, setCookies] = useCookies(['token']);
-  const limittime = () => {
+  const limittime = useCallback(() => {
     const today = new Date();
     const limit = new Date(today.setDate(today.getDate() + 7));
 
     return limit;
-  };
+  }, []);
 
   const onSubmit = async (data: Session) => {
     try {
