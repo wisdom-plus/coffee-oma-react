@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
 import { FetchGuestLogin } from 'apis/Session';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 
 const useGuestLoginButton = (): (() => Promise<void>) => {
   const navigate = useNavigate();

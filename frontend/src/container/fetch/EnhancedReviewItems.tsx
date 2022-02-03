@@ -2,7 +2,7 @@ import { FC } from 'react';
 import ReviewItems from 'components/atoms/ReviewItems';
 import useReviewArea from 'hooks/fetch/ReviewItems';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 
 const EnhancedReviewItems: FC = () => {
   const reviews = useReviewArea();

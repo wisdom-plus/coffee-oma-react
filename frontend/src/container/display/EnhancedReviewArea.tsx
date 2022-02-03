@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useRecoilValue } from 'recoil';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 import ReviewArea from 'components/organisms/ReviewArea';
 import { Product } from 'model/index';
 

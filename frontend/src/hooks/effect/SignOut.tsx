@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 import { useCookies } from 'react-cookie';
 
 const useSignOut = (): void => {

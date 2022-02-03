@@ -9,7 +9,7 @@ import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
-import { RecoilApp } from 'RecoilApp';
+import { RecoilApp } from 'atom/RecoilApp';
 import FlashMessage from 'container/display/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';

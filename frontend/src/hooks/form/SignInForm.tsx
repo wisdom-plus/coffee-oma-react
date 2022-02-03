@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Session } from 'model/index';
 import { Fetchsessionnew } from 'apis/Session';
 import { useSetRecoilState } from 'recoil';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 import { useCookies } from 'react-cookie';
 /* eslint-disable react/jsx-props-no-spreading */
 

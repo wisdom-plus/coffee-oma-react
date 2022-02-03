@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { Fetchsessionvalidate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
 import { useQuery } from 'react-query';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 
 export const RecoilApp: FC = ({ children }) => {
   const setUser = useSetRecoilState(LoginState);

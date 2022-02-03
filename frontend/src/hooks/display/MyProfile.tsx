@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import LoginState from 'Atom';
+import LoginState from 'atom/LoginState';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUser } from 'model/index';
 import { useCookies } from 'react-cookie';
