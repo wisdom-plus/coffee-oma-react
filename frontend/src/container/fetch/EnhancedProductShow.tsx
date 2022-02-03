@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import useProductShow from 'hooks/ProductShow';
+import useProductShow from 'hooks/fetch/ProductShow';
 import ProductShow from 'components/templates/ProductShow';
 
 const EnhancedProductShow: FC = () => {

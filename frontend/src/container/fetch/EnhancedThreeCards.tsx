@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import ThreeCards from 'components/molecules/ThreeCards';
-import useThreeCards from 'hooks/ThreeCards';
+import useThreeCards from 'hooks/fetch/ThreeCards';
 
 const EnhancedThreeCards: FC = () => {
   const { products, fetchNext, isFetch } = useThreeCards();

@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import RankingCards from 'components/molecules/RankingCards';
-import useRankingCards from 'hooks/RankingCards';
+import useRankingCards from 'hooks/fetch/RankingCards';
 
 const EnhancedRanking: FC = () => {
   const state = useRankingCards();

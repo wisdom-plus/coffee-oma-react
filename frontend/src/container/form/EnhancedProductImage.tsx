@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import useProductImage from 'hooks/ProductImage';
+import useProductImage from 'hooks/form/ProductImage';
 import ProductImage from 'components/atoms/ProductImage';
 /* eslint-disable react/jsx-props-no-spreading */
 

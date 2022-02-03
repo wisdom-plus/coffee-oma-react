@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Confirmation from 'components/molecules/Confirmation';
-import useConfirmation from 'hooks/Confirmation';
+import useConfirmation from 'hooks/form/Confirmation';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const EnhancedConfirmation: FC = () => {

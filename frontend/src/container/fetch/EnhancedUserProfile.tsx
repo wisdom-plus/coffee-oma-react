@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import UserProfile from 'components/molecules/UserProfile';
-import useUserProfile from 'hooks/UserProfile';
+import useUserProfile from 'hooks/fetch/UserProfile';
 
 const EnhancedUserProfile: FC = () => {
   const { user, currentuser } = useUserProfile();

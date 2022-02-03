@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import useHomeRanking from 'hooks/HomeRankiThreeCards';
+import useHomeRanking from 'hooks/fetch/HomeRankiThreeCards';
 import RankThreeCards from 'components/molecules/HomeRankThreeCards';
 
 const EnhancedRankThreeCards: FC = () => {
