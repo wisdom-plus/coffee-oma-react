@@ -10,7 +10,7 @@ import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
 import { RecoilApp } from 'RecoilApp';
-import FlashMessage from 'container/EnhancedFlashMessage';
+import FlashMessage from 'container/display/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';
 import { AnimatePresence } from 'framer-motion';
