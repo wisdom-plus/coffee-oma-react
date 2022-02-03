@@ -64,19 +64,22 @@ const useProfileForm = (): Props => {
 
   const methods = { reset, ...method };
 
-  const CreateFormData = (data: UserEditForm): CustomFormData => {
-    const formdata = new FormData() as CustomFormData;
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-    keys.map((key, index) =>
-      formdata.append(`registration[${key}]`, values[index]),
-    );
-    if (file !== undefined) {
-      formdata.append('registration[icon]', file);
-    }
+  const CreateFormData = useCallback(
+    (data: UserEditForm): CustomFormData => {
+      const formdata = new FormData() as CustomFormData;
+      const keys = Object.keys(data);
+      const values = Object.values(data);
+      keys.map((key, index) =>
+        formdata.append(`registration[${key}]`, values[index]),
+      );
+      if (file !== undefined) {
+        formdata.append('registration[icon]', file);
+      }
 
-    return formdata;
-  };
+      return formdata;
+    },
+    [file],
+  );
 
   const onSubmit = async (data: UserEditForm) => {
     const formdata = CreateFormData(data);

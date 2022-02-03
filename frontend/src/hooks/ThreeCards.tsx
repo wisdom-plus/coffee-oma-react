@@ -19,6 +19,7 @@ const useThreeCards = (): {
     {
       getNextPageParam: (lastpage) =>
         lastpage.nextpage ? lastpage.pages + 1 : undefined,
+      notifyOnChangeProps: 'tracked',
     },
   );
 

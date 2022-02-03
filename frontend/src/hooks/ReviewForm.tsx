@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -18,14 +19,14 @@ const useReviewForm = (): {
   const { id } = useParams() as { id: string };
   const [cookie] = useCookies(['token']);
   const queryClient = useQueryClient();
-  const RemoveRate = () => {
+  const RemoveRate = useCallback(() => {
     const rates = document.getElementById('review-form-rating');
     if (rates) {
       const reveiwrates = rates.getElementsByClassName('active icon');
       const elements = Array.from(reveiwrates);
       elements.map((rate) => rate.classList.remove('active'));
     }
-  };
+  }, []);
 
   const mutation = useMutation(
     ({ data }: { data: ReviewFormData }) =>

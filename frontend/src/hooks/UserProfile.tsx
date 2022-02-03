@@ -8,8 +8,10 @@ import { useQuery } from 'react-query';
 const useUserProfile = (): { user: CurrentUser; currentuser: CurrentUser } => {
   const { id } = useParams() as { id: string };
   const currentuser = useRecoilValue(LoginState);
-  const { data: user = {} as CurrentUser } = useQuery([id, 'user'], () =>
-    FetchRegistrationShow(id),
+  const { data: user = {} as CurrentUser } = useQuery(
+    [id, 'user'],
+    () => FetchRegistrationShow(id),
+    { notifyOnChangeProps: 'tracked' },
   );
 
   return { user, currentuser };

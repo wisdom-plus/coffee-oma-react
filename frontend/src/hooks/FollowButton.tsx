@@ -21,6 +21,7 @@ const useFollowButton = (): {
         navigate('/', {
           state: { message: 'エラーが発生しました。', type: 'error' },
         }),
+      notifyOnChangeProps: 'tracked',
     },
   );
 
