@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Default from 'images/default.png';
 import IconForm from 'components/atoms/IconForm';
-import useIconForm from 'hooks/IconForm';
+import useIconForm from 'hooks/form/IconForm';
 /* eslint-disable react/jsx-props-no-spreading */
 
 type Props = {

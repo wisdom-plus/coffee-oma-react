@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import FormControllerPassword from 'components/atoms/FormControllerPassword';
-import useFormControllerPassword from 'hooks/FormControllerPassword';
+import useFormControllerPassword from 'hooks/form/FormControllerPassword';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const EnhancedFormControllerPassword: FC<{ required?: boolean }> = ({

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FormInputType } from 'model/index';
 import FormController from 'components/atoms/FormController';
-import useFormController from 'hooks/FormController';
+import useFormController from 'hooks/form/FormController';
 
 const EnhancedFormController: FC<{
   name: FormInputType;

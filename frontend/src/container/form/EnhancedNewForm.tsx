@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import NewForm from 'components/organisms/NewForm';
-import useNewForm from 'hooks/NewForm';
+import useNewForm from 'hooks/form/NewForm';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const EnhancedNewform: FC = () => {
