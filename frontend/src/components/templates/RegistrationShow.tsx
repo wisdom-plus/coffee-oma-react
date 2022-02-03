@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react';
 import { Header } from 'semantic-ui-react';
-import UserProfile from 'container/EnhancedUserProfile';
-import MyProfile from 'container/EnhancedMyProfile';
+import UserProfile from 'container/fetch/EnhancedUserProfile';
+import MyProfile from 'container/display/EnhancedMyProfile';
 import ErrorBoundary from 'error/ErrorBoundary';
 import UserProfileLoading from 'error/UserProfileLoading';
 

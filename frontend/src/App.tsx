@@ -17,7 +17,7 @@ import { AnimatePresence } from 'framer-motion';
 import { LocationState } from 'components/atoms/FlashMessage';
 import ProductRank from 'components/templates/ProductRank';
 import ProductIndex from 'components/templates/ProductIndex';
-import ProductShow from 'container/EnhancedProductShow';
+import ProductShow from 'container/fetch/EnhancedProductShow';
 
 import ProductNew from 'components/templates/ProductNew';
 
