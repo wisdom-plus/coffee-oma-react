@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Item, Segment, Header, Rating } from 'semantic-ui-react';
 import { Review, CurrentUser } from 'model/index';
-import ReviewRemoveButton from 'container/EnhancedReviewRemoveButton';
+import ReviewRemoveButton from 'container/button/EnhancedReviewRemoveButton';
 
 const ReviewItems: FC<{
   reviews: Review[];
