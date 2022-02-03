@@ -3,7 +3,7 @@ import { Grid, Form, Segment, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormController from 'container/form/EnhancedFormController';
 import { ReviewFormData } from 'model/index';
-import RateFormController from 'container/EnhancedRateFormController';
+import RateFormController from 'container/form/EnhancedRateFormController';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ReviewForm: FC<{

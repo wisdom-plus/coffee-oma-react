@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import Newform from 'container/EnhancedNewForm';
+import Newform from 'container/form/EnhancedNewForm';
 
 const ProductNew: FC = () => (
   <>

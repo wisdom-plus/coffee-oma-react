@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Header } from 'semantic-ui-react';
-import ProfileForm from 'container/EnhancedProfileForm';
+import ProfileForm from 'container/form/EnhancedProfileForm';
 
 const RegistrationEdit: FC = () => (
   <>
