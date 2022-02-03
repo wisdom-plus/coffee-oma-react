@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Form, Grid, Segment, Header, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import FormMessage from 'components/atoms/FormMessage';
-import FormController from 'container/EnhancedFormController';
+import FormController from 'container/form/EnhancedFormController';
 import { Session } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 

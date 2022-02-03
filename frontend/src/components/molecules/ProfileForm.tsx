@@ -9,8 +9,8 @@ import {
 } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import IconForm from 'container/EnhancedIconForm';
-import FormController from 'container/EnhancedFormController';
-import FormControllerPassword from 'container/EnhancedFormControllerPassword';
+import FormController from 'container/form/EnhancedFormController';
+import FormControllerPassword from 'container/form/EnhancedFormControllerPassword';
 import { UserEditForm, CurrentUser } from 'model/index';
 
 /* eslint-disable react/jsx-props-no-spreading */

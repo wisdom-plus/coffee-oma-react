@@ -11,7 +11,7 @@ import {
   Button,
 } from 'semantic-ui-react';
 import dayjs from 'dayjs';
-import FollowButton from 'container/EnhancedFollowButton';
+import FollowButton from 'container/molecules/EnhancedFollowButton';
 import { CurrentUser } from 'model/index';
 import ErrorBoundary from 'error/ErrorBoundary';
 
