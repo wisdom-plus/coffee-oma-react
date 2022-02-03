@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import useMyProfile from 'hooks/MyProfile';
+import useMyProfile from 'hooks/display/MyProfile';
 import MyProfile from 'components/molecules/MyProfile';
 
 const EnhancedMyProfile: FC = () => {

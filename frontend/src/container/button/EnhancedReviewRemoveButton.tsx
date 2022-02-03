@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import ReviewRemoveButton from 'components/atoms/ReveiwRemoveButton';
-import useReviewRemoveButoon from 'hooks/ReviewRemoveButton';
+import useReviewRemoveButoon from 'hooks/effect/ReviewRemoveButton';
 
 const EnhancedReveiwRemoveButton: FC<{
   ReviewId: number;
