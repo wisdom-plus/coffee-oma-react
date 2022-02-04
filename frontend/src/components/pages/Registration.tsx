@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { Grid } from 'semantic-ui-react';
 import RegistrationNew from 'components/templates/RegistrationNew';
-import RegistrationShow from 'container/EnhancedRegistrationShow';
+import RegistrationShow from 'container/display/EnhancedRegistrationShow';
 import RegistrationEdit from 'components/templates/RegistrationEdit';
 
 type Props = {

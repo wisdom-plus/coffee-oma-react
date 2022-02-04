@@ -1,6 +1,6 @@
 import { FC, Suspense } from 'react';
 import { Header } from 'semantic-ui-react';
-import RankingCards from 'container/EnhancedRankingCards';
+import RankingCards from 'container/fetch/EnhancedRankingCards';
 import ErrorBoundary from 'error/ErrorBoundary';
 import ThreeCardsLoading from 'error/ThreeCardsLoading';
 

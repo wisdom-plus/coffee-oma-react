@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
-import SignInForm from 'container/EnhancedSignInForm';
-import SignOut from 'container/EnhancedSignOut';
-import Confirmation from 'container/EnhancedConfirmation';
-import ResetPasswordEdit from 'container/EnhancedResetPasswordEdit';
-import ResetPassword from 'container/EnhancedResetPassword';
+import SignInForm from 'container/form/EnhancedSignInForm';
+import SignOut from 'container/display/EnhancedSignOut';
+import Confirmation from 'container/form/EnhancedConfirmation';
+import ResetPasswordEdit from 'container/form/EnhancedResetPasswordEdit';
+import ResetPassword from 'container/form/EnhancedResetPassword';
 
 type Props = {
   issignin?: boolean;

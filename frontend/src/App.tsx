@@ -9,15 +9,15 @@ import Policy from 'components/templates/Policy';
 import Registration from 'components/pages/Registration';
 import NoRender from 'components/pages/NoRender';
 import Session from 'components/pages/Session';
-import { RecoilApp } from 'RecoilApp';
-import FlashMessage from 'container/EnhancedFlashMessage';
+import { RecoilApp } from 'atom/RecoilApp';
+import FlashMessage from 'container/display/EnhancedFlashMessage';
 import ErrorBoundary from 'error/ErrorBoundary';
 import LoaderGrid from 'error/LoaderGrid';
 import { AnimatePresence } from 'framer-motion';
 import { LocationState } from 'components/atoms/FlashMessage';
 import ProductRank from 'components/templates/ProductRank';
 import ProductIndex from 'components/templates/ProductIndex';
-import ProductShow from 'container/EnhancedProductShow';
+import ProductShow from 'container/fetch/EnhancedProductShow';
 
 import ProductNew from 'components/templates/ProductNew';
 

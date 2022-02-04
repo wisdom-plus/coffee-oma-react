@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import styled from 'styled-components';
-import HomeRankThreeCards from 'container/EnhancedHomeRankThreeCards';
+import HomeRankThreeCards from 'container/fetch/EnhancedHomeRankThreeCards';
 import ErrorBoundary from 'error/ErrorBoundary';
 import HomeThreeCardsLoading from 'error/HomeThreeCardsLoading';
 

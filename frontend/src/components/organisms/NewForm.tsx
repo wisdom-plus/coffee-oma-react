@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Form, Card, Table, Grid, Button } from 'semantic-ui-react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import ProductImage from 'container/EnhancedProductImage';
-import FormController from 'container/EnhancedFormController';
+import ProductImage from 'container/form/EnhancedProductImage';
+import FormController from 'container/form/EnhancedFormController';
 import { ProductForm } from 'model/index';
 /* eslint-disable react/jsx-props-no-spreading */
 

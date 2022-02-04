@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react';
 import { Grid, Table, Button } from 'semantic-ui-react';
 import { Product } from 'model/index';
-import LikeButton from 'container/EnhancedLikeButton';
+import LikeButton from 'container/button/EnhancedLikeButton';
 import ErrorBoundary from 'error/ErrorBoundary';
 import { Rating } from 'react-simple-star-rating';
 

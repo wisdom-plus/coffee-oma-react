@@ -1,9 +1,9 @@
 import { FC, Suspense } from 'react';
 import { Divider, Header, Icon, Grid, Segment } from 'semantic-ui-react';
-import ReviewItems from 'container/EnhancedReviewItems';
+import ReviewItems from 'container/fetch/EnhancedReviewItems';
 import ErrorBoundary from 'error/ErrorBoundary';
 import ErrorReviewLoader from 'error/ErrorReviewLoader';
-import ReviewForm from 'container/EnhancedReviewForm';
+import ReviewForm from 'container/form/EnhancedReviewForm';
 import { CurrentUser } from 'model/index';
 
 const ReviewArea: FC<{ user: CurrentUser; exists: boolean }> = ({
