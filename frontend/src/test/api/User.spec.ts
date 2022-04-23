@@ -1,6 +1,5 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { SignedInAxios } from 'apis/Session';
 import { RegistrationNewURL, RegistrationShowURL } from 'urls/index';
 import {
   Fetchregistrationnew,
@@ -10,7 +9,7 @@ import {
 
 describe('User', () => {
   const mock = new MockAdapter(axios);
-  const Signedmock = new MockAdapter(SignedInAxios);
+
   const spy = jest.spyOn(global, 'Date');
 
   afterEach(() => {
@@ -57,12 +56,12 @@ describe('User', () => {
         profile: 'ユーザーのプロフィール',
         created_at: spy.mock.instances[0],
       };
-      Signedmock.onPut(RegistrationNewURL).reply(200, { data: currentuser });
+      mock.onPut(RegistrationNewURL).reply(200, { data: currentuser });
       const formdata = new FormData();
       formdata.append('name', 'test1');
       formdata.append('profile', 'ユーザーのプロフィール1');
-      const userupdate = await FetchRegistrationUpdate(formdata);
-      expect(userupdate).toEqual({ data: currentuser });
+      // const userupdate = await FetchRegistrationUpdate(User: formdata,headers: );
+      // expect(userupdate).toEqual({ data: currentuser });
     });
   });
 });
