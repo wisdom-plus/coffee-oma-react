@@ -1,11 +1,17 @@
-import { FC } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { Fetchsessionvalidate } from 'apis/Session';
 import { useCookies } from 'react-cookie';
 import { useQuery } from 'react-query';
 import LoginState from 'atom/LoginState';
+import React from 'react';
 
-export const RecoilApp: FC = ({ children }) => {
+type Props = {
+  children: JSX.Element[];
+};
+
+export const RecoilApp: ({ children }: Props) => JSX.Element = ({
+  children,
+}) => {
   const setUser = useSetRecoilState(LoginState);
   const [cookie, , removeCookies] = useCookies(['token']);
 
