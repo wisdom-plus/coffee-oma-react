@@ -46,12 +46,23 @@ const useProfileForm = (): Props => {
     }),
     [user],
   );
+  type DefaultValuesType = {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+    profile: string;
+  };
+
   const { reset, ...method } = useForm<UserEditForm>({
     criteriaMode: 'all',
     defaultValues: defaultvalues,
     mode: 'onBlur',
   });
-  const Reset = useCallback((value) => reset(value), [reset]);
+  const Reset = useCallback(
+    (value: DefaultValuesType) => reset(value),
+    [reset],
+  );
 
   useEffect(() => {
     Reset(defaultvalues);
