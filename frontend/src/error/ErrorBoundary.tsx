@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import ErrorMessage from 'error/ErrorMessage';
 
 type StatusMessages = { [status: number]: string };
-type Props = { statusMessages?: StatusMessages };
+type Props = { statusMessages?: StatusMessages; children: JSX.Element };
 type State = { hasError: boolean; error: Error | null };
 const DERAULT_MESSAGE: StatusMessages = { 0: 'サーバーエラーが発生しました。' };
 
