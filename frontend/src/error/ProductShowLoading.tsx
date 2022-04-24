@@ -1,7 +1,6 @@
-import { VFC } from 'react';
 import { Header, Grid, Table, Placeholder } from 'semantic-ui-react';
 
-const ProductShowLoading: VFC = () => (
+const ProductShowLoading = () => (
   <>
     <Header
       as="h1"
