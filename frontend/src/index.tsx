@@ -21,9 +21,8 @@ const client = new QueryClient({
     },
   },
 });
-
-const container = document.getElementById('app');
-const root = createRoot(container!); // eslint-disable-line
+const container = document.getElementById('root');
+const root = createRoot(container!); //eslint-disable-line
 
 root.render(
   <BrowserRouter>
