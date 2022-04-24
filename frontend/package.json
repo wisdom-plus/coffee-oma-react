@@ -66,7 +66,8 @@
     "cypress": "cypress open",
     "cypress:run": "cypress run",
     "start:ci": "CHOKIDAR_USEPOLLING=true react-scripts start",
-    "cy:ci": "start-server-and-test start http://localhost:3000 cypress:run"
+    "cy:ci": "start-server-and-test start http://localhost:3000 cypress:run",
+    "postinstall": "semantic-ui-css-patch"
   },
   "eslintConfig": {
     "extends": [
@@ -100,6 +101,7 @@
     "resetMocks": false
   },
   "devDependencies": {
+    "@semantic-ui-react/css-patch": "^1.0.0",
     "@storybook/addon-a11y": "^6.4.22",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-console": "^1.2.3",
