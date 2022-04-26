@@ -18,11 +18,11 @@ class ErrorBoundary extends PureComponent<Props, State> {
     error,
   });
 
-  componentDidCatch = (error: Error, info: ErrorInfo): void => {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     console.error(error, info); // eslint-disable-line no-console
-  };
+  }
 
-  render = (): ReactNode => {
+  render(): ReactNode {
     const { children, statusMessages = {} } = this.props;
     const { hasError, error } = this.state;
     const messages = { ...DERAULT_MESSAGE, ...statusMessages };
@@ -38,6 +38,6 @@ class ErrorBoundary extends PureComponent<Props, State> {
     }
 
     return children;
-  };
+  }
 }
 export default ErrorBoundary;
