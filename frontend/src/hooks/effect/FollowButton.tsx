@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FetchFollow, FetchFollowed, FetchFollowExists } from 'apis/Follow';
 import { useCookies } from 'react-cookie';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { Follow } from 'model/index';
+import { Follow, Token } from 'model/index';
 
 const useFollowButton = (): {
   follow: Follow;
@@ -15,7 +15,7 @@ const useFollowButton = (): {
   const queryClient = useQueryClient();
   const { data: follow = { follow: false } } = useQuery(
     [id, cookie.token, 'follow'],
-    () => FetchFollowExists(id, cookie.token),
+    () => FetchFollowExists(id, cookie.token as Token),
     {
       onError: () =>
         navigate('/', {
@@ -25,37 +25,43 @@ const useFollowButton = (): {
     },
   );
 
-  const createmutation = useMutation(() => FetchFollow(id, cookie.token), {
-    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
-    onSuccess: () => {
-      const oldquery = queryClient.getQueryData<Follow>([
-        id,
-        cookie.token,
-        'follow',
-      ]);
-      if (oldquery) {
-        queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
-          follow: true,
-        }));
-      }
+  const createmutation = useMutation(
+    () => FetchFollow(id, cookie.token as Token),
+    {
+      onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
+      onSuccess: () => {
+        const oldquery = queryClient.getQueryData<Follow>([
+          id,
+          cookie.token,
+          'follow',
+        ]);
+        if (oldquery) {
+          queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
+            follow: true,
+          }));
+        }
+      },
     },
-  });
+  );
 
-  const destroymutation = useMutation(() => FetchFollowed(id, cookie.token), {
-    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
-    onSuccess: () => {
-      const oldquery = queryClient.getQueryData<Follow>([
-        id,
-        cookie.token,
-        'follow',
-      ]);
-      if (oldquery) {
-        queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
-          follow: false,
-        }));
-      }
+  const destroymutation = useMutation(
+    () => FetchFollowed(id, cookie.token as Token),
+    {
+      onMutate: () => queryClient.cancelQueries([id, cookie.token, 'follow']),
+      onSuccess: () => {
+        const oldquery = queryClient.getQueryData<Follow>([
+          id,
+          cookie.token,
+          'follow',
+        ]);
+        if (oldquery) {
+          queryClient.setQueryData([id, cookie.token, 'follow'], () => ({
+            follow: false,
+          }));
+        }
+      },
     },
-  });
+  );
 
   const onFollow = async () => {
     try {

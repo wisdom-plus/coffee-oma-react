@@ -130,6 +130,12 @@ module.exports = {
         additionalHooks: 'useRecoilCallback',
       },
     ],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+      },
+    ],
   },
   overrides: [
     {

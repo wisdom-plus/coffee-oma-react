@@ -14,7 +14,7 @@ const ResetPasswordEdit: FC<{
     password: string;
   }) => Promise<void>;
 }> = ({ methods, onSubmit }) => (
-  <>
+  <div>
     <Grid columns={3} centered style={{ margin: '4em' }}>
       <Grid.Column width={3} />
       <Grid.Column width={10}>
@@ -38,7 +38,7 @@ const ResetPasswordEdit: FC<{
       </Grid.Column>
       <Grid.Column width={3} />
     </Grid>
-  </>
+  </div>
 );
 
 export default ResetPasswordEdit;

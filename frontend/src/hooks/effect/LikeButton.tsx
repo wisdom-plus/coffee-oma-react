@@ -2,6 +2,7 @@ import { FetchLikeCreate, FetchLikeDestroy, FetchLikeExists } from 'apis/Like';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { Token } from 'model/index';
 
 type LikeType = { liked: boolean; count: number };
 
@@ -16,28 +17,31 @@ const useLikeButton = (): {
   const queryClient = useQueryClient();
   const { data: like = { liked: false, count: 0 } } = useQuery(
     [id, cookie.token, 'like'],
-    () => FetchLikeExists(id, cookie.token),
+    () => FetchLikeExists(id, cookie.token as Token),
     { notifyOnChangeProps: 'tracked' },
   );
-  const createmutation = useMutation(() => FetchLikeCreate(id, cookie.token), {
-    onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),
-    onSuccess: () => {
-      const oldquery = queryClient.getQueryData<LikeType>([
-        id,
-        cookie.token,
-        'like',
-      ]);
-      if (oldquery) {
-        queryClient.setQueryData([id, cookie.token, 'like'], () => ({
-          liked: true,
-          count: oldquery.count + 1,
-        }));
-      }
+  const createmutation = useMutation(
+    () => FetchLikeCreate(id, cookie.token as Token),
+    {
+      onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),
+      onSuccess: () => {
+        const oldquery = queryClient.getQueryData<LikeType>([
+          id,
+          cookie.token,
+          'like',
+        ]);
+        if (oldquery) {
+          queryClient.setQueryData([id, cookie.token, 'like'], () => ({
+            liked: true,
+            count: oldquery.count + 1,
+          }));
+        }
+      },
     },
-  });
+  );
 
   const destroymutation = useMutation(
-    () => FetchLikeDestroy(id, cookie.token),
+    () => FetchLikeDestroy(id, cookie.token as Token),
     {
       onMutate: () => queryClient.cancelQueries([id, cookie.token, 'like']),
       onSuccess: () => {

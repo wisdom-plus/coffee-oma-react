@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Header, Grid, Segment } from 'semantic-ui-react';
 
 const SignOut: FC = () => (
-  <>
+  <div>
     <Grid columns={3} centered style={{ margin: '4em' }}>
       <Grid.Column width={3} />
       <Grid.Column width={10} as={Segment}>
@@ -17,7 +17,7 @@ const SignOut: FC = () => (
       </Grid.Column>
       <Grid.Column width={3} />
     </Grid>
-  </>
+  </div>
 );
 
 export default SignOut;

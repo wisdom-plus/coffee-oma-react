@@ -4,6 +4,7 @@ import { Fetchsessiondestroy } from 'apis/Session';
 import { useResetRecoilState } from 'recoil';
 import LoginState from 'atom/LoginState';
 import { useCookies } from 'react-cookie';
+import { Token } from 'model/index';
 
 const useSignOut = (): void => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const useSignOut = (): void => {
   useEffect(() => {
     const API = async (): Promise<void> => {
       try {
-        const status = await Fetchsessiondestroy(cookie.token);
+        const status = await Fetchsessiondestroy(cookie.token as Token);
         if (status === 200) {
           success();
         } else {
