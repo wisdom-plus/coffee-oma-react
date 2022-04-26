@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { UserEditForm, CurrentUser } from 'model/index';
+import { UserEditForm, CurrentUser, Token } from 'model/index';
 import { FetchRegistrationUpdate } from 'apis/User';
 import LoginState from 'atom/LoginState';
 import { useRecoilState } from 'recoil';
@@ -95,7 +95,10 @@ const useProfileForm = (): Props => {
   const onSubmit = async (data: UserEditForm) => {
     const formdata = CreateFormData(data);
     try {
-      const response = await FetchRegistrationUpdate(formdata, cookie.token);
+      const response = await FetchRegistrationUpdate(
+        formdata,
+        cookie.token as Token,
+      );
       if (response.status === 200) {
         setUser((prevUser) => ({ ...prevUser, ...response.data }));
         navigate('/mypage', {
