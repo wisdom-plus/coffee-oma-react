@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { ReviewFormData } from 'model/index';
+import { ReviewFormData, Token } from 'model/index';
 import { FetchReviewCreate } from 'apis/Review';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -30,7 +30,7 @@ const useReviewForm = (): {
 
   const mutation = useMutation(
     ({ data }: { data: ReviewFormData }) =>
-      FetchReviewCreate(data, cookie.token, id),
+      FetchReviewCreate(data, cookie.token as Token, id),
     {
       onSuccess: (status) => {
         void queryClient.invalidateQueries([id, 'review']);

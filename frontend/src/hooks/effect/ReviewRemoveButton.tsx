@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { FetchReviewDestroy } from 'apis/Review';
 import { useQueryClient, useMutation } from 'react-query';
+import { Token } from 'model/index';
 
 const useReveiwRemoveButton = (
   ReviewId: number,
@@ -18,7 +19,7 @@ const useReveiwRemoveButton = (
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    () => FetchReviewDestroy(id, reviewid, cookie.token),
+    () => FetchReviewDestroy(id, reviewid, cookie.token as Token),
     {
       onSuccess: (status) => {
         void queryClient.invalidateQueries([id, 'review']);

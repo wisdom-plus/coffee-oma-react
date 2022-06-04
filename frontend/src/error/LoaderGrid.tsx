@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Loader from 'react-loader-spinner';
+import { Watch } from 'react-loader-spinner';
 
 const LoaderGrid: FC = () => (
   <div
@@ -10,7 +10,7 @@ const LoaderGrid: FC = () => (
       display: 'flex',
     }}
   >
-    <Loader type="Watch" color="#00BFFF" height={200} width={200} />
+    <Watch color="#00BFFF" height={200} width={200} />
   </div>
 );
 

@@ -14,7 +14,7 @@ const FlashMessage: FC<LocationState> = ({
   state = false,
   dismiss = () => undefined,
 }) => (
-  <>
+  <div>
     {state &&
       (type === 'success' ? (
         <Message success onDismiss={dismiss}>
@@ -33,7 +33,7 @@ const FlashMessage: FC<LocationState> = ({
           />
         </Message>
       ))}
-  </>
+  </div>
 );
 
 export default FlashMessage;

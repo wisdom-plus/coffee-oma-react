@@ -13,7 +13,7 @@ const Extra: FC<{ price: number }> = ({ price }) => (
 );
 
 const RankingCard: FC<Props> = ({ products }) => (
-  <>
+  <Card.Group itemsPerRow={3} stackable centered>
     {products?.map((product, index) => (
       <motion.div
         key={product.id}
@@ -51,7 +51,7 @@ const RankingCard: FC<Props> = ({ products }) => (
         </motion.div>
       </motion.div>
     ))}
-  </>
+  </Card.Group>
 );
 
 export default RankingCard;

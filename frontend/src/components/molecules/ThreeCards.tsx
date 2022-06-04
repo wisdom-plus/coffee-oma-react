@@ -1,5 +1,5 @@
 import { FC, RefObject } from 'react';
-import { Card, Segment, Visibility, Loader, Ref } from 'semantic-ui-react';
+import { Segment, Visibility, Loader, Ref } from 'semantic-ui-react';
 import IndexCards from 'components/atoms/IndexCards';
 import { ProductInfinite } from 'model/index';
 import { motion } from 'framer-motion';
@@ -26,9 +26,7 @@ const ThreeCards: FC<{
           variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
         >
           <Visibility onBottomVisible={() => fetchNext()}>
-            <Card.Group itemsPerRow={3} stackable centered>
-              <IndexCards products={products} />
-            </Card.Group>
+            <IndexCards products={products} />
           </Visibility>
           {isFetch && (
             <Loader active inline="centered" size="large">

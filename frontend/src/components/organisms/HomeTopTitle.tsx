@@ -5,7 +5,7 @@ import { Header, Icon, Button, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const Backimage = styled.div`
-  height: 800px;
+  height: 100vh;
   color: black !important;
   background-image: url(${backimage}) !important;
   background-size: cover !important;

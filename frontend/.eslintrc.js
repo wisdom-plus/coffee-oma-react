@@ -42,6 +42,12 @@ module.exports = {
   rules: {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: false,
+      },
+    ],
     'lines-between-class-members': [
       'error',
       'always',
@@ -128,6 +134,12 @@ module.exports = {
       'warn',
       {
         additionalHooks: 'useRecoilCallback',
+      },
+    ],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
       },
     ],
   },

@@ -1,5 +1,5 @@
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 import './index.css';
 import { CookiesProvider } from 'react-cookie';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -21,8 +21,10 @@ const client = new QueryClient({
     },
   },
 });
+const container = document.getElementById('root');
+const root = createRoot(container!); //eslint-disable-line
 
-ReactDOM.render(
+root.render(
   <BrowserRouter>
     <QueryClientProvider client={client}>
       <CookiesProvider>
@@ -35,7 +37,6 @@ ReactDOM.render(
       )}
     </QueryClientProvider>
   </BrowserRouter>,
-  document.getElementById('root'),
 );
 
 reportWebVitals();

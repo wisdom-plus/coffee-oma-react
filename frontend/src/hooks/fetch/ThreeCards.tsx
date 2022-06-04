@@ -15,7 +15,7 @@ const useThreeCards = (): {
 } => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['products'],
-    async ({ pageParam = 0 }) => Fetchproductindexinfinite(pageParam),
+    async ({ pageParam = 0 }) => Fetchproductindexinfinite(pageParam as number),
     {
       getNextPageParam: (lastpage) =>
         lastpage.nextpage ? lastpage.pages + 1 : undefined,

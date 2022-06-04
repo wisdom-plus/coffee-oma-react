@@ -19,7 +19,7 @@ const UserProfile: FC<{ user: CurrentUser; currentuser: CurrentUser }> = ({
   user,
   currentuser,
 }) => (
-  <>
+  <div>
     <Container textAlign="center">
       <Image src={user?.icon?.url} circular size="small" centered />
       <Header content={user.name} textAlign="center" data-testid="name" />
@@ -72,7 +72,7 @@ const UserProfile: FC<{ user: CurrentUser; currentuser: CurrentUser }> = ({
         </Grid.Column>
       </Grid>
     </Container>
-  </>
+  </div>
 );
 
 export default UserProfile;

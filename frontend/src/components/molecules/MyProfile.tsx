@@ -14,7 +14,7 @@ import { CurrentUser } from 'model/index';
 import { currentuser } from 'mock/User';
 
 const MyProfile: FC<{ user: CurrentUser }> = ({ user = currentuser }) => (
-  <>
+  <div>
     <Container textAlign="center">
       <Image src={user?.icon?.url} circular size="small" centered />
       <Header content={user.name} textAlign="center" data-testid="name" />
@@ -49,7 +49,7 @@ const MyProfile: FC<{ user: CurrentUser }> = ({ user = currentuser }) => (
         </Grid.Column>
       </Grid>
     </Container>
-  </>
+  </div>
 );
 
 export default MyProfile;

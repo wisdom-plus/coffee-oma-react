@@ -13,7 +13,7 @@ const Extra: FC<{ price: number }> = ({ price }) => (
 );
 
 const IndexCards: FC<Props> = ({ products }) => (
-  <>
+  <Card.Group itemsPerRow={3} stackable centered>
     {products?.map((page) => (
       <React.Fragment key={page.pages}>
         {page.data.map((product) => (
@@ -50,7 +50,7 @@ const IndexCards: FC<Props> = ({ products }) => (
         ))}
       </React.Fragment>
     ))}
-  </>
+  </Card.Group>
 );
 
 export default IndexCards;

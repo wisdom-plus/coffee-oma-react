@@ -25,7 +25,7 @@ const ReviewItems: FC<{
                 maxRating={5}
               />
               <span className="data" style={{ marginLeft: '0.6em' }}>
-                {review.time_ago}前
+                {review.time_ago.toString()}前
               </span>
             </Item.Meta>
             <Item.Description style={{ whiteSpace: 'pre-wrap' }}>

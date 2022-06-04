@@ -9,7 +9,7 @@ const Confirmation: FC<{
   methods: UseFormReturn<{ email: string }>;
   onSubmit: (data: { email: string }) => Promise<void>;
 }> = ({ methods, onSubmit }) => (
-  <>
+  <div>
     <Grid columns={3} centered style={{ margin: '4em' }}>
       <Grid.Column width={3} />
       <Grid.Column width={10}>
@@ -36,7 +36,7 @@ const Confirmation: FC<{
       </Grid.Column>
       <Grid.Column width={3} />
     </Grid>
-  </>
+  </div>
 );
 
 export default Confirmation;
