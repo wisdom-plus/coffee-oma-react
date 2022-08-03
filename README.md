@@ -3,7 +3,7 @@
 コーヒーに関する器具や、豆などの評価や感想を投稿しシェアするwebアプリケーションです。
 coffee-omaをReact x Rails APIでリプレースしたアプリケーションです
 
-### [coffee-oma-react](https://coffee-oma-frontend.herokuapp.com)
+### [coffee-oma-react](https://coffee-oma-react.vercel.app/)
 herokuでのデプロイのため初回のアクセス時表示まで時間がかかりますがご理解ください
 
 ![coffee-oma-logo](https://user-images.githubusercontent.com/48266893/112326442-deefcb80-8cf7-11eb-9432-cc83ade690de.png)
