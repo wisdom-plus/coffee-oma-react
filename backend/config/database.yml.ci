@@ -3,3 +3,6 @@ test:
   encoding: unicode
   username: postgres
   password: root
+  host: 127.0.0.1
+  database: github_actions_for_rails_test
+  reconnect: false
