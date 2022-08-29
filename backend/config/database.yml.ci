@@ -2,7 +2,4 @@ test:
   adapter: postgresql
   encoding: unicode
   username: postgres
-  password: postgres
-  host: 127.0.0.1
-  database: github_actions_for_rails_test
-  reconnect: false
+  password: root
