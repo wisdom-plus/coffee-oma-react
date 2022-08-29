@@ -14,9 +14,7 @@ RUN echo "$ENV_FILE" | base64 -d >.env  \
                         libc-dev\
                         nodejs\
                         tzdata\
-                        mysql-client \
-                        mysql-dev \
-                        git \
+                        postgresql-dev\
                         less \
                         imagemagick \
                         yarn &&\
