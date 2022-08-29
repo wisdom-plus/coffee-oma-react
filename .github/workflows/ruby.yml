@@ -16,15 +16,12 @@ jobs:
       ENV_FILE: ${{secrets.ENV_FILE}}
     services:
       database:
-        image: mysql:8.0
+        image: postgres:14.1
         ports:
-          - 3300:3306
+          - 5432:5432
         env:
-          MYSQL_ROOT_PASSWORD: root
+          POSTGRES_PASSWORD: root
           BIND_ADDRESS: 0.0.0.0
-        volumes:
-          - mysqlconf.d:/etc/mysql/conf.d
-        options: --health-cmd "mysqladmin ping -h 127.0.0.1" --health-interval 20s --health-timeout 10s --health-retries 10
     steps:
       - uses: actions/checkout@v2
       - name: SET up Ruby 2.7.2
@@ -38,7 +35,6 @@ jobs:
         working-directory: ./backend
       - name: Setup Database
         run: |
-          sudo systemctl start mysql
           cp config/database.yml.ci config/database.yml
           ./bin/rails db:create
           ./bin/rails db:migrate
