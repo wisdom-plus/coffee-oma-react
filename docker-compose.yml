@@ -1,14 +1,13 @@
-version: '3'
+version: '3.9'
 services:
   database:
-    image: mysql:8.0
+    image: postgres:14.1
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "3300:3306"
+      - "5432:5432"
     volumes:
-      - mysql-data2:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
+      - postgresql-data-react:/var/lib/postgresql/data
   backend:
     build:
       context: ./backend/
@@ -35,6 +34,6 @@ services:
     depends_on:
       - database
 volumes:
-  mysql-data2:
+  postgresql-data-react:
     driver: local
   node_modules:
