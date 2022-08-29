@@ -26,6 +26,6 @@ RUN echo "$ENV_FILE" | base64 -d >.env  \
 
 COPY . .
 COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh && chmod a+x bin/render-build.sh
 
 EXPOSE 3001
