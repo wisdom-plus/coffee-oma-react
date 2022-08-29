@@ -53,9 +53,9 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['HEROKU_DATABASE_DATABASE'] %>
-  username: <%= ENV['HEROKU_DATABASE_USERNAME'] %>
-  password: <%= ENV['HEROKU_DATABASE_PASSWORD'] %>
-  host: <%= ENV['HEROKU_DATABASE_HOST'] %>
-  url: <%= ENV['HEROKU_DATABASE_URL'] %>
-  ports: <%= ENV['HEROKU_DATABASE_PORT'] %>
+  database: <%= ENV['RENDER_DB_DATABASE'] %>
+  username: <%= ENV['RENDER_DB_USERNAME'] %>
+  password: <%= ENV['RENDER_DB_PASSWORD'] %>
+  host: <%= ENV['RENDER_DB_HOST'] %>
+  url: <%= ENV['RENDER_DB_URL'] %>
+  port: <%= ENV['RENDER_DB_PORT'] %>
