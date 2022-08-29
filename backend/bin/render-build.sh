@@ -1,5 +1,5 @@
 #!/usr/bin/env ash
-
+# shellcheck shell=ash
 set -o errexit
 
 bundle install --jobs=4
