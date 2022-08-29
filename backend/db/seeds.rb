@@ -252,20 +252,20 @@ Review.create!(
 
 10.times do |n|
   Relationship.create!(
-    user: User.find(n+1),
-    follow: User.find(n +2)
+    user_id: n + 1,
+    follow_id: n + 2
   )
   Relationship.create!(
-    user: User.find(n +2),
-    follow: User.find(n + 1)
+    user_id: n + 2,
+    follow_id: n + 1
   )
   if n != 0 && n % 2 == 0
     Relationship.create!(
-      user: User.find(n+1),
-      follow: User.find(1)
+      user_id: n+1,
+      follow_id: 1
     )
     Like.create!(
-      user: User.find(n +1),
+      user_id: n+1,
       product_id: 1
     )
   end
