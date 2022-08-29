@@ -33,6 +33,7 @@ module Backend
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
+    config.hosts << 'coffee-oma.react.onrender.com'
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
