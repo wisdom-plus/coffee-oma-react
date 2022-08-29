@@ -3,7 +3,9 @@ set -e
 
 echo "$ENV_FILE" | base64 -d >.env
 
-bin/rails db:reset
+bin/rails db:create
+
+bin/rails db:migrate
 
 pumactl start
 

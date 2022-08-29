@@ -34,7 +34,7 @@ threads threads_count, threads_count
 preload_app!
 
 rackup DefaultRackup
-port ENV['PORT'] || 3001
+port 3001
 environment ENV['RACK_ENV'] || 'development'
 
 # Allow puma to be restarted by `rails restart` command.
